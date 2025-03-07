@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Photoshop Glitch Effect Tutorial{% endblock %}
+
+{% block head %}
+<meta name="description" content="Learn how to create amazing glitch text effects in Adobe Photoshop with our step-by-step tutorial.">
+<meta name="keywords" content="glitch text effects, Photoshop tutorial, text effects, glitch effect Photoshop">
+{% endblock %}
+
+{% block content %}
+<h1 class="main-title">Create Glitch Text Effects in Photoshop</h1>
+<p class="subtitle">Learn how to create stunning glitch text effects in Adobe Photoshop. Need a quick solution? Try our <a href="{{ url_for('home') }}">online glitch text generator</a>!</p>
+
+<div class="tutorial-container">
+    <div class="tutorial-section">
+        <h2>Method 1: RGB Split Glitch Effect</h2>
+        <ol class="tutorial-steps">
+            <li>
+                <h3>Create Your Text Layer</h3>
+                <p>Start by creating a new document (1920x1080px) and add your text in white on a black background.</p>
+            </li>
+            <li>
+                <h3>Duplicate and Color</h3>
+                <p>Duplicate your text layer twice. Color the top layer red, middle cyan, and keep the bottom white.</p>
+            </li>
+            <li>
+                <h3>Offset Layers</h3>
+                <p>Use the Move tool to slightly offset the red layer to the left and the cyan layer to the right.</p>
+            </li>
+            <li>
+                <h3>Add Distortion</h3>
+                <p>Select each colored layer and go to Filter > Distort > Wave to add glitch-like distortion.</p>
+            </li>
+        </ol>
+    </div>
+
+    <div class="tutorial-section">
+        <h2>Method 2: Glitch Displacement</h2>
+        <ol class="tutorial-steps">
+            <li>
+                <h3>Prepare Your Text</h3>
+                <p>Create your text in white on a dark background.</p>
+            </li>
+            <li>
+                <h3>Create Displacement Map</h3>
+                <p>Create a new layer, fill with 50% gray, add noise (Filter > Noise > Add Noise).</p>
+            </li>
+            <li>
+                <h3>Apply Displacement</h3>
+                <p>Go to Filter > Distort > Displace, use the noise layer as your displacement map.</p>
+            </li>
+            <li>
+                <h3>Color Channels</h3>
+                <p>Use the Channel Mixer to create color separation effects.</p>
+            </li>
+        </ol>
+    </div>
+
+    <div class="additional-resources">
+        <h2>Additional Resources</h2>
+        <p>For more advanced techniques, check out <a href="https://www.adobe.com/ie/creativecloud/photography/discover/glitch-effect.html" target="_blank" rel="noopener noreferrer">Adobe's official guide to creating glitch effects</a>.</p>
+    </div>
+
+    <div class="quick-solution">
+        <h2>Need a Quick Solution?</h2>
+        <p>Skip the complex Photoshop process and use our <a href="{{ url_for('home') }}">instant glitch text generator</a>. Create professional-looking glitch effects in seconds!</p>
+        <ul class="benefits">
+            <li>No Photoshop required</li>
+            <li>Instant results</li>
+            <li>Multiple glitch styles</li>
+            <li>Download in various formats</li>
+            <li>Perfect for social media</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

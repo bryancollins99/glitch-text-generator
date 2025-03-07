@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block head %}
+<meta name="description" content="Create amazing glitch text effects for your social media, gaming profiles, and creative projects. Free online text generator with sharing and download options.">
+<meta name="keywords" content="glitch text effects, text generator, glitch effect, text effects, unicode text">
+{% endblock %}
+
+{% block content %}
+<h1 class="main-title glitch-title">Glitch Text Generator</h1>
+<p class="subtitle">Create unique glitch text effects instantly! Transform your text into mind-bending glitch art, creepy Zalgo text, or futuristic fonts with our advanced glitch text effects generator. Perfect for social media, gaming profiles, and creative projects.</p>
+
+<div class="controls-panel">
+    <div class="control-group">
+        <label for="character-map">Character Map:</label>
+        <select id="character-map" class="effect-select">
+            <option value="standard">Standard Glitch</option>
+            <option value="vaporwave">Vaporwave Style</option>
+            <option value="cursed">Cursed Text</option>
+            <option value="matrix">Matrix Code</option>
+            <option value="custom">Custom Map</option>
+        </select>
+    </div>
+    <div class="control-group">
+        <label for="effect-type">Glitch Style:</label>
+        <select id="effect-type" class="effect-select">
+            <option value="zalgo">Zalgo Text (Corrupted Diacritics)</option>
+            <option value="ascii">Glitchy ASCII Art</option>
+            <option value="binary">Binary Corruption</option>
+            <option value="scanline">CRT Scanline Effect</option>
+            <option value="datamosh">Datamosh Compression</option>
+        </select>
+    </div>
+    
+    <div class="control-group">
+        <label for="font-family">Font Style:</label>
+        <select id="font-family" class="font-select">
+            <option value="cyber">Cyberpunk</option>
+            <option value="retro">Retro Arcade</option>
+            <option value="digital">Digital</option>
+            <option value="horror">Horror</option>
+        </select>
+    </div>
+    
+    <div class="control-group">
+        <label for="intensity-slider">Glitch Intensity:</label>
+        <input type="range" id="intensity-slider" min="0" max="10" value="5" step="0.1" class="range-slider">
+        <span id="intensity-value">5</span>
+    </div>
+    
+    <div class="control-group">
+        <label for="animation-speed">Animation Speed:</label>
+        <input type="range" id="animation-speed" min="0" max="10" value="5" step="0.1" class="range-slider">
+    </div>
+    
+    <div class="control-group">
+        <label for="color-scheme">Color Scheme:</label>
+        <select id="color-scheme" class="color-select">
+            <option value="cyberpunk">Cyberpunk (Cyan/Pink)</option>
+            <option value="matrix">Matrix (Green)</option>
+            <option value="error">Error (Red)</option>
+            <option value="vaporwave">Vaporwave (Pink/Blue)</option>
+        </select>
+    </div>
+</div>
+
+<div class="text-editor">
+    <div class="input-container">
+        <div class="editor-header">Input Text</div>
+        <textarea id="input-text" placeholder="Enter your text here..." class="glitch-input"></textarea>
+    </div>
+    
+    <div class="output-container">
+        <div class="editor-header">
+            Glitched Output
+            <button id="copy-btn" class="btn-copy">Copy</button>
+        </div>
+        <div id="output-text" class="glitch-output"></div>
+        <div class="share-buttons">
+            <button class="share-button" onclick="downloadAsImage()">
+                <i class="fas fa-download"></i> Download as Image
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="quick-effects">
+    <h3>Quick Effects</h3>
+    <div class="effect-buttons">
+        <button class="quick-effect" data-preset="mild">Mild Glitch</button>
+        <button class="quick-effect" data-preset="medium">Medium Distortion</button>
+        <button class="quick-effect" data-preset="extreme">Extreme Corruption</button>
+        <button class="quick-effect" data-preset="random">Random Effect</button>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/share.js') }}"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.glitch-title {
+    font-size: 3em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    text-shadow: 2px 2px var(--secondary-color);
+    animation: glitch-anim 2s infinite;
+}
+
+@keyframes glitch-anim {
+    0% { transform: none; opacity: 1; }
+    7% { transform: skew(-0.5deg, -0.9deg); opacity: 0.75; }
+    10% { transform: none; opacity: 1; }
+    27% { transform: none; opacity: 1; }
+    30% { transform: skew(0.8deg, -0.1deg); opacity: 0.75; }
+    35% { transform: none; opacity: 1; }
+    52% { transform: none; opacity: 1; }
+    55% { transform: skew(-1deg, 0.2deg); opacity: 0.75; }
+    50% { transform: none; opacity: 1; }
+    72% { transform: none; opacity: 1; }
+    75% { transform: skew(0.4deg, 1deg); opacity: 0.75; }
+    80% { transform: none; opacity: 1; }
+    100% { transform: none; opacity: 1; }
+}
+</style>
+{% endblock %}

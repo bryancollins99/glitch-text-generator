@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}Roblox Glitch Text Generator - GlitchText{% endblock %}
+
+{% block content %}
+<h1 class="main-title">Roblox Glitch Text Generator</h1>
+<p class="subtitle">Create cool glitch effects for your Roblox username and chat messages</p>
+
+<div class="controls-panel">
+    <div class="control-group">
+        <label for="effect-type">Roblox Style:</label>
+        <select id="effect-type" class="effect-select">
+            <option value="aesthetic">Aesthetic Style</option>
+            <option value="fancy">Fancy Letters</option>
+            <option value="bubble">Bubble Text</option>
+            <option value="square">Square Style</option>
+            <option value="medieval">Medieval Font</option>
+        </select>
+    </div>
+    
+    <div class="control-group">
+        <label for="font-family">Text Case:</label>
+        <select id="font-family" class="font-select">
+            <option value="normal">Normal Case</option>
+            <option value="upper">UPPERCASE</option>
+            <option value="lower">lowercase</option>
+            <option value="alt">aLtErNaTiNg CaSe</option>
+        </select>
+    </div>
+</div>
+
+<div class="text-editor">
+    <div class="input-container">
+        <div class="editor-header">Input Text</div>
+        <textarea id="input-text" placeholder="Enter your Roblox username or message here..." class="glitch-input"></textarea>
+    </div>
+    
+    <div class="output-container">
+        <div class="editor-header">
+            Formatted Output
+            <button id="copy-btn" class="btn-copy">Copy</button>
+        </div>
+        <div id="output-text" class="glitch-output roblox-preview"></div>
+        <div class="share-buttons">
+            <button class="share-button" onclick="downloadAsImage()">
+                <i class="fas fa-download"></i> Download as Image
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="roblox-info">
+    <h3>Roblox Text Guidelines</h3>
+    <div class="info-grid">
+        <div class="info-card">
+            <h4>Username Rules</h4>
+            <ul>
+                <li>3-20 characters long</li>
+                <li>Letters, numbers, and underscores only</li>
+                <li>Must start with a letter</li>
+                <li>No spaces allowed</li>
+            </ul>
+        </div>
+        
+        <div class="info-card">
+            <h4>Chat Rules</h4>
+            <ul>
+                <li>Keep it appropriate</li>
+                <li>Avoid excessive symbols</li>
+                <li>Don't spam</li>
+                <li>Follow Roblox community guidelines</li>
+            </ul>
+        </div>
+        
+        <div class="info-card">
+            <h4>Popular Styles</h4>
+            <ul>
+                <li>𝓕𝓪𝓷𝓬𝔂 (Fancy)</li>
+                <li>【C】【o】【o】【l】(Square)</li>
+                <li>ᗷOᒪᗪ (Bold)</li>
+                <li>𝕊𝕡𝕖𝕔𝕚𝕒𝕝 (Special)</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.roblox-preview {
+    font-family: 'Gotham SSm A', 'Gotham SSm B', Helvetica, Arial, sans-serif;
+    background: #393B3D;
+    border-radius: 5px;
+    padding: 1rem;
+}
+
+.roblox-info {
+    margin-top: 2rem;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--primary-color);
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.info-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--secondary-color);
+}
+
+.info-card h4 {
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.info-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.info-card li {
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.info-card li:before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--secondary-color);
+}
+</style>
+{% endblock %}

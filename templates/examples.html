@@ -1,0 +1,242 @@
+{% extends "base.html" %}
+
+{% block title %}Examples - Glitch Text Generator{% endblock %}
+
+{% block content %}
+<h1 class="main-title">Glitch Text Examples</h1>
+<p class="subtitle">Explore creative ways to use glitch text effects in your projects</p>
+
+<div class="examples-grid">
+    <div class="example-card">
+        <h3>Gaming & Streaming</h3>
+        <div class="example-showcase">
+            <div class="example-text">₲₳₥Ɇ₥₳₴₮ɆⱤ</div>
+            <div class="example-text">ˢᵗʳᵉᵃᵐᵉʳˡⁱᶠᵉ</div>
+            <div class="example-text">P̷r̷o̷G̷a̷m̷e̷r̷</div>
+        </div>
+        <div class="example-info">
+            <h4>Great For:</h4>
+            <ul>
+                <li>Twitch overlays</li>
+                <li>Stream titles</li>
+                <li>Game usernames</li>
+                <li>Team names</li>
+            </ul>
+            <p>Create eye-catching text effects that enhance your gaming brand and stream aesthetics.</p>
+        </div>
+    </div>
+
+    <div class="example-card">
+        <h3>Cyberpunk & Tech</h3>
+        <div class="example-showcase">
+            <div class="example-text">C̷Y̷B̷E̷R̷_̷H̷A̷C̷K̷</div>
+            <div class="example-text">𝔻𝔸𝕋𝔸_𝕍𝕆𝕀𝔻</div>
+            <div class="example-text">ᴛᴇᴄʜ.ᴡᴀᴠᴇ</div>
+        </div>
+        <div class="example-info">
+            <h4>Perfect For:</h4>
+            <ul>
+                <li>Tech branding</li>
+                <li>Digital art</li>
+                <li>Cyberpunk aesthetics</li>
+                <li>Modern designs</li>
+            </ul>
+            <p>Add a futuristic touch to your tech-related content with glitch text effects.</p>
+        </div>
+    </div>
+
+    <div class="example-card">
+        <h3>Creative Writing</h3>
+        <div class="example-showcase">
+            <div class="example-text">H̸o̸r̸r̸o̸r̸_̸T̸a̸l̸e̸s̸</div>
+            <div class="example-text">𝕄𝕪𝕤𝕥𝕚𝕔𝕒𝕝</div>
+            <div class="example-text">Ð₳Ɽ₭₴łĐɆ</div>
+        </div>
+        <div class="example-info">
+            <h4>Ideal For:</h4>
+            <ul>
+                <li>Story titles</li>
+                <li>Chapter headers</li>
+                <li>Character names</li>
+                <li>Book covers</li>
+            </ul>
+            <p>Enhance your creative writing with atmospheric text effects that set the mood.</p>
+        </div>
+    </div>
+</div>
+
+<div class="usage-tips">
+    <h2>Pro Tips</h2>
+    <div class="tips-grid">
+        <div class="tip-card">
+            <h4>Readability</h4>
+            <p>While glitch effects are cool, ensure your text remains readable. Use subtle effects for important information.</p>
+        </div>
+        <div class="tip-card">
+            <h4>Platform Rules</h4>
+            <p>Some platforms may have restrictions on special characters. Test your text before using it.</p>
+        </div>
+        <div class="tip-card">
+            <h4>Consistency</h4>
+            <p>Maintain a consistent style across your brand or project for better recognition.</p>
+        </div>
+    </div>
+</div>
+
+<div class="resources-section">
+    <h2>Additional Resources</h2>
+    <div class="resources-grid">
+        <div class="resource-card">
+            <h4>Community</h4>
+            <p>Check out the <a href="https://www.reddit.com/r/glitch_art/" target="_blank" rel="noopener noreferrer">Glitch Art subreddit</a> for inspiration and discussions with fellow artists.</p>
+        </div>
+        <div class="resource-card">
+            <h4>Tutorials</h4>
+            <p>Learn how to create glitch effects in Photoshop with this <a href="https://www.adobe.com/ie/creativecloud/photography/discover/glitch-effect.html" target="_blank" rel="noopener noreferrer">Adobe guide</a>.</p>
+        </div>
+    </div>
+</div>
+
+<div class="cta-section">
+    <h2>Ready to Create Your Own?</h2>
+    <a href="{{ url_for('home') }}" class="btn-primary">Try It Now</a>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.examples-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.example-card {
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.example-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+}
+
+.example-showcase {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 1rem;
+    border-radius: 5px;
+    margin: 1rem 0;
+    font-family: monospace;
+}
+
+.example-text {
+    margin: 0.5rem 0;
+    font-size: 1.2em;
+}
+
+.example-info {
+    margin-top: 1rem;
+}
+
+.example-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+.example-info li {
+    padding-left: 1.5rem;
+    position: relative;
+    margin-bottom: 0.5rem;
+}
+
+.example-info li:before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--secondary-color);
+}
+
+.usage-tips {
+    margin: 3rem 0;
+}
+
+.tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.tip-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--secondary-color);
+}
+
+.resources-section {
+    margin: 3rem 0;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    border: 1px solid var(--secondary-color);
+}
+
+.resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.resource-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--secondary-color);
+}
+
+.resource-card a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.resource-card a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+.cta-section {
+    text-align: center;
+    margin: 3rem 0;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    border: 1px solid var(--primary-color);
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: var(--primary-color);
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: var(--secondary-color);
+    transform: scale(1.05);
+}
+</style>
+{% endblock %}

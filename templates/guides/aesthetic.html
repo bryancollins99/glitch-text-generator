@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container guide-container">
+    <h1>How to Create Glitch Text for Aesthetic Designs</h1>
+    
+    <div class="guide-content">
+        <section class="intro">
+            <p>Glitch text has become a cornerstone of modern aesthetic design, particularly in vaporwave, cyberpunk, and contemporary digital art. This guide will show you how to create stunning glitch text effects that enhance your aesthetic designs.</p>
+        </section>
+
+        <section class="techniques">
+            <h2>Essential Techniques</h2>
+            
+            <div class="technique-card">
+                <h3>1. Layer Splitting</h3>
+                <p>Create depth by splitting your text into RGB channels:</p>
+                <ul>
+                    <li>Use our <a href="{{ url_for('home') }}">Glitch Text Generator</a> with color shift effect</li>
+                    <li>Adjust the intensity for subtle or dramatic effects</li>
+                    <li>Combine with scanlines for a retro CRT look</li>
+                </ul>
+            </div>
+
+            <div class="technique-card">
+                <h3>2. Text Corruption</h3>
+                <p>Add controlled chaos to your text:</p>
+                <ul>
+                    <li>Use our text generator's corruption slider</li>
+                    <li>Mix Unicode characters for unique effects</li>
+                    <li>Maintain readability while adding glitch elements</li>
+                </ul>
+            </div>
+
+            <div class="technique-card">
+                <h3>3. Animation</h3>
+                <p>Bring your glitch text to life:</p>
+                <ul>
+                    <li>Create GIF animations with varying effects</li>
+                    <li>Use subtle movements for elegant designs</li>
+                    <li>Combine multiple glitch techniques</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="design-tips">
+            <h2>Design Tips</h2>
+            <div class="tips-grid">
+                <div class="tip">
+                    <h4>Color Selection</h4>
+                    <p>Use complementary colors for channel splitting effects. Popular combinations include:</p>
+                    <ul>
+                        <li>Cyan and Red</li>
+                        <li>Purple and Yellow</li>
+                        <li>Blue and Orange</li>
+                    </ul>
+                </div>
+
+                <div class="tip">
+                    <h4>Typography</h4>
+                    <p>Choose fonts that work well with glitch effects:</p>
+                    <ul>
+                        <li>Monospace fonts for technical looks</li>
+                        <li>Sans-serif for clean distortions</li>
+                        <li>Display fonts for dramatic impact</li>
+                    </ul>
+                </div>
+
+                <div class="tip">
+                    <h4>Composition</h4>
+                    <p>Balance glitch elements with clean design:</p>
+                    <ul>
+                        <li>Use white space effectively</li>
+                        <li>Create focal points with intense glitch effects</li>
+                        <li>Layer different glitch techniques</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="examples">
+            <h2>Inspiration Gallery</h2>
+            <div class="example-grid">
+                <div class="example">
+                    <h4>Cyberpunk Style</h4>
+                    <div class="glitch-demo" data-text="CYBER">CYBER</div>
+                    <p>Heavy color shifting with scan lines</p>
+                </div>
+
+                <div class="example">
+                    <h4>Vaporwave Aesthetic</h4>
+                    <div class="glitch-demo" data-text="aesthetic">aesthetic</div>
+                    <p>Subtle corruption with pastel colors</p>
+                </div>
+
+                <div class="example">
+                    <h4>Horror Glitch</h4>
+                    <div class="glitch-demo" data-text="FEAR">FEAR</div>
+                    <p>Intense corruption with minimal color</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="tools">
+            <h2>Essential Tools</h2>
+            <div class="tools-list">
+                <div class="tool-card">
+                    <h4>Text Generator</h4>
+                    <p>Create base glitch text effects with our <a href="{{ url_for('home') }}">main generator</a>.</p>
+                </div>
+
+                <div class="tool-card">
+                    <h4>Image Effects</h4>
+                    <p>Add advanced glitch effects with our <a href="{{ url_for('home') }}">text generator</a>.</p>
+                </div>
+
+                <div class="tool-card">
+                    <h4>Animation</h4>
+                    <p>Create dynamic glitch animations with our GIF export feature.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

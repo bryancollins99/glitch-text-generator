@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container guide-container">
+    <h1>How to Add Glitch Text to Your Instagram Bio, TikTok, or Discord</h1>
+    
+    <div class="guide-content">
+        <section class="intro">
+            <p>Stand out on social media with eye-catching glitch text! This guide shows you how to create and use glitch text effects that work perfectly across different social platforms while maintaining readability and style.</p>
+        </section>
+
+        <section class="platform instagram">
+            <h2>Instagram</h2>
+            
+            <div class="platform-guide">
+                <h3>Bio Text</h3>
+                <div class="steps">
+                    <div class="step">
+                        <h4>1. Generate Compatible Text</h4>
+                        <p>Use our generator with these settings:</p>
+                        <ul>
+                            <li>Medium corruption level (30-50%)</li>
+                            <li>Avoid excessive diacritics</li>
+                            <li>Test in our preview first</li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h4>2. Copy and Paste</h4>
+                        <p>How to add to your bio:</p>
+                        <ul>
+                            <li>Edit your profile</li>
+                            <li>Paste the generated text</li>
+                            <li>Check the preview</li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h4>3. Best Practices</h4>
+                        <ul>
+                            <li>Keep it short and readable</li>
+                            <li>Use with emojis sparingly</li>
+                            <li>Test on mobile devices</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="platform tiktok">
+            <h2>TikTok</h2>
+            
+            <div class="platform-guide">
+                <h3>Video Captions & Bio</h3>
+                <div class="steps">
+                    <div class="step">
+                        <h4>1. Create TikTok-Safe Text</h4>
+                        <p>Recommended settings:</p>
+                        <ul>
+                            <li>Light to medium effects</li>
+                            <li>Use simple glitch patterns</li>
+                            <li>Test readability at small sizes</li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h4>2. Video Implementation</h4>
+                        <p>Adding to videos:</p>
+                        <ul>
+                            <li>Use as text overlays</li>
+                            <li>Create animated transitions</li>
+                            <li>Match your video aesthetic</li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h4>3. Profile Optimization</h4>
+                        <ul>
+                            <li>Test bio text thoroughly</li>
+                            <li>Consider character limits</li>
+                            <li>Update regularly for trends</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="platform discord">
+            <h2>Discord</h2>
+            
+            <div class="platform-guide">
+                <h3>Messages & Usernames</h3>
+                <div class="steps">
+                    <div class="step">
+                        <h4>1. Discord-Specific Effects</h4>
+                        <p>Our generator offers:</p>
+                        <ul>
+                            <li>Special Discord formatting</li>
+                            <li>Markdown-compatible glitches</li>
+                            <li>Server-friendly characters</li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h4>2. Implementation Tips</h4>
+                        <p>For best results:</p>
+                        <ul>
+                            <li>Test in private channels first</li>
+                            <li>Check different themes</li>
+                            <li>Consider server rules</li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h4>3. Advanced Usage</h4>
+                        <ul>
+                            <li>Create custom emotes</li>
+                            <li>Design channel names</li>
+                            <li>Style bot commands</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="troubleshooting">
+            <h2>Common Issues & Solutions</h2>
+            
+            <div class="issues-grid">
+                <div class="issue-card">
+                    <h4>Text Not Displaying</h4>
+                    <p>If your glitch text isn't showing properly:</p>
+                    <ul>
+                        <li>Reduce effect intensity</li>
+                        <li>Use platform-safe characters</li>
+                        <li>Check for character limits</li>
+                    </ul>
+                </div>
+
+                <div class="issue-card">
+                    <h4>Mobile Compatibility</h4>
+                    <p>For better mobile display:</p>
+                    <ul>
+                        <li>Test on different devices</li>
+                        <li>Use simpler effects</li>
+                        <li>Consider font scaling</li>
+                    </ul>
+                </div>
+
+                <div class="issue-card">
+                    <h4>Platform Updates</h4>
+                    <p>Stay current with:</p>
+                    <ul>
+                        <li>Platform changes</li>
+                        <li>Character support</li>
+                        <li>New features</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="tools">
+            <h2>Quick Tools</h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <h4>Text Generator</h4>
+                    <p>Create platform-optimized text:</p>
+                    <p><a href="{{ url_for('home') }}" class="button">Open Generator</a></p>
+                </div>
+
+                <div class="tool-card">
+                    <h4>Discord Text</h4>
+                    <p>Special Discord formatting:</p>
+                    <p><a href="{{ url_for('discord') }}" class="button">Discord Tool</a></p>
+                </div>
+
+                <div class="tool-card">
+                    <h4>Image Effects</h4>
+                    <p>Create glitch images for posts:</p>
+                    <p><a href="{{ url_for('home') }}" class="button">Text Generator</a></p>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

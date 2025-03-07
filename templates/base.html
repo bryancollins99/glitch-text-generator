@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Generate Glitch Text - Free Online Text & Image Glitch Generator{% endblock %}</title>
+    {% block head %}{% endblock %}
+    <meta name="description" content="Create glitch text and images with our free online generator. Transform your text with zalgo, aesthetic, and glitch effects. Use our glitch text generator for unique social media posts, art, and more.">
+    <meta name="keywords" content="generate glitch text, glitch text generator, zalgo text, aesthetic text, text effects, glitch generator">
+    <script defer data-domain="generateglitchtext.com" src="https://plausible.io/js/script.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/buttons.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="{{ url_for('home') }}" class="logo">Generate Glitch Text</a>
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Glitch Art Tools</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ url_for('home') }}">Text Generator</a></li>
+                        <li><a href="{{ url_for('halloween') }}">Halloween Text</a></li>
+                        <li><a href="{{ url_for('discord') }}">Discord Text</a></li>
+                        <li><a href="{{ url_for('roblox') }}">Roblox Text</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Glitch Art Tutorials</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ url_for('guide_aesthetic') }}">Aesthetic Designs</a></li>
+                        <li><a href="{{ url_for('guide_zalgo') }}">Zalgo Horror & Cyberpunk</a></li>
+                        <li><a href="{{ url_for('guide_social') }}">Social Media Guide</a></li>
+                        <li><a href="{{ url_for('guide_fonts') }}">Glitch Fonts vs Text</a></li>
+                        <li><a href="{{ url_for('guide_history') }}">History of Glitch Art</a></li>
+                        <li><a href="{{ url_for('photoshop_tutorial') }}">Photoshop Effects</a></li>
+                        <li><a href="{{ url_for('after_effects_tutorial') }}">After Effects</a></li>
+                    </ul>
+                </li>
+                <li><a href="{{ url_for('examples') }}">Examples</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="container">
+        <p>&copy; {{ '2025' }} Generate Glitch Text. All rights reserved.</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/download.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

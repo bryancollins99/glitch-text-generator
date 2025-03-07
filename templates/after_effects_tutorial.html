@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}After Effects Glitch Text Tutorial{% endblock %}
+
+{% block head %}
+<meta name="description" content="Create dynamic glitch text animations in Adobe After Effects with our comprehensive tutorial.">
+<meta name="keywords" content="glitch text effects, After Effects tutorial, animated text effects, glitch animation">
+{% endblock %}
+
+{% block content %}
+<h1 class="main-title">Animate Glitch Text in After Effects</h1>
+<p class="subtitle">Learn to create dynamic glitch text animations in Adobe After Effects. Want instant glitch text? Try our <a href="{{ url_for('home') }}">online glitch text generator</a>!</p>
+
+<div class="tutorial-container">
+    <div class="tutorial-section">
+        <h2>Method 1: Digital Glitch Animation</h2>
+        <ol class="tutorial-steps">
+            <li>
+                <h3>Create Text Layer</h3>
+                <p>Create a new composition (1920x1080, 30fps) and add your text layer.</p>
+            </li>
+            <li>
+                <h3>Duplicate and Offset</h3>
+                <p>Create three copies of your text. Apply different colors (RGB) to each layer.</p>
+                <div class="code-snippet">
+                    <pre>Position Keyframes:
+Layer 1: [0,0] → [+5,0]
+Layer 2: [0,0] → [-5,0]
+Layer 3: [0,0] → [0,+3]</pre>
+                </div>
+            </li>
+            <li>
+                <h3>Add Expressions</h3>
+                <p>Apply this expression to position property:</p>
+                <div class="code-snippet">
+                    <pre>wiggle(random(2,10), random(5,20))</pre>
+                </div>
+            </li>
+            <li>
+                <h3>Time Displacement</h3>
+                <p>Add Time Displacement effect and animate the evolution property.</p>
+            </li>
+        </ol>
+    </div>
+
+    <div class="tutorial-section">
+        <h2>Method 2: Glitch Transition Effect</h2>
+        <ol class="tutorial-steps">
+            <li>
+                <h3>Prepare Text Layers</h3>
+                <p>Create two text layers for your transition.</p>
+            </li>
+            <li>
+                <h3>Add Effects</h3>
+                <ul>
+                    <li>Venetian Blinds</li>
+                    <li>Wave Warp</li>
+                    <li>Channel Shift</li>
+                </ul>
+            </li>
+            <li>
+                <h3>Animation Setup</h3>
+                <p>Keyframe these properties:</p>
+                <div class="code-snippet">
+                    <pre>Wave Warp: Wave Height
+Channel Shift: Shift Channels
+Venetian Blinds: Transition</pre>
+                </div>
+            </li>
+            <li>
+                <h3>Fine-tuning</h3>
+                <p>Add RGB separation and chromatic aberration for extra effect.</p>
+            </li>
+        </ol>
+    </div>
+
+    <div class="quick-solution">
+        <h2>Need Static Glitch Text?</h2>
+        <p>While After Effects is great for animations, sometimes you just need quick glitch text. Use our <a href="{{ url_for('home') }}">glitch text generator</a> for instant results!</p>
+        <ul class="benefits">
+            <li>Instant glitch effects</li>
+            <li>No animation software needed</li>
+            <li>Perfect for thumbnails</li>
+            <li>Multiple export formats</li>
+            <li>Ready for social media</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

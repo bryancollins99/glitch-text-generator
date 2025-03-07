@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block title %}Halloween Text Generator - Spooky Text Effects{% endblock %}
+
+{% block head %}
+<meta name="description" content="Create spooky Halloween text effects with our free generator. Perfect for Halloween social media posts, party invitations, and decorations.">
+<meta name="keywords" content="halloween text generator, spooky text, horror font generator, creepy text effects">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/halloween.css') }}">
+<link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<h1 class="main-title halloween-title">Halloween Text Generator</h1>
+<p class="subtitle">Transform your text into spine-chilling Halloween styles! Perfect for spooky social media posts, party invitations, and haunted house signs.</p>
+
+<div class="controls-panel halloween-theme">
+    <div class="control-group">
+        <label for="halloween-style">Horror Style:</label>
+        <select id="halloween-style" class="effect-select">
+            <option value="blood">Dripping Blood</option>
+            <option value="zombie">Zombie Decay</option>
+            <option value="ghost">Ghostly Apparition</option>
+            <option value="witch">Witch Craft</option>
+            <option value="vampire">Vampire Gothic</option>
+        </select>
+    </div>
+
+    <div class="control-group">
+        <label for="animation-type">Animation:</label>
+        <select id="animation-type" class="effect-select">
+            <option value="none">Static</option>
+            <option value="flicker">Flickering</option>
+            <option value="float">Floating</option>
+            <option value="shake">Shaking</option>
+            <option value="drip">Blood Drip</option>
+        </select>
+    </div>
+
+    <div class="control-group">
+        <label for="color-scheme">Color Theme:</label>
+        <select id="color-scheme" class="color-select">
+            <option value="blood">Blood Red</option>
+            <option value="pumpkin">Pumpkin Orange</option>
+            <option value="ghost">Ghost White</option>
+            <option value="witch">Witch Green</option>
+            <option value="purple">Spooky Purple</option>
+        </select>
+    </div>
+</div>
+
+<div class="text-editor halloween-editor">
+    <div class="input-container">
+        <div class="editor-header">Your Text</div>
+        <textarea id="halloween-input" placeholder="Type your spooky message..." class="halloween-input"></textarea>
+    </div>
+
+    <div class="output-container">
+        <div class="editor-header">
+            Haunted Result
+            <button id="copy-btn" class="btn-copy">Copy</button>
+        </div>
+        <div id="halloween-output" class="halloween-output"></div>
+        <div class="share-buttons">
+            <button class="share-button" onclick="downloadAsImage()">
+                <i class="fas fa-download"></i> Download as Image
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="halloween-presets">
+    <h3>Quick Spooky Styles</h3>
+    <div class="preset-buttons">
+        <button class="preset-btn" data-preset="haunted">🏚️ Haunted House</button>
+        <button class="preset-btn" data-preset="graveyard">⚰️ Graveyard</button>
+        <button class="preset-btn" data-preset="pumpkin">🎃 Jack-o'-lantern</button>
+        <button class="preset-btn" data-preset="spider">🕷️ Spider Web</button>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.halloween-title {
+    color: #ff6600;
+    text-shadow: 0 0 10px #ff0000, 0 0 20px #800000;
+    animation: flicker 3s infinite;
+}
+
+.halloween-theme {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #ff6600;
+    box-shadow: 0 0 20px rgba(255, 102, 0, 0.3);
+}
+
+.halloween-input, .halloween-output {
+    background: rgba(0, 0, 0, 0.9);
+    border-color: #ff6600;
+}
+
+.preset-btn {
+    background: #2c1810;
+    color: #ff6600;
+    border: 1px solid #ff6600;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.preset-btn:hover {
+    background: #ff6600;
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 102, 0, 0.3);
+}
+
+@keyframes flicker {
+    0% { opacity: 1; }
+    5% { opacity: 0.8; }
+    10% { opacity: 1; }
+    15% { opacity: 0.9; }
+    20% { opacity: 1; }
+    55% { opacity: 1; }
+    60% { opacity: 0.7; }
+    65% { opacity: 1; }
+    100% { opacity: 1; }
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/halloween.js') }}"></script>
+{% endblock %}

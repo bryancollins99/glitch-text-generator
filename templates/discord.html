@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Discord Glitch Text Generator - GlitchText{% endblock %}
+
+{% block content %}
+<h1 class="main-title">Discord Glitch Text Generator</h1>
+<p class="subtitle">Create unique text styles for your Discord messages and username</p>
+
+<div class="controls-panel">
+    <div class="control-group">
+        <label for="effect-type">Discord Style:</label>
+        <select id="effect-type" class="effect-select">
+            <option value="spoiler">Hidden Spoiler Text</option>
+            <option value="bold">Bold Text</option>
+            <option value="italic">Italic Text</option>
+            <option value="underline">Underlined Text</option>
+            <option value="strike">Strikethrough Text</option>
+            <option value="code">Code Block</option>
+            <option value="quote">Quote Block</option>
+        </select>
+    </div>
+    
+    <div class="control-group">
+        <label for="font-family">Font Style:</label>
+        <select id="font-family" class="font-select">
+            <option value="default">Default Discord</option>
+            <option value="mono">Monospace</option>
+            <option value="cursive">Cursive</option>
+        </select>
+    </div>
+</div>
+
+<div class="text-editor">
+    <div class="input-container">
+        <div class="editor-header">Input Text</div>
+        <textarea id="input-text" placeholder="Enter your Discord message here..." class="glitch-input"></textarea>
+    </div>
+    
+    <div class="output-container">
+        <div class="editor-header">
+            Formatted Output
+            <button id="copy-btn" class="btn-copy">Copy</button>
+        </div>
+        <div id="output-text" class="glitch-output discord-preview"></div>
+        <div class="share-buttons">
+            <button class="share-button" onclick="downloadAsImage()">
+                <i class="fas fa-download"></i> Download as Image
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="discord-tips">
+    <h3>Discord Formatting Tips</h3>
+    <ul>
+        <li>Use **text** for bold</li>
+        <li>Use *text* for italics</li>
+        <li>Use __text__ for underline</li>
+        <li>Use ~~text~~ for strikethrough</li>
+        <li>Use `text` for inline code</li>
+        <li>Use ```text``` for code blocks</li>
+        <li>Use ||text|| for spoilers</li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.discord-preview {
+    font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: #36393f;
+    border-radius: 5px;
+    padding: 1rem;
+}
+
+.discord-tips {
+    margin-top: 2rem;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--primary-color);
+}
+
+.discord-tips ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.discord-tips li {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-family: monospace;
+}
+</style>
+{% endblock %}

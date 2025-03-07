@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container guide-container">
+    <h1>Glitch Fonts vs. Distorted Text – What's the Difference?</h1>
+    
+    <div class="guide-content">
+        <section class="intro">
+            <p>While both glitch fonts and distorted text create similar visual effects, they work in fundamentally different ways and serve different purposes. Understanding these differences helps you choose the right approach for your project.</p>
+        </section>
+
+        <section class="comparison">
+            <div class="comparison-grid">
+                <div class="comparison-card glitch-fonts">
+                    <h2>Glitch Fonts</h2>
+                    
+                    <div class="characteristics">
+                        <h3>Characteristics</h3>
+                        <ul>
+                            <li>Pre-designed character sets</li>
+                            <li>Consistent appearance</li>
+                            <li>Better performance</li>
+                            <li>Limited customization</li>
+                            <li>Platform-dependent</li>
+                        </ul>
+                    </div>
+
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>Advantages</h4>
+                            <ul>
+                                <li>Reliable rendering</li>
+                                <li>Faster loading</li>
+                                <li>Better compatibility</li>
+                                <li>Easier to implement</li>
+                            </ul>
+                        </div>
+
+                        <div class="cons">
+                            <h4>Limitations</h4>
+                            <ul>
+                                <li>Fixed effects</li>
+                                <li>Less dynamic</li>
+                                <li>Licensing requirements</li>
+                                <li>Size limitations</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="use-cases">
+                        <h3>Best For</h3>
+                        <ul>
+                            <li>Static designs</li>
+                            <li>Logos</li>
+                            <li>Print materials</li>
+                            <li>Consistent branding</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="comparison-card distorted-text">
+                    <h2>Distorted Text</h2>
+                    
+                    <div class="characteristics">
+                        <h3>Characteristics</h3>
+                        <ul>
+                            <li>Real-time effects</li>
+                            <li>Dynamic changes</li>
+                            <li>Unlimited variations</li>
+                            <li>Platform-independent</li>
+                            <li>More resource-intensive</li>
+                        </ul>
+                    </div>
+
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>Advantages</h4>
+                            <ul>
+                                <li>Highly customizable</li>
+                                <li>Animated effects</li>
+                                <li>Unique results</li>
+                                <li>No licensing issues</li>
+                            </ul>
+                        </div>
+
+                        <div class="cons">
+                            <h4>Limitations</h4>
+                            <ul>
+                                <li>Performance impact</li>
+                                <li>Inconsistent rendering</li>
+                                <li>Browser dependencies</li>
+                                <li>More complex implementation</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="use-cases">
+                        <h3>Best For</h3>
+                        <ul>
+                            <li>Interactive websites</li>
+                            <li>Dynamic content</li>
+                            <li>Animations</li>
+                            <li>Unique effects</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="implementation">
+            <h2>Implementation Examples</h2>
+            
+            <div class="example-grid">
+                <div class="example-card">
+                    <h3>Glitch Font Example</h3>
+                    <div class="demo glitch-font-demo">GLITCH</div>
+                    <pre><code>font-family: 'GlitchFont', sans-serif;
+text-transform: uppercase;</code></pre>
+                </div>
+
+                <div class="example-card">
+                    <h3>Distorted Text Example</h3>
+                    <div class="demo distorted-text-demo" data-text="GLITCH">GLITCH</div>
+                    <pre><code>// Using our text generator
+const text = generateGlitchText("GLITCH", {
+    intensity: 0.5,
+    animation: true
+});</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section class="choosing">
+            <h2>How to Choose</h2>
+            
+            <div class="decision-tree">
+                <h3>Use Glitch Fonts When:</h3>
+                <ul>
+                    <li>You need consistent branding</li>
+                    <li>Performance is critical</li>
+                    <li>Static design is acceptable</li>
+                    <li>Cross-platform compatibility is important</li>
+                </ul>
+
+                <h3>Use Distorted Text When:</h3>
+                <ul>
+                    <li>You want dynamic effects</li>
+                    <li>Animation is required</li>
+                    <li>Unique results are desired</li>
+                    <li>Real-time customization is needed</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="tools">
+            <h2>Our Tools</h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <h3>Text Generator</h3>
+                    <p>Create dynamic distorted text effects:</p>
+                    <p><a href="{{ url_for('home') }}" class="button">Try Generator</a></p>
+                </div>
+
+                <div class="tool-card">
+                    <h3>Image Generator</h3>
+                    <p>Apply glitch effects to images and text:</p>
+                    <p><a href="{{ url_for('home') }}" class="button">Try Text Effects</a></p>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}
