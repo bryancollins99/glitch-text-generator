@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.after_request
 def add_security_headers(response):
-    response.headers['Content-Security-Policy'] = "default-src 'self'; img-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';"
+    response.headers['Content-Security-Policy'] = "default-src 'self'; img-src 'self' data: blob:; script-src 'self' 'unsafe-inline' plausible.io; style-src 'self' 'unsafe-inline'; connect-src 'self' plausible.io;"
     return response
 
 def zalgo(text, intensity=5):
