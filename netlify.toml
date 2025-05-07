@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"
+  publish = "dist" # Adjust this based on your build output directory
+
+# Handle SPA routing if needed
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
