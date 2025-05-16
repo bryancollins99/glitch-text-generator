@@ -1,0 +1,277 @@
+{% extends "base.html" %}
+
+{% block title %}Cursed Text Generator - Create Creepy Glitched Text{% endblock %}
+
+{% block head %}
+<meta name="description" content="Create cursed text with our free online generator. Perfect for social media, gaming profiles, and creepy content. Copy and paste cursed text easily.">
+<meta name="keywords" content="cursed text, cursed text generator, creepy text, glitch text, zalgo text">
+<link rel="canonical" href="https://glitchtexteffect.com/cursed-text">
+<style>
+  body {
+    --primary-color: #9c0000;
+    --secondary-color: #2a0000;
+    --accent-color: #ff3030;
+  }
+  
+  .cursed-example {
+    background: rgba(20, 0, 0, 0.3);
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 8px;
+    border-left: 4px solid var(--accent-color);
+  }
+  
+  .horror-font {
+    font-family: 'Courier New', monospace;
+    letter-spacing: 2px;
+  }
+  
+  .glitch-title {
+    text-shadow: 3px 3px 0 rgba(255,0,0,0.3), -3px -3px 0 rgba(0,0,0,0.7);
+    animation: horror-pulse 4s infinite;
+  }
+  
+  @keyframes horror-pulse {
+    0% { text-shadow: 3px 3px 0 rgba(255,0,0,0.3), -3px -3px 0 rgba(0,0,0,0.7); }
+    50% { text-shadow: -3px -3px 0 rgba(255,0,0,0.5), 3px 3px 0 rgba(0,0,0,0.5); }
+    100% { text-shadow: 3px 3px 0 rgba(255,0,0,0.3), -3px -3px 0 rgba(0,0,0,0.7); }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1 class="main-title glitch-title">Cursed Text Generator</h1>
+<p class="subtitle">Create creepy, corrupted text that will unsettle your friends. Perfect for horror-themed content, scary stories, and spooky social media posts.</p>
+
+<div class="controls-panel">
+    <div class="control-group">
+        <label for="effect-type">Curse Style:</label>
+        <select id="effect-type" class="effect-select">
+            <option value="zalgo" selected>Zalgo (Cursed Effect)</option>
+            <option value="ascii">Glitchy ASCII Art</option>
+            <option value="binary">Binary Corruption</option>
+        </select>
+    </div>
+    
+    <div class="control-group">
+        <label for="font-family">Font Style:</label>
+        <select id="font-family" class="font-select">
+            <option value="horror" selected>Horror</option>
+            <option value="cyber">Cyberpunk</option>
+            <option value="retro">Retro Arcade</option>
+            <option value="digital">Digital</option>
+        </select>
+    </div>
+    
+    <div class="control-group">
+        <label for="intensity-slider">Curse Intensity:</label>
+        <input type="range" id="intensity-slider" min="0" max="10" value="7" step="0.1" class="range-slider">
+        <span id="intensity-value">7</span>
+    </div>
+</div>
+
+<div class="text-editor">
+    <div class="input-container">
+        <div class="editor-header">Input Text</div>
+        <textarea id="input-text" placeholder="Enter text to curse..." class="glitch-input">The void stares back</textarea>
+    </div>
+    
+    <div class="output-container">
+        <div class="editor-header">
+            Cursed Output
+            <button id="copy-btn" class="btn-copy">Copy</button>
+        </div>
+        <div id="output-text" class="glitch-output"></div>
+        <div class="share-buttons">
+            <button class="share-button" onclick="downloadAsImage()">
+                <i class="fas fa-download"></i> Download as Image
+            </button>
+            <button class="share-button" id="copy-output">
+                <i class="fas fa-copy"></i> Copy to Clipboard
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="content-section">
+    <h2>What is Cursed Text?</h2>
+    <p>Cursed text is a style of text that appears corrupted, glitched, or 'haunted' using special Unicode characters that stack above and below normal letters. This creates an unsettling, creepy effect that makes text appear to be glitching or possessed.</p>
+    
+    <p>Our cursed text generator uses the Zalgo text effect, which adds random combining diacritical marks to standard characters. The result is text that appears to be corrupted or 'cursed' - perfect for creating an eerie atmosphere in your online content.</p>
+    
+    <div class="cursed-examples">
+        <h3>Cursed Text Examples</h3>
+        <div class="examples-grid">
+            <div class="example-card">
+                <div class="example-title">Mild Curse</div>
+                <div class="example-text horror-font">T̶h̶e̶ ̶v̶o̶i̶d̶ ̶w̶a̶t̶c̶h̶e̶s̶</div>
+                <button class="use-example" data-text="The void watches">Use This</button>
+            </div>
+            <div class="example-card">
+                <div class="example-title">Medium Curse</div>
+                <div class="example-text horror-font">D̷o̷n̷'̷t̷ ̷l̷o̷o̷k̷ ̷b̷e̷h̷i̷n̷d̷ ̷y̷o̷u̷</div>
+                <button class="use-example" data-text="Don't look behind you">Use This</button>
+            </div>
+            <div class="example-card">
+                <div class="example-title">Heavy Curse</div>
+                <div class="example-text horror-font">H̴̢̧̛̭̣̖̙̙̞̩̖̰̓̈́̀̓̓̈́̌̈́͘͝ͅE̵̢̡̛̱̰̯̱̣̞̙͖̠̓̈́̀̓̓̈́̌̈́͘͝ ̴̢̧̛̭̣̖̙̙̞̩̖̰̓̈́̀̓̓̈́̌̈́͘͝C̵̢̡̛̱̰̯̱̣̞̙͖̠̓̈́̀̓̓̈́̌̈́͘͝Ơ̴̢̧̭̣̖̙̙̞̩̖̰̓̈́̀̓̓̈́̌̈́͘͝M̵̢̡̛̱̰̯̱̣̞̙͖̠̓̈́̀̓̓̈́̌̈́͘͝Ḙ̴̢̧̛̣̖̙̙̞̩̖̰̓̈́̀̓̓̈́̌̈́͘͝S̵̢̡̛̱̰̯̱̣̞̙͖̠̓̈́̀̓̓̈́̌̈́͘͝</div>
+                <button class="use-example" data-text="HE COMES">Use This</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="cursed-example">
+        <h3>How to Use Cursed Text</h3>
+        <p>Cursed text has become popular in horror communities, creepypasta stories, and for creating unsettling content on social media. Here are some popular uses:</p>
+        <ul>
+            <li>Creating eerie social media posts</li>
+            <li>Adding a creepy vibe to Halloween content</li>
+            <li>Making horror-themed Discord messages</li>
+            <li>Enhancing scary stories or creepypasta</li>
+            <li>Creating unsettling usernames for gaming</li>
+        </ul>
+    </div>
+    
+    <h3>The History of Cursed Text</h3>
+    <p>The "cursed" or "zalgo" text effect originated in internet culture around 2004, inspired by the works of H.P. Lovecraft and cosmic horror. The name "Zalgo" comes from a creepypasta meme about an entity that causes corruption and madness.</p>
+    <p>The effect is created using combining Unicode characters that were originally designed to add diacritical marks to letters in various languages. When these marks are stacked excessively, they create the distinctive corrupted appearance that has become associated with digital horror and glitch aesthetics.</p>
+    
+    <div class="faq-section">
+        <h3>Frequently Asked Questions</h3>
+        <div class="faq-item">
+            <h4>How do I copy and paste cursed text?</h4>
+            <p>Simply click the 'Copy' button next to your cursed text output, or use the 'Copy to Clipboard' button. Then paste it anywhere you want to use it - social media, messaging apps, or gaming platforms.</p>
+        </div>
+        <div class="faq-item">
+            <h4>Will cursed text work everywhere?</h4>
+            <p>Cursed text uses Unicode characters that work on most modern platforms including Discord, Twitter, Instagram, and most messaging apps. Some platforms may limit the intensity of the effect by removing excessive diacritical marks.</p>
+        </div>
+        <div class="faq-item">
+            <h4>Can I use cursed text in my username?</h4>
+            <p>Many platforms restrict the use of special characters in usernames. Discord allows some cursed text in usernames but with limitations. Experiment with lower intensity settings for better compatibility.</p>
+        </div>
+    </div>
+    
+    <div class="related-pages">
+        <h3>Related Text Effects</h3>
+        <div class="related-links">
+            <a href="/glitch-text" class="related-link">Glitch Text Generator</a>
+            <a href="/discord-glitch-text" class="related-link">Discord Text Effects</a>
+            <a href="/" class="related-link">Main Text Generator</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/share.js') }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Elements
+    const inputText = document.getElementById('input-text');
+    const outputText = document.getElementById('output-text');
+    const effectType = document.getElementById('effect-type');
+    const fontFamily = document.getElementById('font-family');
+    const intensitySlider = document.getElementById('intensity-slider');
+    const intensityValue = document.getElementById('intensity-value');
+    const copyBtn = document.getElementById('copy-btn');
+    const copyOutput = document.getElementById('copy-output');
+    const useExampleBtns = document.querySelectorAll('.use-example');
+
+    // Update intensity value display
+    intensitySlider.addEventListener('input', function() {
+        intensityValue.textContent = this.value;
+        updateOutput();
+    });
+
+    // Update output when input changes
+    inputText.addEventListener('input', updateOutput);
+    effectType.addEventListener('change', updateOutput);
+    fontFamily.addEventListener('change', updateOutput);
+
+    // Copy button functionality
+    copyBtn.addEventListener('click', function() {
+        const textToCopy = outputText.textContent;
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            copyBtn.textContent = 'Copied!';
+            setTimeout(() => {
+                copyBtn.textContent = 'Copy';
+            }, 2000);
+        });
+    });
+
+    // Copy output button functionality
+    if (copyOutput) {
+        copyOutput.addEventListener('click', function() {
+            const textToCopy = outputText.textContent;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                copyOutput.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    copyOutput.innerHTML = '<i class="fas fa-copy"></i> Copy to Clipboard';
+                }, 2000);
+            });
+        });
+    }
+
+    // Use example buttons
+    useExampleBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const exampleText = this.getAttribute('data-text');
+            inputText.value = exampleText;
+            inputText.scrollIntoView({behavior: 'smooth'});
+            updateOutput();
+        });
+    });
+
+    // Initial output update
+    updateOutput();
+
+    // Function to update the output text
+    function updateOutput() {
+        if (!inputText.value) {
+            outputText.innerHTML = '<span class="placeholder">Your cursed text will appear here...</span>';
+            return;
+        }
+
+        const text = inputText.value;
+        const effect = effectType.value;
+        const intensity = intensitySlider.value;
+        const font = fontFamily.value;
+
+        // Make API call to get glitched text
+        fetch('/api/glitch', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                text: text,
+                effect: effect,
+                intensity: intensity,
+                font_style: font
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                outputText.innerHTML = `<span class="error">Error: ${data.error}</span>`;
+            } else {
+                outputText.innerHTML = data.glitched_text;
+                
+                // Apply font style class
+                outputText.className = 'glitch-output';
+                if (font !== 'default') {
+                    outputText.classList.add(`font-${font}`);
+                }
+                
+                // Apply effect class
+                outputText.classList.add(`effect-${effect}`);
+            }
+        })
+        .catch(error => {
+            outputText.innerHTML = `<span class="error">Network error: ${error.message}</span>`;
+        });
+    }
+});
+</script>
+{% endblock %}

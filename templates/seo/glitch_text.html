@@ -1,0 +1,352 @@
+{% extends "base.html" %}
+
+{% block title %}Glitch Text Generator - Create Distorted Text Effects{% endblock %}
+
+{% block head %}
+<meta name="description" content="Transform your text with our free glitch text generator. Create corrupted, distorted text for social media, gaming, and creative projects.">
+<meta name="keywords" content="glitch text, glitch text generator, distorted text, text effects, cyberpunk text">
+<link rel="canonical" href="https://glitchtexteffect.com/glitch-text">
+<style>
+  body {
+    --primary-color: #00b3ff;
+    --secondary-color: #ff00a0;
+    --accent-color: #00ffff;
+  }
+  
+  .glitch-example {
+    background: rgba(0, 20, 40, 0.3);
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 8px;
+    border-left: 4px solid var(--accent-color);
+  }
+  
+  .cyber-font {
+    font-family: 'Courier New', monospace;
+    letter-spacing: 1px;
+  }
+  
+  .glitch-title {
+    text-shadow: 3px 3px 0 rgba(0,255,255,0.3), -3px -3px 0 rgba(255,0,128,0.3);
+    animation: cyber-pulse 4s infinite;
+  }
+  
+  @keyframes cyber-pulse {
+    0% { text-shadow: 3px 3px 0 rgba(0,255,255,0.3), -3px -3px 0 rgba(255,0,128,0.3); }
+    50% { text-shadow: -3px -3px 0 rgba(0,255,255,0.5), 3px 3px 0 rgba(255,0,128,0.5); }
+    100% { text-shadow: 3px 3px 0 rgba(0,255,255,0.3), -3px -3px 0 rgba(255,0,128,0.3); }
+  }
+  
+  .content-section {
+    margin-top: 2rem;
+  }
+  
+  .examples-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  
+  .example-card {
+    background: rgba(0,0,0,0.2);
+    padding: 1rem;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .example-title {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .example-text {
+    flex-grow: 1;
+    margin-bottom: 0.5rem;
+    word-break: break-word;
+  }
+  
+  .use-example {
+    align-self: flex-end;
+    padding: 0.3rem 0.8rem;
+    background: var(--accent-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+  }
+  
+  .faq-section {
+    margin: 2rem 0;
+  }
+  
+  .faq-item {
+    margin-bottom: 1.5rem;
+  }
+  
+  .faq-item h4 {
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+  }
+  
+  .related-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 0.5rem;
+  }
+  
+  .related-link {
+    padding: 0.5rem 1rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: all 0.2s ease;
+  }
+  
+  .related-link:hover {
+    background: var(--accent-color);
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1 class="main-title glitch-title">Glitch Text Generator</h1>
+<p class="subtitle">Create digital distortion effects for your text. Perfect for cyberpunk aesthetics, digital art, and standing out on social media.</p>
+
+<div class="controls-panel">
+    <div class="control-group">
+        <label for="effect-type">Glitch Style:</label>
+        <select id="effect-type" class="effect-select">
+            <option value="ascii" selected>ASCII Glitch</option>
+            <option value="zalgo">Zalgo (Cursed Effect)</option>
+            <option value="binary">Binary Corruption</option>
+        </select>
+    </div>
+    
+    <div class="control-group">
+        <label for="font-family">Font Style:</label>
+        <select id="font-family" class="font-select">
+            <option value="cyber" selected>Cyberpunk</option>
+            <option value="retro">Retro Arcade</option>
+            <option value="digital">Digital</option>
+            <option value="horror">Horror</option>
+        </select>
+    </div>
+    
+    <div class="control-group">
+        <label for="intensity-slider">Glitch Intensity:</label>
+        <input type="range" id="intensity-slider" min="0" max="10" value="5" step="0.1" class="range-slider">
+        <span id="intensity-value">5</span>
+    </div>
+</div>
+
+<div class="text-editor">
+    <div class="input-container">
+        <div class="editor-header">Input Text</div>
+        <textarea id="input-text" placeholder="Enter text to glitch..." class="glitch-input">Glitch Aesthetic</textarea>
+    </div>
+    
+    <div class="output-container">
+        <div class="editor-header">
+            Glitched Output
+            <button id="copy-btn" class="btn-copy">Copy</button>
+        </div>
+        <div id="output-text" class="glitch-output"></div>
+        <div class="share-buttons">
+            <button class="share-button" onclick="downloadAsImage()">
+                <i class="fas fa-download"></i> Download as Image
+            </button>
+            <button class="share-button" id="copy-output">
+                <i class="fas fa-copy"></i> Copy to Clipboard
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="content-section">
+    <h2>What is Glitch Text?</h2>
+    <p>Glitch text is a style that mimics digital corruption or errors, creating a distorted, broken appearance. This aesthetic has become popular in cyberpunk, vaporwave, and digital art communities.</p>
+    
+    <p>Our glitch text generator lets you create various types of digital distortion effects that you can copy and paste anywhere. It's perfect for creating unique usernames, social media posts, or digital art projects.</p>
+    
+    <div class="glitch-example">
+        <h3>The Cyberpunk Aesthetic</h3>
+        <p>Glitch text is a key element of the cyberpunk aesthetic, which combines high technology with low-quality life. The distorted, corrupted appearance of glitch text represents the breakdown between the digital and physical worlds.</p>
+        <p>In cyberpunk media like "Blade Runner," "Ghost in the Shell," and "Cyberpunk 2077," glitched text and visuals are used to represent system failures, hacking, or the fragility of digital consciousness.</p>
+    </div>
+    
+    <div class="examples-grid">
+        <div class="example-card">
+            <div class="example-title">Subtle Glitch</div>
+            <div class="example-text cyber-font">G̷l̷i̷t̷c̷h̷ ̷A̷e̷s̷t̷h̷e̷t̷i̷c̷</div>
+            <button class="use-example" data-text="Glitch Aesthetic">Use This</button>
+        </div>
+        <div class="example-card">
+            <div class="example-title">Medium Distortion</div>
+            <div class="example-text cyber-font">D̸i̸g̸i̸t̸a̸l̸ ̸C̸o̸r̸r̸u̸p̸t̸i̸o̸n̸</div>
+            <button class="use-example" data-text="Digital Corruption">Use This</button>
+        </div>
+        <div class="example-card">
+            <div class="example-title">Heavy Glitch</div>
+            <div class="example-text cyber-font">B̵̧̩̭̣̖̙̙̞̩̖̰͂̓̈́̀̓̓̈́̌̈́͘͝Ṟ̵̢̡̛̰̯̱̣̞̙͖̠͂̓̈́̀̓̓̈́̌̈́͘͝Ơ̴̢̧̭̣̖̙̙̞̩̖̰͂̓̈́̀̓̓̈́̌̈́͘͝Ḵ̵̢̡̛̰̯̱̣̞̙͖̠͂̓̈́̀̓̓̈́̌̈́͘͝Ȩ̴̢̧̛̣̖̙̙̞̩̖̰͂̓̈́̀̓̓̈́̌̈́͘͝Ṉ̵̢̡̛̰̯̱̣̞̙͖̠͂̓̈́̀̓̓̈́̌̈́͘͝</div>
+            <button class="use-example" data-text="BROKEN">Use This</button>
+        </div>
+    </div>
+    
+    <h3>Popular Uses for Glitch Text</h3>
+    <ul>
+        <li><strong>Social Media Profiles:</strong> Stand out with a unique bio or username</li>
+        <li><strong>Digital Art:</strong> Create text for vaporwave, cyberpunk, or glitch art</li>
+        <li><strong>Gaming:</strong> Unique usernames for gaming platforms</li>
+        <li><strong>Web Design:</strong> Add glitch effects to websites for a cyberpunk aesthetic</li>
+        <li><strong>Video Editing:</strong> Create title cards with a glitched appearance</li>
+    </ul>
+    
+    <div class="glitch-example">
+        <h3>The History of Glitch Aesthetics</h3>
+        <p>The glitch aesthetic originated in the 1990s when digital errors and corruptions became recognized as an art form. Artists began intentionally corrupting digital files to create new visual styles.</p>
+        <p>The term "glitch" itself comes from the German word "glitschen" (to slip) and was first used by astronauts in the 1960s to describe technical problems. In the digital age, it has evolved to represent the artistic exploitation of digital errors.</p>
+    </div>
+    
+    <div class="faq-section">
+        <h3>Frequently Asked Questions</h3>
+        <div class="faq-item">
+            <h4>How can I use glitch text on social media?</h4>
+            <p>Simply generate your glitched text, copy it using the copy button, and paste it into your social media posts, bio, or comments. Most platforms support these Unicode characters.</p>
+        </div>
+        <div class="faq-item">
+            <h4>What's the difference between glitch text and cursed text?</h4>
+            <p>Glitch text typically mimics digital corruption and has a technological, cyberpunk aesthetic. Cursed text (Zalgo) has a more horror-oriented appearance with characters extending far above and below the text line.</p>
+        </div>
+        <div class="faq-item">
+            <h4>Can I use glitch text in my username?</h4>
+            <p>Many platforms allow some glitch text characters in usernames, but often with limitations. Try using a lower intensity setting for better compatibility with username fields.</p>
+        </div>
+    </div>
+    
+    <div class="related-pages">
+        <h3>Related Text Effects</h3>
+        <div class="related-links">
+            <a href="/cursed-text" class="related-link">Cursed Text Generator</a>
+            <a href="/discord-glitch-text" class="related-link">Discord Glitch Text</a>
+            <a href="/" class="related-link">Main Text Generator</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/share.js') }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Elements
+    const inputText = document.getElementById('input-text');
+    const outputText = document.getElementById('output-text');
+    const effectType = document.getElementById('effect-type');
+    const fontFamily = document.getElementById('font-family');
+    const intensitySlider = document.getElementById('intensity-slider');
+    const intensityValue = document.getElementById('intensity-value');
+    const copyBtn = document.getElementById('copy-btn');
+    const copyOutput = document.getElementById('copy-output');
+    const useExampleBtns = document.querySelectorAll('.use-example');
+
+    // Update intensity value display
+    intensitySlider.addEventListener('input', function() {
+        intensityValue.textContent = this.value;
+        updateOutput();
+    });
+
+    // Update output when input changes
+    inputText.addEventListener('input', updateOutput);
+    effectType.addEventListener('change', updateOutput);
+    fontFamily.addEventListener('change', updateOutput);
+
+    // Copy button functionality
+    copyBtn.addEventListener('click', function() {
+        const textToCopy = outputText.textContent;
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            copyBtn.textContent = 'Copied!';
+            setTimeout(() => {
+                copyBtn.textContent = 'Copy';
+            }, 2000);
+        });
+    });
+
+    // Copy output button functionality
+    if (copyOutput) {
+        copyOutput.addEventListener('click', function() {
+            const textToCopy = outputText.textContent;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                copyOutput.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    copyOutput.innerHTML = '<i class="fas fa-copy"></i> Copy to Clipboard';
+                }, 2000);
+            });
+        });
+    }
+
+    // Use example buttons
+    useExampleBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const exampleText = this.getAttribute('data-text');
+            inputText.value = exampleText;
+            inputText.scrollIntoView({behavior: 'smooth'});
+            updateOutput();
+        });
+    });
+
+    // Initial output update
+    updateOutput();
+
+    // Function to update the output text
+    function updateOutput() {
+        if (!inputText.value) {
+            outputText.innerHTML = '<span class="placeholder">Your glitched text will appear here...</span>';
+            return;
+        }
+
+        const text = inputText.value;
+        const effect = effectType.value;
+        const intensity = intensitySlider.value;
+        const font = fontFamily.value;
+
+        // Make API call to get glitched text
+        fetch('/api/glitch', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                text: text,
+                effect: effect,
+                intensity: intensity,
+                font_style: font
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                outputText.innerHTML = `<span class="error">Error: ${data.error}</span>`;
+            } else {
+                outputText.innerHTML = data.glitched_text;
+                
+                // Apply font style class
+                outputText.className = 'glitch-output';
+                if (font !== 'default') {
+                    outputText.classList.add(`font-${font}`);
+                }
+                
+                // Apply effect class
+                outputText.classList.add(`effect-${effect}`);
+            }
+        })
+        .catch(error => {
+            outputText.innerHTML = `<span class="error">Network error: ${error.message}</span>`;
+        });
+    }
+});
+</script>
+{% endblock %}

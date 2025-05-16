@@ -1,0 +1,383 @@
+{% extends "base.html" %}
+
+{% block title %}Discord Glitch Text Generator - Stand Out in Discord Chats{% endblock %}
+
+{% block head %}
+<meta name="description" content="Create Discord-compatible glitch text effects for your username, messages, and server names. Copy and paste directly into Discord.">
+<meta name="keywords" content="discord glitch text, discord text effects, discord formatting, discord zalgo">
+<link rel="canonical" href="https://glitchtexteffect.com/discord-glitch-text">
+<style>
+  body {
+    --primary-color: #5865F2;
+    --secondary-color: #2c2f33;
+    --accent-color: #99AAB5;
+  }
+  
+  .discord-example {
+    background: rgba(47, 49, 54, 0.6);
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+  }
+  
+  .discord-font {
+    font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+  
+  .glitch-title {
+    text-shadow: 3px 3px 0 rgba(88, 101, 242, 0.3), -3px -3px 0 rgba(153, 170, 181, 0.3);
+    animation: discord-pulse 4s infinite;
+  }
+  
+  @keyframes discord-pulse {
+    0% { text-shadow: 3px 3px 0 rgba(88, 101, 242, 0.3), -3px -3px 0 rgba(153, 170, 181, 0.3); }
+    50% { text-shadow: -3px -3px 0 rgba(88, 101, 242, 0.5), 3px 3px 0 rgba(153, 170, 181, 0.5); }
+    100% { text-shadow: 3px 3px 0 rgba(88, 101, 242, 0.3), -3px -3px 0 rgba(153, 170, 181, 0.3); }
+  }
+  
+  .content-section {
+    margin-top: 2rem;
+  }
+  
+  .examples-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  
+  .example-card {
+    background: rgba(47, 49, 54, 0.4);
+    padding: 1rem;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .example-title {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+  }
+  
+  .example-text {
+    flex-grow: 1;
+    margin-bottom: 0.5rem;
+    word-break: break-word;
+  }
+  
+  .use-example {
+    align-self: flex-end;
+    padding: 0.3rem 0.8rem;
+    background: var(--primary-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: white;
+  }
+  
+  .discord-message {
+    background: #36393f;
+    border-radius: 4px;
+    padding: 1rem;
+    margin: 1rem 0;
+    font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #dcddde;
+  }
+  
+  .discord-username {
+    color: #ffffff;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .faq-section {
+    margin: 2rem 0;
+  }
+  
+  .faq-item {
+    margin-bottom: 1.5rem;
+  }
+  
+  .faq-item h4 {
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+  }
+  
+  .related-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 0.5rem;
+  }
+  
+  .related-link {
+    padding: 0.5rem 1rem;
+    background: rgba(47, 49, 54, 0.4);
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: all 0.2s ease;
+  }
+  
+  .related-link:hover {
+    background: var(--primary-color);
+    color: white;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1 class="main-title glitch-title">Discord Glitch Text Generator</h1>
+<p class="subtitle">Create eye-catching glitch effects that work perfectly in Discord chats, usernames, and server names. Stand out from other users with unique text styles.</p>
+
+<div class="controls-panel">
+    <div class="control-group">
+        <label for="effect-type">Discord Effect:</label>
+        <select id="effect-type" class="effect-select">
+            <option value="ascii" selected>Discord-Safe Glitch</option>
+            <option value="zalgo">Zalgo (Limited Height)</option>
+            <option value="binary">Binary Corruption</option>
+        </select>
+    </div>
+    
+    <div class="control-group">
+        <label for="font-family">Font Style:</label>
+        <select id="font-family" class="font-select">
+            <option value="cyber" selected>Cyberpunk</option>
+            <option value="retro">Retro Arcade</option>
+            <option value="digital">Digital</option>
+            <option value="horror">Horror</option>
+        </select>
+    </div>
+    
+    <div class="control-group">
+        <label for="intensity-slider">Discord Glitch Intensity:</label>
+        <input type="range" id="intensity-slider" min="0" max="10" value="4" step="0.1" class="range-slider">
+        <span id="intensity-value">4</span>
+    </div>
+</div>
+
+<div class="text-editor">
+    <div class="input-container">
+        <div class="editor-header">Input Text</div>
+        <textarea id="input-text" placeholder="Enter Discord text to glitch..." class="glitch-input">Cool Discord Username</textarea>
+    </div>
+    
+    <div class="output-container">
+        <div class="editor-header">
+            Discord-Ready Glitched Text
+            <button id="copy-btn" class="btn-copy">Copy</button>
+        </div>
+        <div id="output-text" class="glitch-output"></div>
+        <div class="share-buttons">
+            <button class="share-button" onclick="downloadAsImage()">
+                <i class="fas fa-download"></i> Download as Image
+            </button>
+            <button class="share-button" id="copy-output">
+                <i class="fas fa-copy"></i> Copy to Clipboard
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="content-section">
+    <h2>Using Glitch Text in Discord</h2>
+    <p>Discord supports many Unicode characters and text effects, making it perfect for using glitch text. Our Discord Glitch Text Generator creates effects that are compatible with Discord's character limitations.</p>
+    
+    <p>You can use these effects for your username, in chat messages, for channel names, or even in your server description to create a unique aesthetic that stands out from other users and servers.</p>
+    
+    <div class="discord-example">
+        <h3>Discord-Compatible Effects</h3>
+        <p>Discord has some limitations on how many special characters can be used, especially in usernames. Our generator is optimized to create effects that work well within Discord's constraints.</p>
+        <p>For usernames, we recommend using the "Discord-Safe Glitch" effect with a lower intensity (3-4) to ensure compatibility.</p>
+    </div>
+    
+    <div class="discord-message">
+        <div class="discord-username">G̷l̷i̷t̷c̷h̷B̷o̷t̷</div>
+        <div>This is how your glitched text will look in Discord chat messages!</div>
+    </div>
+    
+    <h3>Discord Glitch Text Examples</h3>
+    <div class="examples-grid">
+        <div class="example-card">
+            <div class="example-title">Discord Username</div>
+            <div class="example-text discord-font">G̷a̷m̷e̷r̷G̷l̷i̷t̷c̷h̷</div>
+            <button class="use-example" data-text="GamerGlitch">Use This</button>
+        </div>
+        <div class="example-card">
+            <div class="example-title">Server Name</div>
+            <div class="example-text discord-font">V̸o̸i̸d̸ ̸R̸e̸a̸l̸m̸</div>
+            <button class="use-example" data-text="Void Realm">Use This</button>
+        </div>
+        <div class="example-card">
+            <div class="example-title">Chat Message</div>
+            <div class="example-text discord-font">T̷h̷i̷s̷ ̷s̷e̷r̷v̷e̷r̷ ̷h̷a̷s̷ ̷b̷e̷e̷n̷ ̷c̷o̷r̷r̷u̷p̷t̷e̷d̷</div>
+            <button class="use-example" data-text="This server has been corrupted">Use This</button>
+        </div>
+    </div>
+    
+    <div class="discord-example">
+        <h3>Discord Text Formatting Guide</h3>
+        <p>In addition to glitch effects, Discord supports various text formatting options:</p>
+        <ul>
+            <li><strong>Bold:</strong> Surround text with double asterisks (**bold**)</li>
+            <li><em>Italic:</em> Surround text with single asterisks (*italic*)</li>
+            <li><u>Underline:</u> Surround text with double underscores (__underline__)</li>
+            <li><s>Strikethrough:</s> Surround text with double tildes (~~strikethrough~~)</li>
+            <li>Code blocks: Surround text with backticks (`code`)</li>
+        </ul>
+        <p>You can combine these formatting options with your glitched text for even more unique effects!</p>
+    </div>
+    
+    <h3>Discord Nitro and Special Characters</h3>
+    <p>Discord Nitro subscribers have additional options for customizing their profiles. With Nitro, you can:</p>
+    <ul>
+        <li>Use an animated GIF as your profile picture</li>
+        <li>Choose a custom tag number</li>
+        <li>Use custom emojis in any server</li>
+        <li>Upload larger files</li>
+    </ul>
+    <p>While Nitro doesn't directly affect your ability to use glitched text, it complements well with a unique glitched username for maximum customization.</p>
+    
+    <div class="faq-section">
+        <h3>Frequently Asked Questions</h3>
+        <div class="faq-item">
+            <h4>Will these glitch effects work in Discord?</h4>
+            <p>Yes, our Discord Glitch Text Generator is specifically designed to work with Discord's character limitations. We've optimized the effects to be compatible while still looking impressive.</p>
+        </div>
+        <div class="faq-item">
+            <h4>Can I use glitch text in my Discord username?</h4>
+            <p>Yes, but Discord has some limitations on special characters in usernames. We recommend using our 'Discord-Safe Glitch' effect with a lower intensity setting (3-4) for usernames.</p>
+        </div>
+        <div class="faq-item">
+            <h4>How do I change my Discord username to glitch text?</h4>
+            <p>Generate your glitched username using our tool, copy it, then go to Discord User Settings > My Account > Edit username. Paste your glitched text and save changes.</p>
+        </div>
+    </div>
+    
+    <div class="related-pages">
+        <h3>Related Text Effects</h3>
+        <div class="related-links">
+            <a href="/cursed-text" class="related-link">Cursed Text Generator</a>
+            <a href="/glitch-text" class="related-link">Glitch Text Generator</a>
+            <a href="/" class="related-link">Main Text Generator</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/share.js') }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Elements
+    const inputText = document.getElementById('input-text');
+    const outputText = document.getElementById('output-text');
+    const effectType = document.getElementById('effect-type');
+    const fontFamily = document.getElementById('font-family');
+    const intensitySlider = document.getElementById('intensity-slider');
+    const intensityValue = document.getElementById('intensity-value');
+    const copyBtn = document.getElementById('copy-btn');
+    const copyOutput = document.getElementById('copy-output');
+    const useExampleBtns = document.querySelectorAll('.use-example');
+
+    // Update intensity value display
+    intensitySlider.addEventListener('input', function() {
+        intensityValue.textContent = this.value;
+        updateOutput();
+    });
+
+    // Update output when input changes
+    inputText.addEventListener('input', updateOutput);
+    effectType.addEventListener('change', updateOutput);
+    fontFamily.addEventListener('change', updateOutput);
+
+    // Copy button functionality
+    copyBtn.addEventListener('click', function() {
+        const textToCopy = outputText.textContent;
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            copyBtn.textContent = 'Copied!';
+            setTimeout(() => {
+                copyBtn.textContent = 'Copy';
+            }, 2000);
+        });
+    });
+
+    // Copy output button functionality
+    if (copyOutput) {
+        copyOutput.addEventListener('click', function() {
+            const textToCopy = outputText.textContent;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                copyOutput.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    copyOutput.innerHTML = '<i class="fas fa-copy"></i> Copy to Clipboard';
+                }, 2000);
+            });
+        });
+    }
+
+    // Use example buttons
+    useExampleBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const exampleText = this.getAttribute('data-text');
+            inputText.value = exampleText;
+            inputText.scrollIntoView({behavior: 'smooth'});
+            updateOutput();
+        });
+    });
+
+    // Initial output update
+    updateOutput();
+
+    // Function to update the output text
+    function updateOutput() {
+        if (!inputText.value) {
+            outputText.innerHTML = '<span class="placeholder">Your Discord glitch text will appear here...</span>';
+            return;
+        }
+
+        const text = inputText.value;
+        const effect = effectType.value;
+        const intensity = intensitySlider.value;
+        const font = fontFamily.value;
+
+        // Make API call to get glitched text
+        fetch('/api/glitch', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                text: text,
+                effect: effect,
+                intensity: intensity,
+                font_style: font
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                outputText.innerHTML = `<span class="error">Error: ${data.error}</span>`;
+            } else {
+                outputText.innerHTML = data.glitched_text;
+                
+                // Apply font style class
+                outputText.className = 'glitch-output';
+                if (font !== 'default') {
+                    outputText.classList.add(`font-${font}`);
+                }
+                
+                // Apply effect class
+                outputText.classList.add(`effect-${effect}`);
+            }
+        })
+        .catch(error => {
+            outputText.innerHTML = `<span class="error">Network error: ${error.message}</span>`;
+        });
+    }
+});
+</script>
+{% endblock %}
