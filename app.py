@@ -774,6 +774,10 @@ for page_key, page_data in SEO_PAGES.items():
             related_pages=page.get("related_pages", [])
         )
 
+@app.route('/sitemap')
+def html_sitemap():
+    return render_template('sitemap.html')
+
 @app.route('/sitemap.xml')
 def sitemap():
     root = ET.Element('urlset')
@@ -791,6 +795,21 @@ def sitemap():
         url = ET.SubElement(root, 'url')
         loc = ET.SubElement(url, 'loc')
         loc.text = f'https://glitchtexteffect.com/{page_data["url"]}'
+        lastmod = ET.SubElement(url, 'lastmod')
+        lastmod.text = datetime.now().strftime('%Y-%m-%d')
+    
+    # Add informational pages
+    info_pages = [
+        'what-is-glitch-text',
+        'how-to-make-glitch-text',
+        'zalgo-text-explained',
+        'creepypasta-explained'
+    ]
+    
+    for page in info_pages:
+        url = ET.SubElement(root, 'url')
+        loc = ET.SubElement(url, 'loc')
+        loc.text = f'https://glitchtexteffect.com/{page}'
         lastmod = ET.SubElement(url, 'lastmod')
         lastmod.text = datetime.now().strftime('%Y-%m-%d')
     

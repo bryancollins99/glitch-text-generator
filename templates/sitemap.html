@@ -1,0 +1,276 @@
+{% extends "base.html" %}
+
+{% block title %}Sitemap - Glitch Text Generator{% endblock %}
+
+{% block head %}
+<meta name="description" content="Complete sitemap of GlitchTextEffect.com - Find all our glitch text generators, informational pages, and tools in one place.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://glitchtexteffect.com/sitemap">
+<style>
+  .sitemap-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+  
+  .sitemap-title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+    text-align: center;
+  }
+  
+  .sitemap-description {
+    margin-bottom: 2rem;
+    text-align: center;
+    line-height: 1.6;
+  }
+  
+  .sitemap-section {
+    margin-bottom: 3rem;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.5rem;
+  }
+  
+  .sitemap-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+  
+  .sitemap-link {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+  }
+  
+  .sitemap-link:hover {
+    background: var(--accent-color);
+    transform: translateY(-2px);
+  }
+  
+  .sitemap-link-icon {
+    margin-right: 0.8rem;
+    font-size: 1.2rem;
+    opacity: 0.7;
+  }
+  
+  .sitemap-link-title {
+    font-weight: bold;
+  }
+  
+  .sitemap-link-description {
+    font-size: 0.8rem;
+    margin-top: 0.3rem;
+    opacity: 0.8;
+  }
+  
+  @media (max-width: 768px) {
+    .sitemap-links {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="sitemap-container">
+  <h1 class="sitemap-title">Sitemap</h1>
+  
+  <p class="sitemap-description">
+    Welcome to the complete sitemap of GlitchTextEffect.com. Here you'll find links to all our text generators, 
+    informational pages, and tools to help you create the perfect glitch text for your needs.
+  </p>
+  
+  <div class="sitemap-section">
+    <h2 class="section-title">Text Generators</h2>
+    <div class="sitemap-links">
+      <a href="/" class="sitemap-link">
+        <div class="sitemap-link-icon">🏠</div>
+        <div>
+          <div class="sitemap-link-title">Home Page</div>
+          <div class="sitemap-link-description">Main glitch text generator with multiple effects</div>
+        </div>
+      </a>
+      
+      <a href="/halloween" class="sitemap-link">
+        <div class="sitemap-link-icon">🎃</div>
+        <div>
+          <div class="sitemap-link-title">Halloween Text</div>
+          <div class="sitemap-link-description">Spooky Halloween text effects</div>
+        </div>
+      </a>
+      
+      <a href="/discord" class="sitemap-link">
+        <div class="sitemap-link-icon">💬</div>
+        <div>
+          <div class="sitemap-link-title">Discord Text</div>
+          <div class="sitemap-link-description">Glitch text optimized for Discord</div>
+        </div>
+      </a>
+      
+      <a href="/roblox" class="sitemap-link">
+        <div class="sitemap-link-icon">🎮</div>
+        <div>
+          <div class="sitemap-link-title">Roblox Text</div>
+          <div class="sitemap-link-description">Glitch text for Roblox platform</div>
+        </div>
+      </a>
+      
+      <a href="/glitch-text" class="sitemap-link">
+        <div class="sitemap-link-icon">🔤</div>
+        <div>
+          <div class="sitemap-link-title">Glitch Text Generator</div>
+          <div class="sitemap-link-description">Create glitched, corrupted text effects</div>
+        </div>
+      </a>
+      
+      <a href="/cursed-text" class="sitemap-link">
+        <div class="sitemap-link-icon">👻</div>
+        <div>
+          <div class="sitemap-link-title">Cursed Text Generator</div>
+          <div class="sitemap-link-description">Create creepy, cursed text effects</div>
+        </div>
+      </a>
+    </div>
+  </div>
+  
+  <div class="sitemap-section">
+    <h2 class="section-title">Guides & Tutorials</h2>
+    <div class="sitemap-links">
+      <a href="/guides/aesthetic" class="sitemap-link">
+        <div class="sitemap-link-icon">🌌</div>
+        <div>
+          <div class="sitemap-link-title">Aesthetic Designs</div>
+          <div class="sitemap-link-description">Create aesthetic vaporwave text designs</div>
+        </div>
+      </a>
+      
+      <a href="/guides/zalgo" class="sitemap-link">
+        <div class="sitemap-link-icon">👻</div>
+        <div>
+          <div class="sitemap-link-title">Zalgo Horror & Cyberpunk</div>
+          <div class="sitemap-link-description">Horror and cyberpunk text effects</div>
+        </div>
+      </a>
+      
+      <a href="/guides/social" class="sitemap-link">
+        <div class="sitemap-link-icon">📱</div>
+        <div>
+          <div class="sitemap-link-title">Social Media Guide</div>
+          <div class="sitemap-link-description">Using glitch text on social platforms</div>
+        </div>
+      </a>
+      
+      <a href="/guides/fonts" class="sitemap-link">
+        <div class="sitemap-link-icon">📜</div>
+        <div>
+          <div class="sitemap-link-title">Glitch Fonts vs Text</div>
+          <div class="sitemap-link-description">Understanding the difference</div>
+        </div>
+      </a>
+      
+      <a href="/guides/history" class="sitemap-link">
+        <div class="sitemap-link-icon">📜</div>
+        <div>
+          <div class="sitemap-link-title">History of Glitch Art</div>
+          <div class="sitemap-link-description">Evolution of glitch aesthetics</div>
+        </div>
+      </a>
+      
+      <a href="/tutorials/photoshop" class="sitemap-link">
+        <div class="sitemap-link-icon">🎨</div>
+        <div>
+          <div class="sitemap-link-title">Photoshop Effects</div>
+          <div class="sitemap-link-description">Creating glitch effects in Photoshop</div>
+        </div>
+      </a>
+      
+      <a href="/tutorials/after-effects" class="sitemap-link">
+        <div class="sitemap-link-icon">🎥</div>
+        <div>
+          <div class="sitemap-link-title">After Effects</div>
+          <div class="sitemap-link-description">Animated glitch effects</div>
+        </div>
+      </a>
+    </div>
+  </div>
+  
+  <div class="sitemap-section">
+    <h2 class="section-title">Informational Pages</h2>
+    <div class="sitemap-links">
+      <a href="/what-is-glitch-text" class="sitemap-link">
+        <div class="sitemap-link-icon">❓</div>
+        <div>
+          <div class="sitemap-link-title">What Is Glitch Text?</div>
+          <div class="sitemap-link-description">Learn about glitch text and its origins</div>
+        </div>
+      </a>
+      
+      <a href="/how-to-make-glitch-text" class="sitemap-link">
+        <div class="sitemap-link-icon">📝</div>
+        <div>
+          <div class="sitemap-link-title">How to Make Glitch Text</div>
+          <div class="sitemap-link-description">Step-by-step guide to creating glitch text</div>
+        </div>
+      </a>
+      
+      <a href="/zalgo-text-explained" class="sitemap-link">
+        <div class="sitemap-link-icon">🔍</div>
+        <div>
+          <div class="sitemap-link-title">Zalgo Text Explained</div>
+          <div class="sitemap-link-description">History and meaning of Zalgo text</div>
+        </div>
+      </a>
+      
+      <a href="/creepypasta-explained" class="sitemap-link">
+        <div class="sitemap-link-icon">📚</div>
+        <div>
+          <div class="sitemap-link-title">Creepypasta Explained</div>
+          <div class="sitemap-link-description">Internet horror stories and digital folklore</div>
+        </div>
+      </a>
+    </div>
+  </div>
+  
+  <div class="sitemap-section">
+    <h2 class="section-title">Other Pages</h2>
+    <div class="sitemap-links">
+      <a href="/examples" class="sitemap-link">
+        <div class="sitemap-link-icon">📊</div>
+        <div>
+          <div class="sitemap-link-title">Examples</div>
+          <div class="sitemap-link-description">Example use cases and applications</div>
+        </div>
+      </a>
+      
+      <a href="/about" class="sitemap-link">
+        <div class="sitemap-link-icon">ℹ️</div>
+        <div>
+          <div class="sitemap-link-title">About</div>
+          <div class="sitemap-link-description">About GlitchTextEffect.com</div>
+        </div>
+      </a>
+      
+      <a href="/sitemap.xml" class="sitemap-link">
+        <div class="sitemap-link-icon">🗺️</div>
+        <div>
+          <div class="sitemap-link-title">XML Sitemap</div>
+          <div class="sitemap-link-description">XML sitemap for search engines</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

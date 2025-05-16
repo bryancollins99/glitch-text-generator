@@ -1,0 +1,201 @@
+{% extends "seo/info_base.html" %}
+
+{% block page_styles %}
+.glitch-example {
+  font-family: 'Courier New', monospace;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  word-break: break-word;
+}
+
+.glitch-types {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.glitch-type-card {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 1.5rem;
+  border-left: 4px solid var(--accent-color);
+}
+
+.glitch-type-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.glitch-type-example {
+  font-family: 'Courier New', monospace;
+  margin: 1rem 0;
+  font-size: 1.1rem;
+}
+{% endblock %}
+
+{% block info_content %}
+<p>
+  Glitch text is a stylized form of text that appears distorted, corrupted, or "glitched" - as if it has been affected by a digital error or malfunction. This aesthetic has become popular in digital art, social media, gaming communities, and cyberpunk culture.
+</p>
+
+<div class="glitch-example">
+  N̷̨̛̪̱̮̣̤̙̱̬̱̯̰̫̜̜̰̱̆̓̈́̀̓̓̈́̌̈́͘͝ͅơ̷̢̡̱̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝r̷̢̧̛̭̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝m̷̢̡̛̱̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝a̷̢̧̛̭̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝ḻ̷̢̡̛̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝ ̷̢̧̛̭̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝ṯ̷̢̡̛̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝ḙ̷̢̧̛̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝x̷̢̡̛̱̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝ṱ̷̢̧̛̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝ ̷̢̡̛̱̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝ṱ̷̢̧̛̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝ṟ̷̢̡̛̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝a̷̢̧̛̭̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝ṉ̷̢̡̛̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝s̷̢̧̛̭̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝f̷̢̡̛̱̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝ơ̷̢̧̭̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝ṟ̷̢̡̛̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝m̷̢̧̛̭̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝e̷̢̡̛̱̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝ḓ̷̢̧̛̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝ ̷̢̡̛̱̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝i̷̢̧̛̭̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝ṉ̷̢̡̛̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝ṱ̷̢̧̛̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝ơ̷̢̡̱̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝ ̷̢̧̛̭̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝g̷̢̡̛̱̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝ḽ̷̢̧̛̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝i̷̢̡̛̱̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝ṱ̷̢̧̛̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝c̷̢̡̛̱̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝h̷̢̧̛̭̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝ ̷̢̡̛̱̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝ṱ̷̢̧̛̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝e̷̢̡̛̱̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝x̷̢̧̛̭̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝ṯ̷̢̡̛̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝
+</div>
+
+<h2 id="how-glitch-text-works">How Glitch Text Works</h2>
+
+<p>
+  Glitch text isn't actually "broken" - it's created using special Unicode characters that are stacked or combined in ways that make text appear corrupted. These effects are achieved through several methods:
+</p>
+
+<div class="glitch-types">
+  <div class="glitch-type-card">
+    <div class="glitch-type-title">Combining Diacritical Marks</div>
+    <p>Unicode includes special characters called "combining diacritical marks" that are designed to be placed above or below standard letters. When these marks are stacked excessively, they create the appearance of glitched or corrupted text.</p>
+    <div class="glitch-type-example">Z̤̲̙͇̜̖̯̫͚͎͓̝̘̬̥͆͂̓͋̈́͐̏͑̊̚͝ͅa̤̲̙͇̜̖̯̫͚͎͓̝̘̬̥͆͂̓͋̈́͐̏͑̊̚͝ͅl̤̲̙͇̜̖̯̫͚͎͓̝̘̬̥͆͂̓͋̈́͐̏͑̊̚͝ͅg̤̲̙͇̜̖̯̫͚͎͓̝̘̬̥͆͂̓͋̈́͐̏͑̊̚͝ͅo̤̲̙͇̜̖̯̫͚͎͓̝̘̬̥͆͂̓͋̈́͐̏͑̊̚͝ͅ</div>
+  </div>
+  
+  <div class="glitch-type-card">
+    <div class="glitch-type-title">Special Unicode Characters</div>
+    <p>Unicode contains thousands of special characters from different writing systems. By substituting standard Latin letters with similar-looking characters from other scripts, text can appear glitched while remaining readable.</p>
+    <div class="glitch-type-example">Ｇｌｉｔｃｈ Ｔｅｘｔ</div>
+  </div>
+  
+  <div class="glitch-type-card">
+    <div class="glitch-type-title">Strikethrough & Combining Lines</div>
+    <p>Characters like the combining long stroke overlay (U+0336) create a strikethrough effect that makes text appear corrupted or redacted.</p>
+    <div class="glitch-type-example">G̶l̶i̶t̶c̶h̶ ̶T̶e̶x̶t̶</div>
+  </div>
+</div>
+
+<h2 id="types-of-glitch-text">Types of Glitch Text</h2>
+
+<p>There are several popular styles of glitch text, each with its own aesthetic and use cases:</p>
+
+<h3 id="zalgo-text">Zalgo Text (Cursed Text)</h3>
+
+<p>
+  Zalgo text (also known as cursed text) is characterized by extensive use of combining diacritical marks that extend far above and below the normal text line. It creates a chaotic, horror-inspired aesthetic that appears to be "dripping" or corrupted.
+</p>
+
+<div class="glitch-example">
+  H̸̢̧̛̭̣̖̙̙̞̩̖̰̓̈́̀̓̓̈́̌̈́͘͝ͅE̸̢̡̛̱̰̯̱̣̞̙͖̠̓̈́̀̓̓̈́̌̈́͘͝ ̸̢̧̛̭̣̖̙̙̞̩̖̰̓̈́̀̓̓̈́̌̈́͘͝ͅC̸̢̡̛̱̰̯̱̣̞̙͖̠̓̈́̀̓̓̈́̌̈́͘͝Ơ̸̢̧̭̣̖̙̙̞̩̖̰̓̈́̀̓̓̈́̌̈́͘͝ͅM̸̢̡̛̱̰̯̱̣̞̙͖̠̓̈́̀̓̓̈́̌̈́͘͝Ḙ̸̢̧̛̣̖̙̙̞̩̖̰̓̈́̀̓̓̈́̌̈́͘͝ͅS̸̢̡̛̱̰̯̱̣̞̙͖̠̓̈́̀̓̓̈́̌̈́͘͝
+</div>
+
+<h3 id="vaporwave-text">Vaporwave Text (Aesthetic Text)</h3>
+
+<p>
+  Vaporwave text uses full-width characters from East Asian writing systems to create a spaced-out, retro aesthetic popular in vaporwave art and music. It's often associated with 90s nostalgia and internet culture.
+</p>
+
+<div class="glitch-example">
+  ＡＥＳＴＨＥＴＩＣ  ＴＥＸＴ
+</div>
+
+<h3 id="strikethrough-glitch">Strikethrough Glitch</h3>
+
+<p>
+  This style uses combining characters that create a strikethrough effect, giving text the appearance of being crossed out or redacted. It's often used to create a subtle glitch effect that remains highly readable.
+</p>
+
+<div class="glitch-example">
+  S̶t̶r̶i̶k̶e̶t̶h̶r̶o̶u̶g̶h̶ ̶G̶l̶i̶t̶c̶h̶
+</div>
+
+<h3 id="binary-corruption">Binary Corruption</h3>
+
+<p>
+  This style randomly replaces characters with binary digits (0 and 1) or other symbols associated with computer code, creating the impression of digital corruption or data errors.
+</p>
+
+<div class="glitch-example">
+  B1n4ry C0rrupt10n
+</div>
+
+<h2 id="history-of-glitch-text">The History of Glitch Text</h2>
+
+<p>
+  The concept of "glitch" as an aesthetic emerged in the early 2000s as digital artists began to intentionally incorporate errors and corruptions into their work. The term itself comes from the German word "glitschen" (to slip) and was first used by astronauts in the 1960s to describe technical problems.
+</p>
+
+<p>
+  Zalgo text, one of the most popular forms of glitch text, originated around 2004 in internet forums and is associated with creepypasta horror stories. The name "Zalgo" comes from a comic by Dave Kelly where the character Zalgo represents an eldritch horror that corrupts and distorts reality.
+</p>
+
+<p>
+  Vaporwave text emerged in the early 2010s alongside the vaporwave music genre, which incorporated elements of 80s and 90s pop culture, corporate aesthetics, and early internet imagery. The full-width characters used in vaporwave text were originally designed for East Asian writing systems to align with standard Latin characters in fixed-width displays.
+</p>
+
+<h2 id="uses-of-glitch-text">Common Uses of Glitch Text</h2>
+
+<p>
+  Glitch text has found its way into various aspects of digital culture:
+</p>
+
+<ul>
+  <li><strong>Social Media Profiles:</strong> Standing out with unique usernames and bios</li>
+  <li><strong>Digital Art:</strong> Creating cyberpunk, vaporwave, or horror-themed visuals</li>
+  <li><strong>Gaming:</strong> Customizing in-game names and chat messages</li>
+  <li><strong>Web Design:</strong> Adding glitch effects to create edgy or alternative aesthetics</li>
+  <li><strong>Memes:</strong> Enhancing internet humor with corrupted text effects</li>
+  <li><strong>Horror Content:</strong> Creating unsettling effects for creepypasta and digital horror</li>
+</ul>
+
+<h2 id="creating-glitch-text">How to Create Glitch Text</h2>
+
+<p>
+  While you could manually add Unicode combining characters to create glitch text, it's much easier to use a dedicated tool like our <a href="/glitch-text" class="cta-button">Glitch Text Generator</a>.
+</p>
+
+<p>
+  Our generator allows you to:
+</p>
+
+<ul>
+  <li>Choose from multiple glitch styles (Zalgo, ASCII, Binary, etc.)</li>
+  <li>Adjust the intensity of the glitch effect</li>
+  <li>Apply different font styles</li>
+  <li>Copy the result for use anywhere</li>
+  <li>Download your glitched text as an image</li>
+</ul>
+
+<p>
+  <a href="/glitch-text" class="cta-button">Try Our Glitch Text Generator</a>
+</p>
+
+<h2 id="platform-compatibility">Platform Compatibility</h2>
+
+<p>
+  While glitch text works on most modern platforms, there are some limitations to be aware of:
+</p>
+
+<ul>
+  <li><strong>Social Media:</strong> Most platforms support basic glitch text, but excessive Zalgo effects may be truncated</li>
+  <li><strong>Usernames:</strong> Many platforms restrict special characters in usernames</li>
+  <li><strong>Mobile Devices:</strong> Some older mobile devices may not display all Unicode characters correctly</li>
+  <li><strong>Accessibility:</strong> Screen readers may have difficulty interpreting heavily glitched text</li>
+</ul>
+
+<p>
+  For best results, use moderate glitch effects when compatibility is important, and save the more extreme effects for platforms you know support them.
+</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>
+  Glitch text represents the fascinating intersection of technology, art, and internet culture. What began as actual errors in digital systems has evolved into an intentional aesthetic that allows for creative expression across various digital platforms.
+</p>
+
+<p>
+  Whether you're looking to stand out on social media, create unique digital art, or just have fun with text effects, glitch text offers a way to transform ordinary text into something extraordinary.
+</p>
+
+<p>
+  Ready to create your own glitch text? Try our <a href="/glitch-text" class="cta-button">Glitch Text Generator</a> and start experimenting with different styles and effects.
+</p>
+{% endblock %}

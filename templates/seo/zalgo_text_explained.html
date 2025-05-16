@@ -1,0 +1,364 @@
+{% extends "seo/info_base.html" %}
+
+{% block page_styles %}
+.zalgo-example {
+  font-family: 'Courier New', monospace;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  word-break: break-word;
+  line-height: 2;
+}
+
+.zalgo-mild {
+  font-size: 1.2rem;
+}
+
+.zalgo-medium {
+  font-size: 1.2rem;
+}
+
+.zalgo-extreme {
+  font-size: 1.2rem;
+}
+
+.history-timeline {
+  position: relative;
+  margin: 2rem 0;
+  padding-left: 2rem;
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 2rem;
+  padding-left: 1.5rem;
+}
+
+.timeline-item:before {
+  content: "";
+  position: absolute;
+  left: -2rem;
+  top: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+  background: var(--accent-color);
+  border-radius: 50%;
+}
+
+.timeline-item:after {
+  content: "";
+  position: absolute;
+  left: -1.5rem;
+  top: 1.5rem;
+  width: 2px;
+  height: calc(100% - 1rem);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.timeline-item:last-child:after {
+  display: none;
+}
+
+.timeline-date {
+  font-weight: bold;
+  color: var(--accent-color);
+  margin-bottom: 0.5rem;
+}
+
+.zalgo-types {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.zalgo-type-card {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 1.5rem;
+  border-left: 4px solid var(--accent-color);
+}
+
+.zalgo-type-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.zalgo-type-example {
+  font-family: 'Courier New', monospace;
+  margin: 1rem 0;
+  font-size: 1.1rem;
+}
+
+.quote-box {
+  background: rgba(0, 0, 0, 0.3);
+  border-left: 4px solid var(--accent-color);
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  border-radius: 0 8px 8px 0;
+}
+
+.quote-source {
+  text-align: right;
+  margin-top: 1rem;
+  font-style: normal;
+  opacity: 0.8;
+}
+
+.technical-section {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+.code-example {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  border-radius: 4px;
+  font-family: monospace;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.popular-culture {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.culture-item {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 1.5rem;
+  border-top: 4px solid var(--accent-color);
+}
+
+.culture-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+{% endblock %}
+
+{% block info_content %}
+<p>
+  Zalgo text, also known as "corrupted text" or "glitch text," is a digital text phenomenon where standard Latin characters are combined with multiple combining diacritical marks to create a distorted, glitchy appearance. This unique text style has become a significant part of internet culture, particularly in horror-themed content and memes.
+</p>
+
+<div class="zalgo-example zalgo-mild">
+  Ẕ̸̢̡̛̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝a̸̢̧̛̭̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝ḻ̸̢̡̛̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝g̸̢̧̛̭̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝ơ̸̢̡̱̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝ ̸̢̧̛̭̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝ṯ̸̢̡̛̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝ḙ̸̢̧̛̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝x̸̢̡̛̱̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝ṱ̸̢̧̛̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝ ̸̢̡̛̱̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝ḙ̸̢̧̛̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝x̸̢̡̛̱̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝a̸̢̧̛̭̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝m̸̢̡̛̱̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝p̸̢̧̛̭̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝ḻ̸̢̡̛̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝ḙ̸̢̧̛̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝
+</div>
+
+<h2 id="origin-and-etymology">Origin and Etymology of Zalgo Text</h2>
+
+<p>
+  The term "Zalgo" originated from a series of web comics created by artist Dave Kelly (also known as "Shmorky") around 2004. In these comics, Zalgo is depicted as an eldritch entity that causes corruption and distortion in reality, often represented by text becoming increasingly corrupted and illegible.
+</p>
+
+<div class="quote-box">
+  "He comes. The bees are in my eyes. The bees are in my mouth. Zalgo. He waits behind the wall. In a palace of tortured glass. Of soul. Behind the curtains of sleep. In his house at R'lyeh. Zalgo."
+  <div class="quote-source">— Common Zalgo invocation in early internet memes</div>
+</div>
+
+<p>
+  The character of Zalgo was heavily influenced by H.P. Lovecraft's cosmic horror entities, particularly Cthulhu. Like Lovecraftian horrors, Zalgo represents incomprehensible cosmic terror that corrupts and distorts reality itself.
+</p>
+
+<div class="history-timeline">
+  <div class="timeline-item">
+    <div class="timeline-date">2004</div>
+    <div class="timeline-content">
+      <p>Dave Kelly creates the character of Zalgo in his web comics, depicting it as a reality-corrupting entity.</p>
+    </div>
+  </div>
+  
+  <div class="timeline-item">
+    <div class="timeline-date">2004-2006</div>
+    <div class="timeline-content">
+      <p>The concept of Zalgo spreads through forums and image boards, becoming associated with corrupted text and images.</p>
+    </div>
+  </div>
+  
+  <div class="timeline-item">
+    <div class="timeline-date">2009</div>
+    <div class="timeline-content">
+      <p>The first Zalgo text generators appear online, allowing users to easily create corrupted text.</p>
+    </div>
+  </div>
+  
+  <div class="timeline-item">
+    <div class="timeline-date">2010-2013</div>
+    <div class="timeline-content">
+      <p>Zalgo text becomes widely used in creepypasta stories and horror-themed internet content.</p>
+    </div>
+  </div>
+  
+  <div class="timeline-item">
+    <div class="timeline-date">2014-Present</div>
+    <div class="timeline-content">
+      <p>Zalgo text evolves beyond horror contexts and becomes a popular stylistic choice for usernames, social media posts, and digital art.</p>
+    </div>
+  </div>
+</div>
+
+<h2 id="how-zalgo-text-works">How Zalgo Text Works: The Technical Explanation</h2>
+
+<p>
+  Zalgo text isn't actually "broken" or "corrupted" in a technical sense. It's created using legitimate Unicode characters that are combined in ways that create a visually distorted effect. The key to understanding Zalgo text is in Unicode's combining diacritical marks.
+</p>
+
+<div class="technical-section">
+  <h3>Unicode Combining Characters</h3>
+  
+  <p>
+    Unicode includes a range of characters called "combining diacritical marks" that are designed to be placed above, below, or through base characters. These marks were created to support various writing systems that use accent marks and other diacritics.
+  </p>
+  
+  <p>
+    Some examples of combining diacritical marks include:
+  </p>
+  
+  <ul>
+    <li>U+0300 to U+036F: Combining Diacritical Marks</li>
+    <li>U+1AB0 to U+1AFF: Combining Diacritical Marks Extended</li>
+    <li>U+1DC0 to U+1DFF: Combining Diacritical Marks Supplement</li>
+    <li>U+20D0 to U+20FF: Combining Diacritical Marks for Symbols</li>
+  </ul>
+  
+  <p>
+    Zalgo text generators stack multiple combining marks on each character, creating the distorted, glitchy appearance. The Unicode standard doesn't limit how many combining marks can be applied to a single character, which allows for the extreme distortion seen in Zalgo text.
+  </p>
+  
+  <div class="code-example">
+    Normal character: a
+    Character with one combining mark: á (a + U+0301)
+    Zalgo character: ă̷̡̨̛̪̱̮̣̤̙̱̬̱̯̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝ͅ (a + multiple combining marks)
+  </div>
+</div>
+
+<h2 id="types-of-zalgo">Types of Zalgo Text Effects</h2>
+
+<p>
+  Zalgo text can be customized in various ways, with different visual effects depending on which combining marks are used and where they're placed relative to the base character.
+</p>
+
+<div class="zalgo-types">
+  <div class="zalgo-type-card">
+    <div class="zalgo-type-title">Top-Heavy Zalgo</div>
+    <p>Combining marks are primarily placed above the base characters, creating an effect that extends upward.</p>
+    <div class="zalgo-type-example">T̸̨̛̪̱̮̣̤̙̱̬̱̯̰̆̓̈́̀̓̓̈́̌̈́͘͝ͅǫ̸̛̪̱̮̣̤̙̱̬̱̯̰̆̓̈́̀̓̓̈́̌̈́͘͝ͅp̸̨̛̪̱̮̣̤̙̱̬̱̯̰̆̓̈́̀̓̓̈́̌̈́͘͝ͅ-̸̨̛̪̱̮̣̤̙̱̬̱̯̰̆̓̈́̀̓̓̈́̌̈́͘͝ͅh̸̨̛̪̱̮̣̤̙̱̬̱̯̰̆̓̈́̀̓̓̈́̌̈́͘͝ͅę̸̛̪̱̮̣̤̙̱̬̱̯̰̆̓̈́̀̓̓̈́̌̈́͘͝ͅą̸̛̪̱̮̣̤̙̱̬̱̯̰̆̓̈́̀̓̓̈́̌̈́͘͝ͅv̸̨̛̪̱̮̣̤̙̱̬̱̯̰̆̓̈́̀̓̓̈́̌̈́͘͝ͅy̸̨̛̪̱̮̣̤̙̱̬̱̯̰̆̓̈́̀̓̓̈́̌̈́͘͝ͅ</div>
+  </div>
+  
+  <div class="zalgo-type-card">
+    <div class="zalgo-type-title">Bottom-Heavy Zalgo</div>
+    <p>Combining marks are primarily placed below the base characters, creating an effect that extends downward.</p>
+    <div class="zalgo-type-example">B̵̢̧̭̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝o̵̢̧̭̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝ṱ̵̢̧̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝ṱ̵̢̧̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝o̵̢̧̭̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝m̵̢̧̭̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝-̵̢̧̭̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝h̵̢̧̭̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝ḙ̵̢̧̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝a̵̢̧̭̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝v̵̢̧̭̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝y̵̢̧̭̣̖̙̙̞̩̖̰̫̜̜̰̱̓̈́̀̓̓̈́̌̈́͘͝</div>
+  </div>
+  
+  <div class="zalgo-type-card">
+    <div class="zalgo-type-title">Middle Zalgo</div>
+    <p>Combining marks are primarily placed through the middle of base characters, creating a horizontally distorted effect.</p>
+    <div class="zalgo-type-example">M̴̢̡̱̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝i̴̢̡̱̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝ḏ̴̢̡̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝ḏ̴̢̡̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝ḻ̴̢̡̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝e̴̢̡̱̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝</div>
+  </div>
+  
+  <div class="zalgo-type-card">
+    <div class="zalgo-type-title">Full Zalgo</div>
+    <p>Combining marks are placed above, below, and through the base characters, creating maximum distortion in all directions.</p>
+    <div class="zalgo-type-example">F̴̢̡̱̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝ų̴̢̡̱̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝ḻ̴̢̡̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝ḻ̴̢̡̰̯̱̣̞̙͖̠̬̫̘̤̠̓̈́̀̓̓̈́̌̈́͘͝</div>
+  </div>
+</div>
+
+<h2 id="zalgo-in-culture">Zalgo Text in Internet Culture</h2>
+
+<p>
+  Zalgo text has become deeply embedded in internet culture, particularly in contexts related to horror, surrealism, and digital art. Its distinctive appearance has made it a popular choice for various online communities and creative expressions.
+</p>
+
+<div class="popular-culture">
+  <div class="culture-item">
+    <div class="culture-title">Creepypasta</div>
+    <p>Zalgo text is frequently used in creepypasta horror stories to represent supernatural corruption, madness, or the speech of eldritch entities. The distorted text visually reinforces the unsettling nature of these stories.</p>
+  </div>
+  
+  <div class="culture-item">
+    <div class="culture-title">Memes</div>
+    <p>Zalgo text has been incorporated into various memes, particularly those with horror or surreal themes. The "He Comes" meme, which references Zalgo directly, uses corrupted text to enhance its disturbing effect.</p>
+  </div>
+  
+  <div class="culture-item">
+    <div class="culture-title">Digital Art</div>
+    <p>Artists working in glitch art, vaporwave, and other digital art movements have embraced Zalgo text as a visual element that complements the distorted, corrupted aesthetic of these styles.</p>
+  </div>
+  
+  <div class="culture-item">
+    <div class="culture-title">Gaming</div>
+    <p>Gamers often use Zalgo text for usernames, clan tags, and in-game communications to create a distinctive, memorable presence in online games.</p>
+  </div>
+</div>
+
+<h2 id="practical-uses">Practical Uses of Zalgo Text</h2>
+
+<p>
+  While Zalgo text originated in horror contexts, it has evolved to serve various practical and creative purposes:
+</p>
+
+<ul>
+  <li><strong>Attention-Grabbing Text:</strong> On social media platforms, Zalgo text can make posts and usernames stand out from standard text.</li>
+  <li><strong>Artistic Expression:</strong> Digital artists use Zalgo text as a stylistic element in various art forms.</li>
+  <li><strong>Thematic Enhancement:</strong> Horror, sci-fi, and cyberpunk content creators use Zalgo text to enhance the atmosphere of their work.</li>
+  <li><strong>Unique Branding:</strong> Some brands and creators use mild Zalgo effects as part of their distinctive online identity.</li>
+  <li><strong>Humor and Memes:</strong> Zalgo text is often used for comedic effect, particularly in surreal or absurdist humor.</li>
+</ul>
+
+<h2 id="limitations">Limitations and Considerations</h2>
+
+<p>
+  While Zalgo text can be a powerful stylistic tool, there are some important limitations and considerations to keep in mind:
+</p>
+
+<ul>
+  <li><strong>Platform Compatibility:</strong> Not all platforms handle Zalgo text well. Some may truncate or sanitize heavily corrupted text.</li>
+  <li><strong>Accessibility Issues:</strong> Screen readers and other assistive technologies may struggle with Zalgo text, making it inaccessible to some users.</li>
+  <li><strong>Readability:</strong> Heavily corrupted Zalgo text can be difficult or impossible to read, limiting its usefulness for actual communication.</li>
+  <li><strong>Professional Contexts:</strong> Zalgo text is generally inappropriate for formal or professional communications.</li>
+  <li><strong>Resource Intensity:</strong> Rendering extreme Zalgo text can be resource-intensive for some devices or applications.</li>
+</ul>
+
+<h2 id="creating-zalgo">Creating Your Own Zalgo Text</h2>
+
+<p>
+  If you want to create your own Zalgo text, our <a href="/glitch-text" class="cta-button">Glitch Text Generator</a> makes it easy. Our tool allows you to:
+</p>
+
+<ul>
+  <li>Adjust the intensity of the corruption effect</li>
+  <li>Choose whether to apply effects above, below, or through the text</li>
+  <li>Preview your Zalgo text before copying it</li>
+  <li>Copy the result for use anywhere that supports Unicode text</li>
+</ul>
+
+<p>
+  <a href="/glitch-text" class="cta-button">Try Our Zalgo Text Generator</a>
+</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>
+  Zalgo text represents a fascinating intersection of internet culture, horror aesthetics, and Unicode technology. What began as a visual representation of cosmic horror has evolved into a versatile stylistic tool used across various digital contexts.
+</p>
+
+<p>
+  Whether you're creating creepy content, looking to stand out on social media, or just experimenting with text effects, Zalgo text offers a unique way to transform ordinary text into something extraordinary—and sometimes extraordinarily unsettling.
+</p>
+
+<p>
+  Ready to create your own corrupted text? Try our <a href="/glitch-text" class="cta-button">Glitch Text Generator</a> and start experimenting with different Zalgo styles and intensities.
+</p>
+{% endblock %}

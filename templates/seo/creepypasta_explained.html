@@ -1,0 +1,382 @@
+{% extends "seo/info_base.html" %}
+
+{% block page_styles %}
+.creepy-example {
+  background: rgba(0, 0, 0, 0.3);
+  border-left: 4px solid #b91c1c;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
+  font-family: 'Georgia', serif;
+  line-height: 1.6;
+}
+
+.history-timeline {
+  position: relative;
+  margin: 2rem 0;
+  padding-left: 2rem;
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 2rem;
+  padding-left: 1.5rem;
+}
+
+.timeline-item:before {
+  content: "";
+  position: absolute;
+  left: -2rem;
+  top: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+  background: #b91c1c;
+  border-radius: 50%;
+}
+
+.timeline-item:after {
+  content: "";
+  position: absolute;
+  left: -1.5rem;
+  top: 1.5rem;
+  width: 2px;
+  height: calc(100% - 1rem);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.timeline-item:last-child:after {
+  display: none;
+}
+
+.timeline-date {
+  font-weight: bold;
+  color: #b91c1c;
+  margin-bottom: 0.5rem;
+}
+
+.creepy-types {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.creepy-type-card {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 1.5rem;
+  border-left: 4px solid #b91c1c;
+}
+
+.creepy-type-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.famous-creepypasta {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.creepypasta-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #b91c1c;
+}
+
+.creepypasta-origin {
+  font-style: italic;
+  margin-bottom: 1rem;
+  opacity: 0.8;
+}
+
+.creepypasta-summary {
+  margin-bottom: 1rem;
+}
+
+.creepypasta-impact {
+  font-weight: bold;
+}
+
+.quote-box {
+  background: rgba(0, 0, 0, 0.3);
+  border-left: 4px solid #b91c1c;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  border-radius: 0 8px 8px 0;
+}
+
+.quote-source {
+  text-align: right;
+  margin-top: 1rem;
+  font-style: normal;
+  opacity: 0.8;
+}
+
+.popular-culture {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.culture-item {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 1.5rem;
+  border-top: 4px solid #b91c1c;
+}
+
+.culture-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.zalgo-example {
+  font-family: 'Courier New', monospace;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  word-break: break-word;
+  line-height: 2;
+}
+{% endblock %}
+
+{% block info_content %}
+<p>
+  Creepypasta is a term for horror-related legends or images that have been copied and pasted around the internet. These digital urban legends have become a significant part of internet culture, creating a new form of collaborative storytelling and digital folklore.
+</p>
+
+<div class="creepy-example">
+  "The last man on Earth sat alone in a room. There was a knock on the door..."
+</div>
+
+<h2 id="what-is-creepypasta">What is Creepypasta?</h2>
+
+<p>
+  The term "creepypasta" comes from the internet slang "copypasta," which refers to text that has been copied and pasted multiple times across different sites. "Creepypasta" specifically refers to horror stories or legends shared this way.
+</p>
+
+<p>
+  These digital horror stories range from brief, unsettling paragraphs to elaborate narratives spanning multiple posts or even websites. They often blend elements of urban legends, paranormal encounters, psychological horror, and technological fears to create uniquely internet-native horror experiences.
+</p>
+
+<div class="quote-box">
+  "Creepypasta represents the evolution of oral folklore traditions in the digital age. Instead of stories being passed around campfires, they're shared through forums, social media, and dedicated websites."
+  <div class="quote-source">— Digital Folklore Studies Journal, 2018</div>
+</div>
+
+<h2 id="history-of-creepypasta">The History and Evolution of Creepypasta</h2>
+
+<p>
+  Creepypasta emerged in the early 2000s as internet culture began to develop its own traditions and forms of expression. What started as simple copy-and-pasted ghost stories has evolved into a complex ecosystem of horror content creation.
+</p>
+
+<div class="history-timeline">
+  <div class="timeline-item">
+    <div class="timeline-date">Early 2000s</div>
+    <div class="timeline-content">
+      <p>Simple horror stories begin circulating on message boards and forums. These early creepypastas were often brief and designed to be easily copied and shared.</p>
+    </div>
+  </div>
+  
+  <div class="timeline-item">
+    <div class="timeline-date">2005-2008</div>
+    <div class="timeline-content">
+      <p>The term "creepypasta" emerges on 4chan and similar image boards. Stories become more elaborate, often incorporating images and other media.</p>
+    </div>
+  </div>
+  
+  <div class="timeline-item">
+    <div class="timeline-date">2009-2011</div>
+    <div class="timeline-content">
+      <p>Iconic creepypastas like "Slender Man," "Jeff the Killer," and "The Russian Sleep Experiment" gain widespread popularity. The Creepypasta Wiki is established as a central repository.</p>
+    </div>
+  </div>
+  
+  <div class="timeline-item">
+    <div class="timeline-date">2012-2015</div>
+    <div class="timeline-content">
+      <p>Creepypasta enters mainstream awareness. The Slender Man stabbing incident in 2014 brings negative attention but also demonstrates the cultural impact of these stories.</p>
+    </div>
+  </div>
+  
+  <div class="timeline-item">
+    <div class="timeline-date">2016-Present</div>
+    <div class="timeline-content">
+      <p>Creepypasta evolves into a more sophisticated form of digital storytelling, influencing mainstream media, including TV shows, films, and games. Platforms like Reddit's r/nosleep become major hubs for original horror fiction.</p>
+    </div>
+  </div>
+</div>
+
+<h2 id="types-of-creepypasta">Types of Creepypasta</h2>
+
+<p>
+  Creepypasta has developed distinct subgenres, each with its own conventions and themes:
+</p>
+
+<div class="creepy-types">
+  <div class="creepy-type-card">
+    <div class="creepy-type-title">Lost Episode/Haunted Media</div>
+    <p>Stories about disturbing "lost" episodes of popular TV shows or corrupted media files that cause psychological harm or supernatural events when viewed.</p>
+    <p><strong>Examples:</strong> "Squidward's Suicide," "BEN Drowned," "Dead Bart"</p>
+  </div>
+  
+  <div class="creepy-type-card">
+    <div class="creepy-type-title">Ritual Pastas</div>
+    <p>Instructions for supernatural rituals that supposedly allow contact with spirits or access to other dimensions, often with dire warnings about what happens if performed incorrectly.</p>
+    <p><strong>Examples:</strong> "Midnight Game," "Three Kings," "Elevator Ritual"</p>
+  </div>
+  
+  <div class="creepy-type-card">
+    <div class="creepy-type-title">Monster/Entity Stories</div>
+    <p>Tales featuring original supernatural entities or monsters that stalk, haunt, or otherwise terrorize victims.</p>
+    <p><strong>Examples:</strong> "Slender Man," "The Rake," "Smile Dog"</p>
+  </div>
+  
+  <div class="creepy-type-card">
+    <div class="creepy-type-title">Psychological Horror</div>
+    <p>Stories that focus on mental deterioration, paranoia, or disturbing psychological phenomena rather than supernatural elements.</p>
+    <p><strong>Examples:</strong> "Psychosis," "The Russian Sleep Experiment," "Candle Cove"</p>
+  </div>
+  
+  <div class="creepy-type-card">
+    <div class="creepy-type-title">Technology Horror</div>
+    <p>Stories that center on technology gone wrong, AI with malicious intent, or cursed websites/programs.</p>
+    <p><strong>Examples:</strong> "Normal Porn for Normal People," "User 666," "The Grifter"</p>
+  </div>
+  
+  <div class="creepy-type-card">
+    <div class="creepy-type-title">Short-Form Creepypasta</div>
+    <p>Brief, often single-paragraph stories designed to deliver a quick scare or unsettling concept.</p>
+    <p><strong>Examples:</strong> "The Last Man on Earth," "They're Watching," "Footsteps"</p>
+  </div>
+</div>
+
+<h2 id="famous-creepypastas">Famous Creepypasta Stories</h2>
+
+<p>
+  Some creepypastas have achieved legendary status in internet culture, becoming widely recognized even outside horror communities:
+</p>
+
+<div class="famous-creepypasta">
+  <div class="creepypasta-title">Slender Man</div>
+  <div class="creepypasta-origin">Origin: Created by Eric Knudsen (aka "Victor Surge") in 2009 for a Something Awful forum contest</div>
+  <div class="creepypasta-summary">
+    <p>Slender Man is depicted as an unnaturally tall, thin figure wearing a black suit with a blank, featureless face. He is said to stalk, abduct, or traumatize people, particularly children. The character was created as part of a Photoshop contest to create paranormal images.</p>
+  </div>
+  <div class="creepypasta-impact">
+    <p>Slender Man became one of the most recognizable internet horror icons, inspiring numerous games, films, and derivative works. The character gained mainstream notoriety following a 2014 stabbing incident where two young girls attacked a classmate, claiming to do so to appease Slender Man.</p>
+  </div>
+</div>
+
+<div class="famous-creepypasta">
+  <div class="creepypasta-title">Candle Cove</div>
+  <div class="creepypasta-origin">Origin: Written by Kris Straub in 2009</div>
+  <div class="creepypasta-summary">
+    <p>Presented as a forum discussion between adults reminiscing about a disturbing children's TV show from their youth called "Candle Cove." As they share increasingly unsettling memories of the show, the story culminates in the revelation that the show never existed—children were actually watching static on a dead channel.</p>
+  </div>
+  <div class="creepypasta-impact">
+    <p>Candle Cove is considered one of the most influential creepypastas, praised for its unique format and psychological horror. It was later adapted as the first season of the SyFy channel series "Channel Zero."</p>
+  </div>
+</div>
+
+<div class="famous-creepypasta">
+  <div class="creepypasta-title">The Russian Sleep Experiment</div>
+  <div class="creepypasta-origin">Origin: Anonymous, circa 2010</div>
+  <div class="creepypasta-summary">
+    <p>The story describes a fictional Soviet experiment in which five political prisoners were kept awake for 15 days using an experimental gas. As the experiment progresses, the subjects exhibit increasingly disturbing behavior, mutilating themselves and displaying superhuman strength and resilience.</p>
+  </div>
+  <div class="creepypasta-impact">
+    <p>Despite being completely fictional, this story is often mistaken for a real historical event. Its visceral body horror and psychological elements have made it one of the most enduring and frequently shared creepypastas.</p>
+  </div>
+</div>
+
+<h2 id="creepypasta-and-zalgo">Creepypasta and Zalgo Text: A Special Connection</h2>
+
+<p>
+  Zalgo text and creepypasta have a special relationship in internet horror culture. Zalgo text is often used in creepypasta stories to represent corruption, madness, or supernatural influence.
+</p>
+
+<div class="zalgo-example">
+  H̸̢̧̛̭̣̖̙̙̞̩̖̰̓̈́̀̓̓̈́̌̈́͘͝ͅE̸̢̡̛̱̰̯̱̣̞̙͖̠̓̈́̀̓̓̈́̌̈́͘͝ ̸̢̧̛̭̣̖̙̙̞̩̖̰̓̈́̀̓̓̈́̌̈́͘͝ͅC̸̢̡̛̱̰̯̱̣̞̙͖̠̓̈́̀̓̓̈́̌̈́͘͝Ơ̸̢̧̭̣̖̙̙̞̩̖̰̓̈́̀̓̓̈́̌̈́͘͝ͅM̸̢̡̛̱̰̯̱̣̞̙͖̠̓̈́̀̓̓̈́̌̈́͘͝Ḙ̸̢̧̛̣̖̙̙̞̩̖̰̓̈́̀̓̓̈́̌̈́͘͝ͅS̸̢̡̛̱̰̯̱̣̞̙͖̠̓̈́̀̓̓̈́̌̈́͘͝
+</div>
+
+<p>
+  The distorted, corrupted appearance of Zalgo text visually reinforces the themes of cosmic horror, reality distortion, and madness that are common in many creepypasta stories. The character of Zalgo itself, a reality-corrupting entity, has become a recurring figure in creepypasta lore.
+</p>
+
+<p>
+  When creators want to indicate that a character in their story is experiencing something beyond human comprehension or is being influenced by supernatural forces, Zalgo text provides a powerful visual representation of this corruption.
+</p>
+
+<p>
+  You can create your own Zalgo text for creepypasta stories using our <a href="/glitch-text" class="cta-button">Glitch Text Generator</a>.
+</p>
+
+<h2 id="cultural-impact">Cultural Impact of Creepypasta</h2>
+
+<p>
+  Creepypasta has had a significant impact on internet culture and beyond:
+</p>
+
+<div class="popular-culture">
+  <div class="culture-item">
+    <div class="culture-title">Digital Folklore</div>
+    <p>Creepypasta represents a new form of folklore creation and transmission, with stories evolving as they spread across the internet—much like traditional oral folklore but at digital speed.</p>
+  </div>
+  
+  <div class="culture-item">
+    <div class="culture-title">Mainstream Media</div>
+    <p>Creepypasta has influenced mainstream horror, with adaptations appearing in TV shows like "Channel Zero" and films like "Slender Man" (2018). Elements of creepypasta storytelling can be seen in shows like "Black Mirror" and "American Horror Story."</p>
+  </div>
+  
+  <div class="culture-item">
+    <div class="culture-title">Gaming</div>
+    <p>Numerous video games have been inspired by creepypasta, from indie titles like "Slender: The Eight Pages" to elements in mainstream games. "Haunted cartridge" creepypastas have influenced how game developers incorporate meta-horror elements.</p>
+  </div>
+  
+  <div class="culture-item">
+    <div class="culture-title">Community Creation</div>
+    <p>Creepypasta has fostered creative communities where amateur writers can share their work and receive feedback, serving as an entry point for many into horror writing and digital storytelling.</p>
+  </div>
+</div>
+
+<h2 id="creating-creepypasta">Creating Effective Creepypasta</h2>
+
+<p>
+  If you're interested in creating your own creepypasta, here are some tips from successful creators:
+</p>
+
+<ul>
+  <li><strong>Focus on Believability:</strong> The most effective creepypastas maintain a sense of plausibility, even when dealing with supernatural elements.</li>
+  <li><strong>Use Familiar Settings:</strong> Setting horror in everyday locations or situations makes it more relatable and unsettling.</li>
+  <li><strong>Show, Don't Tell:</strong> Let readers imagine the horror rather than describing everything explicitly.</li>
+  <li><strong>Incorporate Multimedia:</strong> Consider using images, videos, or other media to enhance your story.</li>
+  <li><strong>Create Ambiguity:</strong> Leaving some elements unexplained often makes horror more effective.</li>
+  <li><strong>Use Zalgo Text:</strong> For stories involving corruption, madness, or cosmic horror, our <a href="/glitch-text">Glitch Text Generator</a> can help create the perfect unsettling effect.</li>
+</ul>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>
+  Creepypasta represents a fascinating evolution of horror storytelling in the digital age. These internet legends have created new monsters, new fears, and new ways of sharing the stories that scare us. From simple copy-and-pasted ghost stories to elaborate multimedia narratives, creepypasta has established itself as a significant form of digital folklore and horror fiction.
+</p>
+
+<p>
+  Whether you're a longtime fan of internet horror or just discovering these digital legends, creepypasta offers a vast world of unsettling stories to explore—and perhaps contribute to yourself.
+</p>
+
+<p>
+  If you're creating your own creepypasta and want to add that perfect touch of digital corruption, try our <a href="/glitch-text" class="cta-button">Glitch Text Generator</a> to create Zalgo text that will make your readers' skin crawl.
+</p>
+{% endblock %}
