@@ -22,7 +22,7 @@ fi
 DROPLET_IP="64.23.179.161"  # Your Digital Ocean droplet IP
 SSH_USER="root"            # Your SSH user
 REMOTE_DIR="/var/www/glitch-text-generator"
-DOMAIN="glitchtext.com"    # Update with your actual domain
+DOMAIN="glitchtexteffect.com"    # Update with your actual domain
 
 # Commit changes to git
 echo "💾 Committing changes to git..."

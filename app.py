@@ -782,7 +782,7 @@ def sitemap():
     # Add home page
     url = ET.SubElement(root, 'url')
     loc = ET.SubElement(url, 'loc')
-    loc.text = 'https://glitchtext.com/'
+    loc.text = 'https://glitchtexteffect.com/'
     lastmod = ET.SubElement(url, 'lastmod')
     lastmod.text = datetime.now().strftime('%Y-%m-%d')
     
@@ -790,7 +790,7 @@ def sitemap():
     for page_key, page_data in SEO_PAGES.items():
         url = ET.SubElement(root, 'url')
         loc = ET.SubElement(url, 'loc')
-        loc.text = f'https://glitchtext.com/{page_data["url"]}'
+        loc.text = f'https://glitchtexteffect.com/{page_data["url"]}'
         lastmod = ET.SubElement(url, 'lastmod')
         lastmod.text = datetime.now().strftime('%Y-%m-%d')
     
@@ -799,7 +799,7 @@ def sitemap():
     for page in other_pages:
         url = ET.SubElement(root, 'url')
         loc = ET.SubElement(url, 'loc')
-        loc.text = f'https://glitchtext.com/{page}'
+        loc.text = f'https://glitchtexteffect.com/{page}'
         lastmod = ET.SubElement(url, 'lastmod')
         lastmod.text = datetime.now().strftime('%Y-%m-%d')
     
