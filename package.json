@@ -1,4 +1,19 @@
 {
+  "name": "glitch-text-generator",
+  "version": "1.0.0",
+  "description": "A tool to create glitchy text effects",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'No build step required - static site' && cp -r static/* .",
+    "dev": "echo 'Starting development server' && python -m http.server"
+  },
+  "keywords": [
+    "glitch",
+    "text",
+    "generator"
+  ],
+  "author": "",
+  "license": "MIT",
   "devDependencies": {
     "netlify-cli": "^21.1.0"
   }

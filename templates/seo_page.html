@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <meta name="description" content="{{ meta_description }}">
+    <meta name="keywords" content="{{ keywords_meta }}">
+    <!-- Link to your main stylesheet, if you have one -->
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> -->
+    <style>
+        body { font-family: sans-serif; margin: 20px; line-height: 1.6; }
+        .container { max-width: 800px; margin: auto; padding: 20px; }
+        h1 { color: #333; }
+        p { color: #555; }
+        .cta-button {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            margin-top: 20px;
+        }
+        .cta-button:hover { background-color: #0056b3; }
+        footer { margin-top: 40px; text-align: center; font-size: 0.9em; color: #777; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>{{ h1 }}</h1>
+        </header>
+        <main>
+            <!-- Unique content for the page -->
+            {{ page_content_html | safe }}
+            
+            <p>With our easy-to-use interface, you can typically:</p>
+            <ul>
+                <li>Generate various styles of {{ h1 | lower }} (and other effects!).</li>
+                <li>Instantly copy and paste your generated text.</li>
+                <li>Customize intensity and appearance for many effects.</li>
+            </ul>
+            
+            <p>Ready to create some awesome text? Click the button below to go to our main generator and try it out yourself!</p>
+            <a href="{{ url_for('home') }}" class="cta-button">Go to Main Glitch Text Generator</a>
+            
+            <section style="margin-top: 30px;">
+                <h2>Related Effects</h2>
+                <p>Explore other text effects you might like:</p>
+                <ul>
+                    <li><a href="{{ url_for('seo_page', page_slug='cursed-text') }}">Cursed Text</a></li>
+                    <li><a href="{{ url_for('seo_page', page_slug='glitch-text-generator') }}">Glitch Text</a></li>
+                    <li><a href="{{ url_for('seo_page', page_slug='weird-symbols-text') }}">Weird Symbols</a></li>
+                    <li><a href="{{ url_for('seo_page', page_slug='crazy-fonts') }}">Crazy Fonts</a></li>
+                </ul>
+            </section>
+        </main>
+        <footer>
+            <p>&copy; {{ current_year }} Your Site Name. Back to <a href="{{ url_for('home') }}">Homepage</a>.</p>
+        </footer>
+    </div>
+</body>
+</html> 

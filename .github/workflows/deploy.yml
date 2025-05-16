@@ -1,0 +1,121 @@
+name: Deploy to DigitalOcean
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to DO Droplet
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up SSH key and known hosts
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.DO_SSH_PRIVATE_KEY }}
+          KNOWN_HOSTS: ${{ secrets.DO_KNOWN_HOSTS }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "${SSH_PRIVATE_KEY}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          echo "${KNOWN_HOSTS}" > ~/.ssh/known_hosts
+          # No need for chmod 644 on known_hosts, default is fine or 600 also works.
+
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DO_SSH_HOST }}
+          username: ${{ secrets.DO_SSH_USER }}
+          key: ${{ secrets.DO_SSH_PRIVATE_KEY }}
+          script: |
+            set -e # Exit immediately if a command exits with a non-zero status.
+            
+            echo "🚀 Starting deployment to DigitalOcean server..."
+            REMOTE_DIR="${{ secrets.DO_REMOTE_DIR }}"
+            DOMAIN="${{ secrets.DO_DOMAIN }}"
+            REPO_URL="https://github.com/${{ github.repository }}.git"
+
+            echo "✅ SSH connection successful. Deploying to $REMOTE_DIR"
+
+            echo "📥 Ensuring remote directory exists and pulling latest changes..."
+            if [ -d "$REMOTE_DIR/.git" ]; then
+              cd "$REMOTE_DIR"
+              echo "Git repository found. Pulling latest changes..."
+              git checkout main
+              git fetch origin
+              git reset --hard origin/main
+              git pull origin main
+            else
+              echo "Git repository not found. Cloning..."
+              mkdir -p "$REMOTE_DIR"
+              git clone "$REPO_URL" "$REMOTE_DIR"
+              cd "$REMOTE_DIR"
+            fi
+            
+            echo "🐳 Docker operations..."
+            echo "🚫 Stopping old container (if any)..."
+            docker stop glitch-app || echo "No container named glitch-app to stop or already stopped."
+            echo "🗑️ Removing old container (if any)..."
+            docker rm glitch-app || echo "No container named glitch-app to remove or already removed."
+            
+            echo "🏗️ Building new Docker image..."
+            docker build -t glitch-text-generator .
+            
+            echo "▶️ Starting new Docker container..."
+            docker run -d --restart unless-stopped --name glitch-app -p 8000:8000 glitch-text-generator
+            
+            echo "🔧 Checking and configuring Nginx..."
+            NGINX_CONF_FILE="/etc/nginx/sites-available/glitch-text-generator"
+            
+            # Define Nginx config content in a variable
+            # Note: $host, $remote_addr etc. need to be escaped for the `cat <<EOF` part, 
+            # so they are treated literally by this first shell expansion and interpreted by Nginx.
+            # However, $DOMAIN should be expanded by the shell.
+            NGINX_CONTENT=$(cat <<EOF
+server {
+    listen 80;
+    server_name $DOMAIN www.$DOMAIN;
+
+    location / {
+        proxy_pass http://localhost:8000;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+    }
+
+    # Optional: If you plan to use Let's Encrypt for SSL (Certbot will modify this)
+    # location ~ /.well-known/acme-challenge/ {
+    #     allow all;
+    #     root /var/www/html; 
+    # }
+}
+EOF
+)
+
+            if [ ! -f "$NGINX_CONF_FILE" ]; then
+              echo "Creating Nginx configuration for $DOMAIN..."
+              echo "$NGINX_CONTENT" | sudo tee "$NGINX_CONF_FILE" > /dev/null
+              echo "Enabling Nginx site..."
+              sudo ln -sf "$NGINX_CONF_FILE" "/etc/nginx/sites-enabled/"
+              echo "Testing Nginx configuration..."
+              sudo nginx -t
+              echo "Reloading Nginx..."
+              sudo systemctl reload nginx
+            else
+              echo "Nginx configuration file $NGINX_CONF_FILE already exists."
+              # Optionally, you could overwrite it if changes are expected:
+              # echo "Overwriting existing Nginx configuration for $DOMAIN..."
+              # echo "$NGINX_CONTENT" | sudo tee "$NGINX_CONF_FILE" > /dev/null
+              echo "Testing Nginx configuration..."
+              sudo nginx -t
+              echo "Reloading Nginx..."
+              sudo systemctl reload nginx
+            fi
+            
+            echo "✅ Deployment to $DOMAIN complete!"
+            echo "   App should be available at http://$DOMAIN (or http://${{ secrets.DO_SSH_HOST }}:8000 if Nginx/DNS not fully set up)" 
