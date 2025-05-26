@@ -1,5 +1,8 @@
 # Glitch Text Generator - Project To-Do
 
+## 🚀 High Priority
+- [ ] Migrate project hosting from DigitalOcean to Render.com for simplified deployments and managed infrastructure.
+
 ## Content Development
 
 ### SEO Informational Pages
