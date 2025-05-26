@@ -36,7 +36,7 @@ jobs:
             
             echo "🚀 Starting deployment to DigitalOcean server..."
             REMOTE_DIR="${{ secrets.DO_REMOTE_DIR }}"
-            DOMAIN="${{ secrets.DO_DOMAIN }}"
+            DOMAIN_NAME="${{ secrets.DO_DOMAIN }}" # Changed to DOMAIN_NAME to avoid conflict with shell's DOMAIN variable
             REPO_URL="https://github.com/${{ github.repository }}.git"
 
             echo "✅ SSH connection successful. Deploying to $REMOTE_DIR"
@@ -68,54 +68,11 @@ jobs:
             echo "▶️ Starting new Docker container..."
             docker run -d --restart unless-stopped --name glitch-app -p 8000:8000 glitch-text-generator
             
-            echo "🔧 Checking and configuring Nginx..."
-            NGINX_CONF_FILE="/etc/nginx/sites-available/glitch-text-generator"
+            echo "🔧 Executing Nginx setup script..."
+            # Ensure the script is executable and then run it, passing the domain name
+            chmod +x .scripts/setup_nginx.sh
+            # Pass the domain name from GitHub secrets to the script
+            ./.scripts/setup_nginx.sh "$DOMAIN_NAME"
             
-            # Define Nginx config content in a variable
-            # Note: $host, $remote_addr etc. need to be escaped for the `cat <<EOF` part, 
-            # so they are treated literally by this first shell expansion and interpreted by Nginx.
-            # However, $DOMAIN should be expanded by the shell.
-            NGINX_CONTENT=$(cat <<EOF
-server {
-    listen 80;
-    server_name $DOMAIN www.$DOMAIN;
-
-    location / {
-        proxy_pass http://localhost:8000;
-        proxy_set_header Host \$host;
-        proxy_set_header X-Real-IP \$remote_addr;
-        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto \$scheme;
-    }
-
-    # Optional: If you plan to use Let's Encrypt for SSL (Certbot will modify this)
-    # location ~ /.well-known/acme-challenge/ {
-    #     allow all;
-    #     root /var/www/html; 
-    # }
-}
-EOF
-)
-
-            if [ ! -f "$NGINX_CONF_FILE" ]; then
-              echo "Creating Nginx configuration for $DOMAIN..."
-              echo "$NGINX_CONTENT" | sudo tee "$NGINX_CONF_FILE" > /dev/null
-              echo "Enabling Nginx site..."
-              sudo ln -sf "$NGINX_CONF_FILE" "/etc/nginx/sites-enabled/"
-              echo "Testing Nginx configuration..."
-              sudo nginx -t
-              echo "Reloading Nginx..."
-              sudo systemctl reload nginx
-            else
-              echo "Nginx configuration file $NGINX_CONF_FILE already exists."
-              # Optionally, you could overwrite it if changes are expected:
-              # echo "Overwriting existing Nginx configuration for $DOMAIN..."
-              # echo "$NGINX_CONTENT" | sudo tee "$NGINX_CONF_FILE" > /dev/null
-              echo "Testing Nginx configuration..."
-              sudo nginx -t
-              echo "Reloading Nginx..."
-              sudo systemctl reload nginx
-            fi
-            
-            echo "✅ Deployment to $DOMAIN complete!"
-            echo "   App should be available at http://$DOMAIN (or http://${{ secrets.DO_SSH_HOST }}:8000 if Nginx/DNS not fully set up)" 
+            echo "✅ Deployment to $DOMAIN_NAME complete!"
+            echo "   App should be available at http://$DOMAIN_NAME" 
