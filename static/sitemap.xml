@@ -1,68 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://generateglitchtext.com/</loc>
+        <loc>https://glitchtexteffect.com/</loc>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://generateglitchtext.com/halloween</loc>
+        <loc>https://glitchtexteffect.com/halloween</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://generateglitchtext.com/discord</loc>
+        <loc>https://glitchtexteffect.com/discord</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://generateglitchtext.com/roblox</loc>
+        <loc>https://glitchtexteffect.com/roblox</loc>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://generateglitchtext.com/guides/aesthetic</loc>
+        <loc>https://glitchtexteffect.com/guides/aesthetic</loc>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://generateglitchtext.com/guides/zalgo</loc>
+        <loc>https://glitchtexteffect.com/guides/zalgo</loc>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://generateglitchtext.com/guides/social</loc>
+        <loc>https://glitchtexteffect.com/guides/social</loc>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://generateglitchtext.com/guides/fonts</loc>
+        <loc>https://glitchtexteffect.com/guides/fonts</loc>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://generateglitchtext.com/guides/history</loc>
+        <loc>https://glitchtexteffect.com/guides/history</loc>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://generateglitchtext.com/photoshop_tutorial</loc>
+        <loc>https://glitchtexteffect.com/tutorials/photoshop</loc>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://generateglitchtext.com/after_effects_tutorial</loc>
+        <loc>https://glitchtexteffect.com/tutorials/after-effects</loc>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://generateglitchtext.com/examples</loc>
+        <loc>https://glitchtexteffect.com/examples</loc>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://generateglitchtext.com/about</loc>
+        <loc>https://glitchtexteffect.com/about</loc>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
+    </url>
+    <!-- SEO Informational Pages -->
+    <url>
+        <loc>https://glitchtexteffect.com/what-is-glitch-text</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/how-to-make-glitch-text</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/zalgo-text-explained</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/creepypasta-explained</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/cursed-text-meaning</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/is-glitch-text-safe</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/unicode-glitch-text</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/glitch-text-generator-review</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/how-to-use-glitch-text-on-discord</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/glitch-fonts-vs-cursed-fonts</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <!-- SEO Generator Pages -->
+    <url>
+        <loc>https://glitchtexteffect.com/cursed-text</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/glitch-text</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/discord-glitch-text</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
     </url>
 </urlset>

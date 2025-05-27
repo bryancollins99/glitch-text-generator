@@ -3,4 +3,4 @@ Allow: /
 Disallow: /static/js/
 Disallow: /static/css/
 
-Sitemap: https://generateglitchtext.com/sitemap.xml
+Sitemap: https://glitchtexteffect.com/sitemap.xml

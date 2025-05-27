@@ -7,9 +7,14 @@ import time
 from PIL import Image, ImageDraw
 import datetime
 import os
+import xml.etree.ElementTree as ET
 from seo_data import SEO_PAGES, EFFECTS, FONTS
+from seo_routes import seo_blueprint
 
 app = Flask(__name__)
+
+# Register the SEO blueprint
+app.register_blueprint(seo_blueprint)
 
 MAX_IMAGE_SIZE = 1.5 * 1024 * 1024 # Max image size in bytes (1.5MB)
 
@@ -93,8 +98,6 @@ def home():
 @app.route('/halloween')
 def halloween():
     return render_template('halloween.html')
-
-
 
 @app.route('/guides/aesthetic')
 def guide_aesthetic():
@@ -235,8 +238,6 @@ def apply_glitch_effect(image, effects):
         glitched.putdata(sorted_data)
     
     return glitched
-
-
 
 @app.route('/download', methods=['POST'])
 def download_image():
@@ -750,39 +751,105 @@ def sitemap():
     loc = ET.SubElement(url, 'loc')
     loc.text = 'https://glitchtexteffect.com/'
     lastmod = ET.SubElement(url, 'lastmod')
-    lastmod.text = datetime.now().strftime('%Y-%m-%d')
+    lastmod.text = datetime.datetime.now().strftime('%Y-%m-%d')
+    changefreq = ET.SubElement(url, 'changefreq')
+    changefreq.text = 'weekly'
+    priority = ET.SubElement(url, 'priority')
+    priority.text = '1.0'
     
-    # Add all SEO pages
+    # Add main generator pages
+    main_pages = [
+        {'url': 'halloween', 'priority': '0.8', 'changefreq': 'weekly'},
+        {'url': 'discord', 'priority': '0.8', 'changefreq': 'weekly'},
+        {'url': 'roblox', 'priority': '0.8', 'changefreq': 'weekly'},
+        {'url': 'examples', 'priority': '0.7', 'changefreq': 'monthly'},
+        {'url': 'about', 'priority': '0.5', 'changefreq': 'monthly'},
+    ]
+    
+    for page in main_pages:
+        url = ET.SubElement(root, 'url')
+        loc = ET.SubElement(url, 'loc')
+        loc.text = f'https://glitchtexteffect.com/{page["url"]}'
+        lastmod = ET.SubElement(url, 'lastmod')
+        lastmod.text = datetime.datetime.now().strftime('%Y-%m-%d')
+        changefreq = ET.SubElement(url, 'changefreq')
+        changefreq.text = page['changefreq']
+        priority = ET.SubElement(url, 'priority')
+        priority.text = page['priority']
+    
+    # Add guide pages
+    guide_pages = [
+        'guides/aesthetic',
+        'guides/zalgo', 
+        'guides/social',
+        'guides/fonts',
+        'guides/history'
+    ]
+    
+    for page in guide_pages:
+        url = ET.SubElement(root, 'url')
+        loc = ET.SubElement(url, 'loc')
+        loc.text = f'https://glitchtexteffect.com/{page}'
+        lastmod = ET.SubElement(url, 'lastmod')
+        lastmod.text = datetime.datetime.now().strftime('%Y-%m-%d')
+        changefreq = ET.SubElement(url, 'changefreq')
+        changefreq.text = 'monthly'
+        priority = ET.SubElement(url, 'priority')
+        priority.text = '0.7'
+    
+    # Add tutorial pages
+    tutorial_pages = [
+        'tutorials/photoshop',
+        'tutorials/after-effects'
+    ]
+    
+    for page in tutorial_pages:
+        url = ET.SubElement(root, 'url')
+        loc = ET.SubElement(url, 'loc')
+        loc.text = f'https://glitchtexteffect.com/{page}'
+        lastmod = ET.SubElement(url, 'lastmod')
+        lastmod.text = datetime.datetime.now().strftime('%Y-%m-%d')
+        changefreq = ET.SubElement(url, 'changefreq')
+        changefreq.text = 'monthly'
+        priority = ET.SubElement(url, 'priority')
+        priority.text = '0.6'
+    
+    # Add SEO generator pages from seo_data.py
     for page_key, page_data in SEO_PAGES.items():
         url = ET.SubElement(root, 'url')
         loc = ET.SubElement(url, 'loc')
         loc.text = f'https://glitchtexteffect.com/{page_data["url"]}'
         lastmod = ET.SubElement(url, 'lastmod')
-        lastmod.text = datetime.now().strftime('%Y-%m-%d')
+        lastmod.text = datetime.datetime.now().strftime('%Y-%m-%d')
+        changefreq = ET.SubElement(url, 'changefreq')
+        changefreq.text = 'weekly'
+        priority = ET.SubElement(url, 'priority')
+        priority.text = '0.8'
     
-    # Add informational pages
-    info_pages = [
-        'what-is-glitch-text',
-        'how-to-make-glitch-text',
-        'zalgo-text-explained',
-        'creepypasta-explained'
+    # Add SEO informational pages from seo_routes.py
+    seo_info_pages = [
+        {'url': 'what-is-glitch-text', 'priority': '0.8'},
+        {'url': 'how-to-make-glitch-text', 'priority': '0.8'},
+        {'url': 'zalgo-text-explained', 'priority': '0.8'},
+        {'url': 'creepypasta-explained', 'priority': '0.7'},
+        {'url': 'cursed-text-meaning', 'priority': '0.7'},
+        {'url': 'is-glitch-text-safe', 'priority': '0.7'},
+        {'url': 'unicode-glitch-text', 'priority': '0.7'},
+        {'url': 'glitch-text-generator-review', 'priority': '0.6'},
+        {'url': 'how-to-use-glitch-text-on-discord', 'priority': '0.7'},
+        {'url': 'glitch-fonts-vs-cursed-fonts', 'priority': '0.6'},
     ]
     
-    for page in info_pages:
+    for page in seo_info_pages:
         url = ET.SubElement(root, 'url')
         loc = ET.SubElement(url, 'loc')
-        loc.text = f'https://glitchtexteffect.com/{page}'
+        loc.text = f'https://glitchtexteffect.com/{page["url"]}'
         lastmod = ET.SubElement(url, 'lastmod')
-        lastmod.text = datetime.now().strftime('%Y-%m-%d')
-    
-    # Add other pages
-    other_pages = ['about', 'examples', 'discord', 'roblox']
-    for page in other_pages:
-        url = ET.SubElement(root, 'url')
-        loc = ET.SubElement(url, 'loc')
-        loc.text = f'https://glitchtexteffect.com/{page}'
-        lastmod = ET.SubElement(url, 'lastmod')
-        lastmod.text = datetime.now().strftime('%Y-%m-%d')
+        lastmod.text = datetime.datetime.now().strftime('%Y-%m-%d')
+        changefreq = ET.SubElement(url, 'changefreq')
+        changefreq.text = 'monthly'
+        priority = ET.SubElement(url, 'priority')
+        priority.text = page['priority']
     
     # Convert to string
     xml_string = ET.tostring(root, encoding='utf8', method='xml')
