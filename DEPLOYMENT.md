@@ -1,256 +1,196 @@
 # Deployment Guide for Glitch Text Generator
 
-This document provides detailed instructions for deploying the Glitch Text Generator application to a DigitalOcean droplet using Docker and Nginx.
+This document provides detailed instructions for deploying the Glitch Text Generator application to Render.
 
 ## Deployment Architecture
 
 The application uses the following architecture:
-- **Web Server**: Nginx (reverse proxy)
-- **Application Server**: Gunicorn (WSGI server)
+- **Platform**: Render (Cloud Platform)
 - **Container**: Docker
-- **Platform**: DigitalOcean Droplet
-- **Domain**: glitchtexteffect.com
+- **Application Server**: Gunicorn (WSGI server)
+- **Auto-deployment**: Git-based deployment from GitHub
 
 ## Prerequisites
 
-- A DigitalOcean account
-- A domain name pointed to your DigitalOcean droplet
-- SSH access to your droplet
-- Docker installed on your local machine (optional)
+- A Render account (free tier available)
+- GitHub repository with your code
+- Domain name (optional - Render provides free subdomain)
 
-## Initial Server Setup
+## Render Deployment Setup
 
-### 1. Create a DigitalOcean Droplet
+### 1. Create Render Account
 
-1. Log in to your DigitalOcean account
-2. Create a new Droplet with Ubuntu 22.04 LTS
-3. Choose a plan with at least 1GB RAM
-4. Select a datacenter region close to your target audience
-5. Add your SSH key for secure access
+1. Go to [render.com](https://render.com)
+2. Sign up with your GitHub account
+3. Authorize Render to access your repositories
 
-### 2. Configure DNS
+### 2. Deploy from GitHub
 
-1. Add an A record in your domain's DNS settings:
-   - Host: @ (or subdomain)
-   - Points to: Your droplet's IP address
-   - TTL: 3600 (or automatic)
+#### Option A: Using Render Dashboard
 
-### 3. Initial Server Configuration
+1. Log in to your Render dashboard
+2. Click "New +" and select "Web Service"
+3. Connect your GitHub repository: `bryancollins99/glitch_text_generator`
+4. Configure the service:
+   - **Name**: `glitch-text-generator`
+   - **Environment**: `Docker`
+   - **Branch**: `main`
+   - **Dockerfile Path**: `./Dockerfile`
+5. Set environment variables:
+   - `FLASK_ENV`: `production`
+   - `FLASK_APP`: `app.py`
+6. Click "Create Web Service"
 
-SSH into your server and set up the basic environment:
+#### Option B: Using render.yaml (Infrastructure as Code)
 
-```bash
-# Update system packages
-apt-get update && apt-get upgrade -y
+The repository includes a `render.yaml` file that automatically configures the deployment:
 
-# Install Docker
-apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-apt-get update
-apt-get install -y docker-ce
-
-# Install Nginx
-apt-get install -y nginx
-
-# Enable and start services
-systemctl enable docker
-systemctl start docker
-systemctl enable nginx
-systemctl start nginx
+```yaml
+services:
+  - type: web
+    name: glitch-text-generator
+    env: docker
+    repo: https://github.com/bryancollins99/glitch_text_generator.git
+    branch: main
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: FLASK_APP
+        value: app.py
+    healthCheckPath: /
+    autoDeploy: true
 ```
 
-## Deployment Process
+To use this:
+1. In Render dashboard, go to "Blueprint"
+2. Click "New Blueprint Instance"
+3. Connect your repository
+4. Render will automatically read the `render.yaml` and deploy
 
-### 1. SSH Key Setup
+### 3. Custom Domain Setup (Optional)
 
-On your local machine, ensure you have an SSH key for the server:
+1. In your Render service dashboard, go to "Settings"
+2. Scroll to "Custom Domains"
+3. Add your domain (e.g., `glitchtexteffect.com`)
+4. Update your domain's DNS settings:
+   - Add a CNAME record pointing to your Render service URL
+   - Or add an A record pointing to Render's IP addresses
 
-```bash
-# Generate a key if needed
-ssh-keygen -t rsa -b 4096 -f ~/.ssh/do_server_key
+### 4. SSL Certificate
 
-# Copy the key to the server
-ssh-copy-id -i ~/.ssh/do_server_key root@YOUR_DROPLET_IP
-```
+Render automatically provides SSL certificates for all domains (both custom and Render subdomains).
 
-### 2. Configure SSH
+## Automatic Deployment
 
-Create or edit `~/.ssh/config` to include:
+### Git-based Deployment
 
-```
-Host glitch-server
-  HostName 64.23.179.161
-  User root
-  IdentityFile ~/.ssh/do_server_key
-```
+Render automatically deploys when you push to the `main` branch:
 
-### 3. Automated Deployment
+1. Make changes to your code
+2. Commit and push to GitHub:
+   ```bash
+   git add .
+   git commit -m "Update application"
+   git push origin main
+   ```
+3. Render automatically detects the changes and redeploys
 
-The project includes a `deploy.sh` script that handles the deployment process:
+### Build Process
 
-```bash
-# Run the deployment script
-cd /path/to/glitch_text_generator
-bash deploy.sh
-```
+Render follows this process:
+1. Pulls latest code from GitHub
+2. Builds Docker image using your Dockerfile
+3. Runs the container with Gunicorn
+4. Makes the service available on the provided URL
 
-The script performs the following actions:
-- Commits and pushes changes to GitHub
-- Pulls the latest code on the server
-- Builds a Docker container
-- Starts the container with the right configuration
-- Sets up Nginx as a reverse proxy
-- Configures SSL with Let's Encrypt (if needed)
+## Environment Configuration
 
-### 4. Manual Deployment
+### Environment Variables
 
-If you need to deploy manually, follow these steps:
+Set these in the Render dashboard under "Environment":
 
-```bash
-# SSH into your server
-ssh -i ~/.ssh/do_server_key root@64.23.179.161
+- `FLASK_ENV`: `production`
+- `FLASK_APP`: `app.py`
+- `PORT`: Automatically set by Render
 
-# Navigate to the application directory
-cd /var/www/glitch-text-generator
+### Application Configuration
 
-# Pull the latest code
-git pull
+The application is configured to work with Render:
 
-# Build the Docker image
-docker build -t glitch-text-generator .
+- **Port**: Uses `PORT` environment variable (set by Render)
+- **Gunicorn**: Configured in `gunicorn_config.py`
+- **Docker**: Optimized Dockerfile for Render deployment
 
-# Stop and remove the existing container
-docker stop glitch-app || true
-docker rm glitch-app || true
+## Monitoring and Logs
 
-# Start a new container
-docker run -d --restart unless-stopped --name glitch-app -p 8000:8000 -e FLASK_APP=app.py -e FLASK_ENV=production glitch-text-generator
-```
+### Viewing Logs
 
-## Nginx Configuration
+1. Go to your service in Render dashboard
+2. Click on "Logs" tab
+3. View real-time application logs
 
-The Nginx configuration is created automatically by the deployment script. Here's the configuration:
+### Health Checks
 
-```nginx
-server {
-    listen 80;
-    server_name glitchtexteffect.com;
+Render automatically monitors your application:
+- Health check endpoint: `/` (homepage)
+- Automatic restarts if the service becomes unhealthy
 
-    location / {
-        proxy_pass http://localhost:8000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_read_timeout 300s;
-        proxy_connect_timeout 75s;
-    }
-}
-```
+### Metrics
 
-## SSL Configuration
-
-To enable HTTPS with Let's Encrypt:
-
-```bash
-# Install Certbot
-apt-get update
-apt-get install -y certbot python3-certbot-nginx
-
-# Obtain and install certificate
-certbot --nginx -d glitchtexteffect.com --non-interactive --agree-tos --email your-email@example.com
-```
-
-## Maintenance
-
-### Server Updates
-
-Regularly update your server to maintain security:
-
-```bash
-apt-get update && apt-get upgrade -y
-```
-
-### Monitoring Logs
-
-View application logs:
-
-```bash
-docker logs glitch-app
-```
-
-### Backup
-
-Backup your application code and configuration:
-
-```bash
-# On your local machine
-rsync -avz -e "ssh -i ~/.ssh/do_server_key" root@64.23.179.161:/var/www/glitch-text-generator /path/to/backup
-```
+Render provides built-in metrics:
+- Response times
+- Memory usage
+- CPU usage
+- Request volume
 
 ## Troubleshooting
 
-### Application Not Responding
+### Common Issues
 
-Check if the container is running:
+1. **Build Failures**
+   - Check the build logs in Render dashboard
+   - Ensure all dependencies are in `requirements.txt`
+   - Verify Dockerfile syntax
 
-```bash
-docker ps | grep glitch-app
-```
+2. **Application Won't Start**
+   - Check application logs
+   - Verify `gunicorn_config.py` settings
+   - Ensure `wsgi.py` is correctly configured
 
-If not running, check the logs:
+3. **Port Issues**
+   - Render automatically sets the `PORT` environment variable
+   - Application binds to `0.0.0.0:$PORT`
 
-```bash
-docker logs glitch-app
-```
+### Getting Help
 
-### Nginx Issues
+- Check Render documentation: [render.com/docs](https://render.com/docs)
+- View application logs in Render dashboard
+- Check GitHub Actions for CI status
 
-Check Nginx status:
+## Cost
 
-```bash
-systemctl status nginx
-```
+- **Free Tier**: Available with limitations (sleeps after inactivity)
+- **Paid Plans**: Starting at $7/month for always-on services
+- **Custom Domains**: Free SSL certificates included
 
-Test Nginx configuration:
+## Migration from DigitalOcean
 
-```bash
-nginx -t
-```
+If migrating from DigitalOcean:
 
-### SSL Certificate Issues
+1. The application code remains the same
+2. Remove DigitalOcean-specific files (already done):
+   - `deploy.sh`
+   - SSH deployment scripts
+3. Update DNS to point to Render instead of DigitalOcean
+4. Cancel DigitalOcean droplet once migration is complete
 
-Renew certificates:
+## Backup and Recovery
 
-```bash
-certbot renew
-```
+- **Code**: Backed up in GitHub repository
+- **Database**: Not applicable (stateless application)
+- **Configuration**: Stored in `render.yaml` and environment variables
 
-## SEO Pages Update
-
-If you need to add or modify SEO pages:
-
-1. Edit the `seo_routes.py` file on the server:
-   ```bash
-   nano /var/www/glitch-text-generator/seo_routes.py
-   ```
-
-2. Add new routes following the existing pattern:
-   ```python
-   @seo_blueprint.route('/new-keyword')
-   def new_keyword():
-       return render_template('index.html', 
-                            title='New Keyword - Custom Title',
-                            meta_description='Custom meta description for SEO.',
-                            h1_title='New Keyword Generator')
-   ```
-
-3. Rebuild and restart the Docker container:
-   ```bash
-   cd /var/www/glitch-text-generator
-   docker stop glitch-app
-   docker rm glitch-app
-   docker build -t glitch-text-generator .
-   docker run -d --restart unless-stopped --name glitch-app -p 8000:8000 -e FLASK_APP=app.py -e FLASK_ENV=production glitch-text-generator
-   ```
+Your application will be available at:
+- Render subdomain: `https://glitch-text-generator.onrender.com`
+- Custom domain: `https://glitchtexteffect.com` (if configured)

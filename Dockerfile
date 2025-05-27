@@ -18,8 +18,8 @@ COPY . .
 ENV FLASK_APP=app.py
 ENV FLASK_ENV=production
 
-# Expose port
+# Render will provide the PORT environment variable
 EXPOSE 8000
 
-# Run gunicorn
+# Run gunicorn with configuration that uses dynamic port
 CMD ["gunicorn", "--config", "gunicorn_config.py", "wsgi:app"]

@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: glitch-text-generator
+    env: docker
+    repo: https://github.com/bryancollins99/glitch_text_generator.git
+    branch: main
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: FLASK_APP
+        value: app.py
+    healthCheckPath: /
+    autoDeploy: true 

@@ -1,124 +1,212 @@
 # Glitch Text Generator
 
-A powerful web application that creates various text and image glitch effects. Perfect for social media, gaming profiles, and creative projects.
+A powerful web application for creating glitch text effects, Zalgo text, cursed text, and various other distorted text styles. Perfect for social media, gaming usernames, creative projects, and adding a unique aesthetic to your digital content.
 
-Live site: [glitchtexteffect.com](https://glitchtexteffect.com)
+## 🌟 Features
 
-## Features
+- **Multiple Text Effects**: Zalgo, ASCII glitch, binary corruption, and more
+- **Font Styles**: Cyber, retro, digital, horror, and custom font transformations
+- **Image Glitch Effects**: Upload images and apply various glitch effects
+- **Real-time Preview**: See your text transform as you type
+- **Copy & Paste**: One-click copying for easy use across platforms
+- **Mobile Friendly**: Responsive design works on all devices
+- **SEO Optimized**: Multiple landing pages for different text effects
 
-- **Text Effects**:
-  - Zalgo (cursed text)
-  - ASCII glitch
-  - Binary corruption
-  - Scanline effect
-  - Datamosh compression
+## 🚀 Live Demo
 
-- **Font Styles**:
-  - Cyberpunk
-  - Retro Arcade
-  - Digital
-  - Horror
+Visit the live application: [https://glitchtexteffect.com](https://glitchtexteffect.com)
 
-- **SEO-Optimized Pages**:
-  - Cursed Text Generator
-  - Glitch Text Generator
-  - Discord Glitch Text
-  - And more specialized pages
+## 🛠️ Technology Stack
 
-- **Image Glitching**:
-  - Upload and glitch images
-  - Multiple effect parameters
-  - Download as PNG or animated GIF
+- **Backend**: Python Flask
+- **Frontend**: HTML5, CSS3, JavaScript
+- **Server**: Gunicorn WSGI server
+- **Deployment**: Render (Docker-based)
+- **CI/CD**: GitHub Actions
 
-## Technology Stack
-
-- **Backend**: Flask (Python 3.11)
-- **Frontend**: HTML, CSS, JavaScript
-- **Deployment**: Docker, Nginx, DigitalOcean
-- **CI/CD**: Custom deployment script
-
-## Project Structure
-
-```
-glitch-text-generator/
-├── app.py                 # Main Flask application
-├── config.py              # Configuration settings
-├── deploy.sh              # Deployment script
-├── Dockerfile             # Docker configuration
-├── gunicorn_config.py     # Gunicorn WSGI server config
-├── requirements.txt       # Python dependencies
-├── seo_data.py            # SEO page content
-├── seo_routes.py          # SEO route definitions
-├── static/                # Static assets (CSS, JS, images)
-│   ├── css/               # Stylesheets
-│   ├── js/                # JavaScript files
-│   └── img/               # Images and icons
-├── templates/             # HTML templates
-│   ├── base.html          # Base template
-│   ├── index.html         # Homepage
-│   ├── seo_page.html      # Template for SEO pages
-│   └── ...                # Other page templates
-└── wsgi.py                # WSGI entry point
-```
-
-## Local Development
+## 📦 Installation & Local Development
 
 ### Prerequisites
 
-- Python 3.11+
-- Docker (optional)
+- Python 3.11 or higher
+- Git
+- Docker (optional, for containerized development)
 
-### Setup
+### Local Setup
 
-1. Clone the repository:
+1. **Clone the repository**
    ```bash
    git clone https://github.com/bryancollins99/glitch_text_generator.git
    cd glitch_text_generator
    ```
 
-2. Create and activate a virtual environment:
+2. **Create virtual environment**
    ```bash
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
 
-3. Install dependencies:
+3. **Install dependencies**
    ```bash
    pip install -r requirements.txt
    ```
 
-4. Run the application:
+4. **Run the application**
    ```bash
    python app.py
    ```
 
-5. Visit `http://localhost:5003` in your browser.
+5. **Access the application**
+   Open your browser and go to `http://localhost:5000`
 
 ### Docker Development
 
-```bash
-docker build -t glitch-text-generator .
-docker run -p 8000:8000 glitch-text-generator
+1. **Build the Docker image**
+   ```bash
+   docker build -t glitch-text-generator .
+   ```
+
+2. **Run the container**
+   ```bash
+   docker run -p 8000:8000 glitch-text-generator
+   ```
+
+3. **Access the application**
+   Open your browser and go to `http://localhost:8000`
+
+## 🚀 Deployment
+
+This application is configured for deployment on [Render](https://render.com).
+
+### Quick Deploy to Render
+
+1. Fork this repository
+2. Sign up for a Render account
+3. Connect your GitHub repository
+4. Render will automatically deploy using the included `render.yaml` configuration
+
+### Manual Render Setup
+
+1. Create a new Web Service on Render
+2. Connect your GitHub repository
+3. Use these settings:
+   - **Environment**: Docker
+   - **Dockerfile Path**: `./Dockerfile`
+   - **Environment Variables**:
+     - `FLASK_ENV`: `production`
+     - `FLASK_APP`: `app.py`
+
+For detailed deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md).
+
+## 📁 Project Structure
+
+```
+glitch_text_generator/
+├── app.py                 # Main Flask application
+├── wsgi.py               # WSGI entry point
+├── requirements.txt      # Python dependencies
+├── Dockerfile           # Docker configuration
+├── render.yaml          # Render deployment config
+├── gunicorn_config.py   # Gunicorn server config
+├── static/              # CSS, JS, images
+├── templates/           # HTML templates
+├── .github/workflows/   # CI/CD workflows
+└── README.md           # This file
 ```
 
-## Deployment
+## 🎨 Text Effects Available
 
-The application is deployed to a DigitalOcean droplet using Docker and Nginx. See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed instructions.
+### Glitch Effects
+- **Zalgo Text**: Classic "cursed" text with diacritical marks
+- **ASCII Glitch**: Digital corruption with ASCII characters
+- **Binary Corruption**: Random binary and symbol replacement
 
-## SEO Strategy
+### Font Styles
+- **Cyber**: Futuristic double-struck characters
+- **Retro**: Small caps and vintage styling
+- **Digital**: Number-like character replacements
+- **Horror**: Creepy and unsettling character variants
 
-The project implements programmatic SEO with dedicated pages for high-value keywords:
+### Image Effects
+- **Color Shift**: RGB channel separation
+- **Scanlines**: Retro CRT monitor effect
+- **Noise**: Digital static and artifacts
+- **Pixel Sort**: Glitched pixel sorting algorithm
 
-- `/cursed-text` - Cursed text generator
-- `/glitch-text` - Glitch text generator
-- `/discord-glitch-text` - Discord-specific glitch text
+## 🔧 Configuration
 
-Each page has unique content, meta tags, and examples tailored to the specific keyword.
+### Environment Variables
 
-## License
+- `FLASK_ENV`: Set to `production` for production deployment
+- `FLASK_APP`: Entry point file (default: `app.py`)
+- `PORT`: Server port (automatically set by Render)
 
-Copyright © 2025 Bryan Collins. All rights reserved.
+### Security Features
 
-## Contact
+- Content Security Policy headers
+- Input validation and sanitization
+- File size limits for image uploads
+- Rate limiting (configurable)
 
-For questions or support, please contact [your-email@example.com](mailto:your-email@example.com).
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 API Endpoints
+
+### Text Generation
+- `POST /api/glitch`: Generate glitch text
+  ```json
+  {
+    "text": "Your text here",
+    "effect": "zalgo",
+    "intensity": 5,
+    "font_style": "cyber"
+  }
+  ```
+
+### Image Processing
+- `POST /download`: Process and download glitched images
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+1. **Port already in use**: Change the port in `gunicorn_config.py`
+2. **Module not found**: Ensure virtual environment is activated
+3. **Docker build fails**: Check Docker is running and has sufficient resources
+
+### Getting Help
+
+- Check the [Issues](https://github.com/bryancollins99/glitch_text_generator/issues) page
+- Review the deployment documentation in [DEPLOYMENT.md](DEPLOYMENT.md)
+- Check application logs in Render dashboard
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Unicode Consortium for character encoding standards
+- Flask community for the excellent web framework
+- Render for providing reliable hosting platform
+
+## 📊 SEO & Marketing
+
+The application includes optimized pages for various keywords:
+- Cursed text generator
+- Zalgo text creator
+- Glitch text effects
+- Discord and Roblox text formatting
+- Social media text styling
+
+Visit any of the specialized pages for targeted text generation experiences.
+
+---
+
+**Made with ❤️ for the creative community**
