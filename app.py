@@ -7,6 +7,7 @@ import time
 from PIL import Image, ImageDraw
 import datetime
 import os
+from seo_data import SEO_PAGES, EFFECTS, FONTS
 
 app = Flask(__name__)
 
@@ -720,11 +721,6 @@ SEO_PAGES_DATA = {
     }
 }
 
-# Consolidate similar terms to avoid near-duplicate content issues if possible
-# For example, "cursed text copy paste", "cursed text copy and paste", "cursed text copy"
-# can all point to a primary "cursed-text-copy-paste" page or a general "cursed-text" page.
-# For simplicity here, I'm creating distinct entries based on your list, but consider canonical URLs or redirects for very similar terms.
-
 @app.route('/s/<page_slug>')
 def seo_page(page_slug):
     page_data = SEO_PAGES_DATA.get(page_slug)
@@ -739,41 +735,6 @@ def seo_page(page_slug):
                            keywords_meta=page_data['keywords'],
                            page_content_html=page_data.get('page_content_html', '<p>Explore our generator to create unique text effects!</p>'), # Pass new content
                            current_year=current_year)
-
-# Generate routes for all SEO pages
-for page_key, page_data in SEO_PAGES.items():
-    @app.route(f'/{page_data["url"]}')
-    def seo_page_route(page_key=page_key):
-        page = SEO_PAGES[page_key]
-        
-        # Get all effects except the primary one
-        other_effects = [effect for effect in EFFECTS if effect["value"] != page["primary_effect"]]
-        
-        return render_template(
-            'seo_page.html',
-            page_url=page["url"],
-            page_title=page["page_title"],
-            meta_description=page["meta_description"],
-            meta_keywords=page["meta_keywords"],
-            h1_title=page["h1_title"],
-            subtitle=page["subtitle"],
-            primary_effect=page["primary_effect"],
-            primary_effect_name=page["primary_effect_name"],
-            other_effects=other_effects,
-            font_styles=FONTS,
-            default_font=page["default_font"],
-            default_intensity=page["default_intensity"],
-            effect_intensity_label=page["effect_intensity_label"],
-            input_placeholder=page["input_placeholder"],
-            default_text=page["default_text"],
-            output_header=page["output_header"],
-            h2_title=page["h2_title"],
-            main_content=page["main_content"],
-            examples_title=page.get("examples_title", "Examples"),
-            examples=page.get("examples", []),
-            faq=page.get("faq", []),
-            related_pages=page.get("related_pages", [])
-        )
 
 @app.route('/sitemap')
 def html_sitemap():

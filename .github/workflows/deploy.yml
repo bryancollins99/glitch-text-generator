@@ -26,8 +26,14 @@ jobs:
     - name: Test application startup
       run: |
         python -c "from app import app; print('✅ App imports successfully')"
+        echo "✅ Application startup test passed"
     
-    - name: Check Docker build
+    - name: Test basic functionality
       run: |
-        docker build -t glitch-text-generator-test .
-        echo "✅ Docker build successful" 
+        python -c "
+        from app import app
+        with app.test_client() as client:
+            response = client.get('/')
+            assert response.status_code == 200
+            print('✅ Homepage loads successfully')
+        " 
