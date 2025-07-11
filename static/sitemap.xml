@@ -21,6 +21,46 @@
         <priority>0.8</priority>
     </url>
     <url>
+        <loc>https://glitchtexteffect.com/small-caps</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/large-caps</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/title-case</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/sentence-case</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/vaporwave</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/reversed</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/mirrored</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/animated</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
         <loc>https://glitchtexteffect.com/guides/aesthetic</loc>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
@@ -64,6 +104,16 @@
         <loc>https://glitchtexteffect.com/about</loc>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/contact</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/faq</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
     </url>
     <!-- SEO Informational Pages -->
     <url>

@@ -1,0 +1,279 @@
+{% extends 'base.html' %}
+
+{% block title %}Title Case Text Generator - Convert Text to Title Case{% endblock %}
+
+{% block head %}
+<meta name="description" content="Convert your text to title case with our free title case generator. Perfect for headlines, titles, and professional documents.">
+<meta name="keywords" content="title case generator, title case converter, text converter, headline generator, title case text">
+{% endblock %}
+
+{% block content %}
+<h1 class="main-title glitch-title">Title Case Generator</h1>
+<p class="subtitle">Transform your text into proper title case formatting with multiple style guides. Perfect for headlines, book titles, articles, and professional documents.</p>
+
+<div class="controls-panel">
+    <div class="control-group">
+        <label for="title-style">Title Style:</label>
+        <select id="title-style" class="effect-select">
+            <option value="standard">Standard Title Case</option>
+            <option value="ap">AP Style</option>
+            <option value="chicago">Chicago Style</option>
+            <option value="mla">MLA Style</option>
+        </select>
+    </div>
+</div>
+
+<div class="text-editor">
+    <div class="input-container">
+        <div class="editor-header">Input Text</div>
+        <textarea 
+            id="titleCaseInput" 
+            placeholder="Type your text here to convert to title case..."
+            class="glitch-input"
+            oninput="generateTitleCase()"
+        >the quick brown fox jumps over the lazy dog</textarea>
+    </div>
+    
+    <div class="output-container">
+        <div class="editor-header">
+            Title Case Output
+            <button id="copy-btn" class="btn-copy" onclick="copyToClipboard()">Copy</button>
+        </div>
+        <div id="titleCaseOutput" class="glitch-output">The Quick Brown Fox Jumps Over The Lazy Dog</div>
+    </div>
+</div>
+
+<div class="quick-effects">
+    <h3>Quick Actions</h3>
+    <div class="effect-buttons">
+        <button class="quick-effect" onclick="loadExample()">Load Example</button>
+        <button class="quick-effect" onclick="clearText()">Clear Text</button>
+        <button class="quick-effect" onclick="toggleStyle()">Change Style</button>
+        <button class="quick-effect" onclick="copyToClipboard()">Copy Result</button>
+    </div>
+</div>
+
+<div class="guide-container">
+    <section>
+        <h2>About Title Case</h2>
+        <p>Title case is a style of capitalization where the first letter of each major word is capitalized. Essential for:</p>
+        <div class="tools-grid">
+            <div class="tool-card">
+                <h3>Headlines</h3>
+                <p>News articles, blog posts, and digital content</p>
+            </div>
+            <div class="tool-card">
+                <h3>Book Titles</h3>
+                <p>Novels, textbooks, and academic publications</p>
+            </div>
+            <div class="tool-card">
+                <h3>Movie Titles</h3>
+                <p>Film and TV show names following industry standards</p>
+            </div>
+            <div class="tool-card">
+                <h3>Academic Papers</h3>
+                <p>Research titles, headings, and citations</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+let currentStyle = 'standard';
+
+// Common small words that usually aren't capitalized in title case
+const smallWords = [
+    'a', 'an', 'and', 'as', 'at', 'but', 'by', 'for', 'if', 'in', 'nor', 'of', 'on', 'or', 'so', 'the', 'to', 'up', 'yet'
+];
+
+const apStyle = [
+    'a', 'an', 'and', 'at', 'but', 'by', 'for', 'in', 'nor', 'of', 'on', 'or', 'so', 'the', 'to', 'up', 'yet'
+];
+
+const chicagoStyle = [
+    'a', 'an', 'and', 'as', 'at', 'but', 'by', 'for', 'if', 'in', 'of', 'on', 'or', 'the', 'to', 'up', 'yet'
+];
+
+const mlaStyle = [
+    'a', 'an', 'and', 'as', 'at', 'but', 'by', 'for', 'if', 'in', 'nor', 'of', 'on', 'or', 'so', 'the', 'to', 'up', 'yet'
+];
+
+function generateTitleCase() {
+    const input = document.getElementById('titleCaseInput').value;
+    const output = document.getElementById('titleCaseOutput');
+    
+    if (!input.trim()) {
+        output.textContent = 'Your title case text will appear here...';
+        return;
+    }
+    
+    let result = '';
+    
+    switch(currentStyle) {
+        case 'standard':
+            result = convertToStandardTitleCase(input);
+            break;
+        case 'ap':
+            result = convertToAPStyle(input);
+            break;
+        case 'chicago':
+            result = convertToChicagoStyle(input);
+            break;
+        case 'mla':
+            result = convertToMLAStyle(input);
+            break;
+    }
+    
+    output.textContent = result;
+}
+
+function convertToStandardTitleCase(text) {
+    return text.split(/(\s+)/).map((word, index, array) => {
+        if (!/\S/.test(word)) return word; // preserve whitespace
+        
+        const cleanWord = word.toLowerCase();
+        
+        // Always capitalize first and last words
+        if (index === 0 || index === array.length - 1) {
+            return capitalizeWord(word);
+        }
+        
+        // Don't capitalize small words unless they're first or last
+        if (smallWords.includes(cleanWord)) {
+            return cleanWord;
+        }
+        
+        return capitalizeWord(word);
+    }).join('');
+}
+
+function convertToAPStyle(text) {
+    return text.split(/(\s+)/).map((word, index, array) => {
+        if (!/\S/.test(word)) return word;
+        
+        const cleanWord = word.toLowerCase();
+        
+        // Always capitalize first and last words
+        if (index === 0 || index === array.length - 1) {
+            return capitalizeWord(word);
+        }
+        
+        // Don't capitalize AP style small words
+        if (apStyle.includes(cleanWord)) {
+            return cleanWord;
+        }
+        
+        return capitalizeWord(word);
+    }).join('');
+}
+
+function convertToChicagoStyle(text) {
+    return text.split(/(\s+)/).map((word, index, array) => {
+        if (!/\S/.test(word)) return word;
+        
+        const cleanWord = word.toLowerCase();
+        
+        // Always capitalize first and last words
+        if (index === 0 || index === array.length - 1) {
+            return capitalizeWord(word);
+        }
+        
+        // Don't capitalize Chicago style small words
+        if (chicagoStyle.includes(cleanWord)) {
+            return cleanWord;
+        }
+        
+        return capitalizeWord(word);
+    }).join('');
+}
+
+function convertToMLAStyle(text) {
+    return text.split(/(\s+)/).map((word, index, array) => {
+        if (!/\S/.test(word)) return word;
+        
+        const cleanWord = word.toLowerCase();
+        
+        // Always capitalize first and last words
+        if (index === 0 || index === array.length - 1) {
+            return capitalizeWord(word);
+        }
+        
+        // Don't capitalize MLA style small words
+        if (mlaStyle.includes(cleanWord)) {
+            return cleanWord;
+        }
+        
+        return capitalizeWord(word);
+    }).join('');
+}
+
+function capitalizeWord(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+}
+
+function copyToClipboard() {
+    const output = document.getElementById('titleCaseOutput');
+    const text = output.textContent;
+    
+    if (text && text !== 'Your title case text will appear here...') {
+        navigator.clipboard.writeText(text).then(() => {
+            showToast('Text copied to clipboard!');
+        });
+    }
+}
+
+function clearText() {
+    document.getElementById('titleCaseInput').value = '';
+    document.getElementById('titleCaseOutput').textContent = 'Your title case text will appear here...';
+}
+
+function toggleStyle() {
+    const styles = ['standard', 'ap', 'chicago', 'mla'];
+    const currentIndex = styles.indexOf(currentStyle);
+    const nextIndex = (currentIndex + 1) % styles.length;
+    
+    currentStyle = styles[nextIndex];
+    document.getElementById('title-style').value = currentStyle;
+    generateTitleCase();
+}
+
+function loadExample() {
+    const examples = [
+        'the ultimate guide to web development',
+        'artificial intelligence in modern society',
+        'tips for effective communication and leadership',
+        'the art of creative writing and storytelling',
+        'mastering digital marketing strategies for success'
+    ];
+    
+    const randomExample = examples[Math.floor(Math.random() * examples.length)];
+    document.getElementById('titleCaseInput').value = randomExample;
+    generateTitleCase();
+}
+
+function showToast(message) {
+    const existingToast = document.querySelector('.toast');
+    if (existingToast) {
+        existingToast.remove();
+    }
+    
+    const toast = document.createElement('div');
+    toast.className = 'toast show';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
+
+// Style selector functionality
+document.getElementById('title-style').addEventListener('change', function() {
+    currentStyle = this.value;
+    generateTitleCase();
+});
+
+// Initial generation
+generateTitleCase();
+</script>
+{% endblock %} 

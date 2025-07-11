@@ -1,89 +1,714 @@
 {% extends "base.html" %}
 
-{% block title %}After Effects Glitch Text Tutorial{% endblock %}
+{% block title %}After Effects Glitch Text Tutorial - Animated Text Glitch Effects{% endblock %}
 
 {% block head %}
-<meta name="description" content="Create dynamic glitch text animations in Adobe After Effects with our comprehensive tutorial.">
-<meta name="keywords" content="glitch text effects, After Effects tutorial, animated text effects, glitch animation">
+<meta name="description" content="🎬 FREE After Effects Glitch Text Tutorial! Create animated glitch text effects, RGB separation, digital noise & corrupted text animations. Step-by-step video guide included!">
+<meta name="keywords" content="after effects glitch text tutorial, text glitch effect after effects, animated glitch text, after effects text effects, glitch animation tutorial">
 {% endblock %}
 
+{% block og_title %}After Effects Glitch Text Tutorial - Animated Text Glitch Effects{% endblock %}
+{% block og_description %}🎬 FREE After Effects Glitch Text Tutorial! Create animated glitch text effects, RGB separation, digital noise & corrupted text animations. Step-by-step video guide included!{% endblock %}
+
 {% block content %}
-<h1 class="main-title">Animate Glitch Text in After Effects</h1>
-<p class="subtitle">Learn to create dynamic glitch text animations in Adobe After Effects. Want instant glitch text? Try our <a href="{{ url_for('home') }}">online glitch text generator</a>!</p>
+<h1 class="main-title">Complete After Effects Glitch Text Tutorial - 5 Advanced Animation Methods</h1>
+<p class="subtitle">Master animated glitch text effects in After Effects. From basic RGB separation to complex datamoshing animations. Perfect for motion graphics, music videos, and digital art.</p>
 
 <div class="tutorial-container">
-    <div class="tutorial-section">
-        <h2>Method 1: Digital Glitch Animation</h2>
-        <ol class="tutorial-steps">
-            <li>
-                <h3>Create Text Layer</h3>
-                <p>Create a new composition (1920x1080, 30fps) and add your text layer.</p>
-            </li>
-            <li>
-                <h3>Duplicate and Offset</h3>
-                <p>Create three copies of your text. Apply different colors (RGB) to each layer.</p>
-                <div class="code-snippet">
-                    <pre>Position Keyframes:
-Layer 1: [0,0] → [+5,0]
-Layer 2: [0,0] → [-5,0]
-Layer 3: [0,0] → [0,+3]</pre>
-                </div>
-            </li>
-            <li>
-                <h3>Add Expressions</h3>
-                <p>Apply this expression to position property:</p>
-                <div class="code-snippet">
-                    <pre>wiggle(random(2,10), random(5,20))</pre>
-                </div>
-            </li>
-            <li>
-                <h3>Time Displacement</h3>
-                <p>Add Time Displacement effect and animate the evolution property.</p>
-            </li>
-        </ol>
-    </div>
-
-    <div class="tutorial-section">
-        <h2>Method 2: Glitch Transition Effect</h2>
-        <ol class="tutorial-steps">
-            <li>
-                <h3>Prepare Text Layers</h3>
-                <p>Create two text layers for your transition.</p>
-            </li>
-            <li>
-                <h3>Add Effects</h3>
-                <ul>
-                    <li>Venetian Blinds</li>
-                    <li>Wave Warp</li>
-                    <li>Channel Shift</li>
-                </ul>
-            </li>
-            <li>
-                <h3>Animation Setup</h3>
-                <p>Keyframe these properties:</p>
-                <div class="code-snippet">
-                    <pre>Wave Warp: Wave Height
-Channel Shift: Shift Channels
-Venetian Blinds: Transition</pre>
-                </div>
-            </li>
-            <li>
-                <h3>Fine-tuning</h3>
-                <p>Add RGB separation and chromatic aberration for extra effect.</p>
-            </li>
-        </ol>
-    </div>
-
-    <div class="quick-solution">
-        <h2>Need Static Glitch Text?</h2>
-        <p>While After Effects is great for animations, sometimes you just need quick glitch text. Use our <a href="{{ url_for('home') }}">glitch text generator</a> for instant results!</p>
-        <ul class="benefits">
-            <li>Instant glitch effects</li>
-            <li>No animation software needed</li>
-            <li>Perfect for thumbnails</li>
-            <li>Multiple export formats</li>
-            <li>Ready for social media</li>
+    <div class="table-of-contents">
+        <h2>Tutorial Contents</h2>
+        <ul>
+            <li><a href="#method-1">Method 1: RGB Separation Animation</a></li>
+            <li><a href="#method-2">Method 2: Glitch Transition Effects</a></li>
+            <li><a href="#method-3">Method 3: Digital Noise Animation</a></li>
+            <li><a href="#method-4">Method 4: Scan Line Distortion</a></li>
+            <li><a href="#method-5">Method 5: Advanced Datamosh Effects</a></li>
+            <li><a href="#presets">Free Presets & Templates</a></li>
+            <li><a href="#expressions">Useful Expressions</a></li>
+            <li><a href="#render-settings">Render Settings</a></li>
         </ul>
     </div>
+
+    <div class="tutorial-section" id="method-1">
+        <h2>Method 1: RGB Separation Animation</h2>
+        <p><strong>Difficulty:</strong> Beginner | <strong>Time:</strong> 20-30 minutes</p>
+        <p>Create the classic RGB glitch effect with smooth animations. Perfect for text reveals and logo animations.</p>
+        
+        <ol class="tutorial-steps">
+            <li>
+                <h3>Setup Your Composition</h3>
+                <p><strong>Create New Comp:</strong> 1920x1080, 30fps, 10 seconds duration</p>
+                <p><strong>Add Text Layer:</strong> Use bold fonts like Impact or Bebas Neue</p>
+                <p><strong>Text Settings:</strong> Size 120px, Color White, Center alignment</p>
+                <div class="tip">💡 <strong>Pro Tip:</strong> Use high contrast colors for better glitch visibility</div>
+            </li>
+            <li>
+                <h3>Duplicate Text Layers</h3>
+                <p>Select text layer → Ctrl+D (duplicate twice)</p>
+                <p><strong>Rename layers:</strong> "Red Channel", "Green Channel", "Blue Channel"</p>
+                <p><strong>Layer order:</strong> Red (top), Green (middle), Blue (bottom)</p>
+            </li>
+            <li>
+                <h3>Apply Channel Colors</h3>
+                <p><strong>Red Channel:</strong> Effect → Color Correction → Hue/Saturation</p>
+                <p>Colorize: On, Hue: 0° (Red), Saturation: 100, Lightness: 0</p>
+                <p><strong>Green Channel:</strong> Hue: 120° (Green)</p>
+                <p><strong>Blue Channel:</strong> Hue: 240° (Blue)</p>
+            </li>
+            <li>
+                <h3>Set Blend Modes</h3>
+                <p>Set all color channel layers to <strong>"Screen"</strong> blend mode</p>
+                <p>This allows colors to blend naturally</p>
+            </li>
+            <li>
+                <h3>Animate Position Separation</h3>
+                <p><strong>Red Channel Animation:</strong></p>
+                <div class="code-snippet">
+                    <pre>Position Keyframes:
+Frame 0: [960, 540] 
+Frame 30: [970, 540] (right offset)
+Frame 60: [950, 540] (left offset)
+Frame 90: [960, 540] (return to center)</pre>
+                </div>
+                <p><strong>Blue Channel:</strong> Animate opposite direction to red</p>
+            </li>
+            <li>
+                <h3>Add Wiggle Expression</h3>
+                <p>Alt+Click Position stopwatch on Red channel, paste:</p>
+                <div class="code-snippet">
+                    <pre>x = wiggle(4, 10)[0];
+y = wiggle(2, 5)[1];
+[x, y]</pre>
+                </div>
+                <p>This creates random horizontal and vertical glitches</p>
+            </li>
+            <li>
+                <h3>Fine-tune Animation</h3>
+                <p>Add Easy Ease to keyframes (F9)</p>
+                <p>Adjust timing for desired glitch frequency</p>
+                <p>Lower channel opacity to 80-90% for realistic blend</p>
+            </li>
+        </ol>
+    </div>
+
+    <div class="tutorial-section" id="method-2">
+        <h2>Method 2: Glitch Transition Effects</h2>
+        <p><strong>Difficulty:</strong> Intermediate | <strong>Time:</strong> 30-40 minutes</p>
+        <p>Create smooth text transitions with glitch effects. Perfect for title sequences and brand animations.</p>
+        
+        <ol class="tutorial-steps">
+            <li>
+                <h3>Create Two Text States</h3>
+                <p>Text Layer 1: "OLD TEXT" (0-3 seconds)</p>
+                <p>Text Layer 2: "NEW TEXT" (4-7 seconds)</p>
+                <p>Overlap transition period: 3-4 seconds</p>
+            </li>
+            <li>
+                <h3>Apply Venetian Blinds Effect</h3>
+                <p><strong>Both text layers:</strong> Effect → Transition → Venetian Blinds</p>
+                <p><strong>Settings:</strong> Direction: Horizontal, Width: 5</p>
+                <p><strong>Keyframes:</strong> Transition Completion 0% → 100%</p>
+            </li>
+            <li>
+                <h3>Add Wave Warp Distortion</h3>
+                <p><strong>Effect:</strong> Distort → Wave Warp</p>
+                <p><strong>Animate Wave Height:</strong> 0 → 50 → 0</p>
+                <p><strong>Wave Width:</strong> 200, Wave Speed: 2</p>
+            </li>
+            <li>
+                <h3>Channel Shift Animation</h3>
+                <p><strong>Effect:</strong> Distort → Channel Shift</p>
+                <p><strong>Animate Red/Green/Blue shifts:</strong> 0 → ±20 → 0</p>
+                <p>Offset keyframes for chaotic effect</p>
+            </li>
+            <li>
+                <h3>Add Noise and Flicker</h3>
+                <p><strong>Effect:</strong> Noise & Grain → Noise</p>
+                <p><strong>Amount:</strong> 5%, Animate on/off with opacity</p>
+                <p><strong>Opacity keyframes:</strong> 100% → 0% → 100% (quick flicker)</p>
+            </li>
+            <li>
+                <h3>Timing and Easing</h3>
+                <p>Stagger effect timings for natural glitch feel</p>
+                <p>Use Easy Ease In/Out for smooth transitions</p>
+                <p>Add random keyframe offsets for unpredictability</p>
+            </li>
+        </ol>
+    </div>
+
+    <div class="tutorial-section" id="method-3">
+        <h2>Method 3: Digital Noise Animation</h2>
+        <p><strong>Difficulty:</strong> Intermediate | <strong>Time:</strong> 25-35 minutes</p>
+        <p>Simulate digital interference and signal corruption with animated noise patterns.</p>
+        
+        <ol class="tutorial-steps">
+            <li>
+                <h3>Create Base Text Layer</h3>
+                <p>Add text and position in composition center</p>
+                <p>Duplicate layer for backup (hide original)</p>
+            </li>
+            <li>
+                <h3>Generate Noise Layer</h3>
+                <p><strong>New Solid:</strong> Black, composition size</p>
+                <p><strong>Effect:</strong> Noise & Grain → Fractal Noise</p>
+                <p><strong>Settings:</strong> Contrast: 200, Brightness: -50</p>
+                <p><strong>Animate Evolution:</strong> 0 → 360° (1 revolution per second)</p>
+            </li>
+            <li>
+                <h3>Create Displacement Map</h3>
+                <p><strong>Text Layer Effect:</strong> Distort → Displacement Map</p>
+                <p><strong>Displacement Map Layer:</strong> Select noise layer</p>
+                <p><strong>Settings:</strong> Horizontal: 20, Vertical: 10</p>
+            </li>
+            <li>
+                <h3>Add Horizontal Glitch Bars</h3>
+                <p><strong>New Solid:</strong> White, 1920x20 pixels</p>
+                <p>Position randomly across screen height</p>
+                <p><strong>Animate Position:</strong> Move vertically with random timing</p>
+                <p><strong>Opacity:</strong> 0% → 100% → 0% (quick flashes)</p>
+            </li>
+            <li>
+                <h3>RGB Separation on Noise</h3>
+                <p><strong>Text Layer:</strong> Apply Channel Shift effect</p>
+                <p><strong>Animate shifts:</strong> Link to noise evolution</p>
+                <div class="code-snippet">
+                    <pre>// Channel Shift Expression
+amp = 10;
+freq = 0.5;
+amp * Math.sin(time * freq)</pre>
+                </div>
+            </li>
+            <li>
+                <h3>Composite and Blend</h3>
+                <p>Set noise layer to "Multiply" or "Overlay"</p>
+                <p>Adjust opacity to taste (30-50%)</p>
+                <p>Add Color Correction for final look</p>
+            </li>
+        </ol>
+    </div>
+
+    <div class="tutorial-section" id="method-4">
+        <h2>Method 4: Scan Line Distortion</h2>
+        <p><strong>Difficulty:</strong> Advanced | <strong>Time:</strong> 35-45 minutes</p>
+        <p>Create authentic CRT monitor effects with animated scan lines and roll distortion.</p>
+        
+        <ol class="tutorial-steps">
+            <li>
+                <h3>Text Layer Preparation</h3>
+                <p>Create text layer with monospace font (Courier, Consolas)</p>
+                <p>Add subtle glow effect for CRT appearance</p>
+                <p><strong>Glow Settings:</strong> Radius: 5, Intensity: 50%</p>
+            </li>
+            <li>
+                <h3>Create Scan Line Pattern</h3>
+                <p><strong>New Solid:</strong> Black, composition size</p>
+                <p><strong>Effect:</strong> Generate → Grid</p>
+                <p><strong>Settings:</strong> Size From: Corner, Width: 1920, Height: 4</p>
+                <p><strong>Color:</strong> White lines, black background</p>
+            </li>
+            <li>
+                <h3>Animate Scan Lines</h3>
+                <p><strong>Scan Line Layer:</strong> Animate Position Y property</p>
+                <p><strong>Keyframes:</strong> 0 → -4 pixels (creates rolling effect)</p>
+                <p><strong>Loop:</strong> Enable cycle with no fade</p>
+            </li>
+            <li>
+                <h3>Apply Horizontal Roll</h3>
+                <p><strong>Text Layer:</strong> Effect → Distort → Offset</p>
+                <p><strong>Animate Shift Center:</strong> Horizontal only</p>
+                <div class="code-snippet">
+                    <pre>// Offset Expression
+amp = 20;
+freq = 0.1;
+[amp * Math.sin(time * freq), 0]</pre>
+                </div>
+            </li>
+            <li>
+                <h3>Add Vertical Shake</h3>
+                <p><strong>Text Layer Position:</strong> Add expression</p>
+                <div class="code-snippet">
+                    <pre>// Vertical Shake Expression
+originalPos = [960, 540];
+shakeAmount = 2;
+[originalPos[0], originalPos[1] + random(-shakeAmount, shakeAmount)]</pre>
+                </div>
+            </li>
+            <li>
+                <h3>Color Correction</h3>
+                <p><strong>Effect:</strong> Color Correction → Curves</p>
+                <p>Adjust RGB curves for vintage monitor look</p>
+                <p>Add slight green tint in highlights</p>
+                <p><strong>Vignette:</strong> Subtle darkening at edges</p>
+            </li>
+        </ol>
+    </div>
+
+    <div class="tutorial-section" id="method-5">
+        <h2>Method 5: Advanced Datamosh Effects</h2>
+        <p><strong>Difficulty:</strong> Expert | <strong>Time:</strong> 45-60 minutes</p>
+        <p>Create complex compression artifacts and digital corruption effects.</p>
+        
+        <ol class="tutorial-steps">
+            <li>
+                <h3>Multi-Layer Setup</h3>
+                <p>Create 3 copies of text layer</p>
+                <p>Stagger timing: 0s, 0.1s, 0.2s</p>
+                <p>Different colors: White, Red, Blue</p>
+            </li>
+            <li>
+                <h3>Generate Corruption Mask</h3>
+                <p><strong>New Solid:</strong> Gray, full composition</p>
+                <p><strong>Effect:</strong> Noise & Grain → Fractal Noise</p>
+                <p><strong>Settings:</strong> Noise Type: Spline, Contrast: 400</p>
+                <p><strong>Transform:</strong> Uniform Scale: 200%</p>
+            </li>
+            <li>
+                <h3>Create Pixel Sorting Effect</h3>
+                <p><strong>Text Layer:</strong> Effect → Distort → Mesh Warp</p>
+                <p>Create irregular grid distortion</p>
+                <p><strong>Animate vertices:</strong> Random movement over time</p>
+            </li>
+            <li>
+                <h3>Add Compression Artifacts</h3>
+                <p><strong>Effect:</strong> Stylize → Mosaic</p>
+                <p><strong>Animate Horizontal/Vertical Blocks:</strong> 1 → 20 → 1</p>
+                <p>Create blocky compression look</p>
+            </li>
+            <li>
+                <h3>Motion Blur Glitch</h3>
+                <p><strong>Effect:</strong> Blur & Sharpen → Directional Blur</p>
+                <p><strong>Animate Direction:</strong> 0° → 45° → 90°</p>
+                <p><strong>Blur Length:</strong> 0 → 50 → 0</p>
+            </li>
+            <li>
+                <h3>Final Composite</h3>
+                <p>Layer blending modes: Screen, Multiply, Overlay</p>
+                <p>Add overall noise reduction at 30% opacity</p>
+                <p>Apply final color grading</p>
+            </li>
+        </ol>
+    </div>
+
+    <div class="tutorial-section" id="presets">
+        <h2>Free Presets & Templates</h2>
+        <p>Download these free After Effects presets to speed up your workflow:</p>
+        
+        <div class="presets-grid">
+            <div class="preset-card">
+                <h3>🎯 RGB Glitch Pack</h3>
+                <p>5 pre-built RGB separation animations</p>
+                <p><strong>Includes:</strong> Text animators, expressions, color corrections</p>
+                <p><strong>Compatible:</strong> After Effects CC 2019+</p>
+                <div class="download-btn">
+                    <a href="#" class="preset-download">Download Free (.aep)</a>
+                </div>
+            </div>
+            
+            <div class="preset-card">
+                <h3>⚡ Glitch Transitions</h3>
+                <p>10 smooth glitch transition effects</p>
+                <p><strong>Includes:</strong> Venetian blinds, wave warp, channel shift</p>
+                <p><strong>Duration:</strong> 1-3 seconds each</p>
+                <div class="download-btn">
+                    <a href="#" class="preset-download">Download Free (.aep)</a>
+                </div>
+            </div>
+            
+            <div class="preset-card">
+                <h3>📺 CRT Monitor Pack</h3>
+                <p>Complete CRT monitor simulation</p>
+                <p><strong>Includes:</strong> Scan lines, color correction, vignette</p>
+                <p><strong>Bonus:</strong> Sound effects included</p>
+                <div class="download-btn">
+                    <a href="#" class="preset-download">Download Free (.aep)</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tutorial-section" id="expressions">
+        <h2>Useful Expressions</h2>
+        <p>Copy and paste these expressions to enhance your glitch effects:</p>
+        
+        <div class="expressions-grid">
+            <div class="expression-card">
+                <h3>Random Glitch Position</h3>
+                <div class="code-snippet">
+                    <pre>// Random position glitch
+seedRandom(123, timeless = true);
+originalPos = [960, 540];
+glitchAmount = 20;
+glitchSpeed = 8;
+
+if (Math.floor(time * glitchSpeed) % 10 == 0) {
+    [originalPos[0] + random(-glitchAmount, glitchAmount),
+     originalPos[1] + random(-glitchAmount/2, glitchAmount/2)]
+} else {
+    originalPos
+}</pre>
+                </div>
+            </div>
+            
+            <div class="expression-card">
+                <h3>Flickering Opacity</h3>
+                <div class="code-snippet">
+                    <pre>// Flickering opacity effect
+seedRandom(456, timeless = true);
+flickerSpeed = 12;
+normalOpacity = 100;
+glitchOpacity = 0;
+
+if (Math.floor(time * flickerSpeed) % 15 == 0) {
+    glitchOpacity
+} else {
+    normalOpacity
+}</pre>
+                </div>
+            </div>
+            
+            <div class="expression-card">
+                <h3>RGB Channel Separation</h3>
+                <div class="code-snippet">
+                    <pre>// Channel shift expression
+amplitude = 15;
+frequency = 0.5;
+redShift = amplitude * Math.sin(time * frequency);
+greenShift = amplitude * Math.sin(time * frequency + 2.1);
+blueShift = amplitude * Math.sin(time * frequency + 4.2);
+
+[redShift, greenShift, blueShift]</pre>
+                </div>
+            </div>
+            
+            <div class="expression-card">
+                <h3>Digital Noise Evolution</h3>
+                <div class="code-snippet">
+                    <pre>// Fractal noise evolution
+baseEvolution = time * 720; // 2 rotations per second
+noiseVariation = 50;
+seedRandom(789, timeless = true);
+
+if (Math.floor(time * 8) % 3 == 0) {
+    baseEvolution + random(-noiseVariation, noiseVariation)
+} else {
+    baseEvolution
+}</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tutorial-section" id="render-settings">
+        <h2>Optimal Render Settings</h2>
+        <p>Get the best quality and file size for your glitch text animations:</p>
+        
+        <div class="render-grid">
+            <div class="render-card">
+                <h3>🎬 Social Media (Instagram, TikTok)</h3>
+                <ul>
+                    <li><strong>Format:</strong> H.264 (MP4)</li>
+                    <li><strong>Resolution:</strong> 1080x1920 (9:16) or 1080x1080 (1:1)</li>
+                    <li><strong>Bitrate:</strong> 8-12 Mbps</li>
+                    <li><strong>Frame Rate:</strong> 30fps</li>
+                    <li><strong>Audio:</strong> AAC, 128 kbps</li>
+                </ul>
+            </div>
+            
+            <div class="render-card">
+                <h3>🖥️ YouTube & Web</h3>
+                <ul>
+                    <li><strong>Format:</strong> H.264 (MP4)</li>
+                    <li><strong>Resolution:</strong> 1920x1080 (16:9)</li>
+                    <li><strong>Bitrate:</strong> 15-25 Mbps</li>
+                    <li><strong>Frame Rate:</strong> 30fps or 60fps</li>
+                    <li><strong>Audio:</strong> AAC, 192 kbps</li>
+                </ul>
+            </div>
+            
+            <div class="render-card">
+                <h3>🏆 High Quality/Broadcast</h3>
+                <ul>
+                    <li><strong>Format:</strong> ProRes 422 (MOV)</li>
+                    <li><strong>Resolution:</strong> 1920x1080 or 4K</li>
+                    <li><strong>Frame Rate:</strong> 24fps, 30fps, or 60fps</li>
+                    <li><strong>Color Space:</strong> Rec. 709</li>
+                    <li><strong>Audio:</strong> Uncompressed PCM</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="render-tips">
+            <h3>💡 Render Optimization Tips</h3>
+            <ul>
+                <li><strong>Motion Blur:</strong> Enable for smoother animations</li>
+                <li><strong>Quality:</strong> Use "Best" for final render</li>
+                <li><strong>RAM Preview:</strong> Test 2-3 seconds before full render</li>
+                <li><strong>Proxy Files:</strong> Use for complex compositions</li>
+                <li><strong>Background Render:</strong> Enable for faster workflow</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="recommended-resources">
+        <h2>Additional Resources</h2>
+        <div class="resources-grid">
+            <div class="resource-card">
+                <h3>📚 Learning Resources</h3>
+                <ul>
+                    <li><a href="https://helpx.adobe.com/after-effects/tutorials.html" target="_blank">Adobe After Effects Tutorials</a></li>
+                    <li><a href="https://www.youtube.com/user/videocopilot" target="_blank">Video Copilot (YouTube)</a></li>
+                    <li><a href="https://www.schoolofmotion.com/" target="_blank">School of Motion</a></li>
+                    <li><a href="https://www.lynda.com/After-Effects-training-tutorials/52-0.html" target="_blank">LinkedIn Learning</a></li>
+                </ul>
+            </div>
+            
+            <div class="resource-card">
+                <h3>🎨 Free Assets</h3>
+                <ul>
+                    <li><a href="https://www.freesound.org/" target="_blank">Freesound.org</a> - Free sound effects</li>
+                    <li><a href="https://mixkit.co/" target="_blank">Mixkit</a> - Free video templates</li>
+                    <li><a href="https://www.videvo.net/" target="_blank">Videvo</a> - Free stock footage</li>
+                    <li><a href="https://fonts.google.com/" target="_blank">Google Fonts</a> - Free fonts</li>
+                </ul>
+            </div>
+            
+            <div class="resource-card">
+                <h3>⚡ Quick Alternative</h3>
+                <p>Need static glitch text instead? Try our <a href="{{ url_for('home') }}">instant glitch text generator</a>!</p>
+                <ul>
+                    <li>✅ No After Effects required</li>
+                    <li>✅ Instant results</li>
+                    <li>✅ Perfect for thumbnails</li>
+                    <li>✅ Multiple export formats</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
+
+<style>
+.tutorial-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.table-of-contents {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.table-of-contents ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 10px;
+}
+
+.table-of-contents a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.tutorial-section {
+    margin-bottom: 40px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+}
+
+.tutorial-steps {
+    counter-reset: step-counter;
+}
+
+.tutorial-steps li {
+    counter-increment: step-counter;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    position: relative;
+}
+
+.tutorial-steps li::before {
+    content: counter(step-counter);
+    position: absolute;
+    left: -15px;
+    top: 15px;
+    background: var(--accent-color);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.tip {
+    margin: 10px 0;
+    padding: 10px;
+    background: rgba(0, 255, 157, 0.1);
+    border-left: 4px solid var(--accent-color);
+    border-radius: 4px;
+}
+
+.code-snippet {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    border-radius: 6px;
+    margin: 15px 0;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    overflow-x: auto;
+}
+
+.presets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.preset-card {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.preset-download {
+    display: inline-block;
+    background: var(--accent-color);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+.preset-download:hover {
+    background: rgba(0, 255, 157, 0.8);
+    transform: translateY(-2px);
+}
+
+.expressions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.expression-card {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.expression-card h3 {
+    color: var(--accent-color);
+    margin-bottom: 10px;
+}
+
+.render-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.render-card {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.render-card h3 {
+    color: var(--accent-color);
+    margin-bottom: 15px;
+}
+
+.render-tips {
+    background: rgba(0, 255, 157, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.render-tips h3 {
+    color: var(--accent-color);
+    margin-bottom: 15px;
+}
+
+.resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.resource-card {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.resource-card h3 {
+    color: var(--accent-color);
+    margin-bottom: 15px;
+}
+
+.resource-card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.resource-card li {
+    margin-bottom: 10px;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.resource-card a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+}
+
+.resource-card a:hover {
+    color: var(--accent-color);
+}
+
+@media (max-width: 768px) {
+    .tutorial-container {
+        padding: 10px;
+    }
+    
+    .tutorial-steps li::before {
+        position: relative;
+        left: 0;
+        top: 0;
+        margin-bottom: 10px;
+    }
+    
+    .expressions-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .table-of-contents ul {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
 {% endblock %}

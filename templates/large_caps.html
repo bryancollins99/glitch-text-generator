@@ -1,0 +1,224 @@
+{% extends 'base.html' %}
+
+{% block title %}Large Caps Text Generator - Convert Text to Large Capital Letters{% endblock %}
+
+{% block head %}
+<meta name="description" content="Convert your text to large caps with our free large capitals generator. Create bold typography for headlines, banners, and attention-grabbing designs.">
+<meta name="keywords" content="large caps generator, large capitals, bold typography, text converter, large caps text">
+{% endblock %}
+
+{% block content %}
+<h1 class="main-title glitch-title">Large Caps Generator</h1>
+<p class="subtitle">Transform your text into powerful large capital letters with multiple styling options. Perfect for headlines, announcements, and making your text stand out with maximum impact.</p>
+
+<div class="controls-panel">
+    <div class="control-group">
+        <label for="caps-style">Caps Style:</label>
+        <select id="caps-style" class="effect-select">
+            <option value="upper-case">Standard Uppercase</option>
+            <option value="wide-caps">Wide Caps (Full-width)</option>
+            <option value="double-struck">Double Struck</option>
+            <option value="bold-caps">Bold Mathematical</option>
+        </select>
+    </div>
+</div>
+
+<div class="text-editor">
+    <div class="input-container">
+        <div class="editor-header">Input Text</div>
+        <textarea 
+            id="largeCapsInput" 
+            placeholder="Type your text here to convert to large caps..."
+            class="glitch-input"
+            oninput="generateLargeCaps()"
+        >Sample Text</textarea>
+    </div>
+    
+    <div class="output-container">
+        <div class="editor-header">
+            Large Caps Output
+            <button id="copy-btn" class="btn-copy" onclick="copyToClipboard()">Copy</button>
+        </div>
+        <div id="largeCapsOutput" class="glitch-output">SAMPLE TEXT</div>
+    </div>
+</div>
+
+<div class="quick-effects">
+    <h3>Quick Actions</h3>
+    <div class="effect-buttons">
+        <button class="quick-effect" onclick="loadExample()">Load Example</button>
+        <button class="quick-effect" onclick="clearText()">Clear Text</button>
+        <button class="quick-effect" onclick="toggleCase()">Toggle Case</button>
+        <button class="quick-effect" onclick="copyToClipboard()">Copy Result</button>
+    </div>
+</div>
+
+<div class="guide-container">
+    <section>
+        <h2>About Large Caps</h2>
+        <p>Large caps are uppercase letters designed to create maximum visual impact. They're essential for:</p>
+        <div class="tools-grid">
+            <div class="tool-card">
+                <h3>Headlines</h3>
+                <p>Newspaper and magazine titles that demand attention</p>
+            </div>
+            <div class="tool-card">
+                <h3>Advertising</h3>
+                <p>Bold marketing messages and promotional content</p>
+            </div>
+            <div class="tool-card">
+                <h3>Signage</h3>
+                <p>Street signs, building names, and directional displays</p>
+            </div>
+            <div class="tool-card">
+                <h3>Social Media</h3>
+                <p>Attention-grabbing posts and profile content</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+let currentStyle = 'upper-case';
+
+// Character mappings for different styles
+const wideMap = {
+    'a': 'ａ', 'b': 'ｂ', 'c': 'ｃ', 'd': 'ｄ', 'e': 'ｅ', 'f': 'ｆ', 'g': 'ｇ', 'h': 'ｈ', 'i': 'ｉ', 'j': 'ｊ',
+    'k': 'ｋ', 'l': 'ｌ', 'm': 'ｍ', 'n': 'ｎ', 'o': 'ｏ', 'p': 'ｐ', 'q': 'ｑ', 'r': 'ｒ', 's': 'ｓ', 't': 'ｔ',
+    'u': 'ｕ', 'v': 'ｖ', 'w': 'ｗ', 'x': 'ｘ', 'y': 'ｙ', 'z': 'ｚ',
+    'A': 'Ａ', 'B': 'Ｂ', 'C': 'Ｃ', 'D': 'Ｄ', 'E': 'Ｅ', 'F': 'Ｆ', 'G': 'Ｇ', 'H': 'Ｈ', 'I': 'Ｉ', 'J': 'Ｊ',
+    'K': 'Ｋ', 'L': 'Ｌ', 'M': 'Ｍ', 'N': 'Ｎ', 'O': 'Ｏ', 'P': 'Ｐ', 'Q': 'Ｑ', 'R': 'Ｒ', 'S': 'Ｓ', 'T': 'Ｔ',
+    'U': 'Ｕ', 'V': 'Ｖ', 'W': 'Ｗ', 'X': 'Ｘ', 'Y': 'Ｙ', 'Z': 'Ｚ',
+    '0': '０', '1': '１', '2': '２', '3': '３', '4': '４', '5': '５', '6': '６', '7': '７', '8': '８', '9': '９',
+    ' ': '　'
+};
+
+const doubleStruckMap = {
+    'A': '𝔸', 'B': '𝔹', 'C': 'ℂ', 'D': '𝔻', 'E': '𝔼', 'F': '𝔽', 'G': '𝔾', 'H': 'ℍ', 'I': '𝕀', 'J': '𝕁',
+    'K': '𝕂', 'L': '𝕃', 'M': '𝕄', 'N': 'ℕ', 'O': '𝕆', 'P': 'ℙ', 'Q': 'ℚ', 'R': 'ℝ', 'S': '𝕊', 'T': '𝕋',
+    'U': '𝕌', 'V': '𝕍', 'W': '𝕎', 'X': '𝕏', 'Y': '𝕐', 'Z': 'ℤ',
+    'a': '𝕒', 'b': '𝕓', 'c': '𝕔', 'd': '𝕕', 'e': '𝕖', 'f': '𝕗', 'g': '𝕘', 'h': '𝕙', 'i': '𝕚', 'j': '𝕛',
+    'k': '𝕜', 'l': '𝕝', 'm': '𝕞', 'n': '𝕟', 'o': '𝕠', 'p': '𝕡', 'q': '𝕢', 'r': '𝕣', 's': '𝕤', 't': '𝕥',
+    'u': '𝕦', 'v': '𝕧', 'w': '𝕨', 'x': '𝕩', 'y': '𝕪', 'z': '𝕫',
+    '0': '𝟘', '1': '𝟙', '2': '𝟚', '3': '𝟛', '4': '𝟜', '5': '𝟝', '6': '𝟞', '7': '𝟟', '8': '𝟠', '9': '𝟡'
+};
+
+const boldMap = {
+    'A': '𝐀', 'B': '𝐁', 'C': '𝐂', 'D': '𝐃', 'E': '𝐄', 'F': '𝐅', 'G': '𝐆', 'H': '𝐇', 'I': '𝐈', 'J': '𝐉',
+    'K': '𝐊', 'L': '𝐋', 'M': '𝐌', 'N': '𝐍', 'O': '𝐎', 'P': '𝐏', 'Q': '𝐐', 'R': '𝐑', 'S': '𝐒', 'T': '𝐓',
+    'U': '𝐔', 'V': '𝐕', 'W': '𝐖', 'X': '𝐗', 'Y': '𝐘', 'Z': '𝐙',
+    'a': '𝐚', 'b': '𝐛', 'c': '𝐜', 'd': '𝐝', 'e': '𝐞', 'f': '𝐟', 'g': '𝐠', 'h': '𝐡', 'i': '𝐢', 'j': '𝐣',
+    'k': '𝐤', 'l': '𝐥', 'm': '𝐦', 'n': '𝐧', 'o': '𝐨', 'p': '𝐩', 'q': '𝐪', 'r': '𝐫', 's': '𝐬', 't': '𝐭',
+    'u': '𝐮', 'v': '𝐯', 'w': '𝐰', 'x': '𝐱', 'y': '𝐲', 'z': '𝐳',
+    '0': '𝟎', '1': '𝟏', '2': '𝟐', '3': '𝟑', '4': '𝟒', '5': '𝟓', '6': '𝟔', '7': '𝟕', '8': '𝟖', '9': '𝟗'
+};
+
+function generateLargeCaps() {
+    const input = document.getElementById('largeCapsInput').value;
+    const output = document.getElementById('largeCapsOutput');
+    
+    if (!input.trim()) {
+        output.textContent = 'Your large caps text will appear here...';
+        return;
+    }
+    
+    let result = '';
+    
+    switch(currentStyle) {
+        case 'upper-case':
+            result = input.toUpperCase();
+            break;
+        case 'wide-caps':
+            result = convertToWide(input);
+            break;
+        case 'double-struck':
+            result = convertToDoubleStruck(input);
+            break;
+        case 'bold-caps':
+            result = convertToBold(input);
+            break;
+    }
+    
+    output.textContent = result;
+}
+
+function convertToWide(text) {
+    return text.split('').map(char => wideMap[char] || char).join('');
+}
+
+function convertToDoubleStruck(text) {
+    return text.split('').map(char => doubleStruckMap[char] || char).join('');
+}
+
+function convertToBold(text) {
+    return text.split('').map(char => boldMap[char] || char).join('');
+}
+
+function copyToClipboard() {
+    const output = document.getElementById('largeCapsOutput');
+    const text = output.textContent;
+    
+    if (text && text !== 'Your large caps text will appear here...') {
+        navigator.clipboard.writeText(text).then(() => {
+            showToast('Text copied to clipboard!');
+        });
+    }
+}
+
+function clearText() {
+    document.getElementById('largeCapsInput').value = '';
+    document.getElementById('largeCapsOutput').textContent = 'Your large caps text will appear here...';
+}
+
+function toggleCase() {
+    const input = document.getElementById('largeCapsInput');
+    const text = input.value;
+    
+    if (text === text.toUpperCase()) {
+        input.value = text.toLowerCase();
+    } else {
+        input.value = text.toUpperCase();
+    }
+    generateLargeCaps();
+}
+
+function loadExample() {
+    const examples = [
+        'BREAKING NEWS ALERT',
+        'GRAND OPENING EVENT',
+        'LIMITED TIME OFFER',
+        'IMPORTANT ANNOUNCEMENT',
+        'SPECIAL PROMOTION'
+    ];
+    
+    const randomExample = examples[Math.floor(Math.random() * examples.length)];
+    document.getElementById('largeCapsInput').value = randomExample;
+    generateLargeCaps();
+}
+
+function showToast(message) {
+    const existingToast = document.querySelector('.toast');
+    if (existingToast) {
+        existingToast.remove();
+    }
+    
+    const toast = document.createElement('div');
+    toast.className = 'toast show';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
+
+// Style selector functionality
+document.getElementById('caps-style').addEventListener('change', function() {
+    currentStyle = this.value;
+    generateLargeCaps();
+});
+
+// Initial generation
+generateLargeCaps();
+</script>
+{% endblock %} 

@@ -29,22 +29,13 @@
 - [ ] Create "Glitch Text in Digital Art" tutorial
 - [ ] Create "Glitch Text for YouTube Thumbnails" guide
 
-## Technical Improvements
-
-### Performance Optimization
-- [ ] Implement lazy loading for images
-- [ ] Minify CSS and JavaScript files
-- [ ] Optimize server response time
-- [ ] Implement browser caching
-- [ ] Optimize image file sizes
-
 ### SEO Enhancements
 - [x] Create HTML sitemap
 - [x] Update XML sitemap
 - [ ] Implement structured data (Schema.org)
-- [ ] Optimize meta descriptions for all pages
+- [x] Optimize meta descriptions for all pages
 - [ ] Implement canonical URLs
-- [ ] Create an SEO audit schedule (monthly)
+- [ ] Create  SEO audit schedule (monthly)
 - [ ] Implement breadcrumb navigation
 
 ### User Experience
@@ -59,62 +50,17 @@
 ## New Features
 
 ### Text Generators
-- [ ] Add vaporwave text generator
-- [ ] Add small caps text generator
-- [ ] Add reversed text generator
-- [ ] Add mirrored text generator
-- [ ] Add animated text generator
-- [ ] Add glitch text image generator (text to PNG)
+- [x] Add vaporwave text generator
+- [x] Add small caps text generator
+- [x] Add reversed text generator
+- [x] Add mirrored text generator
+- [x] Add animated text generator
+- [x] Add large caps text generator
+- [x] Add title case text generator
+- [x] Add sentence case text generator
+- [x] Add glitch text image generator (text to PNG)
 
-### Tools & Utilities
-- [ ] Create glitch text API for developers
-- [ ] Add bulk text converter
-- [ ] Create browser extension
-- [ ] Implement text-to-speech for glitch text
-- [ ] Add QR code generator with glitch effects
-
-## Marketing & Growth
-
-### Content Marketing
-- [ ] Create weekly blog posts about glitch text trends
-- [ ] Develop case studies on creative uses of glitch text
-- [ ] Create video tutorials for YouTube
-- [ ] Develop an email newsletter
-- [ ] Create downloadable glitch text resources
-
-### Social Media
-- [ ] Create dedicated social media accounts
-- [ ] Develop a social media content calendar
-- [ ] Create shareable glitch text templates
-- [ ] Run social media contests
-- [ ] Implement user-generated content campaigns
-
-### Analytics & Tracking
-- [ ] Set up conversion tracking
-- [ ] Implement heat mapping
-- [ ] Create custom dashboard for key metrics
-- [ ] Set up funnel analysis
-- [ ] Implement user feedback collection
-
-## Maintenance
-
-### Security
-- [ ] Implement CSRF protection
-- [ ] Set up regular security audits
-- [ ] Update dependencies regularly
-- [ ] Implement rate limiting
-- [ ] Set up automated security scanning
-
-### Infrastructure
-- [ ] Set up automated backups
-- [ ] Implement CI/CD pipeline
-- [ ] Create staging environment
-- [ ] Implement automated testing
-- [ ] Set up monitoring and alerting
-
-## Documentation
-- [ ] Create developer documentation for API
-- [ ] Document codebase for future contributors
-- [ ] Create user guides for complex features
-- [ ] Document deployment process
-- [ ] Create style guide for content creation
+## Local QA
+- add validated sitemap (should be built aready), about and contact to the site footer
+- fix the content is blocked error on pages like http://localhost:9600/guides/history for images
+- write a git deployment guide and remember to always ask permission before deployment

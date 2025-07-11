@@ -1,0 +1,437 @@
+{% extends 'base.html' %}
+
+{% block title %}Small Caps Text Generator - Convert Text to Small Capital Letters{% endblock %}
+
+{% block head %}
+<meta name="description" content="Convert your text to small caps with our free small capitals generator. Create elegant typography for logos, headers, and professional designs.">
+<meta name="keywords" content="small caps generator, small capitals, typography, text converter, small caps text">
+{% endblock %}
+
+{% block extra_css %}
+<style>
+:root {
+    --small-caps-primary: #2c3e50;
+    --small-caps-secondary: #3498db;
+    --small-caps-accent: #e74c3c;
+    --small-caps-light: #ecf0f1;
+    --small-caps-dark: #34495e;
+}
+
+.small-caps-container {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.small-caps-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: white;
+}
+
+.small-caps-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.small-caps-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+}
+
+.small-caps-main {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.small-caps-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.small-caps-section {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 2px solid var(--small-caps-light);
+    transition: all 0.3s ease;
+}
+
+.small-caps-section:hover {
+    border-color: var(--small-caps-secondary);
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.1);
+}
+
+.small-caps-section h3 {
+    color: var(--small-caps-primary);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.small-caps-textarea {
+    width: 100%;
+    height: 250px;
+    border: 2px solid var(--small-caps-light);
+    border-radius: 10px;
+    padding: 1rem;
+    font-family: 'Georgia', serif;
+    font-size: 1.1rem;
+    color: var(--small-caps-dark);
+    resize: vertical;
+    transition: border-color 0.3s ease;
+}
+
+.small-caps-textarea:focus {
+    outline: none;
+    border-color: var(--small-caps-secondary);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.small-caps-output {
+    background: #f8f9fa;
+    border: 2px solid var(--small-caps-light);
+    border-radius: 10px;
+    padding: 1rem;
+    min-height: 250px;
+    font-family: 'Georgia', serif;
+    font-size: 1.2rem;
+    color: var(--small-caps-dark);
+    line-height: 1.6;
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+
+.small-caps-styles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.style-card {
+    background: white;
+    border: 2px solid var(--small-caps-light);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.style-card:hover, .style-card.active {
+    border-color: var(--small-caps-secondary);
+    background: #f8f9fa;
+    transform: translateY(-2px);
+}
+
+.style-card.active {
+    border-color: var(--small-caps-accent);
+    background: rgba(231, 76, 60, 0.05);
+}
+
+.style-example {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: var(--small-caps-primary);
+    font-weight: bold;
+}
+
+.style-name {
+    font-size: 0.9rem;
+    color: var(--small-caps-dark);
+    opacity: 0.8;
+}
+
+.small-caps-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.small-caps-btn {
+    background: var(--small-caps-secondary);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+.small-caps-btn:hover {
+    background: var(--small-caps-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+}
+
+.small-caps-btn.secondary {
+    background: var(--small-caps-dark);
+}
+
+.small-caps-btn.secondary:hover {
+    background: var(--small-caps-primary);
+}
+
+.info-section {
+    background: rgba(52, 152, 219, 0.05);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    border-left: 4px solid var(--small-caps-secondary);
+}
+
+.info-section h3 {
+    color: var(--small-caps-primary);
+    margin-bottom: 1rem;
+}
+
+.info-section ul {
+    color: var(--small-caps-dark);
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .small-caps-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .small-caps-title {
+        font-size: 2rem;
+    }
+    
+    .small-caps-styles {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="small-caps-container">
+    <div class="small-caps-header">
+        <h1 class="small-caps-title">Small Caps Generator</h1>
+        <p class="small-caps-subtitle">Transform your text into elegant small capital letters</p>
+    </div>
+
+    <div class="small-caps-main">
+        <div class="small-caps-styles">
+            <div class="style-card active" data-style="small-caps">
+                <div class="style-example">Sᴍᴀʟʟ Cᴀᴘs</div>
+                <div class="style-name">Standard Small Caps</div>
+            </div>
+            <div class="style-card" data-style="superscript">
+                <div class="style-example">ˢᵘᵖᵉʳˢᶜʳⁱᵖᵗ</div>
+                <div class="style-name">Superscript Style</div>
+            </div>
+            <div class="style-card" data-style="subscript">
+                <div class="style-example">ₛᵤᵦₛcᵣᵢₚₜ</div>
+                <div class="style-name">Subscript Style</div>
+            </div>
+            <div class="style-card" data-style="pseudo-small">
+                <div class="style-example">PSEUDO SMALL</div>
+                <div class="style-name">Pseudo Small Caps</div>
+            </div>
+        </div>
+
+        <div class="small-caps-grid">
+            <div class="small-caps-section">
+                <h3>Enter Your Text</h3>
+                <textarea 
+                    class="small-caps-textarea" 
+                    id="smallCapsInput" 
+                    placeholder="Type your text here to convert it to small caps..."
+                    oninput="generateSmallCaps()"
+                >Sample Text</textarea>
+            </div>
+
+            <div class="small-caps-section">
+                <h3>Small Caps Result</h3>
+                <div class="small-caps-output" id="smallCapsOutput">
+                    Sᴀᴍᴘʟᴇ Tᴇxᴛ
+                </div>
+            </div>
+        </div>
+
+        <div class="small-caps-controls">
+            <button class="small-caps-btn" onclick="copyToClipboard()">
+                <i class="fas fa-copy"></i> Copy Text
+            </button>
+            <button class="small-caps-btn secondary" onclick="clearText()">
+                <i class="fas fa-trash"></i> Clear
+            </button>
+            <button class="small-caps-btn secondary" onclick="loadExample()">
+                <i class="fas fa-lightbulb"></i> Example
+            </button>
+        </div>
+
+        <div class="info-section">
+            <h3>About Small Caps</h3>
+            <p>Small caps are uppercase letters that are sized to match the x-height of lowercase letters. They're commonly used in:</p>
+            <ul>
+                <li><strong>Typography:</strong> Headers, subheadings, and emphasis</li>
+                <li><strong>Branding:</strong> Logos and company names</li>
+                <li><strong>Academic:</strong> Citations and references</li>
+                <li><strong>Design:</strong> Creating visual hierarchy</li>
+                <li><strong>Legal:</strong> Terms and conditions, contracts</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentStyle = 'small-caps';
+
+// Character mappings for small caps
+const smallCapsMap = {
+    'a': 'ᴀ', 'b': 'ʙ', 'c': 'ᴄ', 'd': 'ᴅ', 'e': 'ᴇ', 'f': 'ꜰ', 'g': 'ɢ', 'h': 'ʜ', 'i': 'ɪ', 'j': 'ᴊ',
+    'k': 'ᴋ', 'l': 'ʟ', 'm': 'ᴍ', 'n': 'ɴ', 'o': 'ᴏ', 'p': 'ᴘ', 'q': 'Q', 'r': 'ʀ', 's': 's', 't': 'ᴛ',
+    'u': 'ᴜ', 'v': 'ᴠ', 'w': 'ᴡ', 'x': 'x', 'y': 'ʏ', 'z': 'ᴢ'
+};
+
+const superscriptMap = {
+    'a': 'ᵃ', 'b': 'ᵇ', 'c': 'ᶜ', 'd': 'ᵈ', 'e': 'ᵉ', 'f': 'ꜰ', 'g': 'ᵍ', 'h': 'ʰ', 'i': 'ⁱ', 'j': 'ʲ',
+    'k': 'ᵏ', 'l': 'ˡ', 'm': 'ᵐ', 'n': 'ⁿ', 'o': 'ᵒ', 'p': 'ᵖ', 'q': 'Q', 'r': 'ʳ', 's': 's', 't': 'ᵗ',
+    'u': 'ᵘ', 'v': 'ᵛ', 'w': 'ʷ', 'x': 'ˣ', 'y': 'ʸ', 'z': 'ᶻ',
+    '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹'
+};
+
+const subscriptMap = {
+    'a': 'ₐ', 'b': 'b', 'c': 'c', 'd': 'd', 'e': 'ₑ', 'f': 'f', 'g': 'g', 'h': 'ₕ', 'i': 'ᵢ', 'j': 'ⱼ',
+    'k': 'ₖ', 'l': 'ₗ', 'm': 'ₘ', 'n': 'ₙ', 'o': 'ₒ', 'p': 'ₚ', 'q': 'q', 'r': 'ᵣ', 's': 's', 't': 'ₜ',
+    'u': 'ᵤ', 'v': 'ᵥ', 'w': 'w', 'x': 'ₓ', 'y': 'y', 'z': 'z',
+    '0': '₀', '1': '₁', '2': '₂', '3': '₃', '4': '₄', '5': '₅', '6': '₆', '7': '₇', '8': '₈', '9': '₉'
+};
+
+function generateSmallCaps() {
+    const input = document.getElementById('smallCapsInput').value;
+    const output = document.getElementById('smallCapsOutput');
+    
+    if (!input.trim()) {
+        output.textContent = 'Your text will appear here...';
+        return;
+    }
+    
+    let result = '';
+    
+    switch(currentStyle) {
+        case 'small-caps':
+            result = convertToSmallCaps(input);
+            break;
+        case 'superscript':
+            result = convertToSuperscript(input);
+            break;
+        case 'subscript':
+            result = convertToSubscript(input);
+            break;
+        case 'pseudo-small':
+            result = convertToPseudoSmall(input);
+            break;
+    }
+    
+    output.textContent = result;
+}
+
+function convertToSmallCaps(text) {
+    return text.split('').map(char => {
+        const lower = char.toLowerCase();
+        if (smallCapsMap[lower]) {
+            return char === char.toUpperCase() && char !== char.toLowerCase() ? char : smallCapsMap[lower];
+        }
+        return char;
+    }).join('');
+}
+
+function convertToSuperscript(text) {
+    return text.split('').map(char => {
+        const lower = char.toLowerCase();
+        return superscriptMap[lower] || superscriptMap[char] || char;
+    }).join('');
+}
+
+function convertToSubscript(text) {
+    return text.split('').map(char => {
+        const lower = char.toLowerCase();
+        return subscriptMap[lower] || subscriptMap[char] || char;
+    }).join('');
+}
+
+function convertToPseudoSmall(text) {
+    return text.split('').map(char => {
+        if (char.match(/[a-z]/)) {
+            return char.toUpperCase();
+        }
+        return char;
+    }).join('');
+}
+
+function copyToClipboard() {
+    const output = document.getElementById('smallCapsOutput');
+    const text = output.textContent;
+    
+    if (text && text !== 'Your text will appear here...') {
+        navigator.clipboard.writeText(text).then(() => {
+            showToast('Copied to clipboard!');
+        });
+    }
+}
+
+function clearText() {
+    document.getElementById('smallCapsInput').value = '';
+    document.getElementById('smallCapsOutput').textContent = 'Your text will appear here...';
+}
+
+function loadExample() {
+    const examples = [
+        'Welcome to Small Caps Generator',
+        'Typography Excellence',
+        'Professional Design Elements',
+        'Elegant Text Styling',
+        'Modern Web Typography'
+    ];
+    
+    const randomExample = examples[Math.floor(Math.random() * examples.length)];
+    document.getElementById('smallCapsInput').value = randomExample;
+    generateSmallCaps();
+}
+
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast show';
+    toast.textContent = message;
+    toast.style.background = 'var(--small-caps-secondary)';
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
+
+// Style selector functionality
+document.querySelectorAll('.style-card').forEach(card => {
+    card.addEventListener('click', () => {
+        document.querySelectorAll('.style-card').forEach(el => el.classList.remove('active'));
+        card.classList.add('active');
+        currentStyle = card.dataset.style;
+        generateSmallCaps();
+    });
+});
+
+// Initial generation
+generateSmallCaps();
+</script>
+{% endblock %} 

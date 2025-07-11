@@ -2,6 +2,39 @@
 
 {% block title %}About - Glitch Text Generator{% endblock %}
 
+{% block head %}
+<meta name="description" content="Learn about GlitchTextEffect.com - the free online tool for creating unique glitch text effects, zalgo text, and aesthetic fonts for social media and creative projects.">
+<meta name="keywords" content="about glitch text generator, text effects tool, zalgo text creator, aesthetic text">
+{% endblock %}
+
+{% block og_title %}About - Glitch Text Generator{% endblock %}
+{% block og_description %}Learn about GlitchTextEffect.com - the free online tool for creating unique glitch text effects, zalgo text, and aesthetic fonts for social media and creative projects.{% endblock %}
+
+{% block breadcrumbs %}
+{% set breadcrumbs = [
+    {'title': 'About', 'url': None}
+] %}
+{{ super() }}
+{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About Glitch Text Generator",
+    "description": "Learn about GlitchTextEffect.com - the free online tool for creating unique glitch text effects, zalgo text, and aesthetic fonts for social media and creative projects.",
+    "url": "https://glitchtexteffect.com/about",
+    "mainEntity": {
+        "@type": "WebApplication",
+        "name": "Glitch Text Generator",
+        "description": "Free online glitch text generator",
+        "url": "https://glitchtexteffect.com"
+    }
+}
+</script>
+{% endblock %}
+
 {% block content %}
 <h1 class="main-title">About Generate Glitch Text</h1>
 

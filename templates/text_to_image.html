@@ -1,0 +1,577 @@
+{% extends 'base.html' %}
+
+{% block title %}Glitch Text to Image Generator - Convert Text to PNG{% endblock %}
+
+{% block head %}
+<meta name="description" content="Convert your glitch text to PNG images with our text-to-image generator. Create custom glitch text images with adjustable colors, sizes, and effects.">
+<meta name="keywords" content="text to image, glitch text png, text to image generator, convert text to png, image generator">
+{% endblock %}
+
+{% block extra_css %}
+<style>
+:root {
+    --primary-color: #00ff00;
+    --secondary-color: #ff00ff;
+    --accent-color: #00ffff;
+    --bg-dark: #0a0a0a;
+    --bg-lighter: #1a1a1a;
+    --text-light: #ffffff;
+    --border-color: #333;
+}
+
+.text-to-image-container {
+    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-lighter) 100%);
+    min-height: 100vh;
+    padding: 2rem;
+    color: var(--text-light);
+}
+
+.text-to-image-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.text-to-image-title {
+    font-size: 3rem;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    animation: glitchGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glitchGlow {
+    from { 
+        text-shadow: 0 0 20px var(--primary-color);
+        filter: hue-rotate(0deg);
+    }
+    to { 
+        text-shadow: 0 0 30px var(--secondary-color), 0 0 40px var(--accent-color);
+        filter: hue-rotate(10deg);
+    }
+}
+
+.generator-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.control-panel, .preview-panel {
+    background: rgba(26, 26, 26, 0.9);
+    border: 2px solid var(--border-color);
+    border-radius: 15px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.control-panel h3, .preview-panel h3 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.8rem;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-light);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+}
+
+.form-control textarea {
+    resize: vertical;
+    min-height: 120px;
+    font-family: 'Courier New', monospace;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.color-input {
+    width: 100%;
+    height: 50px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+}
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.slider {
+    flex: 1;
+    height: 8px;
+    background: var(--border-color);
+    border-radius: 4px;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+
+.slider-value {
+    color: var(--secondary-color);
+    font-weight: bold;
+    min-width: 30px;
+}
+
+.preview-area {
+    min-height: 400px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.preview-text {
+    color: var(--primary-color);
+    font-size: 2rem;
+    font-family: 'Courier New', monospace;
+    text-align: center;
+    max-width: 100%;
+    word-wrap: break-word;
+    padding: 1rem;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: var(--bg-dark);
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 0, 0.5);
+    background: linear-gradient(45deg, var(--accent-color), var(--primary-color));
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.full-width-controls {
+    grid-column: 1 / -1;
+    margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+    .generator-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .text-to-image-title {
+        font-size: 2rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: 'Generating...';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="text-to-image-container">
+    <div class="text-to-image-header">
+        <h1 class="text-to-image-title">Glitch Text to Image Generator</h1>
+        <p style="color: var(--accent-color); font-size: 1.2rem; text-align: center;">
+            Convert your glitch text into downloadable PNG images ⚡
+        </p>
+    </div>
+
+    <div class="generator-grid">
+        <div class="control-panel">
+            <h3>Text & Effect Settings</h3>
+            
+            <div class="form-group">
+                <label for="textInput">Enter Your Text:</label>
+                <textarea 
+                    id="textInput" 
+                    class="form-control" 
+                    placeholder="Type your text here..."
+                    oninput="updatePreview()"
+                >Sample Glitch Text</textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="effectType">Glitch Effect:</label>
+                    <select id="effectType" class="form-control" onchange="updatePreview()">
+                        <option value="zalgo">Zalgo</option>
+                        <option value="ascii">ASCII Glitch</option>
+                        <option value="binary">Binary Corruption</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="fontStyle">Font Style:</label>
+                    <select id="fontStyle" class="form-control" onchange="updatePreview()">
+                        <option value="default">Default</option>
+                        <option value="cyber">Cyber</option>
+                        <option value="retro">Retro</option>
+                        <option value="digital">Digital</option>
+                        <option value="horror">Horror</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="intensity">Glitch Intensity:</label>
+                <div class="slider-container">
+                    <input 
+                        type="range" 
+                        id="intensity" 
+                        class="slider" 
+                        min="1" 
+                        max="10" 
+                        value="5"
+                        oninput="updateIntensityValue(); updatePreview()"
+                    >
+                    <span id="intensityValue" class="slider-value">5</span>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem;">Image Settings</h3>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="bgColor">Background Color:</label>
+                    <input 
+                        type="color" 
+                        id="bgColor" 
+                        class="color-input" 
+                        value="#000000"
+                        onchange="updatePreview()"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="textColor">Text Color:</label>
+                    <input 
+                        type="color" 
+                        id="textColor" 
+                        class="color-input" 
+                        value="#00ff00"
+                        onchange="updatePreview()"
+                    >
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="imageWidth">Width (px):</label>
+                    <input 
+                        type="number" 
+                        id="imageWidth" 
+                        class="form-control" 
+                        value="800" 
+                        min="200" 
+                        max="2000"
+                        onchange="updatePreview()"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="imageHeight">Height (px):</label>
+                    <input 
+                        type="number" 
+                        id="imageHeight" 
+                        class="form-control" 
+                        value="400" 
+                        min="200" 
+                        max="2000"
+                        onchange="updatePreview()"
+                    >
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="fontSize">Font Size:</label>
+                <div class="slider-container">
+                    <input 
+                        type="range" 
+                        id="fontSize" 
+                        class="slider" 
+                        min="16" 
+                        max="120" 
+                        value="48"
+                        oninput="updateFontSizeValue(); updatePreview()"
+                    >
+                    <span id="fontSizeValue" class="slider-value">48px</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="preview-panel">
+            <h3>Preview</h3>
+            <div class="preview-area" id="previewArea">
+                <div class="preview-text" id="previewText">Sample Glitch Text</div>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="btn" onclick="generateAndDownload()" id="downloadBtn">
+                    <i class="fas fa-download"></i> Download PNG
+                </button>
+                <button class="btn" onclick="updatePreview()">
+                    <i class="fas fa-sync"></i> Refresh Preview
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+let previewTimeout;
+
+function updateIntensityValue() {
+    const value = document.getElementById('intensity').value;
+    document.getElementById('intensityValue').textContent = value;
+}
+
+function updateFontSizeValue() {
+    const value = document.getElementById('fontSize').value;
+    document.getElementById('fontSizeValue').textContent = value + 'px';
+}
+
+async function updatePreview() {
+    clearTimeout(previewTimeout);
+    previewTimeout = setTimeout(async () => {
+        const text = document.getElementById('textInput').value;
+        const effect = document.getElementById('effectType').value;
+        const fontStyle = document.getElementById('fontStyle').value;
+        const intensity = document.getElementById('intensity').value;
+        const bgColor = document.getElementById('bgColor').value;
+        const textColor = document.getElementById('textColor').value;
+        const fontSize = document.getElementById('fontSize').value;
+
+        if (!text.trim()) {
+            document.getElementById('previewText').textContent = 'Enter text to preview...';
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/glitch', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    text: text,
+                    effect: effect,
+                    font_style: fontStyle,
+                    intensity: parseInt(intensity)
+                })
+            });
+
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.error || 'Failed to generate text');
+
+            const previewElement = document.getElementById('previewText');
+            const previewArea = document.getElementById('previewArea');
+            
+            previewElement.textContent = data.result;
+            previewElement.style.color = textColor;
+            previewElement.style.fontSize = fontSize + 'px';
+            previewArea.style.background = bgColor;
+            
+        } catch (error) {
+            console.error('Error:', error);
+            document.getElementById('previewText').textContent = 'Error: ' + error.message;
+        }
+    }, 300);
+}
+
+async function generateAndDownload() {
+    const text = document.getElementById('textInput').value;
+    const effect = document.getElementById('effectType').value;
+    const fontStyle = document.getElementById('fontStyle').value;
+    const intensity = document.getElementById('intensity').value;
+    const bgColor = document.getElementById('bgColor').value;
+    const textColor = document.getElementById('textColor').value;
+    const width = document.getElementById('imageWidth').value;
+    const height = document.getElementById('imageHeight').value;
+    const fontSize = document.getElementById('fontSize').value;
+
+    if (!text.trim()) {
+        alert('Please enter some text to generate an image.');
+        return;
+    }
+
+    const downloadBtn = document.getElementById('downloadBtn');
+    downloadBtn.disabled = true;
+    downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+
+    try {
+        const response = await fetch('/api/text-to-image', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                text: text,
+                effect: effect,
+                font_style: fontStyle,
+                intensity: parseInt(intensity),
+                bg_color: bgColor,
+                text_color: textColor,
+                width: parseInt(width),
+                height: parseInt(height),
+                font_size: parseInt(fontSize)
+            })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Failed to generate image');
+        }
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `glitch-text-${Date.now()}.png`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+
+        showToast('Image downloaded successfully! ✨');
+
+    } catch (error) {
+        console.error('Download failed:', error);
+        alert('Failed to download image: ' + error.message);
+    } finally {
+        downloadBtn.disabled = false;
+        downloadBtn.innerHTML = '<i class="fas fa-download"></i> Download PNG';
+    }
+}
+
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast show';
+    toast.textContent = message;
+    toast.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        color: var(--bg-dark);
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 255, 0, 0.3);
+        z-index: 1000;
+        font-weight: bold;
+        animation: slideIn 0.3s ease-out;
+    `;
+    
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.style.animation = 'slideOut 0.3s ease-out';
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+    updatePreview();
+});
+</script>
+{% endblock %} 

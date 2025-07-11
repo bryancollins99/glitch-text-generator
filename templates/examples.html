@@ -1,6 +1,56 @@
 {% extends "base.html" %}
 
-{% block title %}Examples - Glitch Text Generator{% endblock %}
+{% block title %}Glitch Text Examples - Creative Ideas & Inspiration{% endblock %}
+
+{% block head %}
+<meta name="description" content="Explore creative glitch text examples for gaming, cyberpunk, tech branding, and creative writing. Get inspired with pro tips and ready-to-use glitch text effects.">
+<meta name="keywords" content="glitch text examples, gaming text effects, cyberpunk text, creative writing text, tech branding, twitch text">
+{% endblock %}
+
+{% block og_title %}Glitch Text Examples - Creative Ideas & Inspiration{% endblock %}
+{% block og_description %}Explore creative glitch text examples for gaming, cyberpunk, tech branding, and creative writing. Get inspired with pro tips and ready-to-use glitch text effects.{% endblock %}
+
+{% block breadcrumbs %}
+{% set breadcrumbs = [
+    {'title': 'Examples', 'url': None}
+] %}
+{{ super() }}
+{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Glitch Text Examples",
+    "description": "Explore creative glitch text examples for gaming, cyberpunk, tech branding, and creative writing. Get inspired with pro tips and ready-to-use glitch text effects.",
+    "url": "https://glitchtexteffect.com/examples",
+    "mainEntity": {
+        "@type": "ItemList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Gaming & Streaming Examples",
+                "description": "Glitch text effects for Twitch overlays, stream titles, game usernames, and team names"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Cyberpunk & Tech Examples",
+                "description": "Futuristic glitch text effects for tech branding, digital art, and cyberpunk aesthetics"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Creative Writing Examples",
+                "description": "Atmospheric glitch text effects for story titles, chapter headers, and character names"
+            }
+        ]
+    }
+}
+</script>
+{% endblock %}
 
 {% block content %}
 <h1 class="main-title">Glitch Text Examples</h1>

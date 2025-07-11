@@ -1,0 +1,1003 @@
+{% extends 'base.html' %}
+
+{% block title %}Emoticons Collection - Copy and Paste Emoji & Text Faces{% endblock %}
+
+{% block head %}
+<meta name="description" content="Discover thousands of emoticons! Copy and paste emoji, text faces, kaomoji, and ASCII art. Perfect for social media, messaging, and glitch text combinations.">
+<meta name="keywords" content="emoticons, emoji, text faces, kaomoji, ASCII art, copy paste emoticons, social media emoticons">
+{% endblock %}
+
+{% block extra_css %}
+<style>
+:root {
+    --primary-color: #00ff00;
+    --secondary-color: #ff00ff;
+    --accent-color: #00ffff;
+    --bg-dark: #0a0a0a;
+    --bg-lighter: #1a1a1a;
+    --text-light: #ffffff;
+    --border-color: #333;
+    --hover-color: #444;
+}
+
+.emoticons-container {
+    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-lighter) 100%);
+    min-height: 100vh;
+    padding: 2rem;
+    color: var(--text-light);
+}
+
+.emoticons-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.emoticons-title {
+    font-size: 3rem;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    animation: emojiGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes emojiGlow {
+    from { 
+        text-shadow: 0 0 20px var(--primary-color);
+        filter: hue-rotate(0deg);
+    }
+    to { 
+        text-shadow: 0 0 30px var(--secondary-color), 0 0 40px var(--accent-color);
+        filter: hue-rotate(20deg);
+    }
+}
+
+.categories-nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.category-btn {
+    background: rgba(26, 26, 26, 0.9);
+    border: 2px solid var(--border-color);
+    border-radius: 25px;
+    padding: 0.8rem 1.5rem;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.category-btn:hover, .category-btn.active {
+    border-color: var(--primary-color);
+    background: rgba(0, 255, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.search-bar {
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid var(--border-color);
+    border-radius: 50px;
+    color: var(--text-light);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+}
+
+.search-input::placeholder {
+    color: #888;
+}
+
+.category-section {
+    background: rgba(26, 26, 26, 0.9);
+    border: 2px solid var(--border-color);
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    display: none;
+}
+
+.category-section.active {
+    display: block;
+}
+
+.category-title {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.emoticons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.emoticon-item {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.emoticon-item:hover {
+    border-color: var(--primary-color);
+    background: rgba(0, 255, 0, 0.1);
+    transform: scale(1.05);
+}
+
+.emoticon-display {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    user-select: none;
+}
+
+.emoticon-name {
+    font-size: 0.7rem;
+    color: var(--accent-color);
+    opacity: 0.8;
+}
+
+.copy-tooltip {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary-color);
+    color: var(--bg-dark);
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.copy-tooltip.show {
+    opacity: 1;
+}
+
+.quick-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.action-btn {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: var(--bg-dark);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+    .emoticons-title {
+        font-size: 2rem;
+    }
+    
+    .emoticons-grid {
+        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+        gap: 0.8rem;
+    }
+    
+    .emoticon-item {
+        padding: 0.8rem;
+    }
+    
+    .emoticon-display {
+        font-size: 1.5rem;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="emoticons-container">
+    <div class="emoticons-header">
+        <h1 class="emoticons-title">Emoticons Collection</h1>
+        <p style="color: var(--accent-color); font-size: 1.2rem;">
+            Discover thousands of emoticons and text faces! Perfect for glitch text combinations 😎
+        </p>
+    </div>
+
+    <div class="search-bar">
+        <input 
+            type="text" 
+            class="search-input" 
+            placeholder="Search emoticons..."
+            id="searchInput"
+            oninput="searchEmoticons()"
+        >
+    </div>
+
+    <div class="categories-nav">
+        <button class="category-btn active" onclick="showCategory('smileys')">😊 Smileys</button>
+        <button class="category-btn" onclick="showCategory('kaomoji')">( ͡° ͜ʖ ͡°) Kaomoji</button>
+        <button class="category-btn" onclick="showCategory('animals')">🐱 Animals</button>
+        <button class="category-btn" onclick="showCategory('hearts')">💖 Hearts</button>
+        <button class="category-btn" onclick="showCategory('hands')">👋 Hands</button>
+        <button class="category-btn" onclick="showCategory('faces')">( ͡° ͜ʖ ͡°) ASCII Faces</button>
+        <button class="category-btn" onclick="showCategory('symbols')">★ Symbols</button>
+        <button class="category-btn" onclick="showCategory('arrows')">→ Arrows</button>
+    </div>
+
+    <div class="quick-actions">
+        <button class="action-btn" onclick="copyAllVisible()">
+            <i class="fas fa-copy"></i> Copy All Visible
+        </button>
+        <button class="action-btn" onclick="generateRandom()">
+            <i class="fas fa-random"></i> Random Selection
+        </button>
+        <button class="action-btn" onclick="useWithGlitchGenerator(getSelectedEmoticons())">
+            <i class="fas fa-magic"></i> Use with Glitch Generator
+        </button>
+    </div>
+
+    <!-- Smileys Category -->
+    <div id="smileys" class="category-section active">
+        <h2 class="category-title">😊 Smileys & Emotions</h2>
+        <div class="emoticons-grid">
+            <div class="emoticon-item" onclick="copyEmoticon('😀', this)">
+                <div class="emoticon-display">😀</div>
+                <div class="emoticon-name">Grinning</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('😃', this)">
+                <div class="emoticon-display">😃</div>
+                <div class="emoticon-name">Happy</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('😄', this)">
+                <div class="emoticon-display">😄</div>
+                <div class="emoticon-name">Laughing</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('😁', this)">
+                <div class="emoticon-display">😁</div>
+                <div class="emoticon-name">Beaming</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('😊', this)">
+                <div class="emoticon-display">😊</div>
+                <div class="emoticon-name">Smiling</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('😂', this)">
+                <div class="emoticon-display">😂</div>
+                <div class="emoticon-name">Crying Joy</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('🤣', this)">
+                <div class="emoticon-display">🤣</div>
+                <div class="emoticon-name">ROFL</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('😎', this)">
+                <div class="emoticon-display">😎</div>
+                <div class="emoticon-name">Cool</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('🤔', this)">
+                <div class="emoticon-display">🤔</div>
+                <div class="emoticon-name">Thinking</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('😍', this)">
+                <div class="emoticon-display">😍</div>
+                <div class="emoticon-name">Heart Eyes</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('🥳', this)">
+                <div class="emoticon-display">🥳</div>
+                <div class="emoticon-name">Party</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('😭', this)">
+                <div class="emoticon-display">😭</div>
+                <div class="emoticon-name">Crying</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('😤', this)">
+                <div class="emoticon-display">😤</div>
+                <div class="emoticon-name">Huffing</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('😱', this)">
+                <div class="emoticon-display">😱</div>
+                <div class="emoticon-name">Screaming</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('🤯', this)">
+                <div class="emoticon-display">🤯</div>
+                <div class="emoticon-name">Mind Blown</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('😈', this)">
+                <div class="emoticon-display">😈</div>
+                <div class="emoticon-name">Devilish</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kaomoji Category -->
+    <div id="kaomoji" class="category-section">
+        <h2 class="category-title">( ͡° ͜ʖ ͡°) Kaomoji</h2>
+        <div class="emoticons-grid">
+            <div class="emoticon-item" onclick="copyEmoticon('( ͡° ͜ʖ ͡°)', this)">
+                <div class="emoticon-display">( ͡° ͜ʖ ͡°)</div>
+                <div class="emoticon-name">Lenny Face</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('¯\\_(ツ)_/¯', this)">
+                <div class="emoticon-display">¯\_(ツ)_/¯</div>
+                <div class="emoticon-name">Shrug</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('(╯°□°）╯︵ ┻━┻', this)">
+                <div class="emoticon-display">(╯°□°）╯︵ ┻━┻</div>
+                <div class="emoticon-name">Table Flip</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('┬─┬ ノ( ゜-゜ノ)', this)">
+                <div class="emoticon-display">┬─┬ ノ( ゜-゜ノ)</div>
+                <div class="emoticon-name">Table Unflip</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('(◕‿◕)', this)">
+                <div class="emoticon-display">(◕‿◕)</div>
+                <div class="emoticon-name">Happy</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('(づ｡◕‿‿◕｡)づ', this)">
+                <div class="emoticon-display">(づ｡◕‿‿◕｡)づ</div>
+                <div class="emoticon-name">Hug</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('(☞ﾟヮﾟ)☞', this)">
+                <div class="emoticon-display">(☞ﾟヮﾟ)☞</div>
+                <div class="emoticon-name">Pointing</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('ಠ_ಠ', this)">
+                <div class="emoticon-display">ಠ_ಠ</div>
+                <div class="emoticon-name">Disapproval</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('(ಥ﹏ಥ)', this)">
+                <div class="emoticon-display">(ಥ﹏ಥ)</div>
+                <div class="emoticon-name">Crying</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('(╥﹏╥)', this)">
+                <div class="emoticon-display">(╥﹏╥)</div>
+                <div class="emoticon-name">Sad</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('(¬‿¬)', this)">
+                <div class="emoticon-display">(¬‿¬)</div>
+                <div class="emoticon-name">Smirk</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('(╯︵╰)', this)">
+                <div class="emoticon-display">(╯︵╰)</div>
+                <div class="emoticon-name">Shrug Sad</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Animals Category -->
+    <div id="animals" class="category-section">
+        <h2 class="category-title">🐱 Animals</h2>
+        <div class="emoticons-grid">
+            <div class="emoticon-item" onclick="copyEmoticon('🐶', this)">
+                <div class="emoticon-display">🐶</div>
+                <div class="emoticon-name">Dog</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('🐱', this)">
+                <div class="emoticon-display">🐱</div>
+                <div class="emoticon-name">Cat</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('🦄', this)">
+                <div class="emoticon-display">🦄</div>
+                <div class="emoticon-name">Unicorn</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('🐉', this)">
+                <div class="emoticon-display">🐉</div>
+                <div class="emoticon-name">Dragon</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('🦁', this)">
+                <div class="emoticon-display">🦁</div>
+                <div class="emoticon-name">Lion</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('🐺', this)">
+                <div class="emoticon-display">🐺</div>
+                <div class="emoticon-name">Wolf</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('🦊', this)">
+                <div class="emoticon-display">🦊</div>
+                <div class="emoticon-name">Fox</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('🐼', this)">
+                <div class="emoticon-display">🐼</div>
+                <div class="emoticon-name">Panda</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('🐧', this)">
+                <div class="emoticon-display">🐧</div>
+                <div class="emoticon-name">Penguin</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('🦅', this)">
+                <div class="emoticon-display">🦅</div>
+                <div class="emoticon-name">Eagle</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('🐸', this)">
+                <div class="emoticon-display">🐸</div>
+                <div class="emoticon-name">Frog</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('🐢', this)">
+                <div class="emoticon-display">🐢</div>
+                <div class="emoticon-name">Turtle</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hearts Category -->
+    <div id="hearts" class="category-section">
+        <h2 class="category-title">💖 Hearts & Love</h2>
+        <div class="emoticons-grid">
+            <div class="emoticon-item" onclick="copyEmoticon('❤️', this)">
+                <div class="emoticon-display">❤️</div>
+                <div class="emoticon-name">Red Heart</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('💖', this)">
+                <div class="emoticon-display">💖</div>
+                <div class="emoticon-name">Sparkling Heart</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('💕', this)">
+                <div class="emoticon-display">💕</div>
+                <div class="emoticon-name">Two Hearts</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('💗', this)">
+                <div class="emoticon-display">💗</div>
+                <div class="emoticon-name">Growing Heart</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('💘', this)">
+                <div class="emoticon-display">💘</div>
+                <div class="emoticon-name">Heart Arrow</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('💝', this)">
+                <div class="emoticon-display">💝</div>
+                <div class="emoticon-name">Heart Gift</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('💓', this)">
+                <div class="emoticon-display">💓</div>
+                <div class="emoticon-name">Beating Heart</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('💔', this)">
+                <div class="emoticon-display">💔</div>
+                <div class="emoticon-name">Broken Heart</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('🖤', this)">
+                <div class="emoticon-display">🖤</div>
+                <div class="emoticon-name">Black Heart</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('💙', this)">
+                <div class="emoticon-display">💙</div>
+                <div class="emoticon-name">Blue Heart</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('💚', this)">
+                <div class="emoticon-display">💚</div>
+                <div class="emoticon-name">Green Heart</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('💜', this)">
+                <div class="emoticon-display">💜</div>
+                <div class="emoticon-name">Purple Heart</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hands Category -->
+    <div id="hands" class="category-section">
+        <h2 class="category-title">👋 Hands & Gestures</h2>
+        <div class="emoticons-grid">
+            <div class="emoticon-item" onclick="copyEmoticon('👋', this)">
+                <div class="emoticon-display">👋</div>
+                <div class="emoticon-name">Wave</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('👏', this)">
+                <div class="emoticon-display">👏</div>
+                <div class="emoticon-name">Clap</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('👍', this)">
+                <div class="emoticon-display">👍</div>
+                <div class="emoticon-name">Thumbs Up</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('👎', this)">
+                <div class="emoticon-display">👎</div>
+                <div class="emoticon-name">Thumbs Down</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('🤝', this)">
+                <div class="emoticon-display">🤝</div>
+                <div class="emoticon-name">Handshake</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('🙏', this)">
+                <div class="emoticon-display">🙏</div>
+                <div class="emoticon-name">Pray</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('✋', this)">
+                <div class="emoticon-display">✋</div>
+                <div class="emoticon-name">Raised Hand</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('🤚', this)">
+                <div class="emoticon-display">🤚</div>
+                <div class="emoticon-name">Raised Back</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('👌', this)">
+                <div class="emoticon-display">👌</div>
+                <div class="emoticon-name">OK</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('✌️', this)">
+                <div class="emoticon-display">✌️</div>
+                <div class="emoticon-name">Peace</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('🤟', this)">
+                <div class="emoticon-display">🤟</div>
+                <div class="emoticon-name">Love You</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('🤘', this)">
+                <div class="emoticon-display">🤘</div>
+                <div class="emoticon-name">Rock On</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ASCII Faces Category -->
+    <div id="faces" class="category-section">
+        <h2 class="category-title">( ͡° ͜ʖ ͡°) ASCII Faces</h2>
+        <div class="emoticons-grid">
+            <div class="emoticon-item" onclick="copyEmoticon(':)', this)">
+                <div class="emoticon-display">:)</div>
+                <div class="emoticon-name">Smile</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon(':(', this)">
+                <div class="emoticon-display">:(</div>
+                <div class="emoticon-name">Sad</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon(':D', this)">
+                <div class="emoticon-display">:D</div>
+                <div class="emoticon-name">Grin</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon(':P', this)">
+                <div class="emoticon-display">:P</div>
+                <div class="emoticon-name">Tongue</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon(';)', this)">
+                <div class="emoticon-display">;)</div>
+                <div class="emoticon-name">Wink</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon(':|', this)">
+                <div class="emoticon-display">:|</div>
+                <div class="emoticon-name">Neutral</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon(':/', this)">
+                <div class="emoticon-display">:/</div>
+                <div class="emoticon-name">Confused</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon(':O', this)">
+                <div class="emoticon-display">:O</div>
+                <div class="emoticon-name">Shocked</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('XD', this)">
+                <div class="emoticon-display">XD</div>
+                <div class="emoticon-name">Laughing</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('^^', this)">
+                <div class="emoticon-display">^^</div>
+                <div class="emoticon-name">Happy</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('>:(', this)">
+                <div class="emoticon-display">>:(</div>
+                <div class="emoticon-name">Angry</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('o_O', this)">
+                <div class="emoticon-display">o_O</div>
+                <div class="emoticon-name">Surprised</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Symbols Category -->
+    <div id="symbols" class="category-section">
+        <h2 class="category-title">★ Symbols</h2>
+        <div class="emoticons-grid">
+            <div class="emoticon-item" onclick="copyEmoticon('★', this)">
+                <div class="emoticon-display">★</div>
+                <div class="emoticon-name">Star</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('☆', this)">
+                <div class="emoticon-display">☆</div>
+                <div class="emoticon-name">Empty Star</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('✨', this)">
+                <div class="emoticon-display">✨</div>
+                <div class="emoticon-name">Sparkles</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('⭐', this)">
+                <div class="emoticon-display">⭐</div>
+                <div class="emoticon-name">Star</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('💫', this)">
+                <div class="emoticon-display">💫</div>
+                <div class="emoticon-name">Dizzy</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('⚡', this)">
+                <div class="emoticon-display">⚡</div>
+                <div class="emoticon-name">Lightning</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('🔥', this)">
+                <div class="emoticon-display">🔥</div>
+                <div class="emoticon-name">Fire</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('💎', this)">
+                <div class="emoticon-display">💎</div>
+                <div class="emoticon-name">Diamond</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('🌟', this)">
+                <div class="emoticon-display">🌟</div>
+                <div class="emoticon-name">Glowing Star</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('💥', this)">
+                <div class="emoticon-display">💥</div>
+                <div class="emoticon-name">Boom</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('✓', this)">
+                <div class="emoticon-display">✓</div>
+                <div class="emoticon-name">Check</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('✗', this)">
+                <div class="emoticon-display">✗</div>
+                <div class="emoticon-name">X</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Arrows Category -->
+    <div id="arrows" class="category-section">
+        <h2 class="category-title">→ Arrows</h2>
+        <div class="emoticons-grid">
+            <div class="emoticon-item" onclick="copyEmoticon('→', this)">
+                <div class="emoticon-display">→</div>
+                <div class="emoticon-name">Right</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('←', this)">
+                <div class="emoticon-display">←</div>
+                <div class="emoticon-name">Left</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('↑', this)">
+                <div class="emoticon-display">↑</div>
+                <div class="emoticon-name">Up</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('↓', this)">
+                <div class="emoticon-display">↓</div>
+                <div class="emoticon-name">Down</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('↗', this)">
+                <div class="emoticon-display">↗</div>
+                <div class="emoticon-name">Up Right</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('↘', this)">
+                <div class="emoticon-display">↘</div>
+                <div class="emoticon-name">Down Right</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('↙', this)">
+                <div class="emoticon-display">↙</div>
+                <div class="emoticon-name">Down Left</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('↖', this)">
+                <div class="emoticon-display">↖</div>
+                <div class="emoticon-name">Up Left</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('⇒', this)">
+                <div class="emoticon-display">⇒</div>
+                <div class="emoticon-name">Double Right</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('⇐', this)">
+                <div class="emoticon-display">⇐</div>
+                <div class="emoticon-name">Double Left</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('↔', this)">
+                <div class="emoticon-display">↔</div>
+                <div class="emoticon-name">Left Right</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            <div class="emoticon-item" onclick="copyEmoticon('↕', this)">
+                <div class="emoticon-display">↕</div>
+                <div class="emoticon-name">Up Down</div>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function showCategory(categoryName) {
+    // Hide all categories
+    const categories = document.querySelectorAll('.category-section');
+    categories.forEach(cat => cat.classList.remove('active'));
+    
+    // Show selected category
+    document.getElementById(categoryName).classList.add('active');
+    
+    // Update button states
+    const buttons = document.querySelectorAll('.category-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+}
+
+function copyEmoticon(emoticon, element) {
+    navigator.clipboard.writeText(emoticon).then(() => {
+        const tooltip = element.querySelector('.copy-tooltip');
+        tooltip.classList.add('show');
+        setTimeout(() => {
+            tooltip.classList.remove('show');
+        }, 2000);
+    });
+}
+
+function searchEmoticons() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const allItems = document.querySelectorAll('.emoticon-item');
+    
+    allItems.forEach(item => {
+        const name = item.querySelector('.emoticon-name').textContent.toLowerCase();
+        const display = item.querySelector('.emoticon-display').textContent.toLowerCase();
+        
+        if (name.includes(searchTerm) || display.includes(searchTerm)) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
+
+function copyAllVisible() {
+    const visibleItems = document.querySelectorAll('.emoticon-item:not([style*="display: none"])');
+    const emoticons = Array.from(visibleItems).map(item => 
+        item.querySelector('.emoticon-display').textContent
+    ).join(' ');
+    
+    navigator.clipboard.writeText(emoticons).then(() => {
+        showToast('All visible emoticons copied! 🎉');
+    });
+}
+
+function generateRandom() {
+    const allItems = document.querySelectorAll('.emoticon-item');
+    const randomItems = [];
+    
+    for (let i = 0; i < 5; i++) {
+        const randomIndex = Math.floor(Math.random() * allItems.length);
+        randomItems.push(allItems[randomIndex].querySelector('.emoticon-display').textContent);
+    }
+    
+    navigator.clipboard.writeText(randomItems.join(' ')).then(() => {
+        showToast('Random emoticons copied! ' + randomItems.join(' '));
+    });
+}
+
+function getSelectedEmoticons() {
+    const visibleItems = document.querySelectorAll('.emoticon-item:not([style*="display: none"])');
+    const emoticons = Array.from(visibleItems).slice(0, 10).map(item => 
+        item.querySelector('.emoticon-display').textContent
+    ).join(' ');
+    
+    return emoticons || '😀 😊 😎 🤔 😍';
+}
+
+function useWithGlitchGenerator(text) {
+    // Store text in localStorage to pass to main page
+    localStorage.setItem('glitch_prefill_text', text);
+    
+    // Navigate to main page
+    window.location.href = '/';
+}
+
+// Add individual "Use with Glitch Generator" buttons to each emoticon
+document.addEventListener('DOMContentLoaded', function() {
+    const emoticonItems = document.querySelectorAll('.emoticon-item');
+    
+    emoticonItems.forEach(item => {
+        // Add a quick action button
+        const useBtn = document.createElement('button');
+        useBtn.textContent = 'Use';
+        useBtn.style.cssText = `
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: var(--primary-color);
+            color: var(--bg-dark);
+            border: none;
+            padding: 0.2rem 0.5rem;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+        `;
+        
+        const emoticon = item.querySelector('.emoticon-display').textContent;
+        useBtn.onclick = (e) => {
+            e.stopPropagation();
+            useWithGlitchGenerator(emoticon);
+        };
+        
+        item.appendChild(useBtn);
+        
+        // Show button on hover
+        item.addEventListener('mouseenter', () => {
+            useBtn.style.opacity = '1';
+        });
+        
+        item.addEventListener('mouseleave', () => {
+            useBtn.style.opacity = '0';
+        });
+    });
+});
+
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.textContent = message;
+    toast.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        color: var(--bg-dark);
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 255, 0, 0.3);
+        z-index: 1000;
+        font-weight: bold;
+        animation: slideIn 0.3s ease-out;
+    `;
+    
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.style.animation = 'slideOut 0.3s ease-out';
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
+
+// Add CSS for animations
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+    }
+`;
+document.head.appendChild(style);
+</script>
+{% endblock %} 

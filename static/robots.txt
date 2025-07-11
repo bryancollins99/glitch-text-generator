@@ -1,6 +1,41 @@
 User-agent: *
 Allow: /
-Disallow: /static/js/
-Disallow: /static/css/
+Allow: /static/css/
+Allow: /static/js/
+Allow: /static/
 
+# Disallow sensitive or unnecessary areas
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.json$
+Disallow: /api/internal/
+
+# Allow important content areas
+Allow: /guides/
+Allow: /content/
+Allow: /seo/
+Allow: /examples/
+Allow: /faq/
+Allow: /about/
+Allow: /contact/
+
+# Crawl delay (optional - adjust if needed)
+Crawl-delay: 1
+
+# Sitemap location
 Sitemap: https://glitchtexteffect.com/sitemap.xml
+
+# Specific bot configurations
+User-agent: Googlebot
+Allow: /
+Allow: /static/
+
+User-agent: Bingbot
+Allow: /
+Allow: /static/
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /

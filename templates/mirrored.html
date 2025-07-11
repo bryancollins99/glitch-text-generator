@@ -1,0 +1,227 @@
+{% extends 'base.html' %}
+
+{% block title %}Mirrored Text Generator - Create Symmetric and Reflected Text{% endblock %}
+
+{% block head %}
+<meta name="description" content="Create mirrored text effects with our free mirror text generator. Generate symmetric text, reflections, and mirror effects for creative designs.">
+<meta name="keywords" content="mirrored text, mirror text generator, symmetric text, reflected text, backwards text, mirror effect">
+{% endblock %}
+
+{% block content %}
+<h1 class="main-title glitch-title">Mirrored Text Generator</h1>
+<p class="subtitle">Create stunning symmetric and reflected text effects! Generate horizontal mirrors, vertical flips, and diagonal reflections for creative digital designs and typography.</p>
+
+<div class="controls-panel">
+    <div class="control-group">
+        <label for="mirror-mode">Mirror Mode:</label>
+        <select id="mirror-mode" class="effect-select">
+            <option value="horizontal">Horizontal Mirror</option>
+            <option value="vertical">Vertical Mirror</option>
+            <option value="diagonal">Diagonal Mirror</option>
+            <option value="center">Center Mirror</option>
+        </select>
+    </div>
+</div>
+
+<div class="text-editor">
+    <div class="input-container">
+        <div class="editor-header">Input Text</div>
+        <textarea 
+            id="mirroredInput" 
+            placeholder="Enter your text here to create mirror effects..."
+            class="glitch-input"
+            oninput="generateMirror()"
+        >Welcome to the Mirror Text Generator
+Create stunning symmetric effects
+Perfect for creative designs</textarea>
+    </div>
+    
+    <div class="output-container">
+        <div class="editor-header">
+            Mirrored Output
+            <button id="copy-btn" class="btn-copy" onclick="copyToClipboard()">Copy</button>
+        </div>
+        <div id="mirroredOutput" class="glitch-output">Welcome to the Mirror Text Generator | rotareneG txeT rorriM eht ot emocleW
+Create stunning symmetric effects | stceffe cirtemmys gninnnts etaerC
+Perfect for creative designs | sngised evitaerc rof tceffeP</div>
+    </div>
+</div>
+
+<div class="quick-effects">
+    <h3>Quick Actions</h3>
+    <div class="effect-buttons">
+        <button class="quick-effect" onclick="loadExample()">Load Example</button>
+        <button class="quick-effect" onclick="clearText()">Clear Text</button>
+        <button class="quick-effect" onclick="toggleMode()">Change Mode</button>
+        <button class="quick-effect" onclick="copyToClipboard()">Copy Result</button>
+    </div>
+</div>
+
+<div class="guide-container">
+    <section>
+        <h2>Mirror Text Effects</h2>
+        <p>Transform your text with various mirroring techniques for symmetrical designs:</p>
+        <div class="tools-grid">
+            <div class="tool-card">
+                <h3>Horizontal Mirror</h3>
+                <p>Creates side-by-side reflection. "DESIGN" → "DESIGN | NGISED"</p>
+            </div>
+            <div class="tool-card">
+                <h3>Vertical Mirror</h3>
+                <p>Creates upside-down reflection. "HELLO" → "HELLO" over "O˥˥ǝH"</p>
+            </div>
+            <div class="tool-card">
+                <h3>Diagonal Mirror</h3>
+                <p>Creates diagonal reflection effect. "TEXT" → "TEXT ╱ ʇxǝʇ"</p>
+            </div>
+            <div class="tool-card">
+                <h3>Center Mirror</h3>
+                <p>Creates center-outward reflection. "BALANCE" → "ECNALLAB | BALANCE"</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+let currentMode = 'horizontal';
+
+// Character mappings for vertical mirroring (upside-down)
+const verticalFlipMap = {
+    'a': 'ɐ', 'b': 'q', 'c': 'ɔ', 'd': 'p', 'e': 'ǝ', 'f': 'ɟ', 'g': 'ƃ', 'h': 'ɥ', 'i': 'ᴉ', 'j': 'ɾ',
+    'k': 'ʞ', 'l': 'ʃ', 'm': 'ɯ', 'n': 'u', 'o': 'o', 'p': 'd', 'q': 'b', 'r': 'ɹ', 's': 's', 't': 'ʇ',
+    'u': 'n', 'v': 'ʌ', 'w': 'ʍ', 'x': 'x', 'y': 'ʎ', 'z': 'z',
+    'A': '∀', 'B': 'ᗺ', 'C': 'Ɔ', 'D': 'ᗡ', 'E': 'Ǝ', 'F': 'ᖴ', 'G': 'פ', 'H': 'H', 'I': 'I', 'J': 'ſ',
+    'K': 'K', 'L': '˥', 'M': 'W', 'N': 'N', 'O': 'O', 'P': 'Ԁ', 'Q': 'Q', 'R': 'ᴿ', 'S': 'S', 'T': '┴',
+    'U': '∩', 'V': 'Λ', 'W': 'M', 'X': 'X', 'Y': '⅄', 'Z': 'Z',
+    '1': 'Ɩ', '2': 'ᄅ', '3': 'Ɛ', '4': 'ㄣ', '5': 'ϛ', '6': '9', '7': 'ㄥ', '8': '8', '9': '6',
+    '.': '˙', ',': "'", '?': '¿', '!': '¡', '(': ')', ')': '(', '[': ']', ']': '['
+};
+
+function generateMirror() {
+    const input = document.getElementById('mirroredInput').value;
+    const output = document.getElementById('mirroredOutput');
+    
+    if (!input.trim()) {
+        output.textContent = 'Your mirrored text will appear here...';
+        return;
+    }
+    
+    let result = '';
+    
+    switch(currentMode) {
+        case 'horizontal':
+            result = createHorizontalMirror(input);
+            break;
+        case 'vertical':
+            result = createVerticalMirror(input);
+            break;
+        case 'diagonal':
+            result = createDiagonalMirror(input);
+            break;
+        case 'center':
+            result = createCenterMirror(input);
+            break;
+    }
+    
+    output.textContent = result;
+}
+
+function createHorizontalMirror(text) {
+    const lines = text.split('\n');
+    return lines.map(line => {
+        const reversed = line.split('').reverse().join('');
+        return `${line} | ${reversed}`;
+    }).join('\n');
+}
+
+function createVerticalMirror(text) {
+    const lines = text.split('\n');
+    const flippedLines = lines.map(line => {
+        return line.split('').map(char => verticalFlipMap[char] || char).join('');
+    }).reverse();
+    
+    return lines.join('\n') + '\n' + '─'.repeat(20) + '\n' + flippedLines.join('\n');
+}
+
+function createDiagonalMirror(text) {
+    const lines = text.split('\n');
+    return lines.map(line => {
+        const flipped = line.split('').map(char => verticalFlipMap[char] || char).reverse().join('');
+        return `${line} ╱ ${flipped}`;
+    }).join('\n');
+}
+
+function createCenterMirror(text) {
+    const lines = text.split('\n');
+    return lines.map(line => {
+        const reversed = line.split('').reverse().join('');
+        return `${reversed} | ${line}`;
+    }).join('\n');
+}
+
+function copyToClipboard() {
+    const output = document.getElementById('mirroredOutput');
+    const text = output.textContent;
+    
+    if (text && text !== 'Your mirrored text will appear here...') {
+        navigator.clipboard.writeText(text).then(() => {
+            showToast('Text copied to clipboard!');
+        });
+    }
+}
+
+function clearText() {
+    document.getElementById('mirroredInput').value = '';
+    document.getElementById('mirroredOutput').textContent = 'Your mirrored text will appear here...';
+}
+
+function toggleMode() {
+    const modes = ['horizontal', 'vertical', 'diagonal', 'center'];
+    const currentIndex = modes.indexOf(currentMode);
+    const nextIndex = (currentIndex + 1) % modes.length;
+    
+    currentMode = modes[nextIndex];
+    document.getElementById('mirror-mode').value = currentMode;
+    generateMirror();
+}
+
+function loadExample() {
+    const examples = [
+        'DIGITAL SYMMETRY\nCYBERPUNK DESIGN\nMIRROR EFFECTS',
+        'REFLECTION\nSYMMETRY\nBALANCE\nHARMONY',
+        'MATRIX CODE\nGLITCH ART\nNEON LIGHTS',
+        'CREATIVE DESIGN\nTYPOGRAPHY\nVISUAL EFFECTS',
+        'FUTURISTIC\nCYBERSPACE\nDIGITAL WORLD'
+    ];
+    
+    const randomExample = examples[Math.floor(Math.random() * examples.length)];
+    document.getElementById('mirroredInput').value = randomExample;
+    generateMirror();
+}
+
+function showToast(message) {
+    const existingToast = document.querySelector('.toast');
+    if (existingToast) {
+        existingToast.remove();
+    }
+    
+    const toast = document.createElement('div');
+    toast.className = 'toast show';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
+
+// Mode selector functionality
+document.getElementById('mirror-mode').addEventListener('change', function() {
+    currentMode = this.value;
+    generateMirror();
+});
+
+// Initial generation
+generateMirror();
+</script>
+{% endblock %} 

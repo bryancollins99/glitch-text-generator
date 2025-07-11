@@ -1,0 +1,826 @@
+{% extends 'base.html' %}
+
+{% block title %}Social Media Templates - Glitch Text for Instagram, Discord, YouTube{% endblock %}
+
+{% block head %}
+<meta name="description" content="Create glitch text for social media platforms! Pre-sized templates for Instagram Stories, Discord banners, YouTube thumbnails, and more. Perfect dimensions, instant download.">
+<meta name="keywords" content="social media templates, instagram glitch text, discord banner, youtube thumbnail, glitch text templates, social media generator">
+{% endblock %}
+
+{% block extra_css %}
+<style>
+:root {
+    --primary-color: #00ff00;
+    --secondary-color: #ff00ff;
+    --accent-color: #00ffff;
+    --bg-dark: #0a0a0a;
+    --bg-lighter: #1a1a1a;
+    --text-light: #ffffff;
+    --border-color: #333;
+    --success-color: #4CAF50;
+    --warning-color: #ff9800;
+}
+
+.social-container {
+    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-lighter) 100%);
+    min-height: 100vh;
+    padding: 2rem;
+    color: var(--text-light);
+}
+
+.social-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.social-title {
+    font-size: 3rem;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    animation: socialGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes socialGlow {
+    from { 
+        text-shadow: 0 0 20px var(--primary-color);
+        filter: hue-rotate(0deg);
+    }
+    to { 
+        text-shadow: 0 0 30px var(--secondary-color), 0 0 40px var(--accent-color);
+        filter: hue-rotate(15deg);
+    }
+}
+
+.templates-grid {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.template-selector {
+    background: rgba(26, 26, 26, 0.9);
+    border: 2px solid var(--border-color);
+    border-radius: 15px;
+    padding: 1.5rem;
+    height: fit-content;
+    position: sticky;
+    top: 2rem;
+}
+
+.template-selector h3 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+}
+
+.template-option {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.template-option:hover {
+    border-color: var(--primary-color);
+    background: rgba(0, 255, 0, 0.1);
+}
+
+.template-option.active {
+    border-color: var(--secondary-color);
+    background: rgba(255, 0, 255, 0.1);
+}
+
+.template-icon {
+    font-size: 1.5rem;
+    min-width: 24px;
+}
+
+.template-info {
+    flex: 1;
+}
+
+.template-name {
+    font-weight: bold;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.template-dims {
+    color: var(--accent-color);
+    font-size: 0.8rem;
+}
+
+.main-workspace {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 2rem;
+}
+
+.controls-panel {
+    background: rgba(26, 26, 26, 0.9);
+    border: 2px solid var(--border-color);
+    border-radius: 15px;
+    padding: 2rem;
+}
+
+.controls-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+}
+
+.control-group h4 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.7rem;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 8px rgba(0, 255, 0, 0.3);
+}
+
+.form-control textarea {
+    resize: vertical;
+    min-height: 80px;
+    font-family: 'Courier New', monospace;
+}
+
+.color-input {
+    width: 100%;
+    height: 40px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+}
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.slider {
+    flex: 1;
+    height: 6px;
+    background: var(--border-color);
+    border-radius: 3px;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+
+.slider-value {
+    color: var(--secondary-color);
+    font-weight: bold;
+    min-width: 25px;
+    font-size: 0.9rem;
+}
+
+.preview-area {
+    background: rgba(26, 26, 26, 0.9);
+    border: 2px solid var(--border-color);
+    border-radius: 15px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.preview-container {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+    max-height: 500px;
+}
+
+.preview-text {
+    color: var(--primary-color);
+    font-family: 'Courier New', monospace;
+    text-align: center;
+    word-wrap: break-word;
+    max-width: 100%;
+}
+
+.template-info-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.template-name-display {
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+.template-size-display {
+    color: var(--secondary-color);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.btn {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: var(--bg-dark);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 0, 0.5);
+    background: linear-gradient(45deg, var(--accent-color), var(--primary-color));
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-secondary {
+    background: linear-gradient(45deg, var(--border-color), #666);
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(45deg, #666, var(--border-color));
+}
+
+.pattern-selector {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 0.5rem;
+}
+
+.pattern-option {
+    aspect-ratio: 1;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.pattern-option:hover {
+    border-color: var(--primary-color);
+}
+
+.pattern-option.active {
+    border-color: var(--secondary-color);
+    background: rgba(255, 0, 255, 0.1);
+}
+
+@media (max-width: 1200px) {
+    .templates-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .template-selector {
+        position: static;
+    }
+}
+
+@media (max-width: 768px) {
+    .social-title {
+        font-size: 2rem;
+    }
+    
+    .controls-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .template-selector {
+        order: 2;
+    }
+    
+    .main-workspace {
+        order: 1;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="social-container">
+    <div class="social-header">
+        <h1 class="social-title">Social Media Templates</h1>
+        <p style="color: var(--accent-color); font-size: 1.2rem;">
+            Create glitch text perfectly sized for every social platform 📱
+        </p>
+    </div>
+
+    <div class="templates-grid">
+        <div class="template-selector">
+            <h3>Select Platform</h3>
+            
+            <div class="template-option active" data-template="instagram-story">
+                <div class="template-icon">📸</div>
+                <div class="template-info">
+                    <div class="template-name">Instagram Story</div>
+                    <div class="template-dims">1080 × 1920</div>
+                </div>
+            </div>
+            
+            <div class="template-option" data-template="instagram-post">
+                <div class="template-icon">📷</div>
+                <div class="template-info">
+                    <div class="template-name">Instagram Post</div>
+                    <div class="template-dims">1080 × 1080</div>
+                </div>
+            </div>
+            
+            <div class="template-option" data-template="discord-banner">
+                <div class="template-icon">🎮</div>
+                <div class="template-info">
+                    <div class="template-name">Discord Banner</div>
+                    <div class="template-dims">960 × 540</div>
+                </div>
+            </div>
+            
+            <div class="template-option" data-template="youtube-thumbnail">
+                <div class="template-icon">🎬</div>
+                <div class="template-info">
+                    <div class="template-name">YouTube Thumbnail</div>
+                    <div class="template-dims">1280 × 720</div>
+                </div>
+            </div>
+            
+            <div class="template-option" data-template="twitter-header">
+                <div class="template-icon">🐦</div>
+                <div class="template-info">
+                    <div class="template-name">Twitter Header</div>
+                    <div class="template-dims">1500 × 500</div>
+                </div>
+            </div>
+            
+            <div class="template-option" data-template="facebook-cover">
+                <div class="template-icon">📘</div>
+                <div class="template-info">
+                    <div class="template-name">Facebook Cover</div>
+                    <div class="template-dims">1200 × 630</div>
+                </div>
+            </div>
+            
+            <div class="template-option" data-template="twitch-overlay">
+                <div class="template-icon">🎮</div>
+                <div class="template-info">
+                    <div class="template-name">Twitch Overlay</div>
+                    <div class="template-dims">1920 × 1080</div>
+                </div>
+            </div>
+            
+            <div class="template-option" data-template="tiktok-video">
+                <div class="template-icon">🎵</div>
+                <div class="template-info">
+                    <div class="template-name">TikTok Video</div>
+                    <div class="template-dims">1080 × 1920</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-workspace">
+            <div class="controls-panel">
+                <div class="controls-grid">
+                    <div class="control-group">
+                        <h4>Text Settings</h4>
+                        
+                        <div class="form-group">
+                            <label for="textInput">Your Text:</label>
+                            <textarea 
+                                id="textInput" 
+                                class="form-control" 
+                                placeholder="Enter your text here..."
+                                oninput="updatePreview()"
+                            >GLITCH TEXT</textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="effectType">Glitch Effect:</label>
+                            <select id="effectType" class="form-control" onchange="updatePreview()">
+                                <option value="zalgo">Zalgo</option>
+                                <option value="ascii">ASCII Glitch</option>
+                                <option value="binary">Binary Corruption</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fontStyle">Font Style:</label>
+                            <select id="fontStyle" class="form-control" onchange="updatePreview()">
+                                <option value="default">Default</option>
+                                <option value="cyber">Cyber</option>
+                                <option value="retro">Retro</option>
+                                <option value="digital">Digital</option>
+                                <option value="horror">Horror</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="intensity">Intensity:</label>
+                            <div class="slider-container">
+                                <input 
+                                    type="range" 
+                                    id="intensity" 
+                                    class="slider" 
+                                    min="1" 
+                                    max="10" 
+                                    value="5"
+                                    oninput="updateIntensityValue(); updatePreview()"
+                                >
+                                <span id="intensityValue" class="slider-value">5</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <h4>Colors</h4>
+                        
+                        <div class="form-group">
+                            <label for="bgColor">Background:</label>
+                            <input 
+                                type="color" 
+                                id="bgColor" 
+                                class="color-input" 
+                                value="#000000"
+                                onchange="updatePreview()"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="textColor">Text Color:</label>
+                            <input 
+                                type="color" 
+                                id="textColor" 
+                                class="color-input" 
+                                value="#00ff00"
+                                onchange="updatePreview()"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fontSize">Font Size:</label>
+                            <div class="slider-container">
+                                <input 
+                                    type="range" 
+                                    id="fontSize" 
+                                    class="slider" 
+                                    min="16" 
+                                    max="200" 
+                                    value="48"
+                                    oninput="updateFontSizeValue(); updatePreview()"
+                                >
+                                <span id="fontSizeValue" class="slider-value">48</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <h4>Background Pattern</h4>
+                        
+                        <div class="pattern-selector">
+                            <div class="pattern-option active" data-pattern="solid">
+                                <div>Solid</div>
+                            </div>
+                            <div class="pattern-option" data-pattern="gradient">
+                                <div>Gradient</div>
+                            </div>
+                            <div class="pattern-option" data-pattern="grid">
+                                <div>Grid</div>
+                            </div>
+                            <div class="pattern-option" data-pattern="noise">
+                                <div>Noise</div>
+                            </div>
+                            <div class="pattern-option" data-pattern="scanlines">
+                                <div>Scanlines</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="preview-area">
+                <div class="template-info-bar">
+                    <div class="template-name-display" id="templateNameDisplay">Instagram Story</div>
+                    <div class="template-size-display" id="templateSizeDisplay">1080 × 1920</div>
+                </div>
+                
+                <div class="preview-container" id="previewContainer">
+                    <div class="preview-text" id="previewText">GLITCH TEXT</div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn" onclick="generateAndDownload()" id="downloadBtn">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                    <button class="btn btn-secondary" onclick="updatePreview()">
+                        <i class="fas fa-sync"></i> Refresh
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentTemplate = 'instagram-story';
+let currentPattern = 'solid';
+let previewTimeout;
+
+const templates = {
+    'instagram-story': {name: 'Instagram Story', size: '1080 × 1920', ratio: 9/16},
+    'instagram-post': {name: 'Instagram Post', size: '1080 × 1080', ratio: 1},
+    'discord-banner': {name: 'Discord Banner', size: '960 × 540', ratio: 16/9},
+    'youtube-thumbnail': {name: 'YouTube Thumbnail', size: '1280 × 720', ratio: 16/9},
+    'twitter-header': {name: 'Twitter Header', size: '1500 × 500', ratio: 3/1},
+    'facebook-cover': {name: 'Facebook Cover', size: '1200 × 630', ratio: 1.9},
+    'twitch-overlay': {name: 'Twitch Overlay', size: '1920 × 1080', ratio: 16/9},
+    'tiktok-video': {name: 'TikTok Video', size: '1080 × 1920', ratio: 9/16}
+};
+
+function updateIntensityValue() {
+    const value = document.getElementById('intensity').value;
+    document.getElementById('intensityValue').textContent = value;
+}
+
+function updateFontSizeValue() {
+    const value = document.getElementById('fontSize').value;
+    document.getElementById('fontSizeValue').textContent = value;
+}
+
+function updatePreview() {
+    clearTimeout(previewTimeout);
+    previewTimeout = setTimeout(async () => {
+        const text = document.getElementById('textInput').value;
+        const effect = document.getElementById('effectType').value;
+        const fontStyle = document.getElementById('fontStyle').value;
+        const intensity = document.getElementById('intensity').value;
+        const bgColor = document.getElementById('bgColor').value;
+        const textColor = document.getElementById('textColor').value;
+        const fontSize = document.getElementById('fontSize').value;
+
+        if (!text.trim()) {
+            document.getElementById('previewText').textContent = 'Enter text to preview...';
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/glitch', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    text: text,
+                    effect: effect,
+                    font_style: fontStyle,
+                    intensity: parseInt(intensity)
+                })
+            });
+
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.error || 'Failed to generate text');
+
+            const previewElement = document.getElementById('previewText');
+            const previewContainer = document.getElementById('previewContainer');
+            
+            previewElement.textContent = data.result;
+            previewElement.style.color = textColor;
+            previewElement.style.fontSize = Math.min(parseInt(fontSize), 100) + 'px';
+            previewContainer.style.background = bgColor;
+            
+            // Update preview container aspect ratio
+            const template = templates[currentTemplate];
+            if (template) {
+                const maxWidth = 600;
+                const maxHeight = 400;
+                let width, height;
+                
+                if (template.ratio >= 1) {
+                    width = maxWidth;
+                    height = width / template.ratio;
+                } else {
+                    height = maxHeight;
+                    width = height * template.ratio;
+                }
+                
+                previewContainer.style.width = Math.min(width, maxWidth) + 'px';
+                previewContainer.style.height = Math.min(height, maxHeight) + 'px';
+            }
+            
+        } catch (error) {
+            console.error('Error:', error);
+            document.getElementById('previewText').textContent = 'Error: ' + error.message;
+        }
+    }, 300);
+}
+
+async function generateAndDownload() {
+    const text = document.getElementById('textInput').value;
+    const effect = document.getElementById('effectType').value;
+    const fontStyle = document.getElementById('fontStyle').value;
+    const intensity = document.getElementById('intensity').value;
+    const bgColor = document.getElementById('bgColor').value;
+    const textColor = document.getElementById('textColor').value;
+    const fontSize = document.getElementById('fontSize').value;
+
+    if (!text.trim()) {
+        alert('Please enter some text to generate an image.');
+        return;
+    }
+
+    const downloadBtn = document.getElementById('downloadBtn');
+    downloadBtn.disabled = true;
+    downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating...';
+
+    try {
+        const response = await fetch('/api/social-media-image', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                text: text,
+                effect: effect,
+                font_style: fontStyle,
+                intensity: parseInt(intensity),
+                template: currentTemplate,
+                bg_color: bgColor,
+                text_color: textColor,
+                bg_pattern: currentPattern,
+                font_size: parseInt(fontSize)
+            })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Failed to generate image');
+        }
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${currentTemplate}-glitch-${Date.now()}.png`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+
+        showToast('Image downloaded successfully! 🎉');
+
+    } catch (error) {
+        console.error('Download failed:', error);
+        alert('Failed to download image: ' + error.message);
+    } finally {
+        downloadBtn.disabled = false;
+        downloadBtn.innerHTML = '<i class="fas fa-download"></i> Download';
+    }
+}
+
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.textContent = message;
+    toast.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        color: var(--bg-dark);
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 255, 0, 0.3);
+        z-index: 1000;
+        font-weight: bold;
+        animation: slideIn 0.3s ease-out;
+    `;
+    
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.style.animation = 'slideOut 0.3s ease-out';
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
+
+// Template selection
+document.querySelectorAll('.template-option').forEach(option => {
+    option.addEventListener('click', () => {
+        document.querySelectorAll('.template-option').forEach(el => el.classList.remove('active'));
+        option.classList.add('active');
+        
+        currentTemplate = option.dataset.template;
+        const template = templates[currentTemplate];
+        
+        document.getElementById('templateNameDisplay').textContent = template.name;
+        document.getElementById('templateSizeDisplay').textContent = template.size;
+        
+        updatePreview();
+    });
+});
+
+// Pattern selection
+document.querySelectorAll('.pattern-option').forEach(option => {
+    option.addEventListener('click', () => {
+        document.querySelectorAll('.pattern-option').forEach(el => el.classList.remove('active'));
+        option.classList.add('active');
+        
+        currentPattern = option.dataset.pattern;
+        updatePreview();
+    });
+});
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+    updatePreview();
+});
+</script>
+{% endblock %} 

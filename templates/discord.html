@@ -1,6 +1,22 @@
 {% extends "base.html" %}
 
-{% block title %}Discord Glitch Text Generator - GlitchText{% endblock %}
+{% block title %}Discord Glitch Text Generator - Cool Fonts & Text Effects for Discord{% endblock %}
+
+{% block head %}
+<meta name="description" content="💬 FREE Discord Glitch Text Generator! Create cool glitched messages, usernames & server names for Discord. Instant copy-paste, works perfectly in all Discord channels!">
+<meta name="keywords" content="discord glitch text generator, discord fonts, discord text effects, glitch text discord, discord username generator">
+{% endblock %}
+
+{% block og_title %}Discord Glitch Text Generator - Cool Fonts & Text Effects for Discord{% endblock %}
+{% block og_description %}💬 FREE Discord Glitch Text Generator! Create cool glitched messages, usernames & server names for Discord. Instant copy-paste, works perfectly in all Discord channels!{% endblock %}
+
+{% block breadcrumbs %}
+{% set breadcrumbs = [
+    {'title': 'Text Generators', 'url': url_for('home')},
+    {'title': 'Discord Text', 'url': None}
+] %}
+{{ super() }}
+{% endblock %}
 
 {% block content %}
 <h1 class="main-title">Discord Glitch Text Generator</h1>

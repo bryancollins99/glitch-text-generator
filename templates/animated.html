@@ -1,0 +1,346 @@
+{% extends 'base.html' %}
+
+{% block title %}Animated Text Generator - Create Dynamic Moving Text Effects{% endblock %}
+
+{% block head %}
+<meta name="description" content="Create animated text effects with our dynamic text generator. Add motion, transitions, and eye-catching animations to your text for web and social media.">
+<meta name="keywords" content="animated text generator, moving text, text animation, dynamic text, CSS animation, text effects">
+{% endblock %}
+
+{% block content %}
+<h1 class="main-title glitch-title">Animated Text Generator</h1>
+<p class="subtitle">Bring your text to life with dynamic animations! Create eye-catching motion effects, glowing text, bouncing letters, and cyberpunk-style animations for digital media.</p>
+
+<div class="controls-panel">
+    <div class="control-group">
+        <label for="animation-type">Animation Type:</label>
+        <select id="animation-type" class="effect-select">
+            <option value="bounce">Bounce</option>
+            <option value="pulse">Pulse</option>
+            <option value="shake">Shake</option>
+            <option value="glow">Glow</option>
+            <option value="wave">Wave</option>
+            <option value="typewriter">Typewriter</option>
+        </select>
+    </div>
+    <div class="control-group">
+        <label for="speed-slider">Animation Speed:</label>
+        <input type="range" id="speed-slider" min="0.5" max="3" step="0.1" value="1" class="range-slider">
+        <span id="speed-value">1x</span>
+    </div>
+</div>
+
+<div class="text-editor">
+    <div class="input-container">
+        <div class="editor-header">Input Text</div>
+        <textarea 
+            id="animatedInput" 
+            placeholder="Type your text here to animate it..."
+            class="glitch-input"
+            oninput="updateAnimation()"
+        >Welcome to Animated Text Generator!</textarea>
+    </div>
+    
+    <div class="output-container">
+        <div class="editor-header">
+            Live Animation Preview
+            <button id="copy-btn" class="btn-copy" onclick="copyToClipboard()">Copy</button>
+        </div>
+        <div class="animated-preview" id="animatedPreview">
+            <div class="animated-text bounce" id="animatedText">Welcome to Animated Text Generator!</div>
+        </div>
+    </div>
+</div>
+
+<div class="quick-effects">
+    <h3>Quick Actions</h3>
+    <div class="effect-buttons">
+        <button class="quick-effect" onclick="loadExample()">Load Example</button>
+        <button class="quick-effect" onclick="clearText()">Clear Text</button>
+        <button class="quick-effect" onclick="randomAnimation()">Random Animation</button>
+        <button class="quick-effect" onclick="copyToClipboard()">Copy CSS</button>
+    </div>
+</div>
+
+<div class="guide-container">
+    <section>
+        <h2>Animation Effects</h2>
+        <p>Transform your text with dynamic animations for engaging digital experiences:</p>
+        <div class="tools-grid">
+            <div class="tool-card">
+                <h3>Bounce</h3>
+                <p>Vertical bouncing motion for playful, energetic text effects</p>
+            </div>
+            <div class="tool-card">
+                <h3>Pulse</h3>
+                <p>Scaling animation that creates breathing or heartbeat effects</p>
+            </div>
+            <div class="tool-card">
+                <h3>Shake</h3>
+                <p>Horizontal trembling motion for attention-grabbing alerts</p>
+            </div>
+            <div class="tool-card">
+                <h3>Glow</h3>
+                <p>Neon-style glowing effect perfect for cyberpunk designs</p>
+            </div>
+            <div class="tool-card">
+                <h3>Wave</h3>
+                <p>Gentle swaying motion that creates fluid, organic movement</p>
+            </div>
+            <div class="tool-card">
+                <h3>Typewriter</h3>
+                <p>Classic typing animation with cursor for retro computing feel</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+.animated-preview {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    padding: 2rem;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.animated-preview::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 0, 255, 0.1) 50%, transparent 70%);
+    animation: shimmer 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes shimmer {
+    0%, 100% { transform: translateX(-100%); }
+    50% { transform: translateX(100%); }
+}
+
+.animated-text {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-shadow: 0 0 10px var(--primary-color);
+    position: relative;
+    z-index: 2;
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.2;
+    text-align: center;
+}
+
+/* Animation Classes */
+.bounce { 
+    animation: bounce 1s ease-in-out infinite; 
+}
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+.pulse { 
+    animation: pulse 2s ease-in-out infinite; 
+}
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.shake { 
+    animation: shake 0.5s ease-in-out infinite; 
+}
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.glow { 
+    animation: glow 2s ease-in-out infinite alternate; 
+}
+@keyframes glow {
+    from { 
+        text-shadow: 0 0 10px var(--primary-color); 
+    }
+    to { 
+        text-shadow: 0 0 20px var(--primary-color), 0 0 30px var(--primary-color), 0 0 40px var(--accent-color); 
+    }
+}
+
+.wave { 
+    animation: wave 2s ease-in-out infinite; 
+}
+@keyframes wave {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-3deg); }
+    75% { transform: rotate(3deg); }
+}
+
+.typewriter { 
+    overflow: hidden;
+    border-right: 3px solid var(--primary-color);
+    white-space: nowrap;
+    animation: typewriter 4s steps(40) infinite, blink 1s infinite;
+    width: fit-content;
+    margin: 0 auto;
+}
+@keyframes typewriter {
+    0%, 90%, 100% { width: 0; }
+    10%, 80% { width: 100%; }
+}
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
+@media (max-width: 768px) {
+    .animated-text {
+        font-size: 1.5rem;
+    }
+}
+</style>
+
+<script>
+let currentAnimation = 'bounce';
+let animationSpeed = 1;
+
+function updateAnimation() {
+    const input = document.getElementById('animatedInput').value;
+    const animatedText = document.getElementById('animatedText');
+    
+    if (!input.trim()) {
+        animatedText.textContent = 'Your animated text will appear here...';
+        return;
+    }
+    
+    animatedText.textContent = input;
+    applyAnimation();
+}
+
+function applyAnimation() {
+    const animatedText = document.getElementById('animatedText');
+    
+    // Remove all animation classes
+    animatedText.className = 'animated-text';
+    
+    // Add current animation class
+    animatedText.classList.add(currentAnimation);
+    
+    // Apply speed
+    animatedText.style.animationDuration = `${getAnimationDuration()}s`;
+}
+
+function getAnimationDuration() {
+    const baseDurations = {
+        bounce: 1,
+        pulse: 2,
+        shake: 0.5,
+        glow: 2,
+        wave: 2,
+        typewriter: 4
+    };
+    
+    return baseDurations[currentAnimation] / animationSpeed;
+}
+
+function updateSpeed() {
+    const slider = document.getElementById('speed-slider');
+    const speedValue = document.getElementById('speed-value');
+    
+    animationSpeed = parseFloat(slider.value);
+    speedValue.textContent = animationSpeed + 'x';
+    
+    applyAnimation();
+}
+
+function copyToClipboard() {
+    const animatedText = document.getElementById('animatedText');
+    const text = animatedText.textContent;
+    
+    if (text && text !== 'Your animated text will appear here...') {
+        // Create CSS code for the animation
+        const cssCode = `.animated-text {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ff00ff;
+    text-shadow: 0 0 10px #ff00ff;
+    animation: ${currentAnimation} ${getAnimationDuration()}s ease-in-out infinite;
+}
+
+@keyframes ${currentAnimation} {
+    /* Copy the keyframes from the page source */
+}`;
+        
+        navigator.clipboard.writeText(cssCode).then(() => {
+            showToast('CSS code copied to clipboard!');
+        });
+    }
+}
+
+function clearText() {
+    document.getElementById('animatedInput').value = '';
+    document.getElementById('animatedText').textContent = 'Your animated text will appear here...';
+}
+
+function randomAnimation() {
+    const animations = ['bounce', 'pulse', 'shake', 'glow', 'wave', 'typewriter'];
+    const randomAnim = animations[Math.floor(Math.random() * animations.length)];
+    
+    currentAnimation = randomAnim;
+    document.getElementById('animation-type').value = randomAnim;
+    applyAnimation();
+}
+
+function loadExample() {
+    const examples = [
+        'CYBERPUNK 2077',
+        'NEON LIGHTS',
+        'GLITCH IN THE MATRIX',
+        'DIGITAL FUTURE',
+        'ANIMATED POWER',
+        'DYNAMIC EFFECTS'
+    ];
+    
+    const randomExample = examples[Math.floor(Math.random() * examples.length)];
+    document.getElementById('animatedInput').value = randomExample;
+    updateAnimation();
+}
+
+function showToast(message) {
+    const existingToast = document.querySelector('.toast');
+    if (existingToast) {
+        existingToast.remove();
+    }
+    
+    const toast = document.createElement('div');
+    toast.className = 'toast show';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
+
+// Animation type selector functionality
+document.getElementById('animation-type').addEventListener('change', function() {
+    currentAnimation = this.value;
+    applyAnimation();
+});
+
+// Speed slider functionality
+document.getElementById('speed-slider').addEventListener('input', updateSpeed);
+
+// Initial setup
+updateAnimation();
+</script>
+{% endblock %} 

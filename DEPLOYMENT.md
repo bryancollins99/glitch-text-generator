@@ -1,196 +1,268 @@
-# Deployment Guide for Glitch Text Generator
+# Git Deployment Guide - Glitch Text Generator
 
-This document provides detailed instructions for deploying the Glitch Text Generator application to Render.
-
-## Deployment Architecture
-
-The application uses the following architecture:
-- **Platform**: Render (Cloud Platform)
-- **Container**: Docker
-- **Application Server**: Gunicorn (WSGI server)
-- **Auto-deployment**: Git-based deployment from GitHub
+## Overview
+This guide covers the deployment process for the Glitch Text Generator application from local development to production environments.
 
 ## Prerequisites
+- Git installed and configured
+- Python 3.9+ installed
+- Access to the production hosting environment (Render.com or DigitalOcean)
+- Environment variables configured
 
-- A Render account (free tier available)
-- GitHub repository with your code
-- Domain name (optional - Render provides free subdomain)
+## Development Workflow
 
-## Render Deployment Setup
+### 1. Local Development Setup
+```bash
+# Clone the repository
+git clone <repository-url>
+cd glitch-text-generator
 
-### 1. Create Render Account
+# Install dependencies
+pip3 install -r requirements.txt
 
-1. Go to [render.com](https://render.com)
-2. Sign up with your GitHub account
-3. Authorize Render to access your repositories
-
-### 2. Deploy from GitHub
-
-#### Option A: Using Render Dashboard
-
-1. Log in to your Render dashboard
-2. Click "New +" and select "Web Service"
-3. Connect your GitHub repository: `bryancollins99/glitch_text_generator`
-4. Configure the service:
-   - **Name**: `glitch-text-generator`
-   - **Environment**: `Docker`
-   - **Branch**: `main`
-   - **Dockerfile Path**: `./Dockerfile`
-5. Set environment variables:
-   - `FLASK_ENV`: `production`
-   - `FLASK_APP`: `app.py`
-6. Click "Create Web Service"
-
-#### Option B: Using render.yaml (Infrastructure as Code)
-
-The repository includes a `render.yaml` file that automatically configures the deployment:
-
-```yaml
-services:
-  - type: web
-    name: glitch-text-generator
-    env: docker
-    repo: https://github.com/bryancollins99/glitch_text_generator.git
-    branch: main
-    dockerfilePath: ./Dockerfile
-    envVars:
-      - key: FLASK_ENV
-        value: production
-      - key: FLASK_APP
-        value: app.py
-    healthCheckPath: /
-    autoDeploy: true
+# Start local development server
+PORT=9600 python3 app.py
 ```
 
-To use this:
-1. In Render dashboard, go to "Blueprint"
-2. Click "New Blueprint Instance"
-3. Connect your repository
-4. Render will automatically read the `render.yaml` and deploy
+### 2. Feature Development Process
+```bash
+# Create a new feature branch
+git checkout -b feature/your-feature-name
 
-### 3. Custom Domain Setup (Optional)
+# Make your changes and test locally
+# Add and commit changes
+git add .
+git commit -m "Add: Description of your changes"
 
-1. In your Render service dashboard, go to "Settings"
-2. Scroll to "Custom Domains"
-3. Add your domain (e.g., `glitchtexteffect.com`)
-4. Update your domain's DNS settings:
-   - Add a CNAME record pointing to your Render service URL
-   - Or add an A record pointing to Render's IP addresses
+# Push feature branch
+git push origin feature/your-feature-name
+```
 
-### 4. SSL Certificate
+## Git Workflow
 
-Render automatically provides SSL certificates for all domains (both custom and Render subdomains).
+### Branch Strategy
+- `main` - Production branch (stable, deployed code)
+- `develop` - Development branch (latest features)
+- `feature/*` - Feature branches for new functionality
+- `hotfix/*` - Emergency fixes for production
 
-## Automatic Deployment
+### Commit Convention
+Use conventional commit messages:
+```
+feat: add new glitch text effect
+fix: resolve CSS display issue on mobile
+docs: update README with new features
+style: improve button hover animations
+refactor: optimize image processing logic
+test: add unit tests for text generation
+```
 
-### Git-based Deployment
+## Pre-Deployment Checklist
 
-Render automatically deploys when you push to the `main` branch:
+### Code Quality Checks
+- [ ] All tests pass locally
+- [ ] No console errors in browser
+- [ ] Mobile responsiveness tested
+- [ ] All internal links working
+- [ ] SEO meta tags updated
+- [ ] CSS/JS minification (if applicable)
 
-1. Make changes to your code
-2. Commit and push to GitHub:
-   ```bash
-   git add .
-   git commit -m "Update application"
-   git push origin main
-   ```
-3. Render automatically detects the changes and redeploys
+### Content Validation
+- [ ] All new pages have proper meta descriptions
+- [ ] Sitemap updated with new routes
+- [ ] Related resources links added between content pages
+- [ ] Images optimized and paths correct
+- [ ] No broken external links
 
-### Build Process
+### Security Review
+- [ ] No sensitive data in commit history
+- [ ] Environment variables properly configured
+- [ ] CSP headers allow necessary external resources
+- [ ] HTTPS enforced in production
 
-Render follows this process:
-1. Pulls latest code from GitHub
-2. Builds Docker image using your Dockerfile
-3. Runs the container with Gunicorn
-4. Makes the service available on the provided URL
+## Deployment Process
+
+### Step 1: Prepare for Deployment
+```bash
+# Switch to main branch
+git checkout main
+
+# Pull latest changes
+git pull origin main
+
+# Merge your feature branch
+git merge feature/your-feature-name
+
+# Run final tests
+python3 -m pytest (if tests exist)
+```
+
+### Step 2: Tag Release (Optional)
+```bash
+# Create a version tag
+git tag -a v1.2.3 -m "Release version 1.2.3: Add internal linking"
+git push origin v1.2.3
+```
+
+### Step 3: Deploy to Production
+
+#### For Render.com Deployment
+```bash
+# Push to main branch (auto-deploys)
+git push origin main
+
+# Monitor deployment in Render dashboard
+# Check deployment logs for any issues
+```
+
+#### For Manual Server Deployment
+```bash
+# SSH into production server
+ssh user@your-server.com
+
+# Navigate to app directory
+cd /path/to/glitch-text-generator
+
+# Pull latest changes
+git pull origin main
+
+# Install/update dependencies
+pip3 install -r requirements.txt
+
+# Restart the application
+sudo systemctl restart glitch-text-generator
+# OR using PM2: pm2 restart glitch-text-generator
+```
+
+### Step 4: Post-Deployment Verification
+1. Visit the live site and test core functionality
+2. Check that new features work as expected
+3. Verify all internal links function correctly
+4. Test on mobile devices
+5. Check server logs for any errors
 
 ## Environment Configuration
 
 ### Environment Variables
+Create a `.env` file for local development:
+```env
+FLASK_ENV=development
+FLASK_DEBUG=True
+PORT=9600
+```
 
-Set these in the Render dashboard under "Environment":
+### Production Environment Variables
+Ensure these are set in your hosting environment:
+```env
+FLASK_ENV=production
+FLASK_DEBUG=False
+PORT=5000
+# Add any other production-specific variables
+```
 
-- `FLASK_ENV`: `production`
-- `FLASK_APP`: `app.py`
-- `PORT`: Automatically set by Render
+## Rollback Procedure
 
-### Application Configuration
+If deployment issues occur:
 
-The application is configured to work with Render:
+### Quick Rollback
+```bash
+# Revert to previous commit
+git revert HEAD
+git push origin main
+```
 
-- **Port**: Uses `PORT` environment variable (set by Render)
-- **Gunicorn**: Configured in `gunicorn_config.py`
-- **Docker**: Optimized Dockerfile for Render deployment
+### Full Rollback to Previous Tag
+```bash
+# Find previous stable tag
+git tag -l
 
-## Monitoring and Logs
+# Reset to previous tag
+git reset --hard v1.2.2
+git push origin main --force
+```
 
-### Viewing Logs
+## Monitoring and Maintenance
 
-1. Go to your service in Render dashboard
-2. Click on "Logs" tab
-3. View real-time application logs
+### Post-Deployment Monitoring
+- Monitor server resources (CPU, memory, disk space)
+- Check application logs for errors
+- Monitor site performance and loading times
+- Verify search engine crawling and indexing
 
-### Health Checks
+### Regular Maintenance Tasks
+- Update dependencies monthly
+- Review and update content
+- Monitor and fix broken links
+- Update sitemap as content grows
+- Review and optimize performance
 
-Render automatically monitors your application:
-- Health check endpoint: `/` (homepage)
-- Automatic restarts if the service becomes unhealthy
+## Troubleshooting Common Issues
 
-### Metrics
+### Deployment Fails
+1. Check commit history for syntax errors
+2. Verify all dependencies in requirements.txt
+3. Check server logs for specific error messages
+4. Ensure environment variables are properly set
 
-Render provides built-in metrics:
-- Response times
-- Memory usage
-- CPU usage
-- Request volume
+### Site Not Loading After Deployment
+1. Check server status and logs
+2. Verify DNS settings (if domain changed)
+3. Check SSL certificate status
+4. Verify application is running on correct port
 
-## Troubleshooting
+### CSS/JS Not Loading
+1. Check file paths in templates
+2. Verify static file serving configuration
+3. Clear browser cache
+4. Check CSP headers for blocked resources
 
-### Common Issues
+## Security Best Practices
 
-1. **Build Failures**
-   - Check the build logs in Render dashboard
-   - Ensure all dependencies are in `requirements.txt`
-   - Verify Dockerfile syntax
+### Before Each Deployment
+- Review code for security vulnerabilities
+- Ensure no API keys or passwords in code
+- Verify CSP headers are properly configured
+- Check that user input is properly sanitized
 
-2. **Application Won't Start**
-   - Check application logs
-   - Verify `gunicorn_config.py` settings
-   - Ensure `wsgi.py` is correctly configured
+### Git Security
+- Never commit sensitive data
+- Use .gitignore for environment files
+- Regularly review commit history
+- Use signed commits for production releases
 
-3. **Port Issues**
-   - Render automatically sets the `PORT` environment variable
-   - Application binds to `0.0.0.0:$PORT`
+## Emergency Procedures
 
-### Getting Help
+### Site Down Emergency
+1. Check server status immediately
+2. Review recent commits for breaking changes
+3. Implement quick rollback if necessary
+4. Notify users via social media if extended downtime
 
-- Check Render documentation: [render.com/docs](https://render.com/docs)
-- View application logs in Render dashboard
-- Check GitHub Actions for CI status
+### Security Incident
+1. Immediately take site offline if compromised
+2. Review server logs for breach indicators
+3. Change all passwords and API keys
+4. Restore from clean backup
+5. Implement additional security measures
 
-## Cost
+## Contact Information
 
-- **Free Tier**: Available with limitations (sleeps after inactivity)
-- **Paid Plans**: Starting at $7/month for always-on services
-- **Custom Domains**: Free SSL certificates included
+**Development Team:**
+- Primary Developer: [Your Name]
+- Email: [your-email@domain.com]
 
-## Migration from DigitalOcean
+**Hosting Provider:**
+- Platform: Render.com / DigitalOcean
+- Support: [hosting-support-contact]
 
-If migrating from DigitalOcean:
+## Notes
 
-1. The application code remains the same
-2. Remove DigitalOcean-specific files (already done):
-   - `deploy.sh`
-   - SSH deployment scripts
-3. Update DNS to point to Render instead of DigitalOcean
-4. Cancel DigitalOcean droplet once migration is complete
+⚠️ **IMPORTANT:** Always request permission before deploying to production. Follow this process:
 
-## Backup and Recovery
+1. Create a detailed deployment plan
+2. Request approval from project owner
+3. Schedule deployment during low-traffic hours
+4. Have rollback plan ready
+5. Monitor closely post-deployment
 
-- **Code**: Backed up in GitHub repository
-- **Database**: Not applicable (stateless application)
-- **Configuration**: Stored in `render.yaml` and environment variables
-
-Your application will be available at:
-- Render subdomain: `https://glitch-text-generator.onrender.com`
-- Custom domain: `https://glitchtexteffect.com` (if configured)
+Remember: "Always ask permission before deployment" - as specified in the project requirements.

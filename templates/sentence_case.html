@@ -1,0 +1,249 @@
+{% extends 'base.html' %}
+
+{% block title %}Sentence Case Text Generator - Convert Text to Sentence Case{% endblock %}
+
+{% block head %}
+<meta name="description" content="Convert your text to sentence case with our free sentence case generator. Perfect for formal writing, documents, and professional content.">
+<meta name="keywords" content="sentence case generator, sentence case converter, text converter, proper case, sentence case text">
+{% endblock %}
+
+{% block content %}
+<h1 class="main-title glitch-title">Sentence Case Generator</h1>
+<p class="subtitle">Transform your text into proper sentence case formatting with intelligent capitalization. Perfect for formal writing, documents, and professional content.</p>
+
+<div class="controls-panel">
+    <div class="control-group">
+        <label for="sentence-style">Sentence Style:</label>
+        <select id="sentence-style" class="effect-select">
+            <option value="standard">Standard Sentence Case</option>
+            <option value="proper-names">With Proper Names</option>
+            <option value="auto-capitalize">Auto Capitalize</option>
+            <option value="lowercase">Lowercase Only</option>
+        </select>
+    </div>
+</div>
+
+<div class="text-editor">
+    <div class="input-container">
+        <div class="editor-header">Input Text</div>
+        <textarea 
+            id="sentenceCaseInput" 
+            placeholder="Type your text here to convert to sentence case..."
+            class="glitch-input"
+            oninput="generateSentenceCase()"
+        >THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG. THIS IS ANOTHER SENTENCE FOR TESTING.</textarea>
+    </div>
+    
+    <div class="output-container">
+        <div class="editor-header">
+            Sentence Case Output
+            <button id="copy-btn" class="btn-copy" onclick="copyToClipboard()">Copy</button>
+        </div>
+        <div id="sentenceCaseOutput" class="glitch-output">The quick brown fox jumps over the lazy dog. This is another sentence for testing.</div>
+    </div>
+</div>
+
+<div class="quick-effects">
+    <h3>Quick Actions</h3>
+    <div class="effect-buttons">
+        <button class="quick-effect" onclick="loadExample()">Load Example</button>
+        <button class="quick-effect" onclick="clearText()">Clear Text</button>
+        <button class="quick-effect" onclick="toggleStyle()">Change Style</button>
+        <button class="quick-effect" onclick="copyToClipboard()">Copy Result</button>
+    </div>
+</div>
+
+<div class="guide-container">
+    <section>
+        <h2>About Sentence Case</h2>
+        <p>Sentence case capitalizes only the first letter of each sentence and proper nouns. Essential for:</p>
+        <div class="tools-grid">
+            <div class="tool-card">
+                <h3>Body Text</h3>
+                <p>Paragraphs, articles, and regular content</p>
+            </div>
+            <div class="tool-card">
+                <h3>Formal Writing</h3>
+                <p>Business documents, reports, and correspondence</p>
+            </div>
+            <div class="tool-card">
+                <h3>Academic Papers</h3>
+                <p>Research content, abstracts, and descriptions</p>
+            </div>
+            <div class="tool-card">
+                <h3>Web Content</h3>
+                <p>Blog posts, articles, and readable text</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+let currentStyle = 'standard';
+
+// Common proper nouns that should be capitalized
+const properNouns = [
+    'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december',
+    'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday',
+    'america', 'canada', 'england', 'france', 'germany', 'italy', 'spain', 'russia', 'china', 'japan', 'india', 'brazil',
+    'new york', 'los angeles', 'chicago', 'houston', 'philadelphia', 'phoenix', 'san antonio', 'san diego', 'dallas', 'san jose',
+    'google', 'microsoft', 'apple', 'amazon', 'facebook', 'twitter', 'youtube', 'instagram', 'linkedin', 'reddit'
+];
+
+function generateSentenceCase() {
+    const input = document.getElementById('sentenceCaseInput').value;
+    const output = document.getElementById('sentenceCaseOutput');
+    
+    if (!input.trim()) {
+        output.textContent = 'Your sentence case text will appear here...';
+        return;
+    }
+    
+    let result = '';
+    
+    switch(currentStyle) {
+        case 'standard':
+            result = convertToStandardSentenceCase(input);
+            break;
+        case 'proper-names':
+            result = convertWithProperNames(input);
+            break;
+        case 'auto-capitalize':
+            result = convertToAutoCapitalize(input);
+            break;
+        case 'lowercase':
+            result = convertToLowercase(input);
+            break;
+    }
+    
+    output.textContent = result;
+}
+
+function convertToStandardSentenceCase(text) {
+    // Convert to lowercase first
+    let result = text.toLowerCase();
+    
+    // Capitalize first letter of the entire text
+    result = result.charAt(0).toUpperCase() + result.slice(1);
+    
+    // Capitalize after sentence-ending punctuation
+    result = result.replace(/([.!?]\s*)([a-z])/g, function(match, punct, letter) {
+        return punct + letter.toUpperCase();
+    });
+    
+    // Capitalize 'I' when it's a standalone word
+    result = result.replace(/\bi\b/g, 'I');
+    
+    return result;
+}
+
+function convertWithProperNames(text) {
+    let result = convertToStandardSentenceCase(text);
+    
+    // Capitalize proper nouns
+    properNouns.forEach(noun => {
+        const regex = new RegExp(`\\b${noun}\\b`, 'gi');
+        result = result.replace(regex, noun.charAt(0).toUpperCase() + noun.slice(1));
+    });
+    
+    return result;
+}
+
+function convertToAutoCapitalize(text) {
+    let result = convertToStandardSentenceCase(text);
+    
+    // Additional capitalization rules
+    // Capitalize after colons
+    result = result.replace(/(:)\s*([a-z])/g, function(match, colon, letter) {
+        return colon + ' ' + letter.toUpperCase();
+    });
+    
+    // Capitalize after quotes
+    result = result.replace(/(["'])\s*([a-z])/g, function(match, quote, letter) {
+        return quote + letter.toUpperCase();
+    });
+    
+    return result;
+}
+
+function convertToLowercase(text) {
+    let result = text.toLowerCase();
+    
+    // Still capitalize first letter of sentences
+    result = result.charAt(0).toUpperCase() + result.slice(1);
+    result = result.replace(/([.!?]\s*)([a-z])/g, function(match, punct, letter) {
+        return punct + letter.toUpperCase();
+    });
+    
+    // Capitalize 'I' when it's a standalone word
+    result = result.replace(/\bi\b/g, 'I');
+    
+    return result;
+}
+
+function copyToClipboard() {
+    const output = document.getElementById('sentenceCaseOutput');
+    const text = output.textContent;
+    
+    if (text && text !== 'Your sentence case text will appear here...') {
+        navigator.clipboard.writeText(text).then(() => {
+            showToast('Text copied to clipboard!');
+        });
+    }
+}
+
+function clearText() {
+    document.getElementById('sentenceCaseInput').value = '';
+    document.getElementById('sentenceCaseOutput').textContent = 'Your sentence case text will appear here...';
+}
+
+function toggleStyle() {
+    const styles = ['standard', 'proper-names', 'auto-capitalize', 'lowercase'];
+    const currentIndex = styles.indexOf(currentStyle);
+    const nextIndex = (currentIndex + 1) % styles.length;
+    
+    currentStyle = styles[nextIndex];
+    document.getElementById('sentence-style').value = currentStyle;
+    generateSentenceCase();
+}
+
+function loadExample() {
+    const examples = [
+        'WELCOME TO OUR COMPANY. WE PROVIDE EXCELLENT SERVICES TO ALL CUSTOMERS.',
+        'THIS IS A SAMPLE TEXT FOR TESTING THE SENTENCE CASE GENERATOR. IT WORKS PERFECTLY!',
+        'ARTIFICIAL INTELLIGENCE IS CHANGING THE WORLD. MACHINE LEARNING IS PART OF THIS REVOLUTION.',
+        'THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG. THIS IS A CLASSIC PANGRAM SENTENCE.',
+        'DIGITAL MARKETING STRATEGIES ARE ESSENTIAL FOR BUSINESS SUCCESS. SOCIAL MEDIA PLAYS A CRUCIAL ROLE.'
+    ];
+    
+    const randomExample = examples[Math.floor(Math.random() * examples.length)];
+    document.getElementById('sentenceCaseInput').value = randomExample;
+    generateSentenceCase();
+}
+
+function showToast(message) {
+    const existingToast = document.querySelector('.toast');
+    if (existingToast) {
+        existingToast.remove();
+    }
+    
+    const toast = document.createElement('div');
+    toast.className = 'toast show';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
+
+// Style selector functionality
+document.getElementById('sentence-style').addEventListener('change', function() {
+    currentStyle = this.value;
+    generateSentenceCase();
+});
+
+// Initial generation
+generateSentenceCase();
+</script>
+{% endblock %} 

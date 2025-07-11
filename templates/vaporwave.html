@@ -1,0 +1,339 @@
+{% extends 'base.html' %}
+
+{% block title %}Vaporwave Text Generator - Create Aesthetic Retro Text Effects{% endblock %}
+
+{% block head %}
+<meta name="description" content="Generate vaporwave text with our aesthetic retro generator. Create synthwave, retrowave, and 80s-style text effects perfect for your digital art projects.">
+<meta name="keywords" content="vaporwave text generator, aesthetic text, retro text, synthwave, retrowave, 80s text">
+{% endblock %}
+
+{% block extra_css %}
+<style>
+:root {
+    --vaporwave-pink: #ff71ce;
+    --vaporwave-blue: #01cdfe;
+    --vaporwave-purple: #b967db;
+    --vaporwave-teal: #05ffa1;
+    --vaporwave-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.vaporwave-container {
+    background: var(--vaporwave-bg);
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.vaporwave-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.vaporwave-title {
+    font-size: 3.5rem;
+    background: linear-gradient(45deg, var(--vaporwave-pink), var(--vaporwave-blue), var(--vaporwave-teal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 0 0 20px rgba(255, 113, 206, 0.5);
+    animation: neonGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes neonGlow {
+    from { text-shadow: 0 0 20px rgba(255, 113, 206, 0.5); }
+    to { text-shadow: 0 0 30px rgba(1, 205, 254, 0.8), 0 0 40px rgba(5, 255, 161, 0.6); }
+}
+
+.vaporwave-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.vaporwave-input, .vaporwave-output {
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid var(--vaporwave-pink);
+    border-radius: 15px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+}
+
+.vaporwave-textarea {
+    width: 100%;
+    height: 300px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid var(--vaporwave-blue);
+    border-radius: 10px;
+    color: var(--vaporwave-teal);
+    font-family: 'Courier New', monospace;
+    font-size: 1.1rem;
+    padding: 1rem;
+    resize: vertical;
+}
+
+.vaporwave-textarea:focus {
+    outline: none;
+    border-color: var(--vaporwave-pink);
+    box-shadow: 0 0 15px rgba(255, 113, 206, 0.5);
+}
+
+.vaporwave-output-text {
+    min-height: 300px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid var(--vaporwave-blue);
+    border-radius: 10px;
+    padding: 1rem;
+    color: var(--vaporwave-pink);
+    font-family: 'Courier New', monospace;
+    font-size: 1.2rem;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.vaporwave-controls {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.vaporwave-btn {
+    background: linear-gradient(45deg, var(--vaporwave-pink), var(--vaporwave-purple));
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 113, 206, 0.3);
+}
+
+.vaporwave-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 113, 206, 0.5);
+    background: linear-gradient(45deg, var(--vaporwave-blue), var(--vaporwave-teal));
+}
+
+.style-selector {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.style-option {
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--vaporwave-blue);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.style-option:hover, .style-option.active {
+    border-color: var(--vaporwave-pink);
+    background: rgba(255, 113, 206, 0.2);
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .vaporwave-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .vaporwave-title {
+        font-size: 2.5rem;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="vaporwave-container">
+    <div class="vaporwave-header">
+        <h1 class="vaporwave-title">Vaporwave Text Generator</h1>
+        <p style="color: var(--vaporwave-teal); font-size: 1.2rem; text-align: center;">
+            Create aesthetic retro text with synthwave vibes ✨
+        </p>
+    </div>
+
+    <div class="style-selector">
+        <div class="style-option active" data-style="fullwidth">
+            <h3 style="color: var(--vaporwave-pink);">Ｆｕｌｌｗｉｄｔｈ</h3>
+            <p style="color: var(--vaporwave-teal);">Wide aesthetic characters</p>
+        </div>
+        <div class="style-option" data-style="aesthetic">
+            <h3 style="color: var(--vaporwave-pink);">ＡＥＳＴＨＥＴＩＣ</h3>
+            <p style="color: var(--vaporwave-teal);">Spaced out vibes</p>
+        </div>
+        <div class="style-option" data-style="vaportext">
+            <h3 style="color: var(--vaporwave-pink);">ｖａｐｏｒｔｅｘｔ</h3>
+            <p style="color: var(--vaporwave-teal);">Pure vaporwave style</p>
+        </div>
+        <div class="style-option" data-style="synthwave">
+            <h3 style="color: var(--vaporwave-pink);">ＳＹＮＴＨＷＡＶＥ</h3>
+            <p style="color: var(--vaporwave-teal);">80s retro aesthetic</p>
+        </div>
+    </div>
+
+    <div class="vaporwave-grid">
+        <div class="vaporwave-input">
+            <h3 style="color: var(--vaporwave-pink); margin-bottom: 1rem;">Enter Your Text</h3>
+            <textarea 
+                class="vaporwave-textarea" 
+                id="vaporwaveInput" 
+                placeholder="Type your text here to transform it into aesthetic vaporwave style..."
+                oninput="generateVaporwave()"
+            ></textarea>
+        </div>
+
+        <div class="vaporwave-output">
+            <h3 style="color: var(--vaporwave-pink); margin-bottom: 1rem;">Vaporwave Result</h3>
+            <div class="vaporwave-output-text" id="vaporwaveOutput">
+                Ｙｏｕｒ　ａｅｓｔｈｅｔｉｃ　ｔｅｘｔ　ｗｉｌｌ　ａｐｐｅａｒ　ｈｅｒｅ．．．
+            </div>
+        </div>
+
+        <div class="vaporwave-controls">
+            <button class="vaporwave-btn" onclick="copyToClipboard()">
+                <i class="fas fa-copy"></i> Copy Text
+            </button>
+            <button class="vaporwave-btn" onclick="clearText()">
+                <i class="fas fa-trash"></i> Clear
+            </button>
+            <button class="vaporwave-btn" onclick="generateRandom()">
+                <i class="fas fa-dice"></i> Random Style
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentStyle = 'fullwidth';
+
+// Character mappings for different vaporwave styles
+const vaporwaveStyles = {
+    fullwidth: {
+        'a': 'ａ', 'b': 'ｂ', 'c': 'ｃ', 'd': 'ｄ', 'e': 'ｅ', 'f': 'ｆ', 'g': 'ｇ', 'h': 'ｈ', 'i': 'ｉ', 'j': 'ｊ',
+        'k': 'ｋ', 'l': 'ｌ', 'm': 'ｍ', 'n': 'ｎ', 'o': 'ｏ', 'p': 'ｐ', 'q': 'ｑ', 'r': 'ｒ', 's': 'ｓ', 't': 'ｔ',
+        'u': 'ｕ', 'v': 'ｖ', 'w': 'ｗ', 'x': 'ｘ', 'y': 'ｙ', 'z': 'ｚ',
+        'A': 'Ａ', 'B': 'Ｂ', 'C': 'Ｃ', 'D': 'Ｄ', 'E': 'Ｅ', 'F': 'Ｆ', 'G': 'Ｇ', 'H': 'Ｈ', 'I': 'Ｉ', 'J': 'Ｊ',
+        'K': 'Ｋ', 'L': 'Ｌ', 'M': 'Ｍ', 'N': 'Ｎ', 'O': 'Ｏ', 'P': 'Ｐ', 'Q': 'Ｑ', 'R': 'Ｒ', 'S': 'Ｓ', 'T': 'Ｔ',
+        'U': 'Ｕ', 'V': 'Ｖ', 'W': 'Ｗ', 'X': 'Ｘ', 'Y': 'Ｙ', 'Z': 'Ｚ',
+        '0': '０', '1': '１', '2': '２', '3': '３', '4': '４', '5': '５', '6': '６', '7': '７', '8': '８', '9': '９',
+        ' ': '　'
+    }
+};
+
+function generateVaporwave() {
+    const input = document.getElementById('vaporwaveInput').value;
+    const output = document.getElementById('vaporwaveOutput');
+    
+    if (!input.trim()) {
+        output.textContent = 'Ｙｏｕｒ　ａｅｓｔｈｅｔｉｃ　ｔｅｘｔ　ｗｉｌｌ　ａｐｐｅａｒ　ｈｅｒｅ．．．';
+        return;
+    }
+    
+    let result = '';
+    
+    switch(currentStyle) {
+        case 'fullwidth':
+            result = convertToFullwidth(input);
+            break;
+        case 'aesthetic':
+            result = convertToAesthetic(input);
+            break;
+        case 'vaportext':
+            result = convertToVaportext(input);
+            break;
+        case 'synthwave':
+            result = convertToSynthwave(input);
+            break;
+    }
+    
+    output.textContent = result;
+}
+
+function convertToFullwidth(text) {
+    return text.split('').map(char => vaporwaveStyles.fullwidth[char] || char).join('');
+}
+
+function convertToAesthetic(text) {
+    const fullwidth = convertToFullwidth(text);
+    return fullwidth.split('').join('　'); // Add spaces between characters
+}
+
+function convertToVaportext(text) {
+    const fullwidth = convertToFullwidth(text.toLowerCase());
+    return fullwidth + '　✨　ａｅｓｔｈｅｔｉｃ　✨';
+}
+
+function convertToSynthwave(text) {
+    const fullwidth = convertToFullwidth(text.toUpperCase());
+    return '▲　' + fullwidth + '　▲';
+}
+
+function copyToClipboard() {
+    const output = document.getElementById('vaporwaveOutput');
+    const text = output.textContent;
+    
+    if (text && text !== 'Ｙｏｕｒ　ａｅｓｔｈｅｔｉｃ　ｔｅｘｔ　ｗｉｌｌ　ａｐｐｅａｒ　ｈｅｒｅ．．．') {
+        navigator.clipboard.writeText(text).then(() => {
+            showToast('Copied to clipboard! ✨');
+        });
+    }
+}
+
+function clearText() {
+    document.getElementById('vaporwaveInput').value = '';
+    document.getElementById('vaporwaveOutput').textContent = 'Ｙｏｕｒ　ａｅｓｔｈｅｔｉｃ　ｔｅｘｔ　ｗｉｌｌ　ａｐｐｅａｒ　ｈｅｒｅ．．．';
+}
+
+function generateRandom() {
+    const styles = ['fullwidth', 'aesthetic', 'vaportext', 'synthwave'];
+    const randomStyle = styles[Math.floor(Math.random() * styles.length)];
+    
+    // Update active style
+    document.querySelectorAll('.style-option').forEach(el => el.classList.remove('active'));
+    document.querySelector(`[data-style="${randomStyle}"]`).classList.add('active');
+    
+    currentStyle = randomStyle;
+    generateVaporwave();
+}
+
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast show';
+    toast.textContent = message;
+    toast.style.background = 'linear-gradient(45deg, var(--vaporwave-pink), var(--vaporwave-blue))';
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
+
+// Style selector functionality
+document.querySelectorAll('.style-option').forEach(option => {
+    option.addEventListener('click', () => {
+        document.querySelectorAll('.style-option').forEach(el => el.classList.remove('active'));
+        option.classList.add('active');
+        currentStyle = option.dataset.style;
+        generateVaporwave();
+    });
+});
+
+// Initial generation
+generateVaporwave();
+</script>
+{% endblock %} 

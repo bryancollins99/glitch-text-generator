@@ -20,7 +20,7 @@ MAX_IMAGE_SIZE = 1.5 * 1024 * 1024 # Max image size in bytes (1.5MB)
 
 @app.after_request
 def add_security_headers(response):
-    response.headers['Content-Security-Policy'] = "default-src 'self'; img-src 'self' data: blob:; script-src 'self' 'unsafe-inline' plausible.io; style-src 'self' 'unsafe-inline'; connect-src 'self' plausible.io;"
+    response.headers['Content-Security-Policy'] = "default-src 'self'; img-src 'self' data: blob:; script-src 'self' 'unsafe-inline' plausible.io; style-src 'self' 'unsafe-inline' cdnjs.cloudflare.com; font-src 'self' data: cdnjs.cloudflare.com; connect-src 'self' plausible.io; frame-src youtube.com www.youtube.com;"
     return response
 
 def zalgo(text, intensity=5):
@@ -308,6 +308,14 @@ def download_image():
 def about():
     return render_template('about.html')
 
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+@app.route('/faq')
+def faq():
+    return render_template('faq.html')
+
 @app.route('/examples')
 def examples():
     return render_template('examples.html')
@@ -320,6 +328,38 @@ def discord():
 def roblox():
     return render_template('roblox.html')
 
+@app.route('/vaporwave')
+def vaporwave():
+    return render_template('vaporwave.html')
+
+@app.route('/small-caps')
+def small_caps():
+    return render_template('small_caps.html')
+
+@app.route('/reversed')
+def reversed_text():
+    return render_template('reversed.html')
+
+@app.route('/mirrored')
+def mirrored():
+    return render_template('mirrored.html')
+
+@app.route('/animated')
+def animated():
+    return render_template('animated.html')
+
+@app.route('/large-caps')
+def large_caps():
+    return render_template('large_caps.html')
+
+@app.route('/title-case')
+def title_case():
+    return render_template('title_case.html')
+
+@app.route('/sentence-case')
+def sentence_case():
+    return render_template('sentence_case.html')
+
 @app.route('/tutorials/photoshop')
 def photoshop_tutorial():
     return render_template('photoshop_tutorial.html')
@@ -328,11 +368,97 @@ def photoshop_tutorial():
 def after_effects_tutorial():
     return render_template('after_effects_tutorial.html')
 
+# Content Pages
+@app.route('/content/glitch-text-generator')
+def content_glitch_text_generator():
+    return render_template('content/glitch-text-generator.html')
+
+@app.route('/content/minecraft-glitch-text')
+def content_minecraft_glitch_text():
+    return render_template('content/minecraft-glitch-text.html')
+
+@app.route('/content/glitch-art')
+def content_glitch_art():
+    return render_template('content/glitch-art.html')
+
+@app.route('/content/digital-glitch')
+def content_digital_glitch():
+    return render_template('content/digital-glitch.html')
+
+@app.route('/content/glitch-text-maker')
+def content_glitch_text_maker():
+    return render_template('content/glitch-text-maker.html')
+
+@app.route('/content/glitch-text-translator')
+def content_glitch_text_translator():
+    return render_template('content/glitch-text-translator.html')
+
+@app.route('/content/animated-glitch-text')
+def content_animated_glitch_text():
+    return render_template('content/animated-glitch-text.html')
+
+@app.route('/content/glitch-texture')
+def content_glitch_texture():
+    return render_template('content/glitch-texture.html')
+
+@app.route('/content/glitch-computer')
+def content_glitch_computer():
+    return render_template('content/glitch-computer.html')
+
+@app.route('/content/glitch-definition')
+def content_glitch_definition():
+    return render_template('content/glitch-definition.html')
+
+@app.route('/content/glitch-design')
+def content_glitch_design():
+    return render_template('content/glitch-design.html')
+
+@app.route('/content/glitch-effect-after-effects')
+def content_glitch_effect_after_effects():
+    return render_template('content/glitch-effect-after-effects.html')
+
+@app.route('/content/glitch-effect-online')
+def content_glitch_effect_online():
+    return render_template('content/glitch-effect-online.html')
+
+@app.route('/content/glitch-meaning')
+def content_glitch_meaning():
+    return render_template('content/glitch-meaning.html')
+
+@app.route('/content/glitch-painting')
+def content_glitch_painting():
+    return render_template('content/glitch-painting.html')
+
+@app.route('/content/glitching')
+def content_glitching():
+    return render_template('content/glitching.html')
+
+@app.route('/content/how-to-make-glitch-art')
+def content_how_to_make_glitch_art():
+    return render_template('content/how-to-make-glitch-art.html')
+
+@app.route('/content/system-glitch')
+def content_system_glitch():
+    return render_template('content/system-glitch.html')
+
+# Inspiration Pages
+@app.route('/emoticons')
+def emoticons():
+    return render_template('emoticons.html')
+
+@app.route('/cool-symbols')
+def cool_symbols():
+    return render_template('cool_symbols.html')
+
+@app.route('/fonts')
+def fonts():
+    return render_template('fonts.html')
+
 # SEO Pages
 SEO_PAGES_DATA = {
     "cursed-text": {
         "title": "Cursed Text Generator - Create Creepy Zalgo Text",
-        "meta_description": "Generate cursed text, Zalgo text, and creepy fonts easily. Copy and paste cursed text for social media, gaming, and more.",
+        "meta_description": "👻 FREE Cursed Text Generator! Create creepy zalgo text, cursed fonts & scary letters instantly. Perfect for horror posts & Halloween content. Copy-paste ready!",
         "h1": "Cursed Text Generator",
         "keywords": "cursed text, zalgo text, creepy text, scary text generator",
         "page_content_html": """
@@ -352,7 +478,7 @@ SEO_PAGES_DATA = {
     },
     "cursed-text-gen": {
         "title": "Cursed Text Gen - Your Ultimate Cursed Font Maker",
-        "meta_description": "The best cursed text gen for creating unique and unsettling text styles. Generate and use cursed symbols and fonts in seconds.",
+        "meta_description": "🔮 Best Cursed Text Gen! Create unique cursed fonts, zalgo text & creepy symbols instantly. Ultimate cursed font maker with copy-paste functionality. 100% free!",
         "h1": "Cursed Text Gen (Generator)",
         "keywords": "cursed text gen, cursed font generator, cursed symbols maker",
         "page_content_html": """
@@ -372,7 +498,7 @@ SEO_PAGES_DATA = {
     },
     "cursed-text-font": {
         "title": "Cursed Text Font - Spooky & Glitchy Font Styles",
-        "meta_description": "Explore various cursed text fonts. Generate scary, glitchy, and weird font styles for your online presence.",
+        "meta_description": "🦇 FREE Cursed Text Font Generator! Create spooky, glitchy & scary font styles instantly. Perfect for horror content & creepy designs. Copy-paste ready fonts!",
         "h1": "Cursed Text Font Styles",
         "keywords": "cursed text font, scary font, glitch font, creepy typeface",
         "page_content_html": """
@@ -382,7 +508,7 @@ SEO_PAGES_DATA = {
     },
     "weird-symbols-text": {
         "title": "Weird Symbols Text Generator - Create Unique Text",
-        "meta_description": "Generate text with weird symbols. Stand out with unique and attention-grabbing text for messages, bios, and posts.",
+        "meta_description": "🌟 FREE Weird Symbols Text Generator! Create unique text with strange symbols & characters. Stand out with attention-grabbing text for messages & posts!",
         "h1": "Weird Symbols Text Generator",
         "keywords": "weird symbols text, unique symbols, strange text generator",
         "page_content_html": """
@@ -402,7 +528,7 @@ SEO_PAGES_DATA = {
     },
     "crazy-fonts": {
         "title": "Crazy Fonts Generator - Wild & Unusual Font Styles",
-        "meta_description": "Generate crazy fonts for your projects. A wide selection of wild, wacky, and unusual font styles to copy and paste.",
+        "meta_description": "🎪 FREE Crazy Fonts Generator! Create wild, wacky & unusual font styles instantly. Perfect for fun posts & creative projects. Copy-paste ready fonts!",
         "h1": "Crazy Fonts Generator",
         "keywords": "crazy fonts, wild fonts, unusual typeface, funky fonts",
         "page_content_html": """
@@ -412,7 +538,7 @@ SEO_PAGES_DATA = {
     },
     "glitch-text-generator": {
         "title": "Glitch Text Generator - Create Cool Glitched Text Effects",
-        "meta_description": "Our Glitch Text Generator creates awesome glitched text effects. Easy to use, copy and paste for Roblox, Discord, and more.",
+        "meta_description": "⚡ FREE Glitch Text Generator! Create awesome glitched text effects instantly. Perfect for Roblox, Discord, social media & gaming. Copy-paste ready!",
         "h1": "Glitch Text Generator",
         "keywords": "glitch text generator, text glitch, glitched text, glitch effect",
         "page_content_html": """
@@ -421,13 +547,13 @@ SEO_PAGES_DATA = {
         """
     },
     "glitch-text": {
-        "title": "Glitch Text - Create and Use Glitched Writing",
-        "meta_description": "Generate glitch text for your social media, games, or designs. Quick and easy way to get that distorted text effect.",
-        "h1": "Glitch Text",
-        "keywords": "glitch text, glitched writing, distorted text, text effect",
+        "title": "Glitch Text Generator - Create Glitched Text Effects",
+        "meta_description": "⚡ FREE Glitch Text Generator! Create stunning glitched text effects, corrupted fonts & digital art instantly. Perfect for social media & gaming. Copy-paste ready!",
+        "h1": "Glitch Text Generator",
+        "keywords": "glitch text generator, glitched text, corrupted text, digital text effects",
         "page_content_html": """
-            <p>Explore the world of <strong>glitch text</strong> and learn how to create and use this unique distorted writing style. Glitch text mimics the appearance of digital errors, corrupted data, or malfunctioning displays, giving your words a distinct, edgy, and often retro-tech look. It's a popular effect in digital art, music visuals, and online branding.</p>
-            <p>With our tool, generating glitched writing is simple. You can easily achieve various levels of distortion to suit your needs, whether for a subtle effect or a completely chaotic appearance. Start creating your own unique glitch text for social media, games, or creative designs today!</p>
+            <p>Transform your ordinary text into mind-bending digital art with our <strong>glitch text generator</strong>. Create stunning glitched effects that look like they've been corrupted by a digital malfunction or passed through a broken screen. Perfect for social media posts, gaming profiles, and creative projects that need an edgy, futuristic aesthetic.</p>
+            <p>Our generator uses advanced algorithms to create authentic-looking glitch effects including RGB channel separation, scan line distortion, and digital noise. Simply type your text, adjust the glitch intensity, and watch as your words transform into eye-catching corrupted masterpieces. Copy and paste your glitched text anywhere!</p>
         """
     },
     "glitch-text-copy-paste": {
@@ -441,8 +567,8 @@ SEO_PAGES_DATA = {
         """
     },
     "glitch-text-generator-roblox": {
-        "title": "Glitch Text Generator for Roblox - Glitched Roblox Names & Chat",
-        "meta_description": "Create glitch text for Roblox! Use our generator for glitched usernames, chat messages, and profiles on Roblox.",
+        "title": "Glitch Text Generator for Roblox - Cool Fonts & Names",
+        "meta_description": "🎮 FREE Roblox Glitch Text Generator! Create cool glitched usernames, chat messages & bios for Roblox. Instant copy-paste, works 100% in-game!",
         "h1": "Glitch Text Generator for Roblox",
         "keywords": "glitch text generator roblox, roblox glitch text, roblox fonts",
         "page_content_html": """
@@ -462,8 +588,8 @@ SEO_PAGES_DATA = {
         """
     },
     "glitch-text-font": {
-        "title": "Glitch Text Font - Distorted & Corrupted Font Styles",
-        "meta_description": "Explore a variety of glitch text fonts. Create unique, corrupted, and distorted font styles for any purpose.",
+        "title": "Glitch Text Font - Corrupted & Distorted Font Styles",
+        "meta_description": "🔤 FREE Glitch Text Font Generator! Create corrupted, distorted & glitchy font styles instantly. Perfect for digital art & creative projects. Copy-paste ready!",
         "h1": "Glitch Text Font",
         "keywords": "glitch text font, distorted font, corrupted font, glitchy typeface",
         "page_content_html": """
@@ -762,8 +888,18 @@ def sitemap():
         {'url': 'halloween', 'priority': '0.8', 'changefreq': 'weekly'},
         {'url': 'discord', 'priority': '0.8', 'changefreq': 'weekly'},
         {'url': 'roblox', 'priority': '0.8', 'changefreq': 'weekly'},
+        {'url': 'vaporwave', 'priority': '0.7', 'changefreq': 'weekly'},
+        {'url': 'small-caps', 'priority': '0.7', 'changefreq': 'weekly'},
+        {'url': 'large-caps', 'priority': '0.7', 'changefreq': 'weekly'},
+        {'url': 'title-case', 'priority': '0.7', 'changefreq': 'weekly'},
+        {'url': 'sentence-case', 'priority': '0.7', 'changefreq': 'weekly'},
+        {'url': 'reversed', 'priority': '0.7', 'changefreq': 'weekly'},
+        {'url': 'mirrored', 'priority': '0.7', 'changefreq': 'weekly'},
+        {'url': 'animated', 'priority': '0.7', 'changefreq': 'weekly'},
         {'url': 'examples', 'priority': '0.7', 'changefreq': 'monthly'},
+        {'url': 'faq', 'priority': '0.6', 'changefreq': 'monthly'},
         {'url': 'about', 'priority': '0.5', 'changefreq': 'monthly'},
+        {'url': 'contact', 'priority': '0.5', 'changefreq': 'monthly'},
     ]
     
     for page in main_pages:
@@ -851,6 +987,39 @@ def sitemap():
         priority = ET.SubElement(url, 'priority')
         priority.text = page['priority']
     
+    # Add content library pages
+    content_pages = [
+        {'url': 'content/glitch-text-generator', 'priority': '0.8'},
+        {'url': 'content/minecraft-glitch-text', 'priority': '0.8'},
+        {'url': 'content/glitch-art', 'priority': '0.8'},
+        {'url': 'content/digital-glitch', 'priority': '0.8'},
+        {'url': 'content/glitch-text-maker', 'priority': '0.8'},
+        {'url': 'content/glitch-text-translator', 'priority': '0.7'},
+        {'url': 'content/animated-glitch-text', 'priority': '0.7'},
+        {'url': 'content/glitch-texture', 'priority': '0.7'},
+        {'url': 'content/glitch-computer', 'priority': '0.7'},
+        {'url': 'content/glitch-definition', 'priority': '0.8'},
+        {'url': 'content/glitch-design', 'priority': '0.7'},
+        {'url': 'content/glitch-effect-after-effects', 'priority': '0.7'},
+        {'url': 'content/glitch-effect-online', 'priority': '0.7'},
+        {'url': 'content/glitch-meaning', 'priority': '0.8'},
+        {'url': 'content/glitch-painting', 'priority': '0.7'},
+        {'url': 'content/glitching', 'priority': '0.7'},
+        {'url': 'content/how-to-make-glitch-art', 'priority': '0.8'},
+        {'url': 'content/system-glitch', 'priority': '0.7'},
+    ]
+    
+    for page in content_pages:
+        url = ET.SubElement(root, 'url')
+        loc = ET.SubElement(url, 'loc')
+        loc.text = f'https://glitchtexteffect.com/{page["url"]}'
+        lastmod = ET.SubElement(url, 'lastmod')
+        lastmod.text = datetime.datetime.now().strftime('%Y-%m-%d')
+        changefreq = ET.SubElement(url, 'changefreq')
+        changefreq.text = 'weekly'
+        priority = ET.SubElement(url, 'priority')
+        priority.text = page['priority']
+    
     # Convert to string
     xml_string = ET.tostring(root, encoding='utf8', method='xml')
     
@@ -859,6 +1028,311 @@ def sitemap():
     response.headers['Content-Type'] = 'application/xml'
     
     return response
+
+@app.route('/text-to-image')
+def text_to_image():
+    return render_template('text_to_image.html')
+
+@app.route('/api/text-to-image', methods=['POST'])
+def generate_text_image():
+    try:
+        from PIL import Image, ImageDraw, ImageFont
+        import io
+        
+        data = request.get_json()
+        text = data.get('text', '')
+        effect = data.get('effect', 'zalgo')
+        intensity = int(data.get('intensity', 5))
+        font_style = data.get('font_style', 'default')
+        
+        # Image settings
+        bg_color = data.get('bg_color', '#000000')
+        text_color = data.get('text_color', '#00ff00')
+        width = int(data.get('width', 800))
+        height = int(data.get('height', 400))
+        font_size = int(data.get('font_size', 48))
+        
+        if not text:
+            return jsonify({'error': 'No text provided'}), 400
+        
+        # Apply font style first if specified
+        if font_style != 'default':
+            text = apply_font_style(text, font_style)
+        
+        # Then apply glitch effect
+        glitched_text = apply_text_glitch_effect(text, effect, intensity)
+        
+        # Create image
+        img = Image.new('RGB', (width, height), bg_color)
+        draw = ImageDraw.Draw(img)
+        
+        # Try to use a system font, fallback to default if not available
+        try:
+            # Try to load a monospace font for better glitch text rendering
+            font = ImageFont.truetype("DejaVuSansMono.ttf", font_size)
+        except:
+            try:
+                font = ImageFont.truetype("Arial.ttf", font_size)
+            except:
+                try:
+                    font = ImageFont.load_default()
+                except:
+                    font = None
+        
+        # Calculate text position to center it
+        if font:
+            bbox = draw.textbbox((0, 0), glitched_text, font=font)
+            text_width = bbox[2] - bbox[0]
+            text_height = bbox[3] - bbox[1]
+        else:
+            # Estimate size if no font available
+            text_width = len(glitched_text) * (font_size * 0.6)
+            text_height = font_size
+        
+        x = (width - text_width) // 2
+        y = (height - text_height) // 2
+        
+        # Draw the text
+        draw.text((x, y), glitched_text, fill=text_color, font=font)
+        
+        # Save to buffer
+        buffer = io.BytesIO()
+        img.save(buffer, format='PNG', optimize=True)
+        buffer.seek(0)
+        
+        # Set filename with timestamp
+        timestamp = int(time.time())
+        filename = f'glitch-text-{timestamp}.png'
+        
+        return send_file(
+            buffer,
+            mimetype='image/png',
+            as_attachment=True,
+            download_name=filename
+        )
+        
+    except Exception as e:
+        app.logger.error(f'Error generating text image: {e}')
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/social-media-templates')
+def social_media_templates():
+    return render_template('social_media_templates.html')
+
+@app.route('/api/social-media-image', methods=['POST'])
+def generate_social_media_image():
+    try:
+        from PIL import Image, ImageDraw, ImageFont, ImageFilter
+        import io
+        
+        data = request.get_json()
+        text = data.get('text', '')
+        effect = data.get('effect', 'zalgo')
+        intensity = int(data.get('intensity', 5))
+        font_style = data.get('font_style', 'default')
+        
+        # Template settings
+        template = data.get('template', 'instagram-story')
+        bg_color = data.get('bg_color', '#000000')
+        text_color = data.get('text_color', '#00ff00')
+        bg_pattern = data.get('bg_pattern', 'solid')
+        font_size = int(data.get('font_size', 48))
+        
+        # Social media templates dimensions
+        templates = {
+            'instagram-story': {'width': 1080, 'height': 1920},
+            'instagram-post': {'width': 1080, 'height': 1080},
+            'discord-banner': {'width': 960, 'height': 540},
+            'youtube-thumbnail': {'width': 1280, 'height': 720},
+            'twitter-header': {'width': 1500, 'height': 500},
+            'facebook-cover': {'width': 1200, 'height': 630},
+            'twitch-overlay': {'width': 1920, 'height': 1080},
+            'tiktok-video': {'width': 1080, 'height': 1920},
+            'custom': {'width': int(data.get('width', 800)), 'height': int(data.get('height', 400))}
+        }
+        
+        if template not in templates:
+            template = 'instagram-story'
+        
+        width = templates[template]['width']
+        height = templates[template]['height']
+        
+        if not text:
+            return jsonify({'error': 'No text provided'}), 400
+        
+        # Apply font style first if specified
+        if font_style != 'default':
+            text = apply_font_style(text, font_style)
+        
+        # Then apply glitch effect
+        glitched_text = apply_text_glitch_effect(text, effect, intensity)
+        
+        # Create base image
+        img = Image.new('RGB', (width, height), bg_color)
+        
+        # Apply background pattern
+        if bg_pattern == 'gradient':
+            # Create gradient background
+            for y in range(height):
+                for x in range(width):
+                    # Create a diagonal gradient
+                    r = int(int(bg_color[1:3], 16) * (1 - (x + y) / (width + height)))
+                    g = int(int(bg_color[3:5], 16) * (1 - (x + y) / (width + height)))
+                    b = int(int(bg_color[5:7], 16) * (1 - (x + y) / (width + height)))
+                    img.putpixel((x, y), (r, g, b))
+        
+        elif bg_pattern == 'grid':
+            # Create grid pattern
+            draw = ImageDraw.Draw(img)
+            grid_size = 50
+            for x in range(0, width, grid_size):
+                draw.line([(x, 0), (x, height)], fill='#333333', width=1)
+            for y in range(0, height, grid_size):
+                draw.line([(0, y), (width, y)], fill='#333333', width=1)
+        
+        elif bg_pattern == 'noise':
+            # Add noise pattern
+            import random
+            pixels = img.load()
+            for y in range(height):
+                for x in range(width):
+                    if random.random() < 0.1:  # 10% noise
+                        noise_val = random.randint(0, 50)
+                        r, g, b = pixels[x, y]
+                        pixels[x, y] = (
+                            min(255, r + noise_val),
+                            min(255, g + noise_val),
+                            min(255, b + noise_val)
+                        )
+        
+        elif bg_pattern == 'scanlines':
+            # Add scanlines effect
+            draw = ImageDraw.Draw(img)
+            for y in range(0, height, 4):
+                draw.line([(0, y), (width, y)], fill='#333333', width=1)
+        
+        draw = ImageDraw.Draw(img)
+        
+        # Try to use a system font, fallback to default if not available
+        try:
+            font = ImageFont.truetype("DejaVuSansMono.ttf", font_size)
+        except:
+            try:
+                font = ImageFont.truetype("Arial.ttf", font_size)
+            except:
+                try:
+                    font = ImageFont.load_default()
+                except:
+                    font = None
+        
+        # Handle multiline text
+        lines = glitched_text.split('\n')
+        line_height = font_size + 10
+        total_text_height = len(lines) * line_height
+        
+        # Calculate starting position to center text vertically
+        start_y = (height - total_text_height) // 2
+        
+        for i, line in enumerate(lines):
+            if font:
+                bbox = draw.textbbox((0, 0), line, font=font)
+                text_width = bbox[2] - bbox[0]
+            else:
+                text_width = len(line) * (font_size * 0.6)
+            
+            x = (width - text_width) // 2
+            y = start_y + (i * line_height)
+            
+            # Add text shadow for better readability
+            shadow_offset = 2
+            draw.text((x + shadow_offset, y + shadow_offset), line, fill='#000000', font=font)
+            draw.text((x, y), line, fill=text_color, font=font)
+        
+        # Add glitch effect overlay if intensity is high
+        if intensity > 7:
+            overlay = Image.new('RGBA', (width, height), (0, 0, 0, 0))
+            overlay_draw = ImageDraw.Draw(overlay)
+            
+            # Add random glitch bars
+            import random
+            for _ in range(random.randint(3, 8)):
+                bar_height = random.randint(2, 10)
+                bar_y = random.randint(0, height - bar_height)
+                bar_color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255), 100)
+                overlay_draw.rectangle([0, bar_y, width, bar_y + bar_height], fill=bar_color)
+            
+            img = Image.alpha_composite(img.convert('RGBA'), overlay).convert('RGB')
+        
+        # Save to buffer
+        buffer = io.BytesIO()
+        img.save(buffer, format='PNG', optimize=True)
+        buffer.seek(0)
+        
+        # Set filename with template name and timestamp
+        timestamp = int(time.time())
+        filename = f'{template}-glitch-{timestamp}.png'
+        
+        return send_file(
+            buffer,
+            mimetype='image/png',
+            as_attachment=True,
+            download_name=filename
+        )
+        
+    except Exception as e:
+        app.logger.error(f'Error generating social media image: {e}')
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/quick-combine', methods=['POST'])
+def quick_combine():
+    try:
+        data = request.get_json()
+        emoticon = data.get('emoticon', '')
+        symbol = data.get('symbol', '')
+        effect = data.get('effect', 'zalgo')
+        intensity = int(data.get('intensity', 5))
+        
+        # Combine emoticon and symbol
+        combined_text = f"{emoticon}{symbol}"
+        
+        # Apply glitch effect
+        glitched_text = apply_text_glitch_effect(combined_text, effect, intensity)
+        
+        return jsonify({
+            'result': glitched_text,
+            'original': combined_text,
+            'effect': effect,
+            'intensity': intensity
+        })
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
+
+@app.route('/api/preset-combinations')
+def get_preset_combinations():
+    """Get popular preset combinations for the homepage"""
+    presets = [
+        {'emoticon': '😈', 'symbol': '★', 'effect': 'zalgo', 'intensity': 7, 'name': 'Evil Star'},
+        {'emoticon': '🔥', 'symbol': '◆', 'effect': 'binary', 'intensity': 6, 'name': 'Fire Diamond'},
+        {'emoticon': '💀', 'symbol': '∞', 'effect': 'zalgo', 'intensity': 8, 'name': 'Death Infinity'},
+        {'emoticon': '⚡', 'symbol': '→', 'effect': 'ascii', 'intensity': 5, 'name': 'Lightning Arrow'},
+        {'emoticon': '🌟', 'symbol': '✦', 'effect': 'zalgo', 'intensity': 4, 'name': 'Starlight'},
+        {'emoticon': '🎭', 'symbol': '◇', 'effect': 'binary', 'intensity': 6, 'name': 'Theater Diamond'},
+        {'emoticon': '🔮', 'symbol': '∞', 'effect': 'zalgo', 'intensity': 7, 'name': 'Crystal Ball'},
+        {'emoticon': '👁', 'symbol': '∆', 'effect': 'ascii', 'intensity': 8, 'name': 'All-Seeing Eye'},
+        {'emoticon': '🌙', 'symbol': '✧', 'effect': 'zalgo', 'intensity': 3, 'name': 'Moonlight'},
+        {'emoticon': '🕸', 'symbol': '※', 'effect': 'binary', 'intensity': 9, 'name': 'Spider Web'},
+        {'emoticon': '🦇', 'symbol': '♦', 'effect': 'zalgo', 'intensity': 6, 'name': 'Bat Wing'},
+        {'emoticon': '🔥', 'symbol': '∑', 'effect': 'ascii', 'intensity': 7, 'name': 'Fire Sum'}
+    ]
+    
+    # Generate the glitched versions
+    for preset in presets:
+        combined_text = f"{preset['emoticon']}{preset['symbol']}"
+        glitched_text = apply_text_glitch_effect(combined_text, preset['effect'], preset['intensity'])
+        preset['glitched'] = glitched_text
+        preset['original'] = combined_text
+    
+    return jsonify(presets)
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5003))

@@ -1,5 +1,20 @@
 {% extends "base.html" %}
 
+{% block title %}Aesthetic Glitch Text Guide - Create Beautiful Text Effects{% endblock %}
+
+{% block head %}
+<meta name="description" content="Learn how to create aesthetic glitch text effects for vaporwave, cyberpunk, and modern designs. Complete guide with examples and techniques.">
+<meta name="keywords" content="aesthetic glitch text, vaporwave text, cyberpunk text, aesthetic text effects, design guide">
+{% endblock %}
+
+{% block breadcrumbs %}
+{% set breadcrumbs = [
+    {'title': 'Guides', 'url': None},
+    {'title': 'Aesthetic Designs', 'url': None}
+] %}
+{{ super() }}
+{% endblock %}
+
 {% block content %}
 <div class="container guide-container">
     <h1>How to Create Glitch Text for Aesthetic Designs</h1>

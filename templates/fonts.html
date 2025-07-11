@@ -1,0 +1,749 @@
+{% extends 'base.html' %}
+
+{% block title %}Fonts Collection - Unicode Text Styles & Font Effects{% endblock %}
+
+{% block head %}
+<meta name="description" content="Explore different Unicode text styles and font effects! Bold, italic, monospace, and unique character transformations for your text. Perfect for social media.">
+<meta name="keywords" content="unicode fonts, text styles, font effects, bold text, italic text, monospace, font converter">
+{% endblock %}
+
+{% block extra_css %}
+<style>
+:root {
+    --primary-color: #00ff00;
+    --secondary-color: #ff00ff;
+    --accent-color: #00ffff;
+    --bg-dark: #0a0a0a;
+    --bg-lighter: #1a1a1a;
+    --text-light: #ffffff;
+    --border-color: #333;
+}
+
+.fonts-container {
+    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-lighter) 100%);
+    min-height: 100vh;
+    padding: 2rem;
+    color: var(--text-light);
+}
+
+.fonts-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.fonts-title {
+    font-size: 3rem;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    animation: fontGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes fontGlow {
+    from { 
+        text-shadow: 0 0 20px var(--primary-color);
+        filter: hue-rotate(0deg);
+    }
+    to { 
+        text-shadow: 0 0 30px var(--secondary-color), 0 0 40px var(--accent-color);
+        filter: hue-rotate(30deg);
+    }
+}
+
+.text-input-section {
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    text-align: center;
+}
+
+.text-input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid var(--border-color);
+    border-radius: 25px;
+    color: var(--text-light);
+    font-size: 1.2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+}
+
+.text-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+}
+
+.categories-nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.category-btn {
+    background: rgba(26, 26, 26, 0.9);
+    border: 2px solid var(--border-color);
+    border-radius: 25px;
+    padding: 0.8rem 1.5rem;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.category-btn:hover, .category-btn.active {
+    border-color: var(--primary-color);
+    background: rgba(0, 255, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.category-section {
+    background: rgba(26, 26, 26, 0.9);
+    border: 2px solid var(--border-color);
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    display: none;
+}
+
+.category-section.active {
+    display: block;
+}
+
+.category-title {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.font-examples {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+.font-item {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.font-item:hover {
+    border-color: var(--primary-color);
+    background: rgba(0, 255, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.font-name {
+    color: var(--accent-color);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.font-preview {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    word-wrap: break-word;
+    line-height: 1.3;
+}
+
+.font-description {
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.copy-btn {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: var(--bg-dark);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.copy-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
+}
+
+.copy-tooltip {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    background: var(--primary-color);
+    color: var(--bg-dark);
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.copy-tooltip.show {
+    opacity: 1;
+}
+
+.quick-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.action-btn {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: var(--bg-dark);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 0, 0.5);
+}
+
+/* Font Styles */
+.bold-text { font-weight: bold; }
+.italic-text { font-style: italic; }
+.monospace-text { font-family: 'Courier New', monospace; }
+.serif-text { font-family: 'Times New Roman', serif; }
+.sans-serif-text { font-family: 'Arial', sans-serif; }
+
+@media (max-width: 768px) {
+    .fonts-title {
+        font-size: 2rem;
+    }
+    
+    .font-preview {
+        font-size: 1.4rem;
+    }
+    
+    .text-input {
+        font-size: 1rem;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="fonts-container">
+    <div class="fonts-header">
+        <h1 class="fonts-title">Fonts Collection</h1>
+        <p style="color: var(--accent-color); font-size: 1.2rem;">
+            Transform your text with unique Unicode styles and font effects! 🎨
+        </p>
+    </div>
+
+    <div class="text-input-section">
+        <input 
+            type="text" 
+            class="text-input" 
+            placeholder="Enter your text here..."
+            id="textInput"
+            value="Sample Text"
+            oninput="updateAllPreviews()"
+        >
+        <p style="color: #888; font-size: 0.9rem;">
+            Type your text above to see it transformed in different font styles!
+        </p>
+    </div>
+
+    <div class="categories-nav">
+        <button class="category-btn active" onclick="showCategory('basic')">📝 Basic Styles</button>
+        <button class="category-btn" onclick="showCategory('decorative')">✨ Decorative</button>
+        <button class="category-btn" onclick="showCategory('mathematical')">🔢 Mathematical</button>
+        <button class="category-btn" onclick="showCategory('outline')">🔲 Outline</button>
+        <button class="category-btn" onclick="showCategory('special')">🎭 Special</button>
+    </div>
+
+    <div class="quick-actions">
+        <button class="action-btn" onclick="clearAllText()">
+            <i class="fas fa-eraser"></i> Clear Text
+        </button>
+        <button class="action-btn" onclick="generateRandomText()">
+            <i class="fas fa-random"></i> Random Text
+        </button>
+        <button class="action-btn" onclick="useWithGlitchGenerator(getCurrentText())">
+            <i class="fas fa-magic"></i> Use with Glitch Generator
+        </button>
+    </div>
+
+    <!-- Basic Styles Category -->
+    <div id="basic" class="category-section active">
+        <h2 class="category-title">📝 Basic Text Styles</h2>
+        <div class="font-examples">
+            <div class="font-item" onclick="copyFont('bold', this)">
+                <div class="font-name">Bold Text</div>
+                <div class="font-preview bold-text" id="preview-bold">Sample Text</div>
+                <div class="font-description">Makes your text bold and prominent</div>
+                <button class="copy-btn">Copy</button>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            
+            <div class="font-item" onclick="copyFont('italic', this)">
+                <div class="font-name">Italic Text</div>
+                <div class="font-preview italic-text" id="preview-italic">Sample Text</div>
+                <div class="font-description">Slanted text for emphasis</div>
+                <button class="copy-btn">Copy</button>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            
+            <div class="font-item" onclick="copyFont('monospace', this)">
+                <div class="font-name">Monospace Text</div>
+                <div class="font-preview monospace-text" id="preview-monospace">Sample Text</div>
+                <div class="font-description">Fixed-width characters, great for code</div>
+                <button class="copy-btn">Copy</button>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            
+            <div class="font-item" onclick="copyFont('double-struck', this)">
+                <div class="font-name">Double-Struck Bold</div>
+                <div class="font-preview" id="preview-double-struck">Sample Text</div>
+                <div class="font-description">Mathematical double-struck characters</div>
+                <button class="copy-btn">Copy</button>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Decorative Category -->
+    <div id="decorative" class="category-section">
+        <h2 class="category-title">✨ Decorative Fonts</h2>
+        <div class="font-examples">
+            <div class="font-item" onclick="copyFont('script', this)">
+                <div class="font-name">Script Bold</div>
+                <div class="font-preview" id="preview-script">Sample Text</div>
+                <div class="font-description">Elegant cursive script style</div>
+                <button class="copy-btn">Copy</button>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            
+            <div class="font-item" onclick="copyFont('fraktur', this)">
+                <div class="font-name">Fraktur Bold</div>
+                <div class="font-preview" id="preview-fraktur">Sample Text</div>
+                <div class="font-description">Gothic blackletter style</div>
+                <button class="copy-btn">Copy</button>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            
+            <div class="font-item" onclick="copyFont('fullwidth', this)">
+                <div class="font-name">Fullwidth</div>
+                <div class="font-preview" id="preview-fullwidth">Sample Text</div>
+                <div class="font-description">Wide characters for aesthetic appeal</div>
+                <button class="copy-btn">Copy</button>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            
+            <div class="font-item" onclick="copyFont('small-caps', this)">
+                <div class="font-name">Small Capitals</div>
+                <div class="font-preview" id="preview-small-caps">Sample Text</div>
+                <div class="font-description">Uppercase letters in lowercase size</div>
+                <button class="copy-btn">Copy</button>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mathematical Category -->
+    <div id="mathematical" class="category-section">
+        <h2 class="category-title">🔢 Mathematical Fonts</h2>
+        <div class="font-examples">
+            <div class="font-item" onclick="copyFont('sans-serif-bold', this)">
+                <div class="font-name">Sans-Serif Bold</div>
+                <div class="font-preview" id="preview-sans-serif-bold">Sample Text</div>
+                <div class="font-description">Bold sans-serif mathematical style</div>
+                <button class="copy-btn">Copy</button>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            
+            <div class="font-item" onclick="copyFont('sans-serif-italic', this)">
+                <div class="font-name">Sans-Serif Italic</div>
+                <div class="font-preview" id="preview-sans-serif-italic">Sample Text</div>
+                <div class="font-description">Italic sans-serif mathematical style</div>
+                <button class="copy-btn">Copy</button>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            
+            <div class="font-item" onclick="copyFont('math-bold', this)">
+                <div class="font-name">Mathematical Bold</div>
+                <div class="font-preview" id="preview-math-bold">Sample Text</div>
+                <div class="font-description">Bold mathematical serif style</div>
+                <button class="copy-btn">Copy</button>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            
+            <div class="font-item" onclick="copyFont('math-italic', this)">
+                <div class="font-name">Mathematical Italic</div>
+                <div class="font-preview" id="preview-math-italic">Sample Text</div>
+                <div class="font-description">Italic mathematical serif style</div>
+                <button class="copy-btn">Copy</button>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Outline Category -->
+    <div id="outline" class="category-section">
+        <h2 class="category-title">🔲 Outline & Bubble Fonts</h2>
+        <div class="font-examples">
+            <div class="font-item" onclick="copyFont('circled', this)">
+                <div class="font-name">Circled</div>
+                <div class="font-preview" id="preview-circled">Sample Text</div>
+                <div class="font-description">Characters enclosed in circles</div>
+                <button class="copy-btn">Copy</button>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            
+            <div class="font-item" onclick="copyFont('squared', this)">
+                <div class="font-name">Squared</div>
+                <div class="font-preview" id="preview-squared">Sample Text</div>
+                <div class="font-description">Characters enclosed in squares</div>
+                <button class="copy-btn">Copy</button>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            
+            <div class="font-item" onclick="copyFont('parenthesized', this)">
+                <div class="font-name">Parenthesized</div>
+                <div class="font-preview" id="preview-parenthesized">Sample Text</div>
+                <div class="font-description">Characters enclosed in parentheses</div>
+                <button class="copy-btn">Copy</button>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            
+            <div class="font-item" onclick="copyFont('negative-circled', this)">
+                <div class="font-name">Negative Circled</div>
+                <div class="font-preview" id="preview-negative-circled">Sample Text</div>
+                <div class="font-description">White characters in black circles</div>
+                <button class="copy-btn">Copy</button>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Special Category -->
+    <div id="special" class="category-section">
+        <h2 class="category-title">🎭 Special Effects</h2>
+        <div class="font-examples">
+            <div class="font-item" onclick="copyFont('upside-down', this)">
+                <div class="font-name">Upside Down</div>
+                <div class="font-preview" id="preview-upside-down">Sample Text</div>
+                <div class="font-description">Flipped text for fun effects</div>
+                <button class="copy-btn">Copy</button>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            
+            <div class="font-item" onclick="copyFont('reversed', this)">
+                <div class="font-name">Reversed</div>
+                <div class="font-preview" id="preview-reversed">Sample Text</div>
+                <div class="font-description">Text written backwards</div>
+                <button class="copy-btn">Copy</button>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            
+            <div class="font-item" onclick="copyFont('strikethrough', this)">
+                <div class="font-name">Strikethrough</div>
+                <div class="font-preview" id="preview-strikethrough">Sample Text</div>
+                <div class="font-description">Text with line through it</div>
+                <button class="copy-btn">Copy</button>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+            
+            <div class="font-item" onclick="copyFont('underline', this)">
+                <div class="font-name">Underlined</div>
+                <div class="font-preview" id="preview-underline">Sample Text</div>
+                <div class="font-description">Text with underline effect</div>
+                <button class="copy-btn">Copy</button>
+                <div class="copy-tooltip">Copied!</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const fontTransformations = {
+    'bold': {
+        'A': '𝐀', 'B': '𝐁', 'C': '𝐂', 'D': '𝐃', 'E': '𝐄', 'F': '𝐅', 'G': '𝐆', 'H': '𝐇', 'I': '𝐈', 'J': '𝐉',
+        'K': '𝐊', 'L': '𝐋', 'M': '𝐌', 'N': '𝐍', 'O': '𝐎', 'P': '𝐏', 'Q': '𝐐', 'R': '𝐑', 'S': '𝐒', 'T': '𝐓',
+        'U': '𝐔', 'V': '𝐕', 'W': '𝐖', 'X': '𝐗', 'Y': '𝐘', 'Z': '𝐙',
+        'a': '𝐚', 'b': '𝐛', 'c': '𝐜', 'd': '𝐝', 'e': '𝐞', 'f': '𝐟', 'g': '𝐠', 'h': '𝐡', 'i': '𝐢', 'j': '𝐣',
+        'k': '𝐤', 'l': '𝐥', 'm': '𝐦', 'n': '𝐧', 'o': '𝐨', 'p': '𝐩', 'q': '𝐪', 'r': '𝐫', 's': '𝐬', 't': '𝐭',
+        'u': '𝐮', 'v': '𝐯', 'w': '𝐰', 'x': '𝐱', 'y': '𝐲', 'z': '𝐳'
+    },
+    'italic': {
+        'A': '𝐴', 'B': '𝐵', 'C': '𝐶', 'D': '𝐷', 'E': '𝐸', 'F': '𝐹', 'G': '𝐺', 'H': '𝐻', 'I': '𝐼', 'J': '𝐽',
+        'K': '𝐾', 'L': '𝐿', 'M': '𝑀', 'N': '𝑁', 'O': '𝑂', 'P': '𝑃', 'Q': '𝑄', 'R': '𝑅', 'S': '𝑆', 'T': '𝑇',
+        'U': '𝑈', 'V': '𝑉', 'W': '𝑊', 'X': '𝑋', 'Y': '𝑌', 'Z': '𝑍',
+        'a': '𝑎', 'b': '𝑏', 'c': '𝑐', 'd': '𝑑', 'e': '𝑒', 'f': '𝑓', 'g': '𝑔', 'h': 'ℎ', 'i': '𝑖', 'j': '𝑗',
+        'k': '𝑘', 'l': '𝑙', 'm': '𝑚', 'n': '𝑛', 'o': '𝑜', 'p': '𝑝', 'q': '𝑞', 'r': '𝑟', 's': '𝑠', 't': '𝑡',
+        'u': '𝑢', 'v': '𝑣', 'w': '𝑤', 'x': '𝑥', 'y': '𝑦', 'z': '𝑧'
+    },
+    'monospace': {
+        'A': '𝙰', 'B': '𝙱', 'C': '𝙲', 'D': '𝙳', 'E': '𝙴', 'F': '𝙵', 'G': '𝙶', 'H': '𝙷', 'I': '𝙸', 'J': '𝙹',
+        'K': '𝙺', 'L': '𝙻', 'M': '𝙼', 'N': '𝙽', 'O': '𝙾', 'P': '𝙿', 'Q': '𝚀', 'R': '𝚁', 'S': '𝚂', 'T': '𝚃',
+        'U': '𝚄', 'V': '𝚅', 'W': '𝚆', 'X': '𝚇', 'Y': '𝚈', 'Z': '𝚉',
+        'a': '𝚊', 'b': '𝚋', 'c': '𝚌', 'd': '𝚍', 'e': '𝚎', 'f': '𝚏', 'g': '𝚐', 'h': '𝚑', 'i': '𝚒', 'j': '𝚓',
+        'k': '𝚔', 'l': '𝚕', 'm': '𝚖', 'n': '𝚗', 'o': '𝚘', 'p': '𝚙', 'q': '𝚚', 'r': '𝚛', 's': '𝚜', 't': '𝚝',
+        'u': '𝚞', 'v': '𝚟', 'w': '𝚠', 'x': '𝚡', 'y': '𝚢', 'z': '𝚣'
+    },
+    'double-struck': {
+        'A': '𝔸', 'B': '𝔹', 'C': 'ℂ', 'D': '𝔻', 'E': '𝔼', 'F': '𝔽', 'G': '𝔾', 'H': 'ℍ', 'I': '𝕀', 'J': '𝕁',
+        'K': '𝕂', 'L': '𝕃', 'M': '𝕄', 'N': 'ℕ', 'O': '𝕆', 'P': 'ℙ', 'Q': 'ℚ', 'R': 'ℝ', 'S': '𝕊', 'T': '𝕋',
+        'U': '𝕌', 'V': '𝕍', 'W': '𝕎', 'X': '𝕏', 'Y': '𝕐', 'Z': 'ℤ',
+        'a': '𝕒', 'b': '𝕓', 'c': '𝕔', 'd': '𝕕', 'e': '𝕖', 'f': '𝕗', 'g': '𝕘', 'h': '𝕙', 'i': '𝕚', 'j': '𝕛',
+        'k': '𝕜', 'l': '𝕝', 'm': '𝕞', 'n': '𝕟', 'o': '𝕠', 'p': '𝕡', 'q': '𝕢', 'r': '𝕣', 's': '𝕤', 't': '𝕥',
+        'u': '𝕦', 'v': '𝕧', 'w': '𝕨', 'x': '𝕩', 'y': '𝕪', 'z': '𝕫'
+    },
+    'fullwidth': {
+        'A': 'Ａ', 'B': 'Ｂ', 'C': 'Ｃ', 'D': 'Ｄ', 'E': 'Ｅ', 'F': 'Ｆ', 'G': 'Ｇ', 'H': 'Ｈ', 'I': 'Ｉ', 'J': 'Ｊ',
+        'K': 'Ｋ', 'L': 'Ｌ', 'M': 'Ｍ', 'N': 'Ｎ', 'O': 'Ｏ', 'P': 'Ｐ', 'Q': 'Ｑ', 'R': 'Ｒ', 'S': 'Ｓ', 'T': 'Ｔ',
+        'U': 'Ｕ', 'V': 'Ｖ', 'W': 'Ｗ', 'X': 'Ｘ', 'Y': 'Ｙ', 'Z': 'Ｚ',
+        'a': 'ａ', 'b': 'ｂ', 'c': 'ｃ', 'd': 'ｄ', 'e': 'ｅ', 'f': 'ｆ', 'g': 'ｇ', 'h': 'ｈ', 'i': 'ｉ', 'j': 'ｊ',
+        'k': 'ｋ', 'l': 'ｌ', 'm': 'ｍ', 'n': 'ｎ', 'o': 'ｏ', 'p': 'ｐ', 'q': 'ｑ', 'r': 'ｒ', 's': 'ｓ', 't': 'ｔ',
+        'u': 'ｕ', 'v': 'ｖ', 'w': 'ｗ', 'x': 'ｘ', 'y': 'ｙ', 'z': 'ｚ',
+        ' ': '　'
+    },
+    'circled': {
+        'A': 'Ⓐ', 'B': 'Ⓑ', 'C': 'Ⓒ', 'D': 'Ⓓ', 'E': 'Ⓔ', 'F': 'Ⓕ', 'G': 'Ⓖ', 'H': 'Ⓗ', 'I': 'Ⓘ', 'J': 'Ⓙ',
+        'K': 'Ⓚ', 'L': 'Ⓛ', 'M': 'Ⓜ', 'N': 'Ⓝ', 'O': 'Ⓞ', 'P': 'Ⓟ', 'Q': 'Ⓠ', 'R': 'Ⓡ', 'S': 'Ⓢ', 'T': 'Ⓣ',
+        'U': 'Ⓤ', 'V': 'Ⓥ', 'W': 'Ⓦ', 'X': 'Ⓧ', 'Y': 'Ⓨ', 'Z': 'Ⓩ',
+        'a': 'ⓐ', 'b': 'ⓑ', 'c': 'ⓒ', 'd': 'ⓓ', 'e': 'ⓔ', 'f': 'ⓕ', 'g': 'ⓖ', 'h': 'ⓗ', 'i': 'ⓘ', 'j': 'ⓙ',
+        'k': 'ⓚ', 'l': 'ⓛ', 'm': 'ⓜ', 'n': 'ⓝ', 'o': 'ⓞ', 'p': 'ⓟ', 'q': 'ⓠ', 'r': 'ⓡ', 's': 'ⓢ', 't': 'ⓣ',
+        'u': 'ⓤ', 'v': 'ⓥ', 'w': 'ⓦ', 'x': 'ⓧ', 'y': 'ⓨ', 'z': 'ⓩ'
+    }
+};
+
+function transformText(text, style) {
+    if (!fontTransformations[style]) {
+        // Special cases for non-mapping transformations
+        switch(style) {
+            case 'upside-down':
+                return text.split('').reverse().join('').replace(/[a-z]/g, function(c) {
+                    const flipped = {
+                        'a': 'ɐ', 'b': 'q', 'c': 'ɔ', 'd': 'p', 'e': 'ǝ', 'f': 'ɟ', 'g': 'ƃ', 'h': 'ɥ', 'i': 'ᴉ', 'j': 'ɾ',
+                        'k': 'ʞ', 'l': 'l', 'm': 'ɯ', 'n': 'u', 'o': 'o', 'p': 'd', 'q': 'b', 'r': 'ɹ', 's': 's', 't': 'ʇ',
+                        'u': 'n', 'v': 'ʌ', 'w': 'ʍ', 'x': 'x', 'y': 'ʎ', 'z': 'z'
+                    };
+                    return flipped[c] || c;
+                });
+            case 'reversed':
+                return text.split('').reverse().join('');
+            case 'strikethrough':
+                return text.split('').map(char => char + '̶').join('');
+            case 'underline':
+                return text.split('').map(char => char + '̲').join('');
+            case 'small-caps':
+                return text.toUpperCase().replace(/[A-Z]/g, function(c) {
+                    const smallCaps = {
+                        'A': 'ᴀ', 'B': 'ʙ', 'C': 'ᴄ', 'D': 'ᴅ', 'E': 'ᴇ', 'F': 'ꜰ', 'G': 'ɢ', 'H': 'ʜ', 'I': 'ɪ', 'J': 'ᴊ',
+                        'K': 'ᴋ', 'L': 'ʟ', 'M': 'ᴍ', 'N': 'ɴ', 'O': 'ᴏ', 'P': 'ᴘ', 'Q': 'Q', 'R': 'ʀ', 'S': 'ꜱ', 'T': 'ᴛ',
+                        'U': 'ᴜ', 'V': 'ᴠ', 'W': 'ᴡ', 'X': 'x', 'Y': 'ʏ', 'Z': 'ᴢ'
+                    };
+                    return smallCaps[c] || c;
+                });
+            default:
+                return text;
+        }
+    }
+    
+    const mapping = fontTransformations[style];
+    return text.split('').map(char => mapping[char] || char).join('');
+}
+
+function updateAllPreviews() {
+    const text = document.getElementById('textInput').value || 'Sample Text';
+    
+    // Update all preview elements
+    const styles = ['bold', 'italic', 'monospace', 'double-struck', 'script', 'fraktur', 'fullwidth', 'small-caps',
+                   'sans-serif-bold', 'sans-serif-italic', 'math-bold', 'math-italic', 'circled', 'squared', 
+                   'parenthesized', 'negative-circled', 'upside-down', 'reversed', 'strikethrough', 'underline'];
+    
+    styles.forEach(style => {
+        const element = document.getElementById(`preview-${style}`);
+        if (element) {
+            element.textContent = transformText(text, style);
+        }
+    });
+}
+
+function showCategory(categoryName) {
+    // Hide all categories
+    const categories = document.querySelectorAll('.category-section');
+    categories.forEach(cat => cat.classList.remove('active'));
+    
+    // Show selected category
+    document.getElementById(categoryName).classList.add('active');
+    
+    // Update button states
+    const buttons = document.querySelectorAll('.category-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+}
+
+function copyFont(fontStyle, element) {
+    const text = document.getElementById('textInput').value || 'Sample Text';
+    const transformedText = transformText(text, fontStyle);
+    
+    navigator.clipboard.writeText(transformedText).then(() => {
+        const tooltip = element.querySelector('.copy-tooltip');
+        tooltip.classList.add('show');
+        setTimeout(() => {
+            tooltip.classList.remove('show');
+        }, 2000);
+    });
+}
+
+function clearAllText() {
+    document.getElementById('textInput').value = '';
+    updateAllPreviews();
+}
+
+function generateRandomText() {
+    const samples = [
+        'Hello World', 'Amazing Text', 'Cool Fonts', 'Creative Design', 'Unique Style',
+        'Digital Art', 'Text Effects', 'Font Magic', 'Typography', 'Design Elements'
+    ];
+    const randomText = samples[Math.floor(Math.random() * samples.length)];
+    document.getElementById('textInput').value = randomText;
+    updateAllPreviews();
+}
+
+function getCurrentText() {
+    return document.getElementById('textInput').value || 'Sample Text';
+}
+
+function useWithGlitchGenerator(text) {
+    // Store text in localStorage to pass to main page
+    localStorage.setItem('glitch_prefill_text', text);
+    
+    // Navigate to main page
+    window.location.href = '/';
+}
+
+// Add individual "Use with Glitch Generator" buttons to each font
+function addUseButtons() {
+    const fontItems = document.querySelectorAll('.font-item');
+    
+    fontItems.forEach(item => {
+        // Add a use button
+        const useBtn = document.createElement('button');
+        useBtn.textContent = 'Use with Glitch Generator';
+        useBtn.style.cssText = `
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--secondary-color);
+            color: var(--bg-dark);
+            border: none;
+            padding: 0.3rem 0.6rem;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        `;
+        
+        const preview = item.querySelector('.font-preview');
+        const previewText = preview ? preview.textContent : getCurrentText();
+        
+        useBtn.onclick = (e) => {
+            e.stopPropagation();
+            useWithGlitchGenerator(previewText);
+        };
+        
+        item.appendChild(useBtn);
+        
+        // Show button on hover
+        item.addEventListener('mouseenter', () => {
+            useBtn.style.opacity = '1';
+        });
+        
+        item.addEventListener('mouseleave', () => {
+            useBtn.style.opacity = '0';
+        });
+    });
+}
+
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.textContent = message;
+    toast.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        color: var(--bg-dark);
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 255, 0, 0.3);
+        z-index: 1000;
+        font-weight: bold;
+        animation: slideIn 0.3s ease-out;
+    `;
+    
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.style.animation = 'slideOut 0.3s ease-out';
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
+
+// Add CSS for animations
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+    }
+`;
+document.head.appendChild(style);
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    updateAllPreviews();
+    addUseButtons();
+});
+</script>
+{% endblock %} 

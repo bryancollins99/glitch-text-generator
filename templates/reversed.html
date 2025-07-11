@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+
+{% block title %}Reversed Text Generator - Flip and Reverse Your Text{% endblock %}
+
+{% block head %}
+<meta name="description" content="Reverse your text instantly with our free text reversal tool. Flip text backwards, reverse words, and create mirror effects for fun and creative purposes.">
+<meta name="keywords" content="reverse text, flip text, backwards text, text reversal, mirror text, sdrow esrever">
+{% endblock %}
+
+{% block content %}
+<h1 class="main-title glitch-title">Reversed Text Generator</h1>
+<p class="subtitle">Flip and reverse your text in multiple ways! Create backwards text, reverse word order, flip individual letters, or generate upside-down text for creative digital effects.</p>
+
+<div class="controls-panel">
+    <div class="control-group">
+        <label for="reverse-mode">Reverse Mode:</label>
+        <select id="reverse-mode" class="effect-select">
+            <option value="reverse">Complete Reverse</option>
+            <option value="words">Reverse Words</option>
+            <option value="letters">Reverse Letters</option>
+            <option value="flip">Flip Text (Upside Down)</option>
+        </select>
+    </div>
+</div>
+
+<div class="text-editor">
+    <div class="input-container">
+        <div class="editor-header">Input Text</div>
+        <textarea 
+            id="reversedInput" 
+            placeholder="Enter your text here to reverse it..."
+            class="glitch-input"
+            oninput="generateReversed()"
+        >Hello World! This is a sample text.</textarea>
+    </div>
+    
+    <div class="output-container">
+        <div class="editor-header">
+            Reversed Output
+            <button id="copy-btn" class="btn-copy" onclick="copyToClipboard()">Copy</button>
+        </div>
+        <div id="reversedOutput" class="glitch-output">.txet elpmsa a si sihT !dlroW olleH</div>
+    </div>
+</div>
+
+<div class="quick-effects">
+    <h3>Quick Actions</h3>
+    <div class="effect-buttons">
+        <button class="quick-effect" onclick="loadExample()">Load Example</button>
+        <button class="quick-effect" onclick="clearText()">Clear Text</button>
+        <button class="quick-effect" onclick="swapTexts()">Swap Texts</button>
+        <button class="quick-effect" onclick="copyToClipboard()">Copy Result</button>
+    </div>
+</div>
+
+<div class="guide-container">
+    <section>
+        <h2>Reverse Text Modes</h2>
+        <p>Transform your text with multiple reversal techniques for different creative effects:</p>
+        <div class="tools-grid">
+            <div class="tool-card">
+                <h3>Complete Reverse</h3>
+                <p>Reverses entire text character by character. "Hello World" → "dlroW olleH"</p>
+            </div>
+            <div class="tool-card">
+                <h3>Reverse Words</h3>
+                <p>Reverses word order while keeping words intact. "Hello World" → "World Hello"</p>
+            </div>
+            <div class="tool-card">
+                <h3>Reverse Letters</h3>
+                <p>Reverses each word individually. "Hello World" → "olleH dlroW"</p>
+            </div>
+            <div class="tool-card">
+                <h3>Flip Text</h3>
+                <p>Creates upside-down text using Unicode. "Hello" → "o˥˥ǝH"</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+let currentMode = 'reverse';
+
+// Flip text character mapping
+const flipMap = {
+    'a': 'ɐ', 'b': 'q', 'c': 'ɔ', 'd': 'p', 'e': 'ǝ', 'f': 'ɟ', 'g': 'ƃ', 'h': 'ɥ', 'i': 'ᴉ', 'j': 'ɾ',
+    'k': 'ʞ', 'l': 'ʃ', 'm': 'ɯ', 'n': 'u', 'o': 'o', 'p': 'd', 'q': 'b', 'r': 'ɹ', 's': 's', 't': 'ʇ',
+    'u': 'n', 'v': 'ʌ', 'w': 'ʍ', 'x': 'x', 'y': 'ʎ', 'z': 'z',
+    'A': '∀', 'B': 'ᗺ', 'C': 'Ɔ', 'D': 'ᗡ', 'E': 'Ǝ', 'F': 'ᖴ', 'G': 'פ', 'H': 'H', 'I': 'I', 'J': 'ſ',
+    'K': 'K', 'L': '˥', 'M': 'W', 'N': 'N', 'O': 'O', 'P': 'Ԁ', 'Q': 'Q', 'R': 'ᴿ', 'S': 'S', 'T': '┴',
+    'U': '∩', 'V': 'Λ', 'W': 'M', 'X': 'X', 'Y': '⅄', 'Z': 'Z',
+    '0': '0', '1': 'Ɩ', '2': 'ᄅ', '3': 'Ɛ', '4': 'ㄣ', '5': 'ϛ', '6': '9', '7': 'ㄥ', '8': '8', '9': '6',
+    '.': '˙', ',': "'", '?': '¿', '!': '¡', "'": '‛', '"': '„', '(': ')', ')': '('
+};
+
+function generateReversed() {
+    const input = document.getElementById('reversedInput').value;
+    const output = document.getElementById('reversedOutput');
+    
+    if (!input.trim()) {
+        output.textContent = 'Your reversed text will appear here...';
+        return;
+    }
+    
+    let result = '';
+    
+    switch(currentMode) {
+        case 'reverse':
+            result = reverseText(input);
+            break;
+        case 'words':
+            result = reverseWords(input);
+            break;
+        case 'letters':
+            result = reverseLetters(input);
+            break;
+        case 'flip':
+            result = flipText(input);
+            break;
+    }
+    
+    output.textContent = result;
+}
+
+function reverseText(text) {
+    return text.split('').reverse().join('');
+}
+
+function reverseWords(text) {
+    return text.split(' ').reverse().join(' ');
+}
+
+function reverseLetters(text) {
+    return text.split(' ').map(word => word.split('').reverse().join('')).join(' ');
+}
+
+function flipText(text) {
+    const flipped = text.split('').map(char => flipMap[char] || char).join('');
+    return flipped.split('').reverse().join('');
+}
+
+function copyToClipboard() {
+    const output = document.getElementById('reversedOutput');
+    const text = output.textContent;
+    
+    if (text && text !== 'Your reversed text will appear here...') {
+        navigator.clipboard.writeText(text).then(() => {
+            showToast('Text copied to clipboard!');
+        });
+    }
+}
+
+function swapTexts() {
+    const input = document.getElementById('reversedInput');
+    const output = document.getElementById('reversedOutput');
+    
+    const inputText = input.value;
+    const outputText = output.textContent;
+    
+    if (outputText && outputText !== 'Your reversed text will appear here...') {
+        input.value = outputText;
+        generateReversed();
+    }
+}
+
+function clearText() {
+    document.getElementById('reversedInput').value = '';
+    document.getElementById('reversedOutput').textContent = 'Your reversed text will appear here...';
+}
+
+function loadExample() {
+    const examples = [
+        'The quick brown fox jumps over the lazy dog',
+        'Hello World! Welcome to the reversed text generator',
+        'Programming is fun and exciting',
+        'Reverse engineering at its finest',
+        'Creative text effects for digital artists',
+        'Typography design in the cyberpunk era',
+        'Matrix code flows in reverse direction'
+    ];
+    
+    const randomExample = examples[Math.floor(Math.random() * examples.length)];
+    document.getElementById('reversedInput').value = randomExample;
+    generateReversed();
+}
+
+function showToast(message) {
+    const existingToast = document.querySelector('.toast');
+    if (existingToast) {
+        existingToast.remove();
+    }
+    
+    const toast = document.createElement('div');
+    toast.className = 'toast show';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
+
+// Mode selector functionality
+document.getElementById('reverse-mode').addEventListener('change', function() {
+    currentMode = this.value;
+    generateReversed();
+});
+
+// Initial generation
+generateReversed();
+</script>
+{% endblock %} 

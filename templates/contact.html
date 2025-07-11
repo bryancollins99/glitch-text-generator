@@ -2,6 +2,39 @@
 
 {% block title %}Contact - Glitch Text Generator{% endblock %}
 
+{% block head %}
+<meta name="description" content="Contact GlitchTextEffect.com for support, feedback, or inquiries about our free online glitch text generator and text effects tools.">
+<meta name="keywords" content="contact glitch text generator, support, feedback, text effects help">
+{% endblock %}
+
+{% block og_title %}Contact - Glitch Text Generator{% endblock %}
+{% block og_description %}Contact GlitchTextEffect.com for support, feedback, or inquiries about our free online glitch text generator and text effects tools.{% endblock %}
+
+{% block breadcrumbs %}
+{% set breadcrumbs = [
+    {'title': 'Contact', 'url': None}
+] %}
+{{ super() }}
+{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact Glitch Text Generator",
+    "description": "Contact GlitchTextEffect.com for support, feedback, or inquiries about our free online glitch text generator and text effects tools.",
+    "url": "https://glitchtexteffect.com/contact",
+    "mainEntity": {
+        "@type": "Organization",
+        "name": "Glitch Text Effect",
+        "url": "https://glitchtexteffect.com",
+        "email": "contact@glitchtexteffect.com"
+    }
+}
+</script>
+{% endblock %}
+
 {% block content %}
 <h1>Contact Us</h1>
 
