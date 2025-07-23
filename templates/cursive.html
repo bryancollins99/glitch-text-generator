@@ -5,6 +5,28 @@
 {% block head %}
 <meta name="description" content="Convert your text to elegant cursive and script font styles with our free cursive text generator. Perfect for logos, signatures, and decorative text.">
 <meta name="keywords" content="cursive text generator, script font converter, handwriting text, cursive letters, script text">
+<link rel="canonical" href="{{ url_for('cursive', _external=True) }}">
+{% endblock %}
+
+{% block og_title %}Cursive Text Generator - Convert Text to Script Font Style{% endblock %}
+{% block og_description %}Convert your text to elegant cursive and script font styles with our free cursive text generator. Perfect for logos, signatures, and decorative text.{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Cursive Text Generator",
+    "description": "Convert your text to elegant cursive and script font styles with our free cursive text generator. Perfect for logos, signatures, and decorative text.",
+    "url": "{{ url_for('cursive', _external=True) }}",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Any",
+    "offers": {
+        "@type": "Offer",
+        "price": "0"
+    }
+}
+</script>
 {% endblock %}
 
 {% block extra_css %}
@@ -286,14 +308,18 @@
 
         <div class="info-section">
             <h3>About Cursive Text</h3>
-            <p>Cursive and script fonts create elegant, flowing text that mimics handwriting. Perfect for:</p>
+            <p>Cursive text effects use Unicode characters to create elegant, script-like styles. Perfect for:</p>
             <ul>
-                <li><strong>Logos & Branding:</strong> Elegant business names and signatures</li>
-                <li><strong>Invitations:</strong> Wedding invitations and formal events</li>
-                <li><strong>Social Media:</strong> Instagram captions and stylish posts</li>
-                <li><strong>Design Projects:</strong> Headers and decorative elements</li>
-                <li><strong>Creative Writing:</strong> Poetry and artistic text</li>
-                <li><strong>Signatures:</strong> Digital signature styles</li>
+                <li><strong>Digital Signatures:</strong> Create a unique signature for emails and documents</li>
+                <li><strong>Social Media:</strong> Stylish bios, posts, and comments</li>
+                <li><strong>Design Projects:</strong> Logos, invitations, and artistic typography</li>
+                <li><strong>Creative Writing:</strong> Add a personal touch to your digital writing</li>
+            </ul>
+
+            <h4>Related Generators:</h4>
+            <ul>
+                <li>Try our <a href="{{ url_for('gothic') }}">Gothic Font Generator</a> for medieval styles.</li>
+                <li>Explore our <a href="{{ url_for('cool_text') }}">Cool Text Generator</a> for more decorative options.</li>
             </ul>
         </div>
     </div>

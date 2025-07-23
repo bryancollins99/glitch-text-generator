@@ -3,8 +3,30 @@
 {% block title %}Italics Text Generator - Convert Text to Italic Font Style{% endblock %}
 
 {% block head %}
-<meta name="description" content="Convert your text to elegant italic and slanted font styles with our free italics text generator. Perfect for emphasis, quotes, and stylish typography.">
-<meta name="keywords" content="italic text generator, slanted text, italic font converter, italic letters, emphasized text">
+<meta name="description" content="Convert your text to elegant italics with our free italics text generator. Perfect for social media, design, and emphasizing text.">
+<meta name="keywords" content="italics text generator, italic font converter, slanted text, italic letters">
+<link rel="canonical" href="{{ url_for('italics', _external=True) }}">
+{% endblock %}
+
+{% block og_title %}Italics Text Generator - Convert Text to Italic Font Style{% endblock %}
+{% block og_description %}Convert your text to elegant italics with our free italics text generator. Perfect for social media, design, and emphasizing text.{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Italics Text Generator",
+    "description": "Convert your text to elegant italics with our free italics text generator. Perfect for social media, design, and emphasizing text.",
+    "url": "{{ url_for('italics', _external=True) }}",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Any",
+    "offers": {
+        "@type": "Offer",
+        "price": "0"
+    }
+}
+</script>
 {% endblock %}
 
 {% block extra_css %}
@@ -376,15 +398,19 @@
         </div>
 
         <div class="info-section">
-            <h3>About Italic Text</h3>
-            <p>Italic text creates emphasis and elegance through slanted letterforms. Commonly used for:</p>
+            <h3>About Italics Text</h3>
+            <p>Italic text is used to emphasize words, titles, and for decorative purposes. Perfect for:</p>
             <ul>
-                <li><strong>Emphasis:</strong> Highlighting important words and phrases</li>
-                <li><strong>Quotes:</strong> Book titles, foreign words, and citations</li>
-                <li><strong>Typography:</strong> Creating visual hierarchy and flow</li>
-                <li><strong>Design:</strong> Headers, captions, and stylistic elements</li>
-                <li><strong>Social Media:</strong> Stylish posts and attention-grabbing text</li>
-                <li><strong>Academic:</strong> Scientific names and technical terms</li>
+                <li><strong>Emphasis:</strong> Highlighting key words or phrases in your text</li>
+                <li><strong>Titles:</strong> Formatting titles of books, films, and publications</li>
+                <li><strong>Social Media:</strong> Adding a touch of style to your posts and bios</li>
+                <li><strong>Design:</strong> Creating elegant and professional-looking designs</li>
+            </ul>
+
+            <h4>Related Generators:</h4>
+            <ul>
+                <li>Try our <a href="{{ url_for('cursive') }}">Cursive Text Generator</a> for a script-like style.</li>
+                <li>Explore our <a href="{{ url_for('gothic') }}">Gothic Font Generator</a> for a more dramatic look.</li>
             </ul>
         </div>
     </div>

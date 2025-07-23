@@ -1,10 +1,32 @@
 {% extends 'base.html' %}
 
-{% block title %}Graffiti Text Generator - Create Street Art & Bubble Letter Fonts{% endblock %}
+{% block title %}Graffiti Text Generator - Create Street Art & Urban Font Styles{% endblock %}
 
 {% block head %}
-<meta name="description" content="Generate graffiti-style text with our free street art font generator. Create bubble letters, wildstyle, throw-up, and tag styles for urban designs.">
-<meta name="keywords" content="graffiti text generator, street art fonts, bubble letters, urban text, wildstyle graffiti, tag fonts">
+<meta name="description" content="Create street art and urban font styles with our free graffiti text generator. Perfect for logos, social media, and design projects.">
+<meta name="keywords" content="graffiti text generator, street art fonts, urban text, bubble letters, graffiti letters">
+<link rel="canonical" href="{{ url_for('graffiti', _external=True) }}">
+{% endblock %}
+
+{% block og_title %}Graffiti Text Generator - Create Street Art & Urban Font Styles{% endblock %}
+{% block og_description %}Create street art and urban font styles with our free graffiti text generator. Perfect for logos, social media, and design projects.{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Graffiti Text Generator",
+    "description": "Create street art and urban font styles with our free graffiti text generator. Perfect for logos, social media, and design projects.",
+    "url": "{{ url_for('graffiti', _external=True) }}",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Any",
+    "offers": {
+        "@type": "Offer",
+        "price": "0"
+    }
+}
+</script>
 {% endblock %}
 
 {% block extra_css %}
@@ -345,14 +367,18 @@
 
         <div class="info-section">
             <h3>About Graffiti Text</h3>
-            <p>Graffiti and street art styles represent urban culture and creative expression. Perfect for:</p>
+            <p>Graffiti text generators transform your text into vibrant, street art-inspired styles. Perfect for:</p>
             <ul>
-                <li><strong>Hip-Hop Culture:</strong> Album covers, event posters, and street culture designs</li>
-                <li><strong>Urban Branding:</strong> Streetwear brands, music labels, and youth-oriented businesses</li>
-                <li><strong>Gaming:</strong> Street racing games, urban RPGs, and underground themes</li>
-                <li><strong>Event Design:</strong> Concerts, festivals, and street art exhibitions</li>
-                <li><strong>Social Media:</strong> Eye-catching posts with urban aesthetic</li>
-                <li><strong>Art Projects:</strong> Digital street art and urban design projects</li>
+                <li><strong>Logos & Branding:</strong> Urban-themed logos and edgy brand identities</li>
+                <li><strong>Social Media:</strong> Eye-catching posts and profile art</li>
+                <li><strong>T-Shirts & Apparel:</strong> Custom designs for clothing and merchandise</li>
+                <li><strong>Art & Design:</strong> Digital art, posters, and creative projects</li>
+            </ul>
+
+            <h4>Related Generators:</h4>
+            <ul>
+                <li>Try our <a href="{{ url_for('cool_text') }}">Cool Text Generator</a> for more decorative styles.</li>
+                <li>Explore our <a href="{{ url_for('vaporwave') }}">Vaporwave Text Generator</a> for retro aesthetics.</li>
             </ul>
         </div>
     </div>

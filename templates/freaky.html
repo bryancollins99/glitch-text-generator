@@ -5,6 +5,28 @@
 {% block head %}
 <meta name="description" content="Generate freaky, creepy, and disturbing text effects with our free freaky font generator. Perfect for horror themes, Halloween, and scary designs.">
 <meta name="keywords" content="freaky text generator, creepy fonts, disturbing text, horror text, scary letters, weird fonts">
+<link rel="canonical" href="{{ url_for('freaky', _external=True) }}">
+{% endblock %}
+
+{% block og_title %}Freaky Font Generator - Create Disturbing & Creepy Text Effects{% endblock %}
+{% block og_description %}Generate freaky, creepy, and disturbing text effects with our free freaky font generator. Perfect for horror themes, Halloween, and scary designs.{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Freaky Font Generator",
+    "description": "Generate freaky, creepy, and disturbing text effects with our free freaky font generator. Perfect for horror themes, Halloween, and scary designs.",
+    "url": "{{ url_for('freaky', _external=True) }}",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Any",
+    "offers": {
+        "@type": "Offer",
+        "price": "0"
+    }
+}
+</script>
 {% endblock %}
 
 {% block extra_css %}
@@ -278,7 +300,7 @@
                 <div class="style-name">Zalgo Corruption</div>
             </div>
             <div class="style-card" data-style="glitched">
-                <div class="style-example">G̷l̸i̴t̶c̵h̸e̷d̸ ̴T̶e̵x̸t̷</div>
+                <div class="style-example">G̷l̸i̴t̶c̵h̸e̷d̸ ̴̽T̶e̵x̸t̷</div>
                 <div class="style-name">Digital Glitch</div>
             </div>
             <div class="style-card" data-style="cursed">
@@ -332,6 +354,12 @@
                 <li><strong>Art Projects:</strong> Digital horror art and disturbing designs</li>
                 <li><strong>Social Media:</strong> Attention-grabbing posts with eerie effects</li>
                 <li><strong>Creative Writing:</strong> Adding visual impact to dark fiction</li>
+            </ul>
+
+            <h4>Related Generators:</h4>
+            <ul>
+                <li>Try our <a href="{{ url_for('gothic') }}">Gothic Font Generator</a> for medieval horror styles.</li>
+                <li>Explore our <a href="{{ url_for('vaporwave') }}">Vaporwave Text Generator</a> for distorted aesthetics.</li>
             </ul>
         </div>
     </div>

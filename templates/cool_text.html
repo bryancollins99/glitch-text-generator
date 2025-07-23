@@ -5,6 +5,28 @@
 {% block head %}
 <meta name="description" content="Generate cool and stylish text with decorative Unicode characters. Create fullwidth, circled, squared, and bubble text effects for social media and design.">
 <meta name="keywords" content="cool text generator, stylish fonts, decorative text, fancy letters, fullwidth text, circled text">
+<link rel="canonical" href="{{ url_for('cool_text', _external=True) }}">
+{% endblock %}
+
+{% block og_title %}Cool Text Generator - Create Stylish Decorative Text{% endblock %}
+{% block og_description %}Generate cool and stylish text with decorative Unicode characters. Create fullwidth, circled, squared, and bubble text effects for social media and design.{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Cool Text Generator",
+    "description": "Generate cool and stylish text with decorative Unicode characters. Create fullwidth, circled, squared, and bubble text effects for social media and design.",
+    "url": "{{ url_for('cool_text', _external=True) }}",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Any",
+    "offers": {
+        "@type": "Offer",
+        "price": "0"
+    }
+}
+</script>
 {% endblock %}
 
 {% block extra_css %}
@@ -296,14 +318,18 @@
 
         <div class="info-section">
             <h3>About Cool Text</h3>
-            <p>Cool text styles use special Unicode characters to create eye-catching, decorative effects. Perfect for:</p>
+            <p>Cool text uses a variety of Unicode symbols and characters to create unique, stylish text. Perfect for:</p>
             <ul>
-                <li><strong>Social Media:</strong> Instagram captions, Twitter posts, and profile bios</li>
-                <li><strong>Gaming:</strong> Usernames, clan tags, and game profiles</li>
-                <li><strong>Design:</strong> Headers, logos, and attention-grabbing elements</li>
-                <li><strong>Messaging:</strong> WhatsApp, Discord, and text messages</li>
-                <li><strong>Marketing:</strong> Eye-catching advertisements and promotions</li>
-                <li><strong>Creative Projects:</strong> Art, presentations, and digital content</li>
+                <li><strong>Social Media:</strong> Eye-catching bios, usernames, and posts on platforms like Instagram, Twitter, and Facebook</li>
+                <li><strong>Gaming:</strong> Unique in-game names and clan tags that stand out</li>
+                <li><strong>Design:</strong> Creating interesting visual elements for digital art and graphics</li>
+                <li><strong>Messaging:</strong> Making your messages in chats and forums more expressive</li>
+            </ul>
+
+            <h4>Related Generators:</h4>
+            <ul>
+                <li>Try our <a href="{{ url_for('vaporwave') }}">Vaporwave Text Generator</a> for aesthetic styles.</li>
+                <li>Explore our <a href="{{ url_for('graffiti') }}">Graffiti Text Generator</a> for urban font options.</li>
             </ul>
         </div>
     </div>

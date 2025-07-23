@@ -5,6 +5,28 @@
 {% block head %}
 <meta name="description" content="Convert your text to elegant gothic and blackletter font styles with our free gothic text generator. Perfect for medieval designs, logos, and decorative text.">
 <meta name="keywords" content="gothic font generator, blackletter text, medieval font, fraktur generator, old english text">
+<link rel="canonical" href="{{ url_for('gothic', _external=True) }}">
+{% endblock %}
+
+{% block og_title %}Gothic Font Generator - Convert Text to Medieval Blackletter Style{% endblock %}
+{% block og_description %}Convert your text to elegant gothic and blackletter font styles with our free gothic text generator. Perfect for medieval designs, logos, and decorative text.{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Gothic Font Generator",
+    "description": "Convert your text to elegant gothic and blackletter font styles with our free gothic text generator. Perfect for medieval designs, logos, and decorative text.",
+    "url": "{{ url_for('gothic', _external=True) }}",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Any",
+    "offers": {
+        "@type": "Offer",
+        "price": "0"
+    }
+}
+</script>
 {% endblock %}
 
 {% block extra_css %}
@@ -288,15 +310,19 @@
         </div>
 
         <div class="info-section">
-            <h3>About Gothic Fonts</h3>
-            <p>Gothic and blackletter fonts evoke medieval manuscripts and historical documents. Perfect for:</p>
+            <h3>About Gothic Text</h3>
+            <p>Gothic fonts, also known as blackletter, create a medieval, historic feel. Perfect for:</p>
             <ul>
-                <li><strong>Branding:</strong> Traditional businesses, breweries, and vintage logos</li>
-                <li><strong>Events:</strong> Medieval themes, Renaissance fairs, and historical occasions</li>
-                <li><strong>Design:</strong> Book covers, certificates, and formal documents</li>
-                <li><strong>Gaming:</strong> Fantasy RPGs, medieval games, and gothic themes</li>
-                <li><strong>Art:</strong> Calligraphy, tattoos, and decorative lettering</li>
-                <li><strong>Academic:</strong> Historical texts and scholarly presentations</li>
+                <li><strong>Fantasy & Gaming:</strong> Game titles, character names, and fantasy settings</li>
+                <li><strong>Music & Brands:</strong> Metal band logos and alternative clothing brands</li>
+                <li><strong>Tattoos & Design:</strong> Intricate tattoo lettering and graphic design</li>
+                <li><strong>Historical Documents:</strong> Mimicking the style of old manuscripts</li>
+            </ul>
+
+            <h4>Related Generators:</h4>
+            <ul>
+                <li>Try our <a href="{{ url_for('cursive') }}">Cursive Text Generator</a> for elegant styles.</li>
+                <li>Explore our <a href="{{ url_for('freaky') }}">Freaky Font Generator</a> for unsettling options.</li>
             </ul>
         </div>
     </div>
