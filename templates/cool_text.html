@@ -1,0 +1,487 @@
+{% extends 'base.html' %}
+
+{% block title %}Cool Text Generator - Create Stylish Decorative Text{% endblock %}
+
+{% block head %}
+<meta name="description" content="Generate cool and stylish text with decorative Unicode characters. Create fullwidth, circled, squared, and bubble text effects for social media and design.">
+<meta name="keywords" content="cool text generator, stylish fonts, decorative text, fancy letters, fullwidth text, circled text">
+{% endblock %}
+
+{% block extra_css %}
+<style>
+:root {
+    --cool-primary: #ff6b6b;
+    --cool-secondary: #4ecdc4;
+    --cool-accent: #45b7d1;
+    --cool-light: #f8f9fa;
+    --cool-dark: #2c3e50;
+    --cool-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.cool-container {
+    background: var(--cool-gradient);
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.cool-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: white;
+}
+
+.cool-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 2px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.cool-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.cool-main {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.cool-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.cool-section {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 2px solid var(--cool-light);
+    transition: all 0.3s ease;
+}
+
+.cool-section:hover {
+    border-color: var(--cool-primary);
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.1);
+}
+
+.cool-section h3 {
+    color: var(--cool-primary);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.cool-textarea {
+    width: 100%;
+    height: 250px;
+    border: 2px solid var(--cool-light);
+    border-radius: 10px;
+    padding: 1rem;
+    font-family: 'Arial', sans-serif;
+    font-size: 1.1rem;
+    color: var(--cool-dark);
+    resize: vertical;
+    transition: border-color 0.3s ease;
+}
+
+.cool-textarea:focus {
+    outline: none;
+    border-color: var(--cool-primary);
+    box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+}
+
+.cool-output {
+    background: #f8f9fa;
+    border: 2px solid var(--cool-light);
+    border-radius: 10px;
+    padding: 1rem;
+    min-height: 250px;
+    font-family: 'Arial', sans-serif;
+    font-size: 1.3rem;
+    color: var(--cool-dark);
+    line-height: 1.6;
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+
+.cool-styles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.style-card {
+    background: white;
+    border: 2px solid var(--cool-light);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.style-card:hover, .style-card.active {
+    border-color: var(--cool-primary);
+    background: #f8f9fa;
+    transform: translateY(-2px);
+}
+
+.style-card.active {
+    border-color: var(--cool-accent);
+    background: rgba(69, 183, 209, 0.05);
+}
+
+.style-example {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    color: var(--cool-primary);
+    font-weight: bold;
+}
+
+.style-name {
+    font-size: 0.9rem;
+    color: var(--cool-dark);
+    opacity: 0.8;
+}
+
+.cool-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cool-btn {
+    background: var(--cool-primary);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.cool-btn:hover {
+    background: var(--cool-secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(78, 205, 196, 0.4);
+}
+
+.cool-btn.secondary {
+    background: var(--cool-dark);
+}
+
+.cool-btn.secondary:hover {
+    background: var(--cool-accent);
+}
+
+.info-section {
+    background: rgba(255, 107, 107, 0.05);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    border-left: 4px solid var(--cool-primary);
+}
+
+.info-section h3 {
+    color: var(--cool-primary);
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.info-section ul {
+    color: var(--cool-dark);
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .cool-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .cool-title {
+        font-size: 2rem;
+    }
+    
+    .cool-styles {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="cool-container">
+    <div class="cool-header">
+        <h1 class="cool-title">Cool Text Generator</h1>
+        <p class="cool-subtitle">Create stylish and decorative text with unique Unicode characters</p>
+    </div>
+
+    <div class="cool-main">
+        <div class="cool-styles">
+            <div class="style-card active" data-style="fullwidth">
+                <div class="style-example">Ｆｕｌｌｗｉｄｔｈ　Ｔｅｘｔ</div>
+                <div class="style-name">Fullwidth Characters</div>
+            </div>
+            <div class="style-card" data-style="circled">
+                <div class="style-example">Ⓒⓘⓡⓒⓛⓔⓓ Ⓣⓔⓧⓣ</div>
+                <div class="style-name">Circled Letters</div>
+            </div>
+            <div class="style-card" data-style="squared">
+                <div class="style-example">🅂🅀🅄🄰🅁🄴🄳 🅃🄴🅇🅃</div>
+                <div class="style-name">Squared Letters</div>
+            </div>
+            <div class="style-card" data-style="negative-circled">
+                <div class="style-example">🅝🅔🅖🅐🅣🅘🅥🅔 🅣🅔🅧🅣</div>
+                <div class="style-name">Negative Circled</div>
+            </div>
+            <div class="style-card" data-style="bubble">
+                <div class="style-example">ⒷⓊⒷⒷⓁⒺ ⓉⒺⓍⓉ</div>
+                <div class="style-name">Bubble Style</div>
+            </div>
+            <div class="style-card" data-style="inverted">
+                <div class="style-example">🅸🅽🆅🅴🆁🆃🅴🅳 🆃🅴🆇🆃</div>
+                <div class="style-name">Inverted Style</div>
+            </div>
+        </div>
+
+        <div class="cool-grid">
+            <div class="cool-section">
+                <h3>Enter Your Text</h3>
+                <textarea 
+                    class="cool-textarea" 
+                    id="coolInput" 
+                    placeholder="Type your text here to make it cool and stylish..."
+                    oninput="generateCoolText()"
+                >Sample Text</textarea>
+            </div>
+
+            <div class="cool-section">
+                <h3>Cool Result</h3>
+                <div class="cool-output" id="coolOutput">
+                    Ｓａｍｐｌｅ　Ｔｅｘｔ
+                </div>
+            </div>
+        </div>
+
+        <div class="cool-controls">
+            <button class="cool-btn" onclick="copyToClipboard()">
+                <i class="fas fa-copy"></i> Copy Text
+            </button>
+            <button class="cool-btn secondary" onclick="clearText()">
+                <i class="fas fa-trash"></i> Clear
+            </button>
+            <button class="cool-btn secondary" onclick="loadExample()">
+                <i class="fas fa-lightbulb"></i> Example
+            </button>
+        </div>
+
+        <div class="info-section">
+            <h3>About Cool Text</h3>
+            <p>Cool text styles use special Unicode characters to create eye-catching, decorative effects. Perfect for:</p>
+            <ul>
+                <li><strong>Social Media:</strong> Instagram captions, Twitter posts, and profile bios</li>
+                <li><strong>Gaming:</strong> Usernames, clan tags, and game profiles</li>
+                <li><strong>Design:</strong> Headers, logos, and attention-grabbing elements</li>
+                <li><strong>Messaging:</strong> WhatsApp, Discord, and text messages</li>
+                <li><strong>Marketing:</strong> Eye-catching advertisements and promotions</li>
+                <li><strong>Creative Projects:</strong> Art, presentations, and digital content</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentStyle = 'fullwidth';
+
+// Character mappings for cool text styles
+const fullwidthMap = {
+    'A': 'Ａ', 'B': 'Ｂ', 'C': 'Ｃ', 'D': 'Ｄ', 'E': 'Ｅ', 'F': 'Ｆ', 'G': 'Ｇ', 'H': 'Ｈ', 'I': 'Ｉ', 'J': 'Ｊ',
+    'K': 'Ｋ', 'L': 'Ｌ', 'M': 'Ｍ', 'N': 'Ｎ', 'O': 'Ｏ', 'P': 'Ｐ', 'Q': 'Ｑ', 'R': 'Ｒ', 'S': 'Ｓ', 'T': 'Ｔ',
+    'U': 'Ｕ', 'V': 'Ｖ', 'W': 'Ｗ', 'X': 'Ｘ', 'Y': 'Ｙ', 'Z': 'Ｚ',
+    'a': 'ａ', 'b': 'ｂ', 'c': 'ｃ', 'd': 'ｄ', 'e': 'ｅ', 'f': 'ｆ', 'g': 'ｇ', 'h': 'ｈ', 'i': 'ｉ', 'j': 'ｊ',
+    'k': 'ｋ', 'l': 'ｌ', 'm': 'ｍ', 'n': 'ｎ', 'o': 'ｏ', 'p': 'ｐ', 'q': 'ｑ', 'r': 'ｒ', 's': 'ｓ', 't': 'ｔ',
+    'u': 'ｕ', 'v': 'ｖ', 'w': 'ｗ', 'x': 'ｘ', 'y': 'ｙ', 'z': 'ｚ',
+    '0': '０', '1': '１', '2': '２', '3': '３', '4': '４', '5': '５', '6': '６', '7': '７', '8': '８', '9': '９',
+    ' ': '　'
+};
+
+const circledMap = {
+    'A': 'Ⓐ', 'B': 'Ⓑ', 'C': 'Ⓒ', 'D': 'Ⓓ', 'E': 'Ⓔ', 'F': 'Ⓕ', 'G': 'Ⓖ', 'H': 'Ⓗ', 'I': 'Ⓘ', 'J': 'Ⓙ',
+    'K': 'Ⓚ', 'L': 'Ⓛ', 'M': 'Ⓜ', 'N': 'Ⓝ', 'O': 'Ⓞ', 'P': 'Ⓟ', 'Q': 'Ⓠ', 'R': 'Ⓡ', 'S': 'Ⓢ', 'T': 'Ⓣ',
+    'U': 'Ⓤ', 'V': 'Ⓥ', 'W': 'Ⓦ', 'X': 'Ⓧ', 'Y': 'Ⓨ', 'Z': 'Ⓩ',
+    'a': 'ⓐ', 'b': 'ⓑ', 'c': 'ⓒ', 'd': 'ⓓ', 'e': 'ⓔ', 'f': 'ⓕ', 'g': 'ⓖ', 'h': 'ⓗ', 'i': 'ⓘ', 'j': 'ⓙ',
+    'k': 'ⓚ', 'l': 'ⓛ', 'm': 'ⓜ', 'n': 'ⓝ', 'o': 'ⓞ', 'p': 'ⓟ', 'q': 'ⓠ', 'r': 'ⓡ', 's': 'ⓢ', 't': 'ⓣ',
+    'u': 'ⓤ', 'v': 'ⓥ', 'w': 'ⓦ', 'x': 'ⓧ', 'y': 'ⓨ', 'z': 'ⓩ',
+    '0': '⓪', '1': '①', '2': '②', '3': '③', '4': '④', '5': '⑤', '6': '⑥', '7': '⑦', '8': '⑧', '9': '⑨'
+};
+
+const squaredMap = {
+    'A': '🄰', 'B': '🄱', 'C': '🄲', 'D': '🄳', 'E': '🄴', 'F': '🄵', 'G': '🄶', 'H': '🄷', 'I': '🄸', 'J': '🄹',
+    'K': '🄺', 'L': '🄻', 'M': '🄼', 'N': '🄽', 'O': '🄾', 'P': '🄿', 'Q': '🅀', 'R': '🅁', 'S': '🅂', 'T': '🅃',
+    'U': '🅄', 'V': '🅅', 'W': '🅆', 'X': '🅇', 'Y': '🅈', 'Z': '🅉',
+    'a': '🄰', 'b': '🄱', 'c': '🄲', 'd': '🄳', 'e': '🄴', 'f': '🄵', 'g': '🄶', 'h': '🄷', 'i': '🄸', 'j': '🄹',
+    'k': '🄺', 'l': '🄻', 'm': '🄼', 'n': '🄽', 'o': '🄾', 'p': '🄿', 'q': '🅀', 'r': '🅁', 's': '🅂', 't': '🅃',
+    'u': '🅄', 'v': '🅅', 'w': '🅆', 'x': '🅇', 'y': '🅈', 'z': '🅉'
+};
+
+const negativeCircledMap = {
+    'A': '🅐', 'B': '🅑', 'C': '🅒', 'D': '🅓', 'E': '🅔', 'F': '🅕', 'G': '🅖', 'H': '🅗', 'I': '🅘', 'J': '🅙',
+    'K': '🅚', 'L': '🅛', 'M': '🅜', 'N': '🅝', 'O': '🅞', 'P': '🅟', 'Q': '🅠', 'R': '🅡', 'S': '🅢', 'T': '🅣',
+    'U': '🅤', 'V': '🅥', 'W': '🅦', 'X': '🅧', 'Y': '🅨', 'Z': '🅩',
+    'a': '🅐', 'b': '🅑', 'c': '🅒', 'd': '🅓', 'e': '🅔', 'f': '🅕', 'g': '🅖', 'h': '🅗', 'i': '🅘', 'j': '🅙',
+    'k': '🅚', 'l': '🅛', 'm': '🅜', 'n': '🅝', 'o': '🅞', 'p': '🅟', 'q': '🅠', 'r': '🅡', 's': '🅢', 't': '🅣',
+    'u': '🅤', 'v': '🅥', 'w': '🅦', 'x': '🅧', 'y': '🅨', 'z': '🅩'
+};
+
+const bubbleMap = {
+    'A': 'Ⓐ', 'B': 'Ⓑ', 'C': 'Ⓒ', 'D': 'Ⓓ', 'E': 'Ⓔ', 'F': 'Ⓕ', 'G': 'Ⓖ', 'H': 'Ⓗ', 'I': 'Ⓘ', 'J': 'Ⓙ',
+    'K': 'Ⓚ', 'L': 'Ⓛ', 'M': 'Ⓜ', 'N': 'Ⓝ', 'O': 'Ⓞ', 'P': 'Ⓟ', 'Q': 'Ⓠ', 'R': 'Ⓡ', 'S': 'Ⓢ', 'T': 'Ⓣ',
+    'U': 'Ⓤ', 'V': 'Ⓥ', 'W': 'Ⓦ', 'X': 'Ⓧ', 'Y': 'Ⓨ', 'Z': 'Ⓩ',
+    'a': 'ⓐ', 'b': 'ⓑ', 'c': 'ⓒ', 'd': 'ⓓ', 'e': 'ⓔ', 'f': 'ⓕ', 'g': 'ⓖ', 'h': 'ⓗ', 'i': 'ⓘ', 'j': 'ⓙ',
+    'k': 'ⓚ', 'l': 'ⓛ', 'm': 'ⓜ', 'n': 'ⓝ', 'o': 'ⓞ', 'p': 'ⓟ', 'q': 'ⓠ', 'r': 'ⓡ', 's': 'ⓢ', 't': 'ⓣ',
+    'u': 'ⓤ', 'v': 'ⓥ', 'w': 'ⓦ', 'x': 'ⓧ', 'y': 'ⓨ', 'z': 'ⓩ'
+};
+
+const invertedMap = {
+    'A': '🅰', 'B': '🅱', 'C': '🅲', 'D': '🅳', 'E': '🅴', 'F': '🅵', 'G': '🅶', 'H': '🅷', 'I': '🅸', 'J': '🅹',
+    'K': '🅺', 'L': '🅻', 'M': '🅼', 'N': '🅽', 'O': '🅾', 'P': '🅿', 'Q': '🆀', 'R': '🆁', 'S': '🆂', 'T': '🆃',
+    'U': '🆄', 'V': '🆅', 'W': '🆆', 'X': '🆇', 'Y': '🆈', 'Z': '🆉',
+    'a': '🅰', 'b': '🅱', 'c': '🅲', 'd': '🅳', 'e': '🅴', 'f': '🅵', 'g': '🅶', 'h': '🅷', 'i': '🅸', 'j': '🅹',
+    'k': '🅺', 'l': '🅻', 'm': '🅼', 'n': '🅽', 'o': '🅾', 'p': '🅿', 'q': '🆀', 'r': '🆁', 's': '🆂', 't': '🆃',
+    'u': '🆄', 'v': '🆅', 'w': '🆆', 'x': '🆇', 'y': '🆈', 'z': '🆉'
+};
+
+function generateCoolText() {
+    const input = document.getElementById('coolInput').value;
+    const output = document.getElementById('coolOutput');
+    
+    if (!input.trim()) {
+        output.textContent = 'Your cool text will appear here...';
+        return;
+    }
+    
+    let result = '';
+    
+    switch(currentStyle) {
+        case 'fullwidth':
+            result = convertToFullwidth(input);
+            break;
+        case 'circled':
+            result = convertToCircled(input);
+            break;
+        case 'squared':
+            result = convertToSquared(input);
+            break;
+        case 'negative-circled':
+            result = convertToNegativeCircled(input);
+            break;
+        case 'bubble':
+            result = convertToBubble(input);
+            break;
+        case 'inverted':
+            result = convertToInverted(input);
+            break;
+    }
+    
+    output.textContent = result;
+}
+
+function convertToFullwidth(text) {
+    return text.split('').map(char => fullwidthMap[char] || char).join('');
+}
+
+function convertToCircled(text) {
+    return text.split('').map(char => circledMap[char] || char).join('');
+}
+
+function convertToSquared(text) {
+    return text.split('').map(char => squaredMap[char] || char).join('');
+}
+
+function convertToNegativeCircled(text) {
+    return text.split('').map(char => negativeCircledMap[char] || char).join('');
+}
+
+function convertToBubble(text) {
+    return text.split('').map(char => bubbleMap[char] || char).join('');
+}
+
+function convertToInverted(text) {
+    return text.split('').map(char => invertedMap[char] || char).join('');
+}
+
+function copyToClipboard() {
+    const output = document.getElementById('coolOutput');
+    const text = output.textContent;
+    
+    if (text && text !== 'Your cool text will appear here...') {
+        navigator.clipboard.writeText(text).then(() => {
+            showToast('Copied to clipboard!');
+        });
+    }
+}
+
+function clearText() {
+    document.getElementById('coolInput').value = '';
+    document.getElementById('coolOutput').textContent = 'Your cool text will appear here...';
+}
+
+function loadExample() {
+    const examples = [
+        'Cool Stylish Text',
+        'Amazing Design',
+        'Social Media Ready',
+        'Eye Catching Style',
+        'Decorative Letters'
+    ];
+    
+    const randomExample = examples[Math.floor(Math.random() * examples.length)];
+    document.getElementById('coolInput').value = randomExample;
+    generateCoolText();
+}
+
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast show';
+    toast.textContent = message;
+    toast.style.background = 'var(--cool-primary)';
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
+
+// Style selector functionality
+document.querySelectorAll('.style-card').forEach(card => {
+    card.addEventListener('click', () => {
+        document.querySelectorAll('.style-card').forEach(el => el.classList.remove('active'));
+        card.classList.add('active');
+        currentStyle = card.dataset.style;
+        generateCoolText();
+    });
+});
+
+// Initial generation
+generateCoolText();
+</script>
+{% endblock %} 

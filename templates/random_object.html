@@ -1,0 +1,544 @@
+{% extends 'base.html' %}
+
+{% block title %}Random Object Generator - Creative Inspiration & Word Generator{% endblock %}
+
+{% block head %}
+<meta name="description" content="Generate random objects, words, and creative combinations for inspiration. Perfect for writing prompts, brainstorming, and creative projects.">
+<meta name="keywords" content="random object generator, word generator, creative inspiration, random words, brainstorming tool, writing prompts">
+{% endblock %}
+
+{% block extra_css %}
+<style>
+:root {
+    --random-primary: #3498db;
+    --random-secondary: #9b59b6;
+    --random-accent: #e67e22;
+    --random-light: #f8f9fa;
+    --random-dark: #2c3e50;
+    --random-success: #27ae60;
+}
+
+.random-container {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.random-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: white;
+}
+
+.random-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, #3498db, #9b59b6, #e67e22);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 2px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.random-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+}
+
+.random-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.random-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.control-section {
+    background: white;
+    border-radius: 10px;
+    padding: 1rem;
+    border: 2px solid var(--random-light);
+    text-align: center;
+}
+
+.control-section h3 {
+    color: var(--random-primary);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.category-selector {
+    width: 100%;
+    padding: 0.5rem;
+    border: 2px solid var(--random-light);
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.generate-btn {
+    background: var(--random-primary);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.generate-btn:hover {
+    background: var(--random-secondary);
+    transform: translateY(-2px);
+}
+
+.results-display {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 2px solid var(--random-light);
+}
+
+.result-item {
+    background: var(--random-light);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.result-item:hover {
+    border-color: var(--random-primary);
+    transform: translateY(-2px);
+}
+
+.result-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--random-dark);
+    margin-bottom: 0.5rem;
+}
+
+.result-category {
+    font-size: 0.9rem;
+    color: var(--random-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.combination-display {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.history-section {
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    border: 2px solid var(--random-light);
+}
+
+.history-section h3 {
+    color: var(--random-primary);
+    margin-bottom: 1rem;
+}
+
+.history-item {
+    background: var(--random-light);
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--random-dark);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.history-item:hover {
+    background: var(--random-primary);
+    color: white;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.action-btn {
+    background: var(--random-accent);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.action-btn:hover {
+    background: var(--random-success);
+    transform: translateY(-1px);
+}
+
+.info-section {
+    background: rgba(52, 152, 219, 0.05);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    border-left: 4px solid var(--random-primary);
+}
+
+.info-section h3 {
+    color: var(--random-primary);
+    margin-bottom: 1rem;
+}
+
+.info-section ul {
+    color: var(--random-dark);
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .random-controls {
+        grid-template-columns: 1fr;
+    }
+    
+    .combination-display {
+        grid-template-columns: 1fr;
+    }
+    
+    .random-title {
+        font-size: 2rem;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="random-container">
+    <div class="random-header">
+        <h1 class="random-title">Random Object Generator</h1>
+        <p class="random-subtitle">Generate random words and objects for creative inspiration</p>
+    </div>
+
+    <div class="random-main">
+        <div class="random-controls">
+            <div class="control-section">
+                <h3>Category</h3>
+                <select id="categorySelect" class="category-selector">
+                    <option value="objects">Objects</option>
+                    <option value="animals">Animals</option>
+                    <option value="colors">Colors</option>
+                    <option value="adjectives">Adjectives</option>
+                    <option value="places">Places</option>
+                    <option value="emotions">Emotions</option>
+                    <option value="actions">Actions</option>
+                    <option value="foods">Foods</option>
+                </select>
+                <button class="generate-btn" onclick="generateSingle()">Generate Single</button>
+            </div>
+            
+            <div class="control-section">
+                <h3>Combinations</h3>
+                <select id="comboType" class="category-selector">
+                    <option value="adjective-object">Adjective + Object</option>
+                    <option value="color-animal">Color + Animal</option>
+                    <option value="action-place">Action + Place</option>
+                    <option value="emotion-color">Emotion + Color</option>
+                    <option value="random-three">Random Three</option>
+                </select>
+                <button class="generate-btn" onclick="generateCombination()">Generate Combo</button>
+            </div>
+            
+            <div class="control-section">
+                <h3>Bulk Generate</h3>
+                <select id="bulkCount" class="category-selector">
+                    <option value="5">5 Items</option>
+                    <option value="10">10 Items</option>
+                    <option value="15">15 Items</option>
+                    <option value="20">20 Items</option>
+                </select>
+                <button class="generate-btn" onclick="generateBulk()">Generate Bulk</button>
+            </div>
+        </div>
+
+        <div class="results-display" id="resultsDisplay">
+            <div class="result-item">
+                <div class="result-text">Click a button to generate random objects!</div>
+                <div class="result-category">Ready to inspire</div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="action-btn" onclick="copyAllResults()">Copy All</button>
+            <button class="action-btn" onclick="clearResults()">Clear Results</button>
+            <button class="action-btn" onclick="saveToHistory()">Save to History</button>
+        </div>
+
+        <div class="history-section">
+            <h3>Recent Generations</h3>
+            <div id="historyDisplay">
+                <div class="history-item">No history yet - start generating!</div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h3>About Random Object Generator</h3>
+            <p>Random object generation sparks creativity and helps overcome creative blocks. Perfect for:</p>
+            <ul>
+                <li><strong>Writing Prompts:</strong> Story ideas, character development, and plot inspiration</li>
+                <li><strong>Art Projects:</strong> Drawing challenges, composition ideas, and artistic inspiration</li>
+                <li><strong>Brainstorming:</strong> Product development, marketing concepts, and creative solutions</li>
+                <li><strong>Game Development:</strong> Item generation, world building, and quest ideas</li>
+                <li><strong>Education:</strong> Vocabulary building, creative exercises, and learning activities</li>
+                <li><strong>Design:</strong> Color combinations, theme inspiration, and creative direction</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+// Word databases for random generation
+const wordDatabase = {
+    objects: ['telescope', 'umbrella', 'keyboard', 'lantern', 'compass', 'magnifying glass', 'typewriter', 'hourglass', 'telescope', 'gramophone', 'pocket watch', 'leather journal', 'brass key', 'marble', 'feather', 'seashell', 'crystal', 'candle', 'mirror', 'music box', 'vintage camera', 'antique map', 'silk scarf', 'wooden box', 'golden coin'],
+    
+    animals: ['elephant', 'butterfly', 'octopus', 'penguin', 'chameleon', 'hummingbird', 'dragonfly', 'seahorse', 'peacock', 'snow leopard', 'red panda', 'fennec fox', 'axolotl', 'quetzal', 'flamingo', 'sloth', 'pangolin', 'narwhal', 'mantis shrimp', 'sugar glider', 'platypus', 'kiwi bird', 'capybara', 'okapi', 'binturong'],
+    
+    colors: ['crimson', 'azure', 'emerald', 'amber', 'violet', 'turquoise', 'coral', 'indigo', 'magenta', 'chartreuse', 'burgundy', 'teal', 'lavender', 'scarlet', 'periwinkle', 'sage', 'rose gold', 'midnight blue', 'forest green', 'sunset orange', 'pearl white', 'charcoal gray', 'copper', 'silver', 'gold'],
+    
+    adjectives: ['mysterious', 'whimsical', 'ancient', 'luminous', 'ethereal', 'enigmatic', 'serene', 'vibrant', 'elegant', 'rustic', 'delicate', 'bold', 'graceful', 'majestic', 'peculiar', 'charming', 'exotic', 'pristine', 'weathered', 'gleaming', 'translucent', 'velvety', 'crystalline', 'iridescent', 'gossamer'],
+    
+    places: ['enchanted forest', 'hidden valley', 'crystal cave', 'floating island', 'ancient library', 'moonlit garden', 'secret laboratory', 'abandoned lighthouse', 'mystical lake', 'clockwork tower', 'underground city', 'sky palace', 'coral reef', 'desert oasis', 'mountain peak', 'hidden temple', 'starlit meadow', 'foggy harbor', 'volcanic crater', 'bamboo grove', 'ice castle', 'forgotten ruins', 'rainbow bridge', 'whirlpool', 'time portal'],
+    
+    emotions: ['wonder', 'serenity', 'exhilaration', 'melancholy', 'curiosity', 'nostalgia', 'euphoria', 'tranquility', 'fascination', 'contentment', 'awe', 'excitement', 'peacefulness', 'inspiration', 'joy', 'contemplation', 'amazement', 'bliss', 'yearning', 'delight', 'admiration', 'enchantment', 'gratitude', 'reverence', 'harmony'],
+    
+    actions: ['floating', 'glowing', 'dancing', 'singing', 'whispering', 'sparkling', 'flowing', 'blooming', 'shimmering', 'soaring', 'drifting', 'twinkling', 'rippling', 'swaying', 'cascading', 'spiraling', 'hovering', 'pulsing', 'weaving', 'gliding', 'radiating', 'echoing', 'transforming', 'emerging', 'dissolving'],
+    
+    foods: ['dragon fruit', 'truffle', 'saffron', 'matcha', 'pomegranate', 'starfruit', 'lavender honey', 'black pearl caviar', 'golden kiwi', 'purple cauliflower', 'rainbow carrots', 'cloud bread', 'butterfly pea tea', 'unicorn cake', 'crystallized ginger', 'rose petals', 'edible flowers', 'sea grapes', 'finger limes', 'cotton candy grapes', 'purple sweet potato', 'golden beets', 'romanesco broccoli', 'candy cap mushrooms', 'yuzu fruit']
+};
+
+let currentResults = [];
+let generationHistory = [];
+
+function getRandomItem(category) {
+    const items = wordDatabase[category];
+    return items[Math.floor(Math.random() * items.length)];
+}
+
+function generateSingle() {
+    const category = document.getElementById('categorySelect').value;
+    const item = getRandomItem(category);
+    
+    currentResults = [{
+        text: item,
+        category: category
+    }];
+    
+    displayResults();
+}
+
+function generateCombination() {
+    const comboType = document.getElementById('comboType').value;
+    let combination = {};
+    
+    switch(comboType) {
+        case 'adjective-object':
+            combination = {
+                text: `${getRandomItem('adjectives')} ${getRandomItem('objects')}`,
+                category: 'Adjective + Object'
+            };
+            break;
+        case 'color-animal':
+            combination = {
+                text: `${getRandomItem('colors')} ${getRandomItem('animals')}`,
+                category: 'Color + Animal'
+            };
+            break;
+        case 'action-place':
+            combination = {
+                text: `${getRandomItem('actions')} in ${getRandomItem('places')}`,
+                category: 'Action + Place'
+            };
+            break;
+        case 'emotion-color':
+            combination = {
+                text: `${getRandomItem('emotions')} ${getRandomItem('colors')}`,
+                category: 'Emotion + Color'
+            };
+            break;
+        case 'random-three':
+            combination = {
+                text: `${getRandomItem('adjectives')} ${getRandomItem('objects')} ${getRandomItem('actions')}`,
+                category: 'Random Three'
+            };
+            break;
+    }
+    
+    currentResults = [combination];
+    displayResults();
+}
+
+function generateBulk() {
+    const count = parseInt(document.getElementById('bulkCount').value);
+    const categories = Object.keys(wordDatabase);
+    
+    currentResults = [];
+    for (let i = 0; i < count; i++) {
+        const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+        currentResults.push({
+            text: getRandomItem(randomCategory),
+            category: randomCategory
+        });
+    }
+    
+    displayResults();
+}
+
+function displayResults() {
+    const resultsDisplay = document.getElementById('resultsDisplay');
+    resultsDisplay.innerHTML = '';
+    
+    if (currentResults.length === 1) {
+        // Single result - larger display
+        const resultDiv = document.createElement('div');
+        resultDiv.className = 'result-item';
+        resultDiv.onclick = () => copyToClipboard(currentResults[0].text);
+        resultDiv.innerHTML = `
+            <div class="result-text">${currentResults[0].text}</div>
+            <div class="result-category">${currentResults[0].category}</div>
+        `;
+        resultsDisplay.appendChild(resultDiv);
+    } else {
+        // Multiple results - grid display
+        const combinationDisplay = document.createElement('div');
+        combinationDisplay.className = 'combination-display';
+        
+        currentResults.forEach(result => {
+            const resultDiv = document.createElement('div');
+            resultDiv.className = 'result-item';
+            resultDiv.onclick = () => copyToClipboard(result.text);
+            resultDiv.innerHTML = `
+                <div class="result-text">${result.text}</div>
+                <div class="result-category">${result.category}</div>
+            `;
+            combinationDisplay.appendChild(resultDiv);
+        });
+        
+        resultsDisplay.appendChild(combinationDisplay);
+    }
+}
+
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        showToast(`Copied "${text}" to clipboard!`);
+    });
+}
+
+function copyAllResults() {
+    if (currentResults.length === 0) return;
+    
+    const allText = currentResults.map(result => result.text).join(', ');
+    navigator.clipboard.writeText(allText).then(() => {
+        showToast('Copied all results to clipboard!');
+    });
+}
+
+function clearResults() {
+    currentResults = [];
+    document.getElementById('resultsDisplay').innerHTML = `
+        <div class="result-item">
+            <div class="result-text">Click a button to generate random objects!</div>
+            <div class="result-category">Ready to inspire</div>
+        </div>
+    `;
+}
+
+function saveToHistory() {
+    if (currentResults.length === 0) return;
+    
+    const timestamp = new Date().toLocaleTimeString();
+    const historyEntry = {
+        timestamp: timestamp,
+        results: [...currentResults]
+    };
+    
+    generationHistory.unshift(historyEntry);
+    if (generationHistory.length > 10) {
+        generationHistory.pop();
+    }
+    
+    updateHistoryDisplay();
+    showToast('Results saved to history!');
+}
+
+function updateHistoryDisplay() {
+    const historyDisplay = document.getElementById('historyDisplay');
+    historyDisplay.innerHTML = '';
+    
+    if (generationHistory.length === 0) {
+        historyDisplay.innerHTML = '<div class="history-item">No history yet - start generating!</div>';
+        return;
+    }
+    
+    generationHistory.forEach(entry => {
+        const historyItem = document.createElement('div');
+        historyItem.className = 'history-item';
+        const resultText = entry.results.map(r => r.text).join(', ');
+        historyItem.textContent = `${entry.timestamp}: ${resultText}`;
+        historyItem.onclick = () => copyToClipboard(resultText);
+        historyDisplay.appendChild(historyItem);
+    });
+}
+
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast show';
+    toast.textContent = message;
+    toast.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--random-success);
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 10px;
+        z-index: 1000;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        max-width: 300px;
+    `;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
+
+// Initialize with a random object
+window.addEventListener('load', () => {
+    generateSingle();
+});
+</script>
+{% endblock %} 

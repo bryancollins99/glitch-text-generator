@@ -1,0 +1,442 @@
+{% extends 'base.html' %}
+
+{% block title %}Italics Text Generator - Convert Text to Italic Font Style{% endblock %}
+
+{% block head %}
+<meta name="description" content="Convert your text to elegant italic and slanted font styles with our free italics text generator. Perfect for emphasis, quotes, and stylish typography.">
+<meta name="keywords" content="italic text generator, slanted text, italic font converter, italic letters, emphasized text">
+{% endblock %}
+
+{% block extra_css %}
+<style>
+:root {
+    --italics-primary: #2e86ab;
+    --italics-secondary: #a23b72;
+    --italics-accent: #f18f01;
+    --italics-light: #f8f9fa;
+    --italics-dark: #2c3e50;
+}
+
+.italics-container {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.italics-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: white;
+}
+
+.italics-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    font-style: italic;
+    letter-spacing: 2px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.italics-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+    font-style: italic;
+}
+
+.italics-main {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.italics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.italics-section {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 2px solid var(--italics-light);
+    transition: all 0.3s ease;
+}
+
+.italics-section:hover {
+    border-color: var(--italics-primary);
+    box-shadow: 0 5px 15px rgba(46, 134, 171, 0.1);
+}
+
+.italics-section h3 {
+    color: var(--italics-primary);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    font-style: italic;
+}
+
+.italics-textarea {
+    width: 100%;
+    height: 250px;
+    border: 2px solid var(--italics-light);
+    border-radius: 10px;
+    padding: 1rem;
+    font-family: 'Georgia', serif;
+    font-size: 1.1rem;
+    color: var(--italics-dark);
+    resize: vertical;
+    transition: border-color 0.3s ease;
+}
+
+.italics-textarea:focus {
+    outline: none;
+    border-color: var(--italics-primary);
+    box-shadow: 0 0 0 3px rgba(46, 134, 171, 0.1);
+}
+
+.italics-output {
+    background: #f8f9fa;
+    border: 2px solid var(--italics-light);
+    border-radius: 10px;
+    padding: 1rem;
+    min-height: 250px;
+    font-family: 'Times New Roman', serif;
+    font-size: 1.3rem;
+    color: var(--italics-dark);
+    line-height: 1.6;
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+
+.italics-styles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.style-card {
+    background: white;
+    border: 2px solid var(--italics-light);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.style-card:hover, .style-card.active {
+    border-color: var(--italics-primary);
+    background: #f8f9fa;
+    transform: translateY(-2px);
+}
+
+.style-card.active {
+    border-color: var(--italics-accent);
+    background: rgba(241, 143, 1, 0.05);
+}
+
+.style-example {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    color: var(--italics-primary);
+    font-weight: bold;
+    font-family: 'Times New Roman', serif;
+}
+
+.style-name {
+    font-size: 0.9rem;
+    color: var(--italics-dark);
+    opacity: 0.8;
+    font-style: italic;
+}
+
+.italics-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.italics-btn {
+    background: var(--italics-primary);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(46, 134, 171, 0.3);
+}
+
+.italics-btn:hover {
+    background: var(--italics-secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(162, 59, 114, 0.4);
+}
+
+.italics-btn.secondary {
+    background: var(--italics-dark);
+}
+
+.italics-btn.secondary:hover {
+    background: var(--italics-accent);
+}
+
+.info-section {
+    background: rgba(46, 134, 171, 0.05);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    border-left: 4px solid var(--italics-primary);
+}
+
+.info-section h3 {
+    color: var(--italics-primary);
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+.info-section ul {
+    color: var(--italics-dark);
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .italics-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .italics-title {
+        font-size: 2rem;
+    }
+    
+    .italics-styles {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="italics-container">
+    <div class="italics-header">
+        <h1 class="italics-title">Italics Text Generator</h1>
+        <p class="italics-subtitle">Transform your text into elegant italic and slanted styles</p>
+    </div>
+
+    <div class="italics-main">
+        <div class="italics-styles">
+            <div class="style-card active" data-style="italic">
+                <div class="style-example">𝐼𝑡𝑎𝑙𝑖𝑐 𝑇𝑒𝑥𝑡</div>
+                <div class="style-name">Mathematical Italic</div>
+            </div>
+            <div class="style-card" data-style="bold-italic">
+                <div class="style-example">𝑩𝒐𝒍𝒅 𝑰𝒕𝒂𝒍𝒊𝒄</div>
+                <div class="style-name">Bold Italic</div>
+            </div>
+            <div class="style-card" data-style="sans-italic">
+                <div class="style-example">𝘚𝘢𝘯𝘴 𝘐𝘵𝘢𝘭𝘪𝘤</div>
+                <div class="style-name">Sans-Serif Italic</div>
+            </div>
+            <div class="style-card" data-style="bold-sans-italic">
+                <div class="style-example">𝙎𝙖𝙣𝙨 𝘽𝙤𝙡𝙙 𝙄𝙩𝙖𝙡𝙞𝙘</div>
+                <div class="style-name">Bold Sans Italic</div>
+            </div>
+        </div>
+
+        <div class="italics-grid">
+            <div class="italics-section">
+                <h3>Enter Your Text</h3>
+                <textarea 
+                    class="italics-textarea" 
+                    id="italicsInput" 
+                    placeholder="Type your text here to convert it to italic style..."
+                    oninput="generateItalics()"
+                >Sample Text</textarea>
+            </div>
+
+            <div class="italics-section">
+                <h3>Italic Result</h3>
+                <div class="italics-output" id="italicsOutput">
+                    𝐼𝑡𝑎𝑙𝑖𝑐 𝑇𝑒𝑥𝑡
+                </div>
+            </div>
+        </div>
+
+        <div class="italics-controls">
+            <button class="italics-btn" onclick="copyToClipboard()">
+                <i class="fas fa-copy"></i> Copy Text
+            </button>
+            <button class="italics-btn secondary" onclick="clearText()">
+                <i class="fas fa-trash"></i> Clear
+            </button>
+            <button class="italics-btn secondary" onclick="loadExample()">
+                <i class="fas fa-lightbulb"></i> Example
+            </button>
+        </div>
+
+        <div class="info-section">
+            <h3>About Italic Text</h3>
+            <p>Italic text creates emphasis and elegance through slanted letterforms. Commonly used for:</p>
+            <ul>
+                <li><strong>Emphasis:</strong> Highlighting important words and phrases</li>
+                <li><strong>Quotes:</strong> Book titles, foreign words, and citations</li>
+                <li><strong>Typography:</strong> Creating visual hierarchy and flow</li>
+                <li><strong>Design:</strong> Headers, captions, and stylistic elements</li>
+                <li><strong>Social Media:</strong> Stylish posts and attention-grabbing text</li>
+                <li><strong>Academic:</strong> Scientific names and technical terms</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentStyle = 'italic';
+
+// Character mappings for italic styles
+const italicMap = {
+    'A': '𝐴', 'B': '𝐵', 'C': '𝐶', 'D': '𝐷', 'E': '𝐸', 'F': '𝐹', 'G': '𝐺', 'H': '𝐻', 'I': '𝐼', 'J': '𝐽',
+    'K': '𝐾', 'L': '𝐿', 'M': '𝑀', 'N': '𝑁', 'O': '𝑂', 'P': '𝑃', 'Q': '𝑄', 'R': '𝑅', 'S': '𝑆', 'T': '𝑇',
+    'U': '𝑈', 'V': '𝑉', 'W': '𝑊', 'X': '𝑋', 'Y': '𝑌', 'Z': '𝑍',
+    'a': '𝑎', 'b': '𝑏', 'c': '𝑐', 'd': '𝑑', 'e': '𝑒', 'f': '𝑓', 'g': '𝑔', 'h': '𝒽', 'i': '𝑖', 'j': '𝑗',
+    'k': '𝑘', 'l': '𝑙', 'm': '𝑚', 'n': '𝑛', 'o': '𝑜', 'p': '𝑝', 'q': '𝑞', 'r': '𝑟', 's': '𝑠', 't': '𝑡',
+    'u': '𝑢', 'v': '𝑣', 'w': '𝑤', 'x': '𝑥', 'y': '𝑦', 'z': '𝑧'
+};
+
+const boldItalicMap = {
+    'A': '𝑨', 'B': '𝑩', 'C': '𝑪', 'D': '𝑫', 'E': '𝑬', 'F': '𝑭', 'G': '𝑮', 'H': '𝑯', 'I': '𝑰', 'J': '𝑱',
+    'K': '𝑲', 'L': '𝑳', 'M': '𝑴', 'N': '𝑵', 'O': '𝑶', 'P': '𝑷', 'Q': '𝑸', 'R': '𝑹', 'S': '𝑺', 'T': '𝑻',
+    'U': '𝑼', 'V': '𝑽', 'W': '𝑾', 'X': '𝑿', 'Y': '𝒀', 'Z': '𝒁',
+    'a': '𝒂', 'b': '𝒃', 'c': '𝒄', 'd': '𝒅', 'e': '𝒆', 'f': '𝒇', 'g': '𝒈', 'h': '𝒉', 'i': '𝒊', 'j': '𝒋',
+    'k': '𝒌', 'l': '𝒍', 'm': '𝒎', 'n': '𝒏', 'o': '𝒐', 'p': '𝒑', 'q': '𝒒', 'r': '𝒓', 's': '𝒔', 't': '𝒕',
+    'u': '𝒖', 'v': '𝒗', 'w': '𝒘', 'x': '𝒙', 'y': '𝒚', 'z': '𝒛'
+};
+
+const sansItalicMap = {
+    'A': '𝘈', 'B': '𝘉', 'C': '𝘊', 'D': '𝘋', 'E': '𝘌', 'F': '𝘍', 'G': '𝘎', 'H': '𝘏', 'I': '𝘐', 'J': '𝘑',
+    'K': '𝘒', 'L': '𝘓', 'M': '𝘔', 'N': '𝘕', 'O': '𝘖', 'P': '𝘗', 'Q': '𝘘', 'R': '𝘙', 'S': '𝘚', 'T': '𝘛',
+    'U': '𝘜', 'V': '𝘝', 'W': '𝘞', 'X': '𝘟', 'Y': '𝘠', 'Z': '𝘡',
+    'a': '𝘢', 'b': '𝘣', 'c': '𝘤', 'd': '𝘥', 'e': '𝘦', 'f': '𝘧', 'g': '𝘨', 'h': '𝘩', 'i': '𝘪', 'j': '𝘫',
+    'k': '𝘬', 'l': '𝘭', 'm': '𝘮', 'n': '𝘯', 'o': '𝘰', 'p': '𝘱', 'q': '𝘲', 'r': '𝘳', 's': '𝘴', 't': '𝘵',
+    'u': '𝘶', 'v': '𝘷', 'w': '𝘸', 'x': '𝘹', 'y': '𝘺', 'z': '𝘻'
+};
+
+const boldSansItalicMap = {
+    'A': '𝘼', 'B': '𝘽', 'C': '𝘾', 'D': '𝘿', 'E': '𝙀', 'F': '𝙁', 'G': '𝙂', 'H': '𝙃', 'I': '𝙄', 'J': '𝙅',
+    'K': '𝙆', 'L': '𝙇', 'M': '𝙈', 'N': '𝙉', 'O': '𝙊', 'P': '𝙋', 'Q': '𝙌', 'R': '𝙍', 'S': '𝙎', 'T': '𝙏',
+    'U': '𝙐', 'V': '𝙑', 'W': '𝙒', 'X': '𝙓', 'Y': '𝙔', 'Z': '𝙕',
+    'a': '𝙖', 'b': '𝙗', 'c': '𝙘', 'd': '𝙙', 'e': '𝙚', 'f': '𝙛', 'g': '𝙜', 'h': '𝙝', 'i': '𝙞', 'j': '𝙟',
+    'k': '𝙠', 'l': '𝙡', 'm': '𝙢', 'n': '𝙣', 'o': '𝙤', 'p': '𝙥', 'q': '𝙦', 'r': '𝙧', 's': '𝙨', 't': '𝙩',
+    'u': '𝙪', 'v': '𝙫', 'w': '𝙬', 'x': '𝙭', 'y': '𝙮', 'z': '𝙯'
+};
+
+function generateItalics() {
+    const input = document.getElementById('italicsInput').value;
+    const output = document.getElementById('italicsOutput');
+    
+    if (!input.trim()) {
+        output.textContent = 'Your italic text will appear here...';
+        return;
+    }
+    
+    let result = '';
+    
+    switch(currentStyle) {
+        case 'italic':
+            result = convertToItalic(input);
+            break;
+        case 'bold-italic':
+            result = convertToBoldItalic(input);
+            break;
+        case 'sans-italic':
+            result = convertToSansItalic(input);
+            break;
+        case 'bold-sans-italic':
+            result = convertToBoldSansItalic(input);
+            break;
+    }
+    
+    output.textContent = result;
+}
+
+function convertToItalic(text) {
+    return text.split('').map(char => italicMap[char] || char).join('');
+}
+
+function convertToBoldItalic(text) {
+    return text.split('').map(char => boldItalicMap[char] || char).join('');
+}
+
+function convertToSansItalic(text) {
+    return text.split('').map(char => sansItalicMap[char] || char).join('');
+}
+
+function convertToBoldSansItalic(text) {
+    return text.split('').map(char => boldSansItalicMap[char] || char).join('');
+}
+
+function copyToClipboard() {
+    const output = document.getElementById('italicsOutput');
+    const text = output.textContent;
+    
+    if (text && text !== 'Your italic text will appear here...') {
+        navigator.clipboard.writeText(text).then(() => {
+            showToast('Copied to clipboard!');
+        });
+    }
+}
+
+function clearText() {
+    document.getElementById('italicsInput').value = '';
+    document.getElementById('italicsOutput').textContent = 'Your italic text will appear here...';
+}
+
+function loadExample() {
+    const examples = [
+        'Beautiful Italic Text',
+        'Elegant Slanted Style',
+        'Emphasized Typography',
+        'Stylish Font Design',
+        'Modern Italic Letters'
+    ];
+    
+    const randomExample = examples[Math.floor(Math.random() * examples.length)];
+    document.getElementById('italicsInput').value = randomExample;
+    generateItalics();
+}
+
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast show';
+    toast.textContent = message;
+    toast.style.background = 'var(--italics-primary)';
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
+
+// Style selector functionality
+document.querySelectorAll('.style-card').forEach(card => {
+    card.addEventListener('click', () => {
+        document.querySelectorAll('.style-card').forEach(el => el.classList.remove('active'));
+        card.classList.add('active');
+        currentStyle = card.dataset.style;
+        generateItalics();
+    });
+});
+
+// Initial generation
+generateItalics();
+</script>
+{% endblock %} 

@@ -68,7 +68,12 @@
     <nav class="navbar">
         <div class="container nav-container">
             <a href="{{ url_for('home') }}" class="logo">Generate Glitch Text</a>
-            <ul class="nav-links">
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle mobile menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle">Glitch Art Tools</a>
                     <ul class="dropdown-menu">
@@ -84,6 +89,15 @@
                         <li><a href="{{ url_for('reversed_text') }}">Reversed Text</a></li>
                         <li><a href="{{ url_for('mirrored') }}">Mirrored Text</a></li>
                         <li><a href="{{ url_for('animated') }}">Animated Text</a></li>
+                        <li><a href="{{ url_for('cursive') }}">Cursive Text</a></li>
+                        <li><a href="{{ url_for('italics') }}">Italics Text</a></li>
+                        <li><a href="{{ url_for('gothic') }}">Gothic Font</a></li>
+                        <li><a href="{{ url_for('cool_text') }}">Cool Text</a></li>
+                        <li><a href="{{ url_for('freaky') }}">Freaky Font</a></li>
+                        <li><a href="{{ url_for('color_scheme') }}">Color Scheme</a></li>
+                        <li><a href="{{ url_for('graffiti') }}">Graffiti Text</a></li>
+                        <li><a href="{{ url_for('random_object') }}">Random Object</a></li>
+                        <li><a href="{{ url_for('dragon_name') }}">Dragon Name</a></li>
                         <li><a href="{{ url_for('text_to_image') }}">Text to Image</a></li>
                         <li><a href="{{ url_for('social_media_templates') }}">Social Media Templates</a></li>
                     </ul>
@@ -180,6 +194,65 @@
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <script src="{{ url_for('static', filename='js/download.js') }}"></script>
+    
+    <!-- Mobile Navigation Script -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.getElementById('navLinks');
+        const dropdowns = document.querySelectorAll('.dropdown');
+        
+        // Mobile menu toggle
+        mobileMenuToggle.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!mobileMenuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+                mobileMenuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+                // Close all dropdowns
+                dropdowns.forEach(dropdown => {
+                    dropdown.classList.remove('active');
+                });
+            }
+        });
+        
+        // Mobile dropdown functionality
+        if (window.innerWidth <= 968) {
+            dropdowns.forEach(dropdown => {
+                const toggle = dropdown.querySelector('.dropdown-toggle');
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Close other dropdowns
+                    dropdowns.forEach(otherDropdown => {
+                        if (otherDropdown !== dropdown) {
+                            otherDropdown.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current dropdown
+                    dropdown.classList.toggle('active');
+                });
+            });
+        }
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 968) {
+                mobileMenuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+                dropdowns.forEach(dropdown => {
+                    dropdown.classList.remove('active');
+                });
+            }
+        });
+    });
+    </script>
+    
     {% block scripts %}{% endblock %}
 </body>
 </html>

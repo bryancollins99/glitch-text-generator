@@ -61,6 +61,51 @@
         <priority>0.7</priority>
     </url>
     <url>
+        <loc>https://glitchtexteffect.com/cursive</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/italics</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/gothic</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/cool-text</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/freaky</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/color-scheme</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/graffiti</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/random-object</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/dragon-name</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
         <loc>https://glitchtexteffect.com/guides/aesthetic</loc>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>

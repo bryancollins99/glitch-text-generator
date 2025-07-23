@@ -1,0 +1,509 @@
+{% extends 'base.html' %}
+
+{% block title %}Graffiti Text Generator - Create Street Art & Bubble Letter Fonts{% endblock %}
+
+{% block head %}
+<meta name="description" content="Generate graffiti-style text with our free street art font generator. Create bubble letters, wildstyle, throw-up, and tag styles for urban designs.">
+<meta name="keywords" content="graffiti text generator, street art fonts, bubble letters, urban text, wildstyle graffiti, tag fonts">
+{% endblock %}
+
+{% block extra_css %}
+<style>
+:root {
+    --graffiti-primary: #ff6b35;
+    --graffiti-secondary: #2ecc71;
+    --graffiti-accent: #e74c3c;
+    --graffiti-light: #f8f9fa;
+    --graffiti-dark: #2c3e50;
+    --graffiti-purple: #9b59b6;
+    --graffiti-yellow: #f1c40f;
+}
+
+.graffiti-container {
+    background: linear-gradient(135deg, #2c3e50 0%, #4a4a4a 50%, #2c3e50 100%);
+    min-height: 100vh;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.graffiti-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(255, 107, 53, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(155, 89, 182, 0.1) 0%, transparent 40%),
+        repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255, 255, 255, 0.02) 35px, rgba(255, 255, 255, 0.02) 70px);
+    pointer-events: none;
+}
+
+.graffiti-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: white;
+    position: relative;
+    z-index: 1;
+}
+
+.graffiti-title {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    color: var(--graffiti-primary);
+    letter-spacing: 4px;
+    font-weight: 900;
+    text-shadow: 
+        3px 3px 0px var(--graffiti-secondary),
+        6px 6px 0px var(--graffiti-accent),
+        9px 9px 0px rgba(0, 0, 0, 0.3);
+    transform: skew(-5deg, 0deg);
+    font-family: Impact, 'Arial Black', sans-serif;
+}
+
+.graffiti-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+.graffiti-main {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 3px solid var(--graffiti-primary);
+    position: relative;
+    z-index: 1;
+}
+
+.graffiti-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.graffiti-section {
+    background: rgba(44, 62, 80, 0.8);
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 2px solid var(--graffiti-secondary);
+    transition: all 0.3s ease;
+}
+
+.graffiti-section:hover {
+    border-color: var(--graffiti-primary);
+    box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+}
+
+.graffiti-section h3 {
+    color: var(--graffiti-primary);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.graffiti-textarea {
+    width: 100%;
+    height: 250px;
+    border: 2px solid var(--graffiti-secondary);
+    border-radius: 10px;
+    padding: 1rem;
+    font-family: 'Arial Black', Impact, sans-serif;
+    font-size: 1.1rem;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.9);
+    resize: vertical;
+    transition: border-color 0.3s ease;
+}
+
+.graffiti-textarea:focus {
+    outline: none;
+    border-color: var(--graffiti-primary);
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.3);
+}
+
+.graffiti-output {
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid var(--graffiti-secondary);
+    border-radius: 10px;
+    padding: 1rem;
+    min-height: 250px;
+    font-family: Impact, 'Arial Black', sans-serif;
+    font-size: 1.5rem;
+    color: var(--graffiti-primary);
+    line-height: 1.4;
+    word-break: break-word;
+    white-space: pre-wrap;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    font-weight: bold;
+}
+
+.graffiti-styles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.style-card {
+    background: rgba(44, 62, 80, 0.8);
+    border: 2px solid var(--graffiti-secondary);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.style-card:hover, .style-card.active {
+    border-color: var(--graffiti-primary);
+    background: rgba(44, 62, 80, 1);
+    transform: translateY(-2px);
+}
+
+.style-card.active {
+    border-color: var(--graffiti-accent);
+    background: rgba(231, 76, 60, 0.1);
+}
+
+.style-example {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    color: var(--graffiti-primary);
+    font-weight: 900;
+    font-family: Impact, 'Arial Black', sans-serif;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.style-name {
+    font-size: 0.9rem;
+    color: #cccccc;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.graffiti-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.graffiti-btn {
+    background: var(--graffiti-primary);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.graffiti-btn:hover {
+    background: var(--graffiti-secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
+}
+
+.graffiti-btn.secondary {
+    background: var(--graffiti-dark);
+}
+
+.graffiti-btn.secondary:hover {
+    background: var(--graffiti-purple);
+}
+
+.info-section {
+    background: rgba(255, 107, 53, 0.1);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    border-left: 4px solid var(--graffiti-primary);
+}
+
+.info-section h3 {
+    color: var(--graffiti-primary);
+    margin-bottom: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.info-section ul {
+    color: #cccccc;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .graffiti-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .graffiti-title {
+        font-size: 2.5rem;
+    }
+    
+    .graffiti-styles {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="graffiti-container">
+    <div class="graffiti-header">
+        <h1 class="graffiti-title">GRAFFITI GENERATOR</h1>
+        <p class="graffiti-subtitle">Create authentic street art and urban font styles</p>
+    </div>
+
+    <div class="graffiti-main">
+        <div class="graffiti-styles">
+            <div class="style-card active" data-style="bubble">
+                <div class="style-example">BUBBLE</div>
+                <div class="style-name">Bubble Letters</div>
+            </div>
+            <div class="style-card" data-style="wildstyle">
+                <div class="style-example">W͎I͎L͎D͎</div>
+                <div class="style-name">Wildstyle</div>
+            </div>
+            <div class="style-card" data-style="throwup">
+                <div class="style-example">ͲⱧɌØW ɄP</div>
+                <div class="style-name">Throw-Up</div>
+            </div>
+            <div class="style-card" data-style="tag">
+                <div class="style-example">ᵀᴬᴳ</div>
+                <div class="style-name">Tag Style</div>
+            </div>
+        </div>
+
+        <div class="graffiti-grid">
+            <div class="graffiti-section">
+                <h3>Enter Your Text</h3>
+                <textarea 
+                    class="graffiti-textarea" 
+                    id="graffitiInput" 
+                    placeholder="Type your text here to create street art style..."
+                    oninput="generateGraffiti()"
+                >STREET ART</textarea>
+            </div>
+
+            <div class="graffiti-section">
+                <h3>Graffiti Result</h3>
+                <div class="graffiti-output" id="graffitiOutput">
+                    STREET ART
+                </div>
+            </div>
+        </div>
+
+        <div class="graffiti-controls">
+            <button class="graffiti-btn" onclick="copyToClipboard()">
+                <i class="fas fa-copy"></i> Copy Text
+            </button>
+            <button class="graffiti-btn secondary" onclick="clearText()">
+                <i class="fas fa-trash"></i> Clear
+            </button>
+            <button class="graffiti-btn secondary" onclick="loadExample()">
+                <i class="fas fa-lightbulb"></i> Example
+            </button>
+        </div>
+
+        <div class="info-section">
+            <h3>About Graffiti Text</h3>
+            <p>Graffiti and street art styles represent urban culture and creative expression. Perfect for:</p>
+            <ul>
+                <li><strong>Hip-Hop Culture:</strong> Album covers, event posters, and street culture designs</li>
+                <li><strong>Urban Branding:</strong> Streetwear brands, music labels, and youth-oriented businesses</li>
+                <li><strong>Gaming:</strong> Street racing games, urban RPGs, and underground themes</li>
+                <li><strong>Event Design:</strong> Concerts, festivals, and street art exhibitions</li>
+                <li><strong>Social Media:</strong> Eye-catching posts with urban aesthetic</li>
+                <li><strong>Art Projects:</strong> Digital street art and urban design projects</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentStyle = 'bubble';
+
+// Character mappings for graffiti styles
+const bubbleMap = {
+    'A': 'Ⓐ', 'B': 'Ⓑ', 'C': 'Ⓒ', 'D': 'Ⓓ', 'E': 'Ⓔ', 'F': 'Ⓕ', 'G': 'Ⓖ', 'H': 'Ⓗ', 'I': 'Ⓘ', 'J': 'Ⓙ',
+    'K': 'Ⓚ', 'L': 'Ⓛ', 'M': 'Ⓜ', 'N': 'Ⓝ', 'O': 'Ⓞ', 'P': 'Ⓟ', 'Q': 'Ⓠ', 'R': 'Ⓡ', 'S': 'Ⓢ', 'T': 'Ⓣ',
+    'U': 'Ⓤ', 'V': 'Ⓥ', 'W': 'Ⓦ', 'X': 'Ⓧ', 'Y': 'Ⓨ', 'Z': 'Ⓩ',
+    'a': 'ⓐ', 'b': 'ⓑ', 'c': 'ⓒ', 'd': 'ⓓ', 'e': 'ⓔ', 'f': 'ⓕ', 'g': 'ⓖ', 'h': 'ⓗ', 'i': 'ⓘ', 'j': 'ⓙ',
+    'k': 'ⓚ', 'l': 'ⓛ', 'm': 'ⓜ', 'n': 'ⓝ', 'o': 'ⓞ', 'p': 'ⓟ', 'q': 'ⓠ', 'r': 'ⓡ', 's': 'ⓢ', 't': 'ⓣ',
+    'u': 'ⓤ', 'v': 'ⓥ', 'w': 'ⓦ', 'x': 'ⓧ', 'y': 'ⓨ', 'z': 'ⓩ'
+};
+
+const wildstyleMap = {
+    'A': 'Ⱥ', 'B': 'Ɓ', 'C': 'Ȼ', 'D': 'Đ', 'E': 'Ɇ', 'F': 'Ƒ', 'G': 'Ǥ', 'H': 'Ħ', 'I': 'Ɨ', 'J': 'Ɉ',
+    'K': 'Ҟ', 'L': 'Ł', 'M': 'Ɱ', 'N': 'Ň', 'O': 'Ø', 'P': 'Ƥ', 'Q': 'Ɋ', 'R': 'Ɍ', 'S': 'Ş', 'T': 'Ŧ',
+    'U': 'Ʉ', 'V': 'V̲', 'W': 'W̲', 'X': 'Ҳ', 'Y': 'Ɏ', 'Z': 'Ƶ',
+    'a': 'ⱥ', 'b': 'ƀ', 'c': 'ȼ', 'd': 'đ', 'e': 'ɇ', 'f': 'ƒ', 'g': 'ǥ', 'h': 'ħ', 'i': 'ɨ', 'j': 'ɉ',
+    'k': 'ҟ', 'l': 'ł', 'm': 'ɱ', 'n': 'ň', 'o': 'ø', 'p': 'ƥ', 'q': 'ɋ', 'r': 'ɍ', 's': 'ş', 't': 'ŧ',
+    'u': 'ʉ', 'v': 'v̲', 'w': 'w̲', 'x': 'ҳ', 'y': 'ɏ', 'z': 'ƶ'
+};
+
+const throwupMap = {
+    'A': 'Ⱥ', 'B': 'Ɓ', 'C': 'Ȼ', 'D': 'Đ', 'E': 'Ɇ', 'F': 'Ƒ', 'G': 'Ǥ', 'H': 'Ħ', 'I': 'Ɨ', 'J': 'Ɉ',
+    'K': 'Ҟ', 'L': 'Ł', 'M': 'Ɱ', 'N': 'Ň', 'O': 'Ø', 'P': 'Ƥ', 'Q': 'Ɋ', 'R': 'Ɍ', 'S': 'Ş', 'T': 'Ŧ',
+    'U': 'Ʉ', 'V': 'Ṽ', 'W': 'W̃', 'X': 'Ҳ', 'Y': 'Ɏ', 'Z': 'Ƶ',
+    'a': 'ⱥ', 'b': 'ƀ', 'c': 'ȼ', 'd': 'đ', 'e': 'ɇ', 'f': 'ƒ', 'g': 'ǥ', 'h': 'ħ', 'i': 'ɨ', 'j': 'ɉ',
+    'k': 'ҟ', 'l': 'ł', 'm': 'ɱ', 'n': 'ň', 'o': 'ø', 'p': 'ƥ', 'q': 'ɋ', 'r': 'ɍ', 's': 'ş', 't': 'ŧ',
+    'u': 'ʉ', 'v': 'ṽ', 'w': 'w̃', 'x': 'ҳ', 'y': 'ɏ', 'z': 'ƶ'
+};
+
+const tagMap = {
+    'A': 'ᴬ', 'B': 'ᴮ', 'C': 'ᶜ', 'D': 'ᴰ', 'E': 'ᴱ', 'F': 'ᶠ', 'G': 'ᴳ', 'H': 'ᴴ', 'I': 'ᴵ', 'J': 'ᴶ',
+    'K': 'ᴷ', 'L': 'ᴸ', 'M': 'ᴹ', 'N': 'ᴺ', 'O': 'ᴼ', 'P': 'ᴾ', 'Q': 'Q', 'R': 'ᴿ', 'S': 'ˢ', 'T': 'ᵀ',
+    'U': 'ᵁ', 'V': 'ⱽ', 'W': 'ᵂ', 'X': 'ˣ', 'Y': 'ʸ', 'Z': 'ᶻ',
+    'a': 'ᵃ', 'b': 'ᵇ', 'c': 'ᶜ', 'd': 'ᵈ', 'e': 'ᵉ', 'f': 'ᶠ', 'g': 'ᵍ', 'h': 'ʰ', 'i': 'ⁱ', 'j': 'ʲ',
+    'k': 'ᵏ', 'l': 'ˡ', 'm': 'ᵐ', 'n': 'ⁿ', 'o': 'ᵒ', 'p': 'ᵖ', 'q': 'q', 'r': 'ʳ', 's': 'ˢ', 't': 'ᵗ',
+    'u': 'ᵘ', 'v': 'ᵛ', 'w': 'ʷ', 'x': 'ˣ', 'y': 'ʸ', 'z': 'ᶻ'
+};
+
+function generateGraffiti() {
+    const input = document.getElementById('graffitiInput').value;
+    const output = document.getElementById('graffitiOutput');
+    
+    if (!input.trim()) {
+        output.textContent = 'Your graffiti text will appear here...';
+        return;
+    }
+    
+    let result = '';
+    
+    switch(currentStyle) {
+        case 'bubble':
+            result = convertToBubble(input);
+            break;
+        case 'wildstyle':
+            result = convertToWildstyle(input);
+            break;
+        case 'throwup':
+            result = convertToThrowup(input);
+            break;
+        case 'tag':
+            result = convertToTag(input);
+            break;
+    }
+    
+    output.textContent = result;
+}
+
+function convertToBubble(text) {
+    return text.split('').map(char => bubbleMap[char] || char).join('');
+}
+
+function convertToWildstyle(text) {
+    return text.split('').map(char => {
+        const mapped = wildstyleMap[char] || char;
+        // Add some random underlines for wildstyle effect
+        if (char.match(/[a-zA-Z]/) && Math.random() > 0.7) {
+            return mapped + '͎';
+        }
+        return mapped;
+    }).join('');
+}
+
+function convertToThrowup(text) {
+    return text.split('').map(char => {
+        const mapped = throwupMap[char] || char;
+        // Add combining characters for throw-up style
+        if (char.match(/[a-zA-Z]/) && Math.random() > 0.6) {
+            return mapped + '̃';
+        }
+        return mapped;
+    }).join('');
+}
+
+function convertToTag(text) {
+    return text.split('').map(char => tagMap[char] || char).join('');
+}
+
+function copyToClipboard() {
+    const output = document.getElementById('graffitiOutput');
+    const text = output.textContent;
+    
+    if (text && text !== 'Your graffiti text will appear here...') {
+        navigator.clipboard.writeText(text).then(() => {
+            showToast('Copied to clipboard!');
+        });
+    }
+}
+
+function clearText() {
+    document.getElementById('graffitiInput').value = '';
+    document.getElementById('graffitiOutput').textContent = 'Your graffiti text will appear here...';
+}
+
+function loadExample() {
+    const examples = [
+        'STREET ART',
+        'URBAN STYLE',
+        'HIP HOP',
+        'CITY VIBES',
+        'WALL ART'
+    ];
+    
+    const randomExample = examples[Math.floor(Math.random() * examples.length)];
+    document.getElementById('graffitiInput').value = randomExample;
+    generateGraffiti();
+}
+
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast show';
+    toast.textContent = message;
+    toast.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--graffiti-primary);
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 10px;
+        z-index: 1000;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        font-weight: bold;
+        text-transform: uppercase;
+    `;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
+
+// Style selector functionality
+document.querySelectorAll('.style-card').forEach(card => {
+    card.addEventListener('click', () => {
+        document.querySelectorAll('.style-card').forEach(el => el.classList.remove('active'));
+        card.classList.add('active');
+        currentStyle = card.dataset.style;
+        generateGraffiti();
+    });
+});
+
+// Initial generation
+generateGraffiti();
+</script>
+{% endblock %} 

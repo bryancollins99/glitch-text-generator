@@ -1,0 +1,445 @@
+{% extends 'base.html' %}
+
+{% block title %}Gothic Font Generator - Convert Text to Medieval Blackletter Style{% endblock %}
+
+{% block head %}
+<meta name="description" content="Convert your text to elegant gothic and blackletter font styles with our free gothic text generator. Perfect for medieval designs, logos, and decorative text.">
+<meta name="keywords" content="gothic font generator, blackletter text, medieval font, fraktur generator, old english text">
+{% endblock %}
+
+{% block extra_css %}
+<style>
+:root {
+    --gothic-primary: #8b0000;
+    --gothic-secondary: #2f1b14;
+    --gothic-accent: #d4af37;
+    --gothic-light: #f8f9fa;
+    --gothic-dark: #1a1a1a;
+}
+
+.gothic-container {
+    background: linear-gradient(135deg, #2c1810 0%, #8b0000 100%);
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.gothic-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: white;
+}
+
+.gothic-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    font-family: 'Old English Text MT', 'Times New Roman', serif;
+    letter-spacing: 2px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: var(--gothic-accent);
+}
+
+.gothic-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+    font-style: italic;
+}
+
+.gothic-main {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 2px solid var(--gothic-accent);
+}
+
+.gothic-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.gothic-section {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 2px solid var(--gothic-light);
+    transition: all 0.3s ease;
+}
+
+.gothic-section:hover {
+    border-color: var(--gothic-primary);
+    box-shadow: 0 5px 15px rgba(139, 0, 0, 0.1);
+}
+
+.gothic-section h3 {
+    color: var(--gothic-primary);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    font-family: 'Old English Text MT', 'Times New Roman', serif;
+}
+
+.gothic-textarea {
+    width: 100%;
+    height: 250px;
+    border: 2px solid var(--gothic-light);
+    border-radius: 10px;
+    padding: 1rem;
+    font-family: 'Georgia', serif;
+    font-size: 1.1rem;
+    color: var(--gothic-dark);
+    resize: vertical;
+    transition: border-color 0.3s ease;
+}
+
+.gothic-textarea:focus {
+    outline: none;
+    border-color: var(--gothic-primary);
+    box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
+}
+
+.gothic-output {
+    background: #f8f9fa;
+    border: 2px solid var(--gothic-light);
+    border-radius: 10px;
+    padding: 1rem;
+    min-height: 250px;
+    font-family: 'Times New Roman', serif;
+    font-size: 1.4rem;
+    color: var(--gothic-dark);
+    line-height: 1.6;
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+
+.gothic-styles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.style-card {
+    background: white;
+    border: 2px solid var(--gothic-light);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.style-card:hover, .style-card.active {
+    border-color: var(--gothic-primary);
+    background: #f8f9fa;
+    transform: translateY(-2px);
+}
+
+.style-card.active {
+    border-color: var(--gothic-accent);
+    background: rgba(212, 175, 55, 0.05);
+}
+
+.style-example {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    color: var(--gothic-primary);
+    font-weight: bold;
+    font-family: 'Times New Roman', serif;
+}
+
+.style-name {
+    font-size: 0.9rem;
+    color: var(--gothic-dark);
+    opacity: 0.8;
+    font-style: italic;
+}
+
+.gothic-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.gothic-btn {
+    background: var(--gothic-primary);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+}
+
+.gothic-btn:hover {
+    background: var(--gothic-secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(47, 27, 20, 0.4);
+}
+
+.gothic-btn.secondary {
+    background: var(--gothic-dark);
+}
+
+.gothic-btn.secondary:hover {
+    background: var(--gothic-accent);
+    color: var(--gothic-dark);
+}
+
+.info-section {
+    background: rgba(139, 0, 0, 0.05);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    border-left: 4px solid var(--gothic-primary);
+}
+
+.info-section h3 {
+    color: var(--gothic-primary);
+    margin-bottom: 1rem;
+    font-family: 'Old English Text MT', 'Times New Roman', serif;
+}
+
+.info-section ul {
+    color: var(--gothic-dark);
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .gothic-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .gothic-title {
+        font-size: 2rem;
+    }
+    
+    .gothic-styles {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="gothic-container">
+    <div class="gothic-header">
+        <h1 class="gothic-title">Gothic Font Generator</h1>
+        <p class="gothic-subtitle">Transform your text into medieval blackletter and fraktur styles</p>
+    </div>
+
+    <div class="gothic-main">
+        <div class="gothic-styles">
+            <div class="style-card active" data-style="fraktur">
+                <div class="style-example">𝔉𝔯𝔞𝔨𝔱𝔲𝔯 𝔗𝔢𝔵𝔱</div>
+                <div class="style-name">Mathematical Fraktur</div>
+            </div>
+            <div class="style-card" data-style="bold-fraktur">
+                <div class="style-example">𝕱𝖗𝖆𝖐𝖙𝖚𝖗 𝕭𝖔𝖑𝖉</div>
+                <div class="style-name">Bold Fraktur</div>
+            </div>
+            <div class="style-card" data-style="blackletter">
+                <div class="style-example">𝔄𝔦 𝔞𝔨 𝔫 𝔢𝔞𝔤</div>
+                <div class="style-name">Blackletter Style</div>
+            </div>
+            <div class="style-card" data-style="old-english">
+                <div class="style-example">𝕺𝖑𝖉 ℌ𝖓𝖌𝖑𝖎𝖘𝖍</div>
+                <div class="style-name">Old English</div>
+            </div>
+        </div>
+
+        <div class="gothic-grid">
+            <div class="gothic-section">
+                <h3>Enter Your Text</h3>
+                <textarea 
+                    class="gothic-textarea" 
+                    id="gothicInput" 
+                    placeholder="Type your text here to convert it to gothic style..."
+                    oninput="generateGothic()"
+                >Sample Text</textarea>
+            </div>
+
+            <div class="gothic-section">
+                <h3>Gothic Result</h3>
+                <div class="gothic-output" id="gothicOutput">
+                    𝔖𝔞𝔪𝔭𝔩𝔢 𝔗𝔢𝔵𝔱
+                </div>
+            </div>
+        </div>
+
+        <div class="gothic-controls">
+            <button class="gothic-btn" onclick="copyToClipboard()">
+                <i class="fas fa-copy"></i> Copy Text
+            </button>
+            <button class="gothic-btn secondary" onclick="clearText()">
+                <i class="fas fa-trash"></i> Clear
+            </button>
+            <button class="gothic-btn secondary" onclick="loadExample()">
+                <i class="fas fa-lightbulb"></i> Example
+            </button>
+        </div>
+
+        <div class="info-section">
+            <h3>About Gothic Fonts</h3>
+            <p>Gothic and blackletter fonts evoke medieval manuscripts and historical documents. Perfect for:</p>
+            <ul>
+                <li><strong>Branding:</strong> Traditional businesses, breweries, and vintage logos</li>
+                <li><strong>Events:</strong> Medieval themes, Renaissance fairs, and historical occasions</li>
+                <li><strong>Design:</strong> Book covers, certificates, and formal documents</li>
+                <li><strong>Gaming:</strong> Fantasy RPGs, medieval games, and gothic themes</li>
+                <li><strong>Art:</strong> Calligraphy, tattoos, and decorative lettering</li>
+                <li><strong>Academic:</strong> Historical texts and scholarly presentations</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentStyle = 'fraktur';
+
+// Character mappings for gothic styles
+const frakturMap = {
+    'A': '𝔄', 'B': '𝔅', 'C': 'ℭ', 'D': '𝔇', 'E': '𝔈', 'F': '𝔉', 'G': '𝔊', 'H': 'ℌ', 'I': 'ℑ', 'J': '𝔍',
+    'K': '𝔎', 'L': '𝔏', 'M': '𝔐', 'N': '𝔑', 'O': '𝔒', 'P': '𝔓', 'Q': '𝔔', 'R': 'ℜ', 'S': '𝔖', 'T': '𝔗',
+    'U': '𝔘', 'V': '𝔙', 'W': '𝔚', 'X': '𝔛', 'Y': '𝔜', 'Z': 'ℨ',
+    'a': '𝔞', 'b': '𝔟', 'c': '𝔠', 'd': '𝔡', 'e': '𝔢', 'f': '𝔣', 'g': '𝔤', 'h': '𝔥', 'i': '𝔦', 'j': '𝔧',
+    'k': '𝔨', 'l': '𝔩', 'm': '𝔪', 'n': '𝔫', 'o': '𝔬', 'p': '𝔭', 'q': '𝔮', 'r': '𝔯', 's': '𝔰', 't': '𝔱',
+    'u': '𝔲', 'v': '𝔳', 'w': '𝔴', 'x': '𝔵', 'y': '𝔶', 'z': '𝔷'
+};
+
+const boldFrakturMap = {
+    'A': '𝕬', 'B': '𝕭', 'C': '𝕮', 'D': '𝕯', 'E': '𝕰', 'F': '𝕱', 'G': '𝕲', 'H': '𝕳', 'I': '𝕴', 'J': '𝕵',
+    'K': '𝕶', 'L': '𝕷', 'M': '𝕸', 'N': '𝕹', 'O': '𝕺', 'P': '𝕻', 'Q': '𝕼', 'R': '𝕽', 'S': '𝕾', 'T': '𝕿',
+    'U': '𝖀', 'V': '𝖁', 'W': '𝖂', 'X': '𝖃', 'Y': '𝖄', 'Z': '𝖅',
+    'a': '𝖆', 'b': '𝖇', 'c': '𝖈', 'd': '𝖉', 'e': '𝖊', 'f': '𝖋', 'g': '𝖌', 'h': '𝖍', 'i': '𝖎', 'j': '𝖏',
+    'k': '𝖐', 'l': '𝖑', 'm': '𝖒', 'n': '𝖓', 'o': '𝖔', 'p': '𝖕', 'q': '𝖖', 'r': '𝖗', 's': '𝖘', 't': '𝖙',
+    'u': '𝖚', 'v': '𝖛', 'w': '𝖜', 'x': '𝖝', 'y': '𝖞', 'z': '𝖟'
+};
+
+const blackletterMap = {
+    'A': '𝔄', 'B': '𝔅', 'C': 'ℭ', 'D': '𝔇', 'E': '𝔈', 'F': '𝔉', 'G': '𝔊', 'H': 'ℌ', 'I': 'ℑ', 'J': '𝔍',
+    'K': '𝔎', 'L': '𝔏', 'M': '𝔐', 'N': '𝔑', 'O': '𝔒', 'P': '𝔓', 'Q': '𝔔', 'R': 'ℜ', 'S': '𝔖', 'T': '𝔗',
+    'U': '𝔘', 'V': '𝔙', 'W': '𝔚', 'X': '𝔛', 'Y': '𝔜', 'Z': 'ℨ',
+    'a': '𝔞', 'b': '𝔟', 'c': '𝔠', 'd': '𝔡', 'e': '𝔢', 'f': '𝔣', 'g': '𝔤', 'h': '𝔥', 'i': '𝔦', 'j': '𝔧',
+    'k': '𝔨', 'l': '𝔩', 'm': '𝔪', 'n': '𝔫', 'o': '𝔬', 'p': '𝔭', 'q': '𝔮', 'r': '𝔯', 's': '𝔰', 't': '𝔱',
+    'u': '𝔲', 'v': '𝔳', 'w': '𝔴', 'x': '𝔵', 'y': '𝔶', 'z': '𝔷'
+};
+
+const oldEnglishMap = {
+    'A': '𝕬', 'B': '𝔹', 'C': 'ℂ', 'D': '𝔻', 'E': '𝔼', 'F': '𝔽', 'G': '𝔾', 'H': 'ℍ', 'I': '𝕀', 'J': '𝕁',
+    'K': '𝕂', 'L': '𝕃', 'M': '𝕄', 'N': 'ℕ', 'O': '𝕆', 'P': 'ℙ', 'Q': 'ℚ', 'R': 'ℝ', 'S': '𝕊', 'T': '𝕋',
+    'U': '𝕌', 'V': '𝕍', 'W': '𝕎', 'X': '𝕏', 'Y': '𝕐', 'Z': 'ℤ',
+    'a': '𝕒', 'b': '𝕓', 'c': '𝕔', 'd': '𝕕', 'e': '𝕖', 'f': '𝕗', 'g': '𝕘', 'h': '𝕙', 'i': '𝕚', 'j': '𝕛',
+    'k': '𝕜', 'l': '𝕝', 'm': '𝕞', 'n': '𝕟', 'o': '𝕠', 'p': '𝕡', 'q': '𝕢', 'r': '𝕣', 's': '𝕤', 't': '𝕥',
+    'u': '𝕦', 'v': '𝕧', 'w': '𝕨', 'x': '𝕩', 'y': '𝕪', 'z': '𝕫'
+};
+
+function generateGothic() {
+    const input = document.getElementById('gothicInput').value;
+    const output = document.getElementById('gothicOutput');
+    
+    if (!input.trim()) {
+        output.textContent = 'Your gothic text will appear here...';
+        return;
+    }
+    
+    let result = '';
+    
+    switch(currentStyle) {
+        case 'fraktur':
+            result = convertToFraktur(input);
+            break;
+        case 'bold-fraktur':
+            result = convertToBoldFraktur(input);
+            break;
+        case 'blackletter':
+            result = convertToBlackletter(input);
+            break;
+        case 'old-english':
+            result = convertToOldEnglish(input);
+            break;
+    }
+    
+    output.textContent = result;
+}
+
+function convertToFraktur(text) {
+    return text.split('').map(char => frakturMap[char] || char).join('');
+}
+
+function convertToBoldFraktur(text) {
+    return text.split('').map(char => boldFrakturMap[char] || char).join('');
+}
+
+function convertToBlackletter(text) {
+    return text.split('').map(char => blackletterMap[char] || char).join('');
+}
+
+function convertToOldEnglish(text) {
+    return text.split('').map(char => oldEnglishMap[char] || char).join('');
+}
+
+function copyToClipboard() {
+    const output = document.getElementById('gothicOutput');
+    const text = output.textContent;
+    
+    if (text && text !== 'Your gothic text will appear here...') {
+        navigator.clipboard.writeText(text).then(() => {
+            showToast('Copied to clipboard!');
+        });
+    }
+}
+
+function clearText() {
+    document.getElementById('gothicInput').value = '';
+    document.getElementById('gothicOutput').textContent = 'Your gothic text will appear here...';
+}
+
+function loadExample() {
+    const examples = [
+        'Medieval Gothic Text',
+        'Ancient Manuscript',
+        'Blackletter Typography',
+        'Old English Style',
+        'Fraktur Letters'
+    ];
+    
+    const randomExample = examples[Math.floor(Math.random() * examples.length)];
+    document.getElementById('gothicInput').value = randomExample;
+    generateGothic();
+}
+
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast show';
+    toast.textContent = message;
+    toast.style.background = 'var(--gothic-primary)';
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
+
+// Style selector functionality
+document.querySelectorAll('.style-card').forEach(card => {
+    card.addEventListener('click', () => {
+        document.querySelectorAll('.style-card').forEach(el => el.classList.remove('active'));
+        card.classList.add('active');
+        currentStyle = card.dataset.style;
+        generateGothic();
+    });
+});
+
+// Initial generation
+generateGothic();
+</script>
+{% endblock %} 

@@ -1,0 +1,547 @@
+{% extends 'base.html' %}
+
+{% block title %}Freaky Font Generator - Create Disturbing & Creepy Text Effects{% endblock %}
+
+{% block head %}
+<meta name="description" content="Generate freaky, creepy, and disturbing text effects with our free freaky font generator. Perfect for horror themes, Halloween, and scary designs.">
+<meta name="keywords" content="freaky text generator, creepy fonts, disturbing text, horror text, scary letters, weird fonts">
+{% endblock %}
+
+{% block extra_css %}
+<style>
+:root {
+    --freaky-primary: #8b0000;
+    --freaky-secondary: #2d1b69;
+    --freaky-accent: #ff4500;
+    --freaky-light: #f8f9fa;
+    --freaky-dark: #1a0000;
+    --freaky-blood: #660000;
+}
+
+.freaky-container {
+    background: linear-gradient(135deg, #1a0000 0%, #2d1b69 50%, #000000 100%);
+    min-height: 100vh;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.freaky-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 30%, rgba(139, 0, 0, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(45, 27, 105, 0.3) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.freaky-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: white;
+    position: relative;
+    z-index: 1;
+}
+
+.freaky-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--freaky-accent);
+    letter-spacing: 3px;
+    font-weight: bold;
+    text-shadow: 3px 3px 0px var(--freaky-blood), 6px 6px 10px rgba(0, 0, 0, 0.8);
+    animation: glitch 2s infinite;
+}
+
+@keyframes glitch {
+    0%, 90%, 100% { transform: translateX(0); }
+    10% { transform: translateX(-2px) skew(-5deg); }
+    20% { transform: translateX(2px) skew(5deg); }
+    30% { transform: translateX(-1px) skew(-2deg); }
+    40% { transform: translateX(1px) skew(2deg); }
+}
+
+.freaky-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    color: #cccccc;
+}
+
+.freaky-main {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(139, 0, 0, 0.5);
+    border: 2px solid var(--freaky-blood);
+    position: relative;
+    z-index: 1;
+}
+
+.freaky-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.freaky-section {
+    background: rgba(26, 0, 0, 0.7);
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 2px solid var(--freaky-blood);
+    transition: all 0.3s ease;
+}
+
+.freaky-section:hover {
+    border-color: var(--freaky-accent);
+    box-shadow: 0 5px 15px rgba(255, 69, 0, 0.3);
+}
+
+.freaky-section h3 {
+    color: var(--freaky-accent);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.freaky-textarea {
+    width: 100%;
+    height: 250px;
+    border: 2px solid var(--freaky-blood);
+    border-radius: 10px;
+    padding: 1rem;
+    font-family: 'Courier New', monospace;
+    font-size: 1.1rem;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.9);
+    resize: vertical;
+    transition: border-color 0.3s ease;
+}
+
+.freaky-textarea:focus {
+    outline: none;
+    border-color: var(--freaky-accent);
+    box-shadow: 0 0 0 3px rgba(255, 69, 0, 0.3);
+}
+
+.freaky-output {
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid var(--freaky-blood);
+    border-radius: 10px;
+    padding: 1rem;
+    min-height: 250px;
+    font-family: 'Courier New', monospace;
+    font-size: 1.3rem;
+    color: var(--freaky-accent);
+    line-height: 1.6;
+    word-break: break-word;
+    white-space: pre-wrap;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.freaky-styles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.style-card {
+    background: rgba(26, 0, 0, 0.7);
+    border: 2px solid var(--freaky-blood);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.style-card:hover, .style-card.active {
+    border-color: var(--freaky-accent);
+    background: rgba(26, 0, 0, 0.9);
+    transform: translateY(-2px);
+}
+
+.style-card.active {
+    border-color: var(--freaky-accent);
+    background: rgba(255, 69, 0, 0.1);
+}
+
+.style-example {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    color: var(--freaky-accent);
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.style-name {
+    font-size: 0.9rem;
+    color: #cccccc;
+    opacity: 0.8;
+}
+
+.freaky-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.freaky-btn {
+    background: var(--freaky-blood);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(139, 0, 0, 0.5);
+    border: 2px solid var(--freaky-blood);
+}
+
+.freaky-btn:hover {
+    background: var(--freaky-accent);
+    border-color: var(--freaky-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 69, 0, 0.6);
+}
+
+.freaky-btn.secondary {
+    background: var(--freaky-dark);
+    border-color: var(--freaky-dark);
+}
+
+.freaky-btn.secondary:hover {
+    background: var(--freaky-secondary);
+    border-color: var(--freaky-secondary);
+}
+
+.info-section {
+    background: rgba(139, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    border-left: 4px solid var(--freaky-accent);
+}
+
+.info-section h3 {
+    color: var(--freaky-accent);
+    margin-bottom: 1rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.info-section ul {
+    color: #cccccc;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .freaky-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .freaky-title {
+        font-size: 2rem;
+    }
+    
+    .freaky-styles {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="freaky-container">
+    <div class="freaky-header">
+        <h1 class="freaky-title">Freaky Font Generator</h1>
+        <p class="freaky-subtitle">Create disturbing and unsettling text effects for horror themes</p>
+    </div>
+
+    <div class="freaky-main">
+        <div class="freaky-styles">
+            <div class="style-card active" data-style="zalgo">
+                <div class="style-example">Z̸͎̈ä̶́l̷̇g̶̈ö̴́ ̵̽T̴̾ë̵́x̶̾t̸̊</div>
+                <div class="style-name">Zalgo Corruption</div>
+            </div>
+            <div class="style-card" data-style="glitched">
+                <div class="style-example">G̷l̸i̴t̶c̵h̸e̷d̸ ̴T̶e̵x̸t̷</div>
+                <div class="style-name">Digital Glitch</div>
+            </div>
+            <div class="style-card" data-style="cursed">
+                <div class="style-example">C̵̾ṵ̴r̸̊s̶̽e̷̽d̸̈ ̴̽T̷̈e̴̊x̸̽t̶̾</div>
+                <div class="style-name">Cursed Text</div>
+            </div>
+            <div class="style-card" data-style="void">
+                <div class="style-example">V̶̓o̸̾i̵̽d̴̈ ̷̽T̶̊e̸̽x̷̾ẗ̴</div>
+                <div class="style-name">Void Distortion</div>
+            </div>
+        </div>
+
+        <div class="freaky-grid">
+            <div class="freaky-section">
+                <h3>Enter Your Text</h3>
+                <textarea 
+                    class="freaky-textarea" 
+                    id="freakyInput" 
+                    placeholder="Type your text here to make it freaky and disturbing..."
+                    oninput="generateFreakyText()"
+                >Sample Text</textarea>
+            </div>
+
+            <div class="freaky-section">
+                <h3>Freaky Result</h3>
+                <div class="freaky-output" id="freakyOutput">
+                    S̸͎̈ä̶́ṁ̷p̶̈ĺ̴e̵̽ ̴̾T̵́e̶̾x̸̊ẗ̸
+                </div>
+            </div>
+        </div>
+
+        <div class="freaky-controls">
+            <button class="freaky-btn" onclick="copyToClipboard()">
+                <i class="fas fa-copy"></i> Copy Text
+            </button>
+            <button class="freaky-btn secondary" onclick="clearText()">
+                <i class="fas fa-trash"></i> Clear
+            </button>
+            <button class="freaky-btn secondary" onclick="loadExample()">
+                <i class="fas fa-lightbulb"></i> Example
+            </button>
+        </div>
+
+        <div class="info-section">
+            <h3>About Freaky Text</h3>
+            <p>Freaky text effects use combining diacritical marks to create disturbing, corrupted appearances. Perfect for:</p>
+            <ul>
+                <li><strong>Horror Content:</strong> Scary stories, creepypasta, and horror games</li>
+                <li><strong>Halloween:</strong> Spooky decorations and themed events</li>
+                <li><strong>Gaming:</strong> Horror game usernames and unsettling profiles</li>
+                <li><strong>Art Projects:</strong> Digital horror art and disturbing designs</li>
+                <li><strong>Social Media:</strong> Attention-grabbing posts with eerie effects</li>
+                <li><strong>Creative Writing:</strong> Adding visual impact to dark fiction</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentStyle = 'zalgo';
+
+// Combining diacritical marks for freaky effects
+const diacriticals = {
+    above: [
+        '\u0300', '\u0301', '\u0302', '\u0303', '\u0304', '\u0305', '\u0306', '\u0307', 
+        '\u0308', '\u0309', '\u030A', '\u030B', '\u030C', '\u030D', '\u030E', '\u030F',
+        '\u0310', '\u0311', '\u0312', '\u0313', '\u0314', '\u0315', '\u0316', '\u0317',
+        '\u0318', '\u0319', '\u031A', '\u031B', '\u031C', '\u031D', '\u031E', '\u031F',
+        '\u0320', '\u0321', '\u0322', '\u0323', '\u0324', '\u0325', '\u0326', '\u0327'
+    ],
+    below: [
+        '\u0316', '\u0317', '\u0318', '\u0319', '\u031C', '\u031D', '\u031E', '\u031F',
+        '\u0320', '\u0321', '\u0322', '\u0323', '\u0324', '\u0325', '\u0326', '\u0327',
+        '\u0328', '\u0329', '\u032A', '\u032B', '\u032C', '\u032D', '\u032E', '\u032F',
+        '\u0330', '\u0331', '\u0332', '\u0333', '\u0334', '\u0335', '\u0336', '\u0337',
+        '\u0338', '\u0339', '\u033A', '\u033B', '\u033C', '\u033D', '\u033E', '\u033F'
+    ],
+    middle: [
+        '\u0334', '\u0335', '\u0336', '\u0337', '\u0338', '\u0339', '\u033A', '\u033B',
+        '\u033C', '\u033D', '\u033E', '\u033F', '\u0340', '\u0341', '\u0342', '\u0343',
+        '\u0344', '\u0345', '\u0346', '\u0347', '\u0348', '\u0349', '\u034A', '\u034B',
+        '\u034C', '\u034D', '\u034E', '\u034F', '\u0350', '\u0351', '\u0352', '\u0353'
+    ]
+};
+
+function generateFreakyText() {
+    const input = document.getElementById('freakyInput').value;
+    const output = document.getElementById('freakyOutput');
+    
+    if (!input.trim()) {
+        output.textContent = 'Your freaky text will appear here...';
+        return;
+    }
+    
+    let result = '';
+    
+    switch(currentStyle) {
+        case 'zalgo':
+            result = convertToZalgo(input);
+            break;
+        case 'glitched':
+            result = convertToGlitched(input);
+            break;
+        case 'cursed':
+            result = convertToCursed(input);
+            break;
+        case 'void':
+            result = convertToVoid(input);
+            break;
+    }
+    
+    output.textContent = result;
+}
+
+function convertToZalgo(text) {
+    return text.split('').map(char => {
+        if (char.match(/[a-zA-Z]/)) {
+            let zalgoChar = char;
+            
+            // Add random diacriticals above
+            for (let i = 0; i < Math.floor(Math.random() * 3) + 1; i++) {
+                zalgoChar += diacriticals.above[Math.floor(Math.random() * diacriticals.above.length)];
+            }
+            
+            // Add random diacriticals below
+            for (let i = 0; i < Math.floor(Math.random() * 3) + 1; i++) {
+                zalgoChar += diacriticals.below[Math.floor(Math.random() * diacriticals.below.length)];
+            }
+            
+            // Add random middle diacriticals
+            if (Math.random() > 0.5) {
+                zalgoChar += diacriticals.middle[Math.floor(Math.random() * diacriticals.middle.length)];
+            }
+            
+            return zalgoChar;
+        }
+        return char;
+    }).join('');
+}
+
+function convertToGlitched(text) {
+    return text.split('').map(char => {
+        if (char.match(/[a-zA-Z]/)) {
+            let glitchedChar = char;
+            
+            // Add fewer but more intense diacriticals
+            for (let i = 0; i < Math.floor(Math.random() * 2) + 1; i++) {
+                glitchedChar += diacriticals.above[Math.floor(Math.random() * 10)];
+            }
+            
+            for (let i = 0; i < Math.floor(Math.random() * 2) + 1; i++) {
+                glitchedChar += diacriticals.below[Math.floor(Math.random() * 10)];
+            }
+            
+            return glitchedChar;
+        }
+        return char;
+    }).join('');
+}
+
+function convertToCursed(text) {
+    return text.split('').map(char => {
+        if (char.match(/[a-zA-Z]/)) {
+            let cursedChar = char;
+            
+            // Add heavy diacriticals for cursed effect
+            for (let i = 0; i < Math.floor(Math.random() * 4) + 2; i++) {
+                cursedChar += diacriticals.above[Math.floor(Math.random() * diacriticals.above.length)];
+            }
+            
+            for (let i = 0; i < Math.floor(Math.random() * 4) + 2; i++) {
+                cursedChar += diacriticals.below[Math.floor(Math.random() * diacriticals.below.length)];
+            }
+            
+            // Add middle marks for extra corruption
+            for (let i = 0; i < Math.floor(Math.random() * 2) + 1; i++) {
+                cursedChar += diacriticals.middle[Math.floor(Math.random() * diacriticals.middle.length)];
+            }
+            
+            return cursedChar;
+        }
+        return char;
+    }).join('');
+}
+
+function convertToVoid(text) {
+    return text.split('').map(char => {
+        if (char.match(/[a-zA-Z]/)) {
+            let voidChar = char;
+            
+            // Focus on below and middle marks for void effect
+            for (let i = 0; i < Math.floor(Math.random() * 3) + 1; i++) {
+                voidChar += diacriticals.below[Math.floor(Math.random() * diacriticals.below.length)];
+            }
+            
+            for (let i = 0; i < Math.floor(Math.random() * 2) + 1; i++) {
+                voidChar += diacriticals.middle[Math.floor(Math.random() * diacriticals.middle.length)];
+            }
+            
+            // Minimal above marks
+            if (Math.random() > 0.3) {
+                voidChar += diacriticals.above[Math.floor(Math.random() * 10)];
+            }
+            
+            return voidChar;
+        }
+        return char;
+    }).join('');
+}
+
+function copyToClipboard() {
+    const output = document.getElementById('freakyOutput');
+    const text = output.textContent;
+    
+    if (text && text !== 'Your freaky text will appear here...') {
+        navigator.clipboard.writeText(text).then(() => {
+            showToast('Copied to clipboard!');
+        });
+    }
+}
+
+function clearText() {
+    document.getElementById('freakyInput').value = '';
+    document.getElementById('freakyOutput').textContent = 'Your freaky text will appear here...';
+}
+
+function loadExample() {
+    const examples = [
+        'Disturbing Horror Text',
+        'Creepy Halloween Message',
+        'Cursed Digital Corruption',
+        'Void of Sanity',
+        'Nightmare Fuel'
+    ];
+    
+    const randomExample = examples[Math.floor(Math.random() * examples.length)];
+    document.getElementById('freakyInput').value = randomExample;
+    generateFreakyText();
+}
+
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast show';
+    toast.textContent = message;
+    toast.style.background = 'var(--freaky-blood)';
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
+
+// Style selector functionality
+document.querySelectorAll('.style-card').forEach(card => {
+    card.addEventListener('click', () => {
+        document.querySelectorAll('.style-card').forEach(el => el.classList.remove('active'));
+        card.classList.add('active');
+        currentStyle = card.dataset.style;
+        generateFreakyText();
+    });
+});
+
+// Initial generation
+generateFreakyText();
+</script>
+{% endblock %} 

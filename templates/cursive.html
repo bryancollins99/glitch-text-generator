@@ -1,0 +1,442 @@
+{% extends 'base.html' %}
+
+{% block title %}Cursive Text Generator - Convert Text to Script Font Style{% endblock %}
+
+{% block head %}
+<meta name="description" content="Convert your text to elegant cursive and script font styles with our free cursive text generator. Perfect for logos, signatures, and decorative text.">
+<meta name="keywords" content="cursive text generator, script font converter, handwriting text, cursive letters, script text">
+{% endblock %}
+
+{% block extra_css %}
+<style>
+:root {
+    --cursive-primary: #8e44ad;
+    --cursive-secondary: #e74c3c;
+    --cursive-accent: #f39c12;
+    --cursive-light: #f8f9fa;
+    --cursive-dark: #2c3e50;
+}
+
+.cursive-container {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.cursive-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: white;
+}
+
+.cursive-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    font-family: 'Brush Script MT', cursive;
+    letter-spacing: 2px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.cursive-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+    font-style: italic;
+}
+
+.cursive-main {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.cursive-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.cursive-section {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 2px solid var(--cursive-light);
+    transition: all 0.3s ease;
+}
+
+.cursive-section:hover {
+    border-color: var(--cursive-primary);
+    box-shadow: 0 5px 15px rgba(142, 68, 173, 0.1);
+}
+
+.cursive-section h3 {
+    color: var(--cursive-primary);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    font-family: 'Brush Script MT', cursive;
+}
+
+.cursive-textarea {
+    width: 100%;
+    height: 250px;
+    border: 2px solid var(--cursive-light);
+    border-radius: 10px;
+    padding: 1rem;
+    font-family: 'Georgia', serif;
+    font-size: 1.1rem;
+    color: var(--cursive-dark);
+    resize: vertical;
+    transition: border-color 0.3s ease;
+}
+
+.cursive-textarea:focus {
+    outline: none;
+    border-color: var(--cursive-primary);
+    box-shadow: 0 0 0 3px rgba(142, 68, 173, 0.1);
+}
+
+.cursive-output {
+    background: #f8f9fa;
+    border: 2px solid var(--cursive-light);
+    border-radius: 10px;
+    padding: 1rem;
+    min-height: 250px;
+    font-family: 'Times New Roman', serif;
+    font-size: 1.3rem;
+    color: var(--cursive-dark);
+    line-height: 1.6;
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+
+.cursive-styles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.style-card {
+    background: white;
+    border: 2px solid var(--cursive-light);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.style-card:hover, .style-card.active {
+    border-color: var(--cursive-primary);
+    background: #f8f9fa;
+    transform: translateY(-2px);
+}
+
+.style-card.active {
+    border-color: var(--cursive-accent);
+    background: rgba(243, 156, 18, 0.05);
+}
+
+.style-example {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    color: var(--cursive-primary);
+    font-weight: bold;
+    font-family: 'Times New Roman', serif;
+}
+
+.style-name {
+    font-size: 0.9rem;
+    color: var(--cursive-dark);
+    opacity: 0.8;
+    font-style: italic;
+}
+
+.cursive-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cursive-btn {
+    background: var(--cursive-primary);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(142, 68, 173, 0.3);
+}
+
+.cursive-btn:hover {
+    background: var(--cursive-secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+}
+
+.cursive-btn.secondary {
+    background: var(--cursive-dark);
+}
+
+.cursive-btn.secondary:hover {
+    background: var(--cursive-accent);
+}
+
+.info-section {
+    background: rgba(142, 68, 173, 0.05);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    border-left: 4px solid var(--cursive-primary);
+}
+
+.info-section h3 {
+    color: var(--cursive-primary);
+    margin-bottom: 1rem;
+    font-family: 'Brush Script MT', cursive;
+}
+
+.info-section ul {
+    color: var(--cursive-dark);
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .cursive-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .cursive-title {
+        font-size: 2rem;
+    }
+    
+    .cursive-styles {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="cursive-container">
+    <div class="cursive-header">
+        <h1 class="cursive-title">Cursive Text Generator</h1>
+        <p class="cursive-subtitle">Transform your text into elegant cursive and script styles</p>
+    </div>
+
+    <div class="cursive-main">
+        <div class="cursive-styles">
+            <div class="style-card active" data-style="script">
+                <div class="style-example">𝒮𝒸𝓇𝒾𝓅𝓉 𝒯𝑒𝓍𝓉</div>
+                <div class="style-name">Mathematical Script</div>
+            </div>
+            <div class="style-card" data-style="bold-script">
+                <div class="style-example">𝓑𝓸𝓵𝓭 𝓢𝓬𝓻𝓲𝓹𝓽</div>
+                <div class="style-name">Bold Script</div>
+            </div>
+            <div class="style-card" data-style="italic">
+                <div class="style-example">𝐼𝑡𝑎𝑙𝑖𝑐 𝑇𝑒𝑥𝑡</div>
+                <div class="style-name">Mathematical Italic</div>
+            </div>
+            <div class="style-card" data-style="handwriting">
+                <div class="style-example">ℋ𝒶𝓃𝒹𝓌𝓇𝒾𝓉𝒾𝓃𝑔</div>
+                <div class="style-name">Elegant Handwriting</div>
+            </div>
+        </div>
+
+        <div class="cursive-grid">
+            <div class="cursive-section">
+                <h3>Enter Your Text</h3>
+                <textarea 
+                    class="cursive-textarea" 
+                    id="cursiveInput" 
+                    placeholder="Type your text here to convert it to cursive style..."
+                    oninput="generateCursive()"
+                >Sample Text</textarea>
+            </div>
+
+            <div class="cursive-section">
+                <h3>Cursive Result</h3>
+                <div class="cursive-output" id="cursiveOutput">
+                    𝒮𝒶𝓂𝓅𝓁𝑒 𝒯𝑒𝓍𝓉
+                </div>
+            </div>
+        </div>
+
+        <div class="cursive-controls">
+            <button class="cursive-btn" onclick="copyToClipboard()">
+                <i class="fas fa-copy"></i> Copy Text
+            </button>
+            <button class="cursive-btn secondary" onclick="clearText()">
+                <i class="fas fa-trash"></i> Clear
+            </button>
+            <button class="cursive-btn secondary" onclick="loadExample()">
+                <i class="fas fa-lightbulb"></i> Example
+            </button>
+        </div>
+
+        <div class="info-section">
+            <h3>About Cursive Text</h3>
+            <p>Cursive and script fonts create elegant, flowing text that mimics handwriting. Perfect for:</p>
+            <ul>
+                <li><strong>Logos & Branding:</strong> Elegant business names and signatures</li>
+                <li><strong>Invitations:</strong> Wedding invitations and formal events</li>
+                <li><strong>Social Media:</strong> Instagram captions and stylish posts</li>
+                <li><strong>Design Projects:</strong> Headers and decorative elements</li>
+                <li><strong>Creative Writing:</strong> Poetry and artistic text</li>
+                <li><strong>Signatures:</strong> Digital signature styles</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentStyle = 'script';
+
+// Character mappings for cursive styles
+const scriptMap = {
+    'A': '𝒜', 'B': '𝐵', 'C': '𝒞', 'D': '𝒟', 'E': '𝐸', 'F': '𝐹', 'G': '𝒢', 'H': '𝐻', 'I': '𝐼', 'J': '𝒥',
+    'K': '𝒦', 'L': '𝐿', 'M': '𝑀', 'N': '𝒩', 'O': '𝒪', 'P': '𝒫', 'Q': '𝒬', 'R': '𝑅', 'S': '𝒮', 'T': '𝒯',
+    'U': '𝒰', 'V': '𝒱', 'W': '𝒲', 'X': '𝒳', 'Y': '𝒴', 'Z': '𝒵',
+    'a': '𝒶', 'b': '𝒷', 'c': '𝒸', 'd': '𝒹', 'e': '𝑒', 'f': '𝒻', 'g': '𝑔', 'h': '𝒽', 'i': '𝒾', 'j': '𝒿',
+    'k': '𝓀', 'l': '𝓁', 'm': '𝓂', 'n': '𝓃', 'o': '𝑜', 'p': '𝓅', 'q': '𝓆', 'r': '𝓇', 's': '𝓈', 't': '𝓉',
+    'u': '𝓊', 'v': '𝓋', 'w': '𝓌', 'x': '𝓍', 'y': '𝓎', 'z': '𝓏'
+};
+
+const boldScriptMap = {
+    'A': '𝓐', 'B': '𝓑', 'C': '𝓒', 'D': '𝓓', 'E': '𝓔', 'F': '𝓕', 'G': '𝓖', 'H': '𝓗', 'I': '𝓘', 'J': '𝓙',
+    'K': '𝓚', 'L': '𝓛', 'M': '𝓜', 'N': '𝓝', 'O': '𝓞', 'P': '𝓟', 'Q': '𝓠', 'R': '𝓡', 'S': '𝓢', 'T': '𝓣',
+    'U': '𝓤', 'V': '𝓥', 'W': '𝓦', 'X': '𝓧', 'Y': '𝓨', 'Z': '𝓩',
+    'a': '𝓪', 'b': '𝓫', 'c': '𝓬', 'd': '𝓭', 'e': '𝓮', 'f': '𝓯', 'g': '𝓰', 'h': '𝓱', 'i': '𝓲', 'j': '𝓳',
+    'k': '𝓴', 'l': '𝓵', 'm': '𝓶', 'n': '𝓷', 'o': '𝓸', 'p': '𝓹', 'q': '𝓺', 'r': '𝓻', 's': '𝓼', 't': '𝓽',
+    'u': '𝓾', 'v': '𝓿', 'w': '𝔀', 'x': '𝔁', 'y': '𝔂', 'z': '𝔃'
+};
+
+const italicMap = {
+    'A': '𝐴', 'B': '𝐵', 'C': '𝐶', 'D': '𝐷', 'E': '𝐸', 'F': '𝐹', 'G': '𝐺', 'H': '𝐻', 'I': '𝐼', 'J': '𝐽',
+    'K': '𝐾', 'L': '𝐿', 'M': '𝑀', 'N': '𝑁', 'O': '𝑂', 'P': '𝑃', 'Q': '𝑄', 'R': '𝑅', 'S': '𝑆', 'T': '𝑇',
+    'U': '𝑈', 'V': '𝑉', 'W': '𝑊', 'X': '𝑋', 'Y': '𝑌', 'Z': '𝑍',
+    'a': '𝑎', 'b': '𝑏', 'c': '𝑐', 'd': '𝑑', 'e': '𝑒', 'f': '𝑓', 'g': '𝑔', 'h': '𝒽', 'i': '𝑖', 'j': '𝑗',
+    'k': '𝑘', 'l': '𝑙', 'm': '𝑚', 'n': '𝑛', 'o': '𝑜', 'p': '𝑝', 'q': '𝑞', 'r': '𝑟', 's': '𝑠', 't': '𝑡',
+    'u': '𝑢', 'v': '𝑣', 'w': '𝑤', 'x': '𝑥', 'y': '𝑦', 'z': '𝑧'
+};
+
+const handwritingMap = {
+    'A': 'ℋ', 'B': 'ℬ', 'C': '𝒞', 'D': '𝒟', 'E': 'ℰ', 'F': 'ℱ', 'G': '𝒢', 'H': 'ℋ', 'I': 'ℐ', 'J': '𝒥',
+    'K': '𝒦', 'L': 'ℒ', 'M': 'ℳ', 'N': '𝒩', 'O': '𝒪', 'P': '𝒫', 'Q': '𝒬', 'R': 'ℛ', 'S': '𝒮', 'T': '𝒯',
+    'U': '𝒰', 'V': '𝒱', 'W': '𝒲', 'X': '𝒳', 'Y': '𝒴', 'Z': '𝒵',
+    'a': '𝒶', 'b': '𝒷', 'c': '𝒸', 'd': '𝒹', 'e': 'ℯ', 'f': '𝒻', 'g': 'ℊ', 'h': '𝒽', 'i': '𝒾', 'j': '𝒿',
+    'k': '𝓀', 'l': 'ℓ', 'm': '𝓂', 'n': '𝓃', 'o': 'ℴ', 'p': '𝓅', 'q': '𝓆', 'r': '𝓇', 's': '𝓈', 't': '𝓉',
+    'u': '𝓊', 'v': '𝓋', 'w': '𝓌', 'x': '𝓍', 'y': '𝓎', 'z': '𝓏'
+};
+
+function generateCursive() {
+    const input = document.getElementById('cursiveInput').value;
+    const output = document.getElementById('cursiveOutput');
+    
+    if (!input.trim()) {
+        output.textContent = 'Your cursive text will appear here...';
+        return;
+    }
+    
+    let result = '';
+    
+    switch(currentStyle) {
+        case 'script':
+            result = convertToScript(input);
+            break;
+        case 'bold-script':
+            result = convertToBoldScript(input);
+            break;
+        case 'italic':
+            result = convertToItalic(input);
+            break;
+        case 'handwriting':
+            result = convertToHandwriting(input);
+            break;
+    }
+    
+    output.textContent = result;
+}
+
+function convertToScript(text) {
+    return text.split('').map(char => scriptMap[char] || char).join('');
+}
+
+function convertToBoldScript(text) {
+    return text.split('').map(char => boldScriptMap[char] || char).join('');
+}
+
+function convertToItalic(text) {
+    return text.split('').map(char => italicMap[char] || char).join('');
+}
+
+function convertToHandwriting(text) {
+    return text.split('').map(char => handwritingMap[char] || char).join('');
+}
+
+function copyToClipboard() {
+    const output = document.getElementById('cursiveOutput');
+    const text = output.textContent;
+    
+    if (text && text !== 'Your cursive text will appear here...') {
+        navigator.clipboard.writeText(text).then(() => {
+            showToast('Copied to clipboard!');
+        });
+    }
+}
+
+function clearText() {
+    document.getElementById('cursiveInput').value = '';
+    document.getElementById('cursiveOutput').textContent = 'Your cursive text will appear here...';
+}
+
+function loadExample() {
+    const examples = [
+        'Beautiful Cursive Text',
+        'Elegant Script Style',
+        'Handwritten Typography',
+        'Flowing Letters',
+        'Signature Style Text'
+    ];
+    
+    const randomExample = examples[Math.floor(Math.random() * examples.length)];
+    document.getElementById('cursiveInput').value = randomExample;
+    generateCursive();
+}
+
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast show';
+    toast.textContent = message;
+    toast.style.background = 'var(--cursive-primary)';
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
+
+// Style selector functionality
+document.querySelectorAll('.style-card').forEach(card => {
+    card.addEventListener('click', () => {
+        document.querySelectorAll('.style-card').forEach(el => el.classList.remove('active'));
+        card.classList.add('active');
+        currentStyle = card.dataset.style;
+        generateCursive();
+    });
+});
+
+// Initial generation
+generateCursive();
+</script>
+{% endblock %} 

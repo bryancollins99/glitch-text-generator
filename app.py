@@ -360,6 +360,42 @@ def title_case():
 def sentence_case():
     return render_template('sentence_case.html')
 
+@app.route('/cursive')
+def cursive():
+    return render_template('cursive.html')
+
+@app.route('/italics')
+def italics():
+    return render_template('italics.html')
+
+@app.route('/gothic')
+def gothic():
+    return render_template('gothic.html')
+
+@app.route('/cool-text')
+def cool_text():
+    return render_template('cool_text.html')
+
+@app.route('/freaky')
+def freaky():
+    return render_template('freaky.html')
+
+@app.route('/color-scheme')
+def color_scheme():
+    return render_template('color_scheme.html')
+
+@app.route('/graffiti')
+def graffiti():
+    return render_template('graffiti.html')
+
+@app.route('/random-object')
+def random_object():
+    return render_template('random_object.html')
+
+@app.route('/dragon-name')
+def dragon_name():
+    return render_template('dragon_name.html')
+
 @app.route('/tutorials/photoshop')
 def photoshop_tutorial():
     return render_template('photoshop_tutorial.html')
