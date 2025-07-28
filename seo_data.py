@@ -79,12 +79,12 @@ SEO_PAGES = {
     },
     "glitch-text": {
         "url": "glitch-text",
-        "page_title": "Glitch Text Generator - Create Distorted Text Effects",
-        "meta_description": "Transform your text with our free glitch text generator. Create corrupted, distorted text for social media, gaming, and creative projects.",
-        "meta_keywords": "glitch text, glitch text generator, distorted text, text effects",
+        "page_title": "Glitch Text Generator - Create Distorted & Glitchy Text Effects",
+        "meta_description": "Transform your text with our free glitch text generator. Create corrupted, distorted, and glitchy text for social media, gaming, and creative projects. Try our glitching font styles.",
+        "meta_keywords": "glitch text, glitch text generator, distorted text, text effects, text glitch, glitchy text generator, glitching font",
         "canonical_url": "https://glitchtexteffect.com/glitch-text",
         "h1_title": "Glitch Text Generator",
-        "subtitle": "Create digital distortion effects for your text. Perfect for cyberpunk aesthetics, digital art, and standing out on social media.",
+        "subtitle": "Create digital distortion and text glitch effects for your text. Perfect for cyberpunk aesthetics, digital art, and standing out on social media with a glitching font.",
         "primary_effect": "ascii",
         "primary_effect_name": "ASCII Glitch",
         "default_font": "cyber",
@@ -94,7 +94,7 @@ SEO_PAGES = {
         "default_text": "Glitch Aesthetic",
         "output_header": "Glitched Output",
         "h2_title": "What is Glitch Text?",
-        "main_content": "<p>Glitch text is a style that mimics digital corruption or errors, creating a distorted, broken appearance. This aesthetic has become popular in cyberpunk, vaporwave, and digital art communities.</p><p>Our glitch text generator lets you create various types of digital distortion effects that you can copy and paste anywhere. It's perfect for creating unique usernames, social media posts, or digital art projects.</p>",
+        "main_content": "<p>Glitch text is a style that mimics digital corruption or errors, creating a distorted, broken appearance. This aesthetic, often called a text glitch, has become popular in cyberpunk, vaporwave, and digital art communities.</p><p>Our glitchy text generator lets you create various types of digital distortion effects that you can copy and paste anywhere. It's perfect for creating unique usernames, social media posts, or digital art projects with a unique glitching font.</p>",
         "examples_title": "Glitch Text Examples",
         "examples": [
             {
@@ -188,5 +188,96 @@ SEO_PAGES = {
             {"route": "glitch_text", "title": "Glitch Text Generator"},
             {"route": "minecraft_glitch_text", "title": "Minecraft Glitch Text"}
         ]
+    },
+    "is-glitch-text-safe": {
+        "url": "is-glitch-text-safe",
+        "page_title": "Is Glitch Text Safe? - Glitch Text Effect",
+        "meta_description": "Learn about the safety of using glitch text and zalgo text on social media platforms and websites.",
+        "meta_keywords": "glitch text safe, zalgo text safe, cursed text safe",
+        "canonical_url": "https://glitchtexteffect.com/is-glitch-text-safe",
+        "h1_title": "Is Glitch Text Safe to Use?",
+        "subtitle": "Understanding the safety and compatibility of glitch text.",
+        "main_content": "<p>Glitch text is generally safe to use, but it can cause issues on some platforms. Here's what you need to know.</p>",
+        "faq": [],
+        "related_pages": []
+    },
+    "unicode-glitch-text": {
+        "url": "unicode-glitch-text",
+        "page_title": "Unicode Glitch Text - Glitch Text Effect",
+        "meta_description": "Learn how Unicode is used to create glitch text and other text effects.",
+        "meta_keywords": "unicode glitch text, unicode text effects, zalgo unicode",
+        "canonical_url": "https://glitchtexteffect.com/unicode-glitch-text",
+        "h1_title": "How Unicode Creates Glitch Text",
+        "subtitle": "A look into the technical side of text effects.",
+        "main_content": "<p>Unicode provides a universal standard for encoding characters, and its flexibility allows for the creation of complex text effects like glitch text.</p>",
+        "faq": [],
+        "related_pages": []
+    },
+    "glitch-text-examples": {
+        "url": "glitch-text-examples",
+        "page_title": "Glitch Text Examples - Glitch Text Effect",
+        "meta_description": "A collection of glitch text examples that you can copy and paste.",
+        "meta_keywords": "glitch text examples, cursed text examples, zalgo text examples",
+        "canonical_url": "https://glitchtexteffect.com/glitch-text-examples",
+        "h1_title": "Glitch Text Examples",
+        "subtitle": "Copy and paste these examples.",
+        "main_content": "<p>Here are some examples of glitch text that you can use anywhere you like.</p>",
+        "examples": [
+            {
+                "title": "Mild Glitch",
+                "text": "T̴h̷i̵s̴ ̷i̶s̴ ̴a̸ ̶t̴e̵s̴t̵.",
+                "original": "This is a test."
+            }
+        ],
+        "faq": [],
+        "related_pages": []
+    },
+    "how-to-use-glitch-text-on-discord": {
+        "url": "how-to-use-glitch-text-on-discord",
+        "page_title": "How to Use Glitch Text on Discord - Glitch Text Effect",
+        "meta_description": "A guide on how to use glitch text on Discord for usernames, messages, and more.",
+        "meta_keywords": "discord glitch text, how to use glitch text discord, discord text effects",
+        "canonical_url": "https://glitchtexteffect.com/how-to-use-glitch-text-on-discord",
+        "h1_title": "How to Use Glitch Text on Discord",
+        "subtitle": "Make your Discord presence unique with glitch text.",
+        "main_content": "<p>Using glitch text on Discord is a great way to stand out. Here's how to do it.</p>",
+        "faq": [],
+        "related_pages": []
+    },
+    "glitch-text-generator-review": {
+        "url": "glitch-text-generator-review",
+        "page_title": "Glitch Text Generator Review - Glitch Text Effect",
+        "meta_description": "A review of the best glitch text generators available online.",
+        "meta_keywords": "glitch text generator review, best glitch text generator, zalgo text generator review",
+        "canonical_url": "https://glitchtexteffect.com/glitch-text-generator-review",
+        "h1_title": "Glitch Text Generator Review",
+        "subtitle": "Finding the best tool for your needs.",
+        "main_content": "<p>There are many glitch text generators out there. Here's a review of the best ones.</p>",
+        "faq": [],
+        "related_pages": []
+    },
+    "cursed-text-meaning": {
+        "url": "cursed-text-meaning",
+        "page_title": "Cursed Text Meaning - Glitch Text Effect",
+        "meta_description": "Learn the meaning behind cursed text and why it's so popular.",
+        "meta_keywords": "cursed text meaning, what is cursed text, zalgo text meaning",
+        "canonical_url": "https://glitchtexteffect.com/cursed-text-meaning",
+        "h1_title": "The Meaning of Cursed Text",
+        "subtitle": "Why is it so popular?",
+        "main_content": "<p>Cursed text is a form of digital expression that has gained popularity in recent years. But what does it mean?</p>",
+        "faq": [],
+        "related_pages": []
+    },
+    "glitch-fonts-vs-cursed-fonts": {
+        "url": "glitch-fonts-vs-cursed-fonts",
+        "page_title": "Glitch Fonts vs Cursed Fonts - Glitch Text Effect",
+        "meta_description": "Learn the difference between glitch fonts and cursed fonts.",
+        "meta_keywords": "glitch fonts vs cursed fonts, cursed fonts, glitch fonts",
+        "canonical_url": "https://glitchtexteffect.com/glitch-fonts-vs-cursed-fonts",
+        "h1_title": "Glitch Fonts vs Cursed Fonts",
+        "subtitle": "What's the difference?",
+        "main_content": "<p>Glitch fonts and cursed fonts are two different ways to achieve a distorted text effect. Here's how they differ.</p>",
+        "faq": [],
+        "related_pages": []
     }
 }

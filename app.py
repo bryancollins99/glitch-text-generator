@@ -304,6 +304,14 @@ def download_image():
         app.logger.error(f'Error downloading image: {e}')
         return jsonify({'error': str(e)}), 500
 
+@app.route('/abntoout')
+def redirect_about():
+    return redirect(url_for('about'))
+
+@app.route('/about/')
+def about_trailing_slash():
+    return redirect(url_for('about'))
+
 @app.route('/about')
 def about():
     return render_template('about.html')
@@ -901,7 +909,7 @@ def seo_page(page_slug):
 
 @app.route('/sitemap')
 def html_sitemap():
-    return render_template('sitemap.html')
+    return render_template('sitemap.html', seo_pages=SEO_PAGES_DATA)
 
 @app.route('/sitemap.xml')
 def sitemap():
@@ -925,6 +933,7 @@ def sitemap():
         {'url': 'discord', 'priority': '0.8', 'changefreq': 'weekly'},
         {'url': 'roblox', 'priority': '0.8', 'changefreq': 'weekly'},
         {'url': 'vaporwave', 'priority': '0.7', 'changefreq': 'weekly'},
+        {'url': 'superscript-text-generator', 'priority': '0.7', 'changefreq': 'weekly'},
         {'url': 'small-caps', 'priority': '0.7', 'changefreq': 'weekly'},
         {'url': 'large-caps', 'priority': '0.7', 'changefreq': 'weekly'},
         {'url': 'title-case', 'priority': '0.7', 'changefreq': 'weekly'},
@@ -1375,6 +1384,14 @@ def get_preset_combinations():
         preset['original'] = combined_text
     
     return jsonify(presets)
+
+@app.route('/superscript-text-generator')
+def superscript():
+    return render_template('superscript.html')
+
+@app.route('/vaporwave-text-generator')
+def vaporwave():
+    return render_template('vaporwave.html')
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5003))

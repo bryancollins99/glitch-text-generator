@@ -1,0 +1,17 @@
+{% extends "seo/info_base.html" %}
+
+{% block info_content %}
+  <p>{{ subtitle }}</p>
+  {{ main_content|safe }}
+
+  {% if examples %}
+    <h2>{{ examples_title }}</h2>
+    {% for example in examples %}
+      <div class="example-box">
+        <div class="example-title">{{ example.title }}</div>
+        <div class="example-text">{{ example.text }}</div>
+        <p>Original: {{ example.original }}</p>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endblock %} 

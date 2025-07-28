@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Superscript Text Generator - Create Tiny Text{% endblock %}
+
+{% block head %}
+<meta name="description" content="Generate superscript text (tiny text) for social media, comments, and messages. Our free online tool makes it easy to convert your text into small, superscript characters that you can copy and paste anywhere.">
+<meta name="keywords" content="superscript generator, tiny text generator, small text generator, superscript text, tiny text, small text">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <header class="text-center my-5">
+        <h1>Superscript Text Generator</h1>
+        <p class="lead">Create tiny superscript text to use in your social media posts, comments, and messages.</p>
+    </header>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Your Text</h2>
+            <textarea id="inputText" class="form-control" rows="5" placeholder="Enter your text here..."></textarea>
+        </div>
+        <div class="col-md-6">
+            <h2>Superscript Text</h2>
+            <textarea id="outputText" class="form-control" rows="5" readonly></textarea>
+        </div>
+    </div>
+
+    <div class="text-center my-4">
+        <button id="copyButton" class="btn btn-primary">Copy to Clipboard</button>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/superscript.js') }}"></script>
+{% endblock %} 
