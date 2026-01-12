@@ -83,7 +83,7 @@ jobs:
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
           source: "docker-compose.yml"
-          target: "~/app"
+          target: "~/glitch-text-generator"
 
       - name: Deploy to VPS
         uses: appleboy/ssh-action@v1.0.3
@@ -92,11 +92,12 @@ jobs:
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            cd ~/app
+            mkdir -p ~/glitch-text-generator
+            cd ~/glitch-text-generator
             # Convert repo name to lowercase for GHCR
             REPO_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-            # Update image name in docker-compose.yml dynamically or use environment variable
+            # Update image name in docker-compose.yml dynamically
             sed -i "s|image: ghcr.io/.*|image: ghcr.io/$REPO_LOWER:latest|g" docker-compose.yml
             docker compose pull
             docker compose up -d

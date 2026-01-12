@@ -29,26 +29,31 @@ apt update && apt upgrade -y
 
 ## 2. Install Docker & Docker Compose
 ```bash
-# Install Docker
+# Install Docker (if not already installed)
 curl -fsSL https://get.docker.com -o get-docker.sh
 sh get-docker.sh
 
-# Create app directory
-mkdir -p ~/app
+# Create project-specific directory
+mkdir -p ~/glitch-text-generator
 ```
 
-## 3. Install Nginx & Certbot
+## 3. Install Nginx & Certbot (if not already installed)
 ```bash
 apt install nginx certbot python3-certbot-nginx -y
 ```
 
-## 4. Configure Nginx
-Create a new Nginx config file:
+## 4. Configure Nginx for Multi-Project Hosting
+Nginx handles multiple projects using "Server Blocks". You can have many config files in `sites-available`.
+
+Create a new Nginx config file for *this* project:
 ```bash
 nano /etc/nginx/sites-available/glitch-text
 ```
 
-Paste the following (replace `yourdomain.com` with your actual domain):
+Paste the following (replace `yourdomain.com` with your actual domain). 
+
+**Note on Ports:** If port `8000` is already taken by another project on your VPS, change the `8000` in both `docker-compose.yml` and this Nginx config to something else (like `8001`).
+
 ```nginx
 server {
     server_name yourdomain.com;
@@ -63,10 +68,9 @@ server {
 }
 ```
 
-Enable the site and restart Nginx:
+Enable the new site and restart Nginx:
 ```bash
 ln -s /etc/nginx/sites-available/glitch-text /etc/nginx/sites-enabled/
-rm /etc/nginx/sites-enabled/default
 nginx -t
 systemctl restart nginx
 ```
