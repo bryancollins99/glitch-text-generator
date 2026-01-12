@@ -2,6 +2,20 @@
 
 Follow these steps to prepare your fresh Hetzner VPS for the Glitch Text Generator.
 
+## 0. DNS Configuration
+Before configuring the server, point your domain to the VPS IP address:
+
+1. Log in to your domain registrar (Cloudflare, Namecheap, etc.).
+2. Go to **DNS Settings**.
+3. Add an **A Record**:
+   - **Name**: `@` (or your domain)
+   - **Value**: `YOUR_VPS_IP_ADDRESS`
+4. Add another **A Record** (or CNAME) for `www`:
+   - **Name**: `www`
+   - **Value**: `YOUR_VPS_IP_ADDRESS`
+
+*Note: DNS changes can take a few minutes to several hours to propagate.*
+
 ## 1. Initial Server Prep
 Connect to your VPS via SSH:
 ```bash
