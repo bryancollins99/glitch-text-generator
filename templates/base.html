@@ -14,7 +14,7 @@
     <link rel="apple-touch-icon" href="{{ url_for('static', filename='favicon.svg') }}">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://glitchtexteffect.com{% if request.path != '/' %}{{ request.path }}{% endif %}">
+    <link rel="canonical" href="{{ url_for(request.endpoint, _external=True) }}">
     
     <!-- Open Graph Tags -->
     <meta property="og:title" content="{% block og_title %}Generate Glitch Text - Free Online Text & Image Glitch Generator{% endblock %}">
@@ -82,6 +82,7 @@
                         <li><a href="{{ url_for('discord') }}">Discord Text</a></li>
                         <li><a href="{{ url_for('roblox') }}">Roblox Text</a></li>
                         <li><a href="{{ url_for('vaporwave') }}">Vaporwave Text</a></li>
+                        <li><a href="{{ url_for('superscript') }}">Superscript Text</a></li>
                         <li><a href="{{ url_for('small_caps') }}">Small Caps</a></li>
                         <li><a href="{{ url_for('large_caps') }}">Large Caps</a></li>
                         <li><a href="{{ url_for('title_case') }}">Title Case</a></li>
