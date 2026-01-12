@@ -20,7 +20,7 @@ MAX_IMAGE_SIZE = 1.5 * 1024 * 1024 # Max image size in bytes (1.5MB)
 
 @app.after_request
 def add_security_headers(response):
-    response.headers['Content-Security-Policy'] = "default-src 'self'; img-src 'self' data: blob:; script-src 'self' 'unsafe-inline' plausible.io; style-src 'self' 'unsafe-inline' cdnjs.cloudflare.com; font-src 'self' data: cdnjs.cloudflare.com; connect-src 'self' plausible.io; frame-src youtube.com www.youtube.com;"
+    response.headers['Content-Security-Policy'] = "default-src 'self'; img-src 'self' data: blob:; script-src 'self' 'unsafe-inline' plausible.io stats.bryancollins.com; style-src 'self' 'unsafe-inline' cdnjs.cloudflare.com; font-src 'self' data: cdnjs.cloudflare.com; connect-src 'self' plausible.io stats.bryancollins.com; frame-src youtube.com www.youtube.com;"
     return response
 
 def zalgo(text, intensity=5):
