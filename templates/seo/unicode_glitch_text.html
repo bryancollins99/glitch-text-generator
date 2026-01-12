@@ -1,0 +1,320 @@
+{% extends "seo/info_base.html" %}
+
+{% block page_styles %}
+.unicode-example {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+  font-family: 'Courier New', monospace;
+  border-left: 4px solid var(--accent-color);
+}
+
+.unicode-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.unicode-table th {
+  background: var(--accent-color);
+  color: white;
+  padding: 0.8rem;
+  text-align: left;
+}
+
+.unicode-table td {
+  padding: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.unicode-table tr:last-child td {
+  border-bottom: none;
+}
+
+.code-point {
+  font-family: 'Courier New', monospace;
+  color: var(--accent-color);
+  font-weight: bold;
+}
+
+.character-demo {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.technical-box {
+  background: rgba(0, 100, 200, 0.1);
+  border-left: 4px solid #0066cc;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border-radius: 4px;
+}
+
+.combining-demo {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.demo-step {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.demo-character {
+  font-size: 2rem;
+  margin: 1rem 0;
+  font-family: 'Courier New', monospace;
+}
+{% endblock %}
+
+{% block info_content %}
+<p>
+  Understanding how <strong>Unicode</strong> works is key to understanding how glitch text effects are created. Far from being "broken" or "corrupted," glitch text is actually a clever use of legitimate Unicode features that were designed for proper text rendering across different languages and writing systems.
+</p>
+
+<h2>What is Unicode?</h2>
+
+<p>
+  Unicode is a universal character encoding standard that assigns a unique number (called a code point) to every character, symbol, and emoji used in written communication worldwide. It allows computers to consistently display and process text from different languages and writing systems.
+</p>
+
+<div class="technical-box">
+  <h3>🔢 Unicode Basics</h3>
+  <ul>
+    <li><strong>Code Points:</strong> Each character has a unique identifier (e.g., U+0041 for "A")</li>
+    <li><strong>Planes:</strong> Unicode is organized into 17 planes, each containing 65,536 code points</li>
+    <li><strong>UTF-8/UTF-16:</strong> Encoding methods that convert Unicode to bytes for storage</li>
+    <li><strong>Backward Compatibility:</strong> Includes all ASCII characters for compatibility</li>
+  </ul>
+</div>
+
+<h2>Combining Diacritical Marks</h2>
+
+<p>
+  The magic behind most glitch text effects lies in Unicode's <strong>combining diacritical marks</strong>. These special characters are designed to modify the appearance of the character that comes before them.
+</p>
+
+<div class="combining-demo">
+  <div class="demo-step">
+    <h4>Base Character</h4>
+    <div class="demo-character">e</div>
+    <p>U+0065 (LATIN SMALL LETTER E)</p>
+  </div>
+  <div class="demo-step">
+    <h4>+ Combining Mark</h4>
+    <div class="demo-character">́</div>
+    <p>U+0301 (COMBINING ACUTE ACCENT)</p>
+  </div>
+  <div class="demo-step">
+    <h4>= Combined Result</h4>
+    <div class="demo-character">é</div>
+    <p>Normal accented letter</p>
+  </div>
+</div>
+
+<h3>How Glitch Text Exploits Combining Marks</h3>
+
+<p>
+  Glitch text generators take advantage of the fact that Unicode allows multiple combining marks to be applied to a single base character. While this was intended for complex scripts and special cases, it can be used creatively:
+</p>
+
+<div class="unicode-example">
+  Base character: H<br>
+  + 1 combining mark: H̸<br>
+  + 5 combining marks: H̸̢̧̛̭<br>
+  + 10 combining marks: H̸̢̧̛̭̣̖̙̙̞<br>
+  + 20 combining marks: H̸̢̧̛̭̣̖̙̙̞̩̖̰̫̜̜̰̱̆̓̈́̀̓̓̈́̌̈́͘͝ͅ
+</div>
+
+<h2>Categories of Combining Characters</h2>
+
+<p>
+  Unicode organizing combining marks into different categories based on where they appear relative to the base character:
+</p>
+
+<table class="unicode-table">
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Position</th>
+      <th>Unicode Range</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Above</td>
+      <td>Stacked above base character</td>
+      <td class="code-point">U+0300-U+0362</td>
+      <td class="character-demo">é ė ê ë</td>
+    </tr>
+    <tr>
+      <td>Below</td>
+      <td>Placed below base character</td>
+      <td class="code-point">U+0316-U+0362</td>
+      <td class="character-demo">ḛ ę ḝ</td>
+    </tr>
+    <tr>
+      <td>Overlay</td>
+      <td>Drawn through base character</td>
+      <td class="code-point">U+0334-U+0338</td>
+      <td class="character-demo">e̶ e̷ e̸</td>
+    </tr>
+    <tr>
+      <td>Enclosing</td>
+      <td>Surrounds base character</td>
+      <td class="code-point">U+20D0-U+20F0</td>
+      <td class="character-demo">e⃝ e⃞ e⃟</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>How Glitch Text Generators Work</h2>
+
+<p>
+  When you use a glitch text generator, it follows a systematic process to create the distorted effect:
+</p>
+
+<ol>
+  <li><strong>Input Processing:</strong> Takes your normal text as input</li>
+  <li><strong>Character Analysis:</strong> Breaks down text into individual characters</li>
+  <li><strong>Mark Selection:</strong> Chooses combining marks from various Unicode ranges</li>
+  <li><strong>Random Distribution:</strong> Applies marks with controlled randomness</li>
+  <li><strong>Intensity Control:</strong> Adjusts the number of marks based on user settings</li>
+  <li><strong>Output Generation:</strong> Combines base characters with marks to create final result</li>
+</ol>
+
+<div class="technical-box">
+  <h3>📝 Technical Implementation</h3>
+  <p>A simplified algorithm might look like this:</p>
+  <div class="unicode-example">
+for each character in input_text:<br>
+&nbsp;&nbsp;output += character<br>
+&nbsp;&nbsp;for i in range(intensity):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;mark = random_combining_mark()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;output += mark<br>
+return output
+  </div>
+</div>
+
+<h2>Specific Unicode Ranges Used</h2>
+
+<p>
+  Glitch text generators typically draw from several specific Unicode ranges:
+</p>
+
+<table class="unicode-table">
+  <thead>
+    <tr>
+      <th>Range</th>
+      <th>Name</th>
+      <th>Characters</th>
+      <th>Effect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="code-point">U+0300-U+036F</td>
+      <td>Combining Diacritical Marks</td>
+      <td>112</td>
+      <td>Basic accents, dots, lines</td>
+    </tr>
+    <tr>
+      <td class="code-point">U+1AB0-U+1AFF</td>
+      <td>Combining Diacritical Marks Extended</td>
+      <td>80</td>
+      <td>Additional complex marks</td>
+    </tr>
+    <tr>
+      <td class="code-point">U+1DC0-U+1DFF</td>
+      <td>Combining Diacritical Marks Supplement</td>
+      <td>64</td>
+      <td>Specialized marks for specific scripts</td>
+    </tr>
+    <tr>
+      <td class="code-point">U+20D0-U+20FF</td>
+      <td>Combining Marks for Symbols</td>
+      <td>48</td>
+      <td>Enclosing marks, mathematical symbols</td>
+    </tr>
+    <tr>
+      <td class="code-point">U+FE20-U+FE2F</td>
+      <td>Combining Half Marks</td>
+      <td>16</td>
+      <td>Partial marks for complex scripts</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Why It Works Across Platforms</h2>
+
+<p>
+  The reason glitch text displays consistently across different platforms is that it uses standard Unicode characters:
+</p>
+
+<ul>
+  <li><strong>Universal Standard:</strong> Unicode is supported by all modern operating systems</li>
+  <li><strong>Font Support:</strong> Most fonts include combining mark support</li>
+  <li><strong>Browser Compatibility:</strong> Web browsers handle Unicode rendering automatically</li>
+  <li><strong>Application Support:</strong> Text editors and messaging apps process Unicode by default</li>
+</ul>
+
+<h2>Limitations and Rendering Issues</h2>
+
+<p>
+  While Unicode enables glitch text, there are some technical limitations:
+</p>
+
+<div class="technical-box">
+  <h3>⚠️ Technical Limitations</h3>
+  <ul>
+    <li><strong>Font Dependencies:</strong> Not all fonts support all combining marks</li>
+    <li><strong>Rendering Performance:</strong> Complex combinations can slow down text rendering</li>
+    <li><strong>Platform Variations:</strong> Different systems may render marks slightly differently</li>
+    <li><strong>Character Limits:</strong> Each combining mark counts toward character limits</li>
+    <li><strong>Screen Reader Issues:</strong> Assistive technology may struggle with complex combinations</li>
+  </ul>
+</div>
+
+<h2>Beyond Combining Marks</h2>
+
+<p>
+  While combining marks create the most dramatic glitch effects, other Unicode features are also used:
+</p>
+
+<ul>
+  <li><strong>Look-alike Characters:</strong> Using similar characters from different scripts</li>
+  <li><strong>Mathematical Symbols:</strong> Substituting with mathematical alphanumeric symbols</li>
+  <li><strong>Enclosed Characters:</strong> Using circled, squared, or parenthesized variants</li>
+  <li><strong>Fullwidth Characters:</strong> Using wider versions from East Asian character sets</li>
+</ul>
+
+<div class="unicode-example">
+  Normal: Hello World<br>
+  Mathematical: 𝐇𝐞𝐥𝐥𝐨 𝐖𝐨𝐫𝐥𝐝<br>
+  Fullwidth: Ｈｅｌｌｏ　Ｗｏｒｌｄ<br>
+  Circled: Ⓗⓔⓛⓛⓞ Ⓦⓞⓡⓛⓓ
+</div>
+
+<h2>Conclusion</h2>
+
+<p>
+  Glitch text is a fascinating example of creative use of technical standards. By understanding how Unicode's combining diacritical marks work, we can appreciate that glitch text isn't actually "broken" - it's a clever exploitation of features designed to support the world's diverse writing systems.
+</p>
+
+<p>
+  This technical foundation is what makes glitch text both reliable and widely compatible across different platforms and devices. The next time you see corrupted-looking text, you'll know it's actually the result of carefully applied Unicode standards!
+</p>
+
+<p>
+  Want to experiment with Unicode-based glitch effects? Try our <a href="/glitch-text" class="cta-button">Glitch Text Generator</a> to see these principles in action.
+</p>
+{% endblock %}

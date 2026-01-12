@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Roblox Glitch Text Generator: Cool Usernames & Chat Effects for Roblox{% endblock %}
+
+{% block head %}
+<meta name="description" content="Stand out in the Roblox metaverse with glitched usernames, bios, and chat effects. Learn which characters work in Roblox and how to create the best glitch aesthetic.">
+<meta name="keywords" content="roblox glitch text, roblox username generator, roblox chat effects, zalgo roblox, aesthetic roblox text">
+{% endblock %}
+
+{% block content %}
+<div class="content-wrapper">
+    <h1 class="glitch-title">Roblox Glitch Text Generator</h1>
+    
+    <p class="lead">Level up your Roblox presence. Whether you're building a cyberpunk world or just want a cool distorted username, our glitch text effects help you stand out in the metaverse.</p>
+
+    <div class="cta-section">
+        <a href="{{ url_for('home') }}" class="cta-button">Generate Roblox Glitch Text</a>
+    </div>
+
+    <h2>1. Glitch Text in Roblox Usernames</h2>
+    <p>Roblox has strict rules for usernames, but many "aesthetic" characters and subtle glitches are still possible. Using a mix of <strong>small caps</strong> and <strong>vaporwave symbols</strong> is often more successful than heavy Zalgo text, which may be filtered by the system.</p>
+    <ul>
+        <li><a href="{{ url_for('small_caps') }}">Try Small Caps for Usernames</a></li>
+        <li><a href="{{ url_for('vaporwave') }}">Try Vaporwave for Profiles</a></li>
+    </ul>
+
+    <h2>2. Chat Glitching & Filters</h2>
+    <p>Roblox's chat filter (often called "tags") can be sensitive. To prevent your glitch text from being tagged (###), we recommend:</p>
+    <ul>
+        <li>Using moderate intensity settings.</li>
+        <li>Avoiding characters that look like numbers or symbols that might bypass the filter.</li>
+        <li>Testing your generated text in a private server first.</li>
+    </ul>
+
+    <div class="example-box" style="background: rgba(255, 0, 255, 0.05); padding: 20px; border: 1px dashed var(--primary); margin: 20px 0;">
+        <h3 style="color: var(--primary);">Popular Roblox Aesthetic Styles</h3>
+        <p><strong>Username Style:</strong> <code>v̵o̵i̵d̵_̵u̵s̵e̵r̵</code></p>
+        <p><strong>Bio Style:</strong> <code>「 ɢʟɪᴛᴄʜᴇᴅ ʀᴇᴀʟɪᴛʏ 」</code></p>
+        <p><strong>Game Name Style:</strong> <code>[BETA] ░D░I░G░I░T░A░L░ ░G░L░I░T░C░H░</code></p>
+    </div>
+
+    <h2>3. Bio & Profile Customization</h2>
+    <p>Your Roblox profile bio is the best place to use heavy glitch effects. Unlike usernames, bios allow for a wider range of Unicode characters. You can use our <a href="{{ url_for('home') }}">main generator</a> to create a "corrupted" bio that tells other players your character is from another dimension or has been "hacked."</p>
+
+    <h2>4. Development & Game Design</h2>
+    <p>If you're a Roblox developer, you can use glitch text in your <strong>TextLabels</strong> and <strong>GUIs</strong>. By scripting the <code>Text</code> property to rapidly change between glitched strings, you can create a dynamic "hacker" effect for your game's UI.</p>
+
+    <div class="cta-section" style="margin-top: 40px;">
+        <h2>Ready to upgrade your Roblox style?</h2>
+        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+            <a href="{{ url_for('home') }}" class="cta-button">Main Generator</a>
+            <a href="{{ url_for('examples') }}" class="cta-button secondary">See All Styles</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

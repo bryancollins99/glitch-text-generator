@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Discord to Minecraft Glitch Text: How to Use Corrupted Text Across Platforms{% endblock %}
+
+{% block head %}
+<meta name="description" content="Learn how to bridge the gap between Discord and Minecraft with glitch text. Use Zalgo and formatting codes to create immersive server communities and recruitment posts.">
+<meta name="keywords" content="discord minecraft glitch, minecraft recruitment text, discord formatting minecraft, zalgo minecraft guide">
+{% endblock %}
+
+{% block content %}
+<div class="content-wrapper">
+    <h1 class="glitch-title">Discord & Minecraft: The Glitch Bridge</h1>
+    
+    <p class="lead">For server owners and roleplayers, the bridge between Discord and Minecraft is where your community's atmosphere is built. This guide shows you how to use glitch text to create a cohesive "corrupted" aesthetic across both platforms.</p>
+
+    <div class="cta-section">
+        <a href="{{ url_for('discord') }}" class="cta-button">Open Discord Generator</a>
+        <a href="{{ url_for('content_minecraft_glitch_text') }}" class="cta-button secondary">Open Minecraft Generator</a>
+    </div>
+
+    <h2>1. Discord vs. Minecraft: The Technical Difference</h2>
+    <p>While both platforms support "glitch" styles, they do so differently:</p>
+    <ul>
+        <li><strong>Discord:</strong> Primarily uses <strong>Unicode Zalgo</strong>. This involves stacking characters vertically. It works in nicknames, chat, and server names.</li>
+        <li><strong>Minecraft:</strong> Primarily uses <strong>Obfuscated Formatting (§k)</strong>. This is a real-time scrambling effect built into the game's font renderer.</li>
+    </ul>
+
+    <h2>2. Recruitment & Server Lists</h2>
+    <p>If you're recruiting for a Horror or Cyberpunk server, your Discord recruitment post should match your in-game MOTD. Use our <a href="{{ url_for('minecraft_motd_generator') }}">MOTD Generator</a> to create the game-side look, and our <a href="{{ url_for('home') }}">Home Page Generator</a> for the Discord side.</p>
+    
+    <div class="example-box" style="background: rgba(0, 255, 255, 0.05); padding: 20px; border: 1px dashed var(--secondary); margin: 20px 0;">
+        <h3 style="color: var(--secondary);">The "System Failure" Aesthetic</h3>
+        <p><strong>Discord Message:</strong> <code>[ERROR] T̶h̶e̶ ̶S̶e̶r̶v̶e̶r̶ ̶i̶s̶ ̶L̶i̶v̶e̶</code></p>
+        <p><strong>Minecraft MOTD:</strong> <code>§c§k||§r §4SYSTEM ONLINE §c§k||</code></p>
+    </div>
+
+    <h2>3. Bridging Chat with Plugins</h2>
+    <p>Many servers use plugins like <strong>DiscordSRV</strong> to sync chat between the two. When using glitch text through these plugins:</p>
+    <ul>
+        <li>Zalgo text from Discord often translates to Minecraft as "boxes" or weird symbols unless the server has a custom font.</li>
+        <li>Minecraft's <code>§k</code> will often just show as the raw code in Discord.</li>
+        <li><strong>Pro-Tip:</strong> Use simple bold (<code>**text**</code> / <code>§l</code>) and color filters to maintain the vibe without breaking readability.</li>
+    </ul>
+
+    <h2>4. Creating Immersive Lore</h2>
+    <p>Use Discord webhooks to send "corrupted" messages from an in-game "entity." By combining our Zalgo generator with a Discord webhook, you can create a truly haunting experience for your players who are following the lore from their phones.</p>
+
+    <div class="cta-section" style="margin-top: 40px;">
+        <h2>Ready to start glitching?</h2>
+        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+            <a href="{{ url_for('home') }}" class="cta-button">Generate Zalgo for Discord</a>
+            <a href="{{ url_for('minecraft_color_codes') }}" class="cta-button">Minecraft Code Guide</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

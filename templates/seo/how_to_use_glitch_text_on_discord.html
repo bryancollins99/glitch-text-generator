@@ -1,0 +1,354 @@
+{% extends "seo/info_base.html" %}
+
+{% block page_styles %}
+.step-by-step {
+  background: rgba(0, 100, 200, 0.1);
+  border-left: 4px solid #0066cc;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 4px;
+}
+
+.step-number {
+  background: var(--accent-color);
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+.discord-example {
+  background: #2f3136;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border: 1px solid #40444b;
+}
+
+.discord-username {
+  color: #7289da;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.discord-message {
+  color: #dcddde;
+  line-height: 1.4;
+}
+
+.warning-box {
+  background: rgba(255, 193, 7, 0.1);
+  border-left: 4px solid #ffc107;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border-radius: 4px;
+}
+
+.tip-box {
+  background: rgba(40, 167, 69, 0.1);
+  border-left: 4px solid #28a745;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border-radius: 4px;
+}
+
+.use-case-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.use-case-card {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 1rem;
+  border-left: 4px solid var(--accent-color);
+}
+
+.use-case-title {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+}
+
+.compatibility-status {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-left: 0.5rem;
+}
+
+.works-great { background: #28a745; color: white; }
+.works-good { background: #ffc107; color: black; }
+.limited { background: #dc3545; color: white; }
+{% endblock %}
+
+{% block info_content %}
+<p>
+  Want to make your Discord messages and profile stand out with <strong>glitch text</strong>? This comprehensive guide will show you exactly how to use glitch text on Discord for messages, usernames, server names, and more. Discord has excellent support for Unicode characters, making it one of the best platforms for glitch text effects.
+</p>
+
+<h2>Step-by-Step Guide: Using Glitch Text on Discord</h2>
+
+<div class="step-by-step">
+  <div style="display: flex; align-items: flex-start; margin-bottom: 1rem;">
+    <span class="step-number">1</span>
+    <div>
+      <h3>Generate Your Glitch Text</h3>
+      <p>Start by visiting our <a href="/glitch-text">glitch text generator</a>. Type in the text you want to use - this could be your username, a message, or anything else you want to make glitchy.</p>
+    </div>
+  </div>
+
+  <div style="display: flex; align-items: flex-start; margin-bottom: 1rem;">
+    <span class="step-number">2</span>
+    <div>
+      <h3>Choose Your Effect Style</h3>
+      <p>Select the type of glitch effect you want:</p>
+      <ul>
+        <li><strong>Zalgo (Cursed):</strong> For a creepy, horror-inspired look</li>
+        <li><strong>ASCII Glitch:</strong> For a digital, corrupted appearance</li>
+        <li><strong>Binary Corruption:</strong> For a more subtle, tech-inspired effect</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="display: flex; align-items: flex-start; margin-bottom: 1rem;">
+    <span class="step-number">3</span>
+    <div>
+      <h3>Adjust Intensity</h3>
+      <p>Use the intensity slider to control how "glitched" your text appears. For Discord, we recommend:</p>
+      <ul>
+        <li><strong>Light (1-3):</strong> Best for usernames and frequent use</li>
+        <li><strong>Medium (4-6):</strong> Good for special messages and emphasis</li>
+        <li><strong>Heavy (7-9):</strong> For dramatic effect in appropriate channels</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="display: flex; align-items: flex-start; margin-bottom: 1rem;">
+    <span class="step-number">4</span>
+    <div>
+      <h3>Copy the Generated Text</h3>
+      <p>Click the "Copy" button or select all the generated text (Ctrl+A) and copy it (Ctrl+C on Windows, Cmd+C on Mac).</p>
+    </div>
+  </div>
+
+  <div style="display: flex; align-items: flex-start;">
+    <span class="step-number">5</span>
+    <div>
+      <h3>Paste into Discord</h3>
+      <p>Now you can paste your glitch text into Discord wherever you want to use it. See the specific methods below for different use cases.</p>
+    </div>
+  </div>
+</div>
+
+<h2>Different Ways to Use Glitch Text on Discord</h2>
+
+<div class="use-case-grid">
+  <div class="use-case-card">
+    <div class="use-case-title">Chat Messages</div>
+    <span class="compatibility-status works-great">Works Great</span>
+    <p>Simply paste glitch text directly into any text channel or DM. Perfect for emphasizing important messages or adding flair to your conversations.</p>
+  </div>
+
+  <div class="use-case-card">
+    <div class="use-case-title">Server Nicknames</div>
+    <span class="compatibility-status works-great">Works Great</span>
+    <p>Right-click your name in a server, select "Edit Server Profile," and paste glitch text in the nickname field.</p>
+  </div>
+
+  <div class="use-case-card">
+    <div class="use-case-title">Display Name</div>
+    <span class="compatibility-status works-good">Limited Length</span>
+    <p>Go to User Settings → My Account → Display Name. Note that display names have character limits that may restrict heavy glitch effects.</p>
+  </div>
+
+  <div class="use-case-card">
+    <div class="use-case-title">Server Names</div>
+    <span class="compatibility-status works-good">Admin Only</span>
+    <p>If you have admin permissions, you can use glitch text in server names. Go to Server Settings → Overview to edit.</p>
+  </div>
+
+  <div class="use-case-card">
+    <div class="use-case-title">Channel Names</div>
+    <span class="compatibility-status works-good">Admin Only</span>
+    <p>With appropriate permissions, edit channel settings to use glitch text in channel names. Works for both text and voice channels.</p>
+  </div>
+
+  <div class="use-case-card">
+    <div class="use-case-title">Role Names</div>
+    <span class="compatibility-status works-great">Admin Only</span>
+    <p>Create custom roles with glitch text names in Server Settings → Roles. Great for themed servers or special designations.</p>
+  </div>
+
+  <div class="use-case-card">
+    <div class="use-case-title">Status Messages</div>
+    <span class="compatibility-status works-great">Works Great</span>
+    <p>Use glitch text in your custom status. Click your profile picture → Set Custom Status and paste your glitch text.</p>
+  </div>
+
+  <div class="use-case-card">
+    <div class="use-case-title">Bot Commands</div>
+    <span class="compatibility-status works-good">Varies</span>
+    <p>Many bots support glitch text in their responses. Try using it with music bots, announcement bots, or custom commands.</p>
+  </div>
+</div>
+
+<h2>Discord-Specific Examples</h2>
+
+<p>Here are some popular glitch text examples that work perfectly on Discord:</p>
+
+<div class="discord-example">
+  <div class="discord-username">G̃litchy G̃amer</div>
+  <div class="discord-message">H̃ey everyone! J̃oin me for some Ṽalorant tonight! 🎮</div>
+</div>
+
+<div class="discord-example">
+  <div class="discord-username">D̶a̶r̶k̶L̶o̶r̶d̶</div>
+  <div class="discord-message">T̶h̶e̶ ̶r̶a̶i̶d̶ ̶s̶t̶a̶r̶t̶s̶ ̶i̶n̶ ̶1̶0̶ ̶m̶i̶n̶u̶t̶e̶s̶! ̶G̶e̶t̶ ̶r̶e̶a̶d̶y̶! ⚔️</div>
+</div>
+
+<div class="discord-example">
+  <div class="discord-username">C̸̢̧̛̭̣̖̙̙̞̩̖yberpunk2077</div>
+  <div class="discord-message">A̸̢̡̛̱̰̯̱̣̞̙͖nyone w̸̢̧̛̭̣̖̙̙̞̩̖ant to play some c̸̢̡̛̱̰̯̱̣̞̙͖yberpunk? 🌃</div>
+</div>
+
+<h2>Important Discord Considerations</h2>
+
+<div class="warning-box">
+  <h3>⚠️ Character Limits & Restrictions</h3>
+  <ul>
+    <li><strong>Messages:</strong> 2000 character limit (glitch text uses more characters than it appears)</li>
+    <li><strong>Nicknames:</strong> 32 character limit per server</li>
+    <li><strong>Display Names:</strong> 32 character limit globally</li>
+    <li><strong>Status:</strong> 128 character limit for custom status</li>
+    <li><strong>Channel Names:</strong> 100 character limit</li>
+  </ul>
+</div>
+
+<div class="tip-box">
+  <h3>💡 Pro Tips for Discord</h3>
+  <ul>
+    <li><strong>Test First:</strong> Try your glitch text in a private server or DM before using it publicly</li>
+    <li><strong>Moderate Intensity:</strong> Light to medium effects work best for readability</li>
+    <li><strong>Server Rules:</strong> Check if your server has rules about special characters or text formatting</li>
+    <li><strong>Accessibility:</strong> Remember that heavy glitch text can be hard for some users to read</li>
+    <li><strong>Mobile Compatibility:</strong> Test how your glitch text looks on Discord mobile app</li>
+  </ul>
+</div>
+
+<h2>Setting Up Glitch Text Nicknames</h2>
+
+<p>Here's the detailed process for setting up a glitch text nickname on Discord:</p>
+
+<ol>
+  <li><strong>Join a Server:</strong> You need to be in a Discord server to set a nickname</li>
+  <li><strong>Right-Click Your Name:</strong> Find your name in the member list and right-click</li>
+  <li><strong>Select "Edit Server Profile":</strong> This opens your server-specific profile settings</li>
+  <li><strong>Enter Nickname:</strong> Paste your generated glitch text in the nickname field</li>
+  <li><strong>Save Changes:</strong> Click "Save" - your new glitch nickname is now active!</li>
+</ol>
+
+<div class="warning-box">
+  <h3>⚠️ Nickname Limitations</h3>
+  <p>Remember that nicknames are server-specific. You'll need to set up your glitch text nickname separately for each server you join. Also, server administrators can change or remove nicknames if they violate server rules.</p>
+</div>
+
+<h2>Creating Glitch Text Roles</h2>
+
+<p>If you're a server administrator, you can create awesome glitch text roles:</p>
+
+<ol>
+  <li><strong>Go to Server Settings:</strong> Click your server name and select "Server Settings"</li>
+  <li><strong>Navigate to Roles:</strong> Find the "Roles" section in the left sidebar</li>
+  <li><strong>Create New Role:</strong> Click "Create Role" to make a new role</li>
+  <li><strong>Set Role Name:</strong> Paste your glitch text as the role name</li>
+  <li><strong>Choose Color:</strong> Pick a color that complements the glitch aesthetic</li>
+  <li><strong>Set Permissions:</strong> Configure what the role can do</li>
+  <li><strong>Assign to Members:</strong> Give the role to appropriate server members</li>
+</ol>
+
+<h2>Troubleshooting Common Issues</h2>
+
+<h3>Glitch Text Not Displaying Correctly</h3>
+<ul>
+  <li><strong>Check Your Font:</strong> Discord uses system fonts - make sure yours supports Unicode</li>
+  <li><strong>Update Discord:</strong> Older versions may have rendering issues</li>
+  <li><strong>Try Different Devices:</strong> Test on both desktop and mobile</li>
+  <li><strong>Reduce Intensity:</strong> Very heavy effects might not render properly</li>
+</ul>
+
+<h3>Character Limit Exceeded</h3>
+<ul>
+  <li><strong>Shorten Your Text:</strong> Use fewer words or abbreviations</li>
+  <li><strong>Reduce Intensity:</strong> Lower intensity uses fewer characters</li>
+  <li><strong>Check Hidden Characters:</strong> Glitch text contains many invisible combining characters</li>
+</ul>
+
+<h3>Text Appears Blank or Broken</h3>
+<ul>
+  <li><strong>Copy Completely:</strong> Make sure you copied all the generated text including invisible characters</li>
+  <li><strong>Paste as Plain Text:</strong> Use Ctrl+Shift+V instead of Ctrl+V to avoid formatting issues</li>
+  <li><strong>Regenerate:</strong> Try creating the glitch text again with different settings</li>
+</ul>
+
+<h2>Best Practices for Discord Glitch Text</h2>
+
+<div class="tip-box">
+  <h3>✅ Do's</h3>
+  <ul>
+    <li>Use appropriate intensity for the context</li>
+    <li>Test in private before going public</li>
+    <li>Respect server rules and community guidelines</li>
+    <li>Consider readability for other users</li>
+    <li>Use sparingly for maximum impact</li>
+  </ul>
+</div>
+
+<div class="warning-box">
+  <h3>❌ Don'ts</h3>
+  <ul>
+    <li>Don't use extremely heavy effects in public channels</li>
+    <li>Don't spam with glitch text messages</li>
+    <li>Don't ignore server-specific rules about text formatting</li>
+    <li>Don't use glitch text for important information that needs to be clearly readable</li>
+    <li>Don't overuse it - keep some messages normal for contrast</li>
+  </ul>
+</div>
+
+<h2>Popular Discord Use Cases</h2>
+
+<p>Here are some of the most popular ways people use glitch text on Discord:</p>
+
+<ul>
+  <li><strong>Gaming Communities:</strong> Horror game servers, cyberpunk themes, sci-fi roleplay</li>
+  <li><strong>Art Servers:</strong> Digital art communities, glitch art enthusiasts</li>
+  <li><strong>Music Communities:</strong> Electronic music, experimental genres, dark ambient</li>
+  <li><strong>Roleplay Servers:</strong> Character names, in-character messages, atmospheric effects</li>
+  <li><strong>Tech Communities:</strong> Programming servers, cybersecurity groups, tech enthusiasts</li>
+  <li><strong>Meme Servers:</strong> Ironic usage, cursed content, internet culture</li>
+</ul>
+
+<h2>Conclusion</h2>
+
+<p>
+  Discord's excellent Unicode support makes it one of the best platforms for using glitch text effects. Whether you want to create an intimidating gaming persona, add flair to your art community, or just stand out in your friend group's server, glitch text can help you express your unique style.
+</p>
+
+<p>
+  Remember to use glitch text thoughtfully - a little goes a long way, and readability should always be considered when communicating with others. Start with lighter effects and gradually experiment with more intense styles as you get comfortable with the aesthetic.
+</p>
+
+<p>
+  Ready to create your perfect Discord glitch text? Use our <a href="/glitch-text" class="cta-button">Glitch Text Generator</a> to start experimenting with different styles and intensities that work great on Discord!
+</p>
+{% endblock %}

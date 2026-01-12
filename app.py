@@ -84,6 +84,26 @@ def apply_font_style(text, style='default'):
         'horror': {
             'normal': str.maketrans("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
                                   "ԹՅՇԺȝԲԳɧɿʝƙʅʍՌԾρφՐՏԵՄעաՃՎՀԹՅՇԺȝԲԳɧɿʝƙʅʍՌԾρφՐՏԵՄעաՃՎՀ")
+        },
+        'aesthetic': {
+            'normal': str.maketrans("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+                                  "ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ")
+        },
+        'fancy': {
+            'normal': str.maketrans("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+                                  "𝓕𝓐𝓝𝓒𝓨𝓛𝓔𝓣𝓣𝓔𝓡𝓢𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿𝔀𝔁𝔂𝔃")
+        },
+        'bubble': {
+            'normal': str.maketrans("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+                                  "ⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⓋⓌⓍⓎⓏⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ⓪①②③④⑤⑥⑦⑧⑨")
+        },
+        'square': {
+            'normal': str.maketrans("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+                                  "🄰🄱🄲🄳🄴🄵🄿🄷🄸🄹🄺🄼🄽🄾🄿🅀🅁🅂🅃🅄🅅🅆🅇🅈🅉🄰🄱🄲🄳🄴🄵🄶🄷🄸🄹🄺🄻🄼🄽🄾🄿🅀🅁🅂🅃🅄🅅🅆🅇🅈🅉0123456789")
+        },
+        'medieval': {
+            'normal': str.maketrans("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+                                  "𝕬𝕭𝕮𝕯𝕰𝕱𝕲𝕳𝕴𝕵𝕶𝕷𝕸𝕹𝕺𝕻𝕼𝕽𝕾𝕿𝖀𝖁𝖂𝖃𝖄𝖅𝖆𝖇𝖈𝖉𝖊𝖋𝖌𝖍𝖎𝖏𝖐𝖑𝖒𝖓𝖔𝖕𝖖𝖗𝖘𝖙𝖚𝖛𝖜𝖝𝖞𝖟")
         }
     }
     
@@ -412,6 +432,26 @@ def content_glitch_text_generator():
 @app.route('/content/minecraft-glitch-text')
 def content_minecraft_glitch_text():
     return render_template('content/minecraft-glitch-text.html')
+
+@app.route('/minecraft-color-codes')
+def minecraft_color_codes():
+    return render_template('content/minecraft-color-codes.html')
+
+@app.route('/minecraft-motd-generator')
+def minecraft_motd_generator():
+    return render_template('minecraft_motd_generator.html')
+
+@app.route('/minecraft-item-generator')
+def minecraft_item_generator():
+    return render_template('minecraft_item_generator.html')
+
+@app.route('/content/roblox-glitch-text')
+def content_roblox_glitch_text():
+    return render_template('content/roblox-glitch-text.html')
+
+@app.route('/content/discord-minecraft-glitch')
+def content_discord_minecraft_glitch():
+    return render_template('content/discord-minecraft-glitch.html')
 
 @app.route('/content/glitch-art')
 def content_glitch_art():
@@ -938,6 +978,9 @@ def sitemap():
         {'url': 'cool-text', 'priority': '0.7', 'changefreq': 'weekly'},
         {'url': 'freaky', 'priority': '0.7', 'changefreq': 'weekly'},
         {'url': 'graffiti', 'priority': '0.7', 'changefreq': 'weekly'},
+        {'url': 'minecraft-motd-generator', 'priority': '0.7', 'changefreq': 'weekly'},
+        {'url': 'minecraft-item-generator', 'priority': '0.7', 'changefreq': 'weekly'},
+        {'url': 'minecraft-color-codes', 'priority': '0.7', 'changefreq': 'weekly'},
         {'url': 'examples', 'priority': '0.7', 'changefreq': 'monthly'},
         {'url': 'faq', 'priority': '0.6', 'changefreq': 'monthly'},
         {'url': 'about', 'priority': '0.5', 'changefreq': 'monthly'},
@@ -1033,6 +1076,8 @@ def sitemap():
     content_pages = [
         {'url': 'content/glitch-text-generator', 'priority': '0.8'},
         {'url': 'content/minecraft-glitch-text', 'priority': '0.8'},
+        {'url': 'content/discord-minecraft-glitch', 'priority': '0.7'},
+        {'url': 'content/roblox-glitch-text', 'priority': '0.8'},
         {'url': 'content/glitch-art', 'priority': '0.8'},
         {'url': 'content/digital-glitch', 'priority': '0.8'},
         {'url': 'content/glitch-text-maker', 'priority': '0.8'},

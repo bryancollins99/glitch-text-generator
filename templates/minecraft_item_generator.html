@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+
+{% block title %}Minecraft Item Lore & Name Generator: Create Glitched Items with NBT Commands{% endblock %}
+
+{% block head %}
+<meta name="description" content="Create custom Minecraft items with colorful, bold, and glitched names and lore. Generate /give commands with NBT data for Java Edition 1.20+.">
+<meta name="keywords" content="minecraft item generator, minecraft lore maker, minecraft give command generator, glitched sword name, custom item lore">
+<style>
+    .generator-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+    @media (max-width: 900px) {
+        .generator-grid { grid-template-columns: 1fr; }
+    }
+    .input-card {
+        background: rgba(18, 18, 18, 0.9);
+        border: 2px solid var(--primary);
+        padding: 25px;
+        border-radius: 12px;
+    }
+    .field-group {
+        margin-bottom: 20px;
+    }
+    label {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--secondary);
+        font-weight: bold;
+    }
+    input, select, textarea {
+        width: 100%;
+        background: #000;
+        border: 1px solid #444;
+        color: #fff;
+        padding: 10px;
+        font-family: 'Courier New', monospace;
+        border-radius: 4px;
+    }
+    .command-output {
+        background: #000;
+        border: 1px solid var(--accent);
+        padding: 15px;
+        font-family: 'Courier New', monospace;
+        word-break: break-all;
+        margin-top: 20px;
+        color: var(--accent);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="content-wrapper">
+    <h1 class="glitch-title">Minecraft Item Generator</h1>
+    <p class="lead">Create powerful, glitched, or legendary items for your Minecraft server. Generate the exact <code>/give</code> command with custom names, lore, and formatting.</p>
+
+    <div class="generator-grid">
+        <div class="input-card">
+            <div class="field-group">
+                <label>Item ID</label>
+                <input type="text" id="itemId" value="diamond_sword" placeholder="e.g. netherite_axe">
+            </div>
+            <div class="field-group">
+                <label>Display Name</label>
+                <input type="text" id="itemName" value="§k||§r §c§lCorrupted Blade §k||">
+            </div>
+            <div class="field-group">
+                <label>Lore (One line per line)</label>
+                <textarea id="itemLore" rows="4" placeholder="Line 1&#10;Line 2">§7An ancient weapon...&#10;§4§kREDACTED DATA</textarea>
+            </div>
+            <button class="cta-button" style="width: 100%;" onclick="generateCommand()">Generate /give Command</button>
+        </div>
+
+        <div class="preview-card" style="background: rgba(18, 18, 18, 0.9); border: 2px solid var(--secondary); padding: 25px; border-radius: 12px;">
+            <h3>Item Preview</h3>
+            <div id="itemPreview" style="background: #111; padding: 20px; border-radius: 4px; border: 1px solid #333;">
+                <div id="previewName" style="font-size: 18px; margin-bottom: 5px;"></div>
+                <div id="previewLore" style="color: #aaa; font-size: 14px;"></div>
+            </div>
+
+            <h3 style="margin-top: 30px;">Command Output</h3>
+            <div id="commandOutput" class="command-output">/give @p diamond_sword{display:{Name:'{"text":"§k||§r §c§lCorrupted Blade §k||","italic":false}',Lore:['{"text":"§7An ancient weapon...","italic":false}','{"text":"§4§kREDACTED DATA","italic":false}']}} 1</div>
+            <button class="cta-button secondary" style="width: 100%; margin-top: 10px;" onclick="copyCommand()">Copy Command</button>
+        </div>
+    </div>
+
+    <div class="info-section" style="margin-top: 40px;">
+        <h2>How to use this command</h2>
+        <ol>
+            <li>Copy the generated command.</li>
+            <li>In Minecraft, ensure you have <strong>Operator (OP)</strong> permissions.</li>
+            <li>Paste the command into your chat or a <strong>Command Block</strong>.</li>
+            <li>Activate it to receive your custom glitched item!</li>
+        </ol>
+        <p>Tip: Use <code>§k</code> for the "glitching" obfuscated effect. For more colors, see our <a href="{{ url_for('minecraft_color_codes') }}">Color Codes Guide</a>.</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function parseMcText(text) {
+        let html = text;
+        html = html.replace(/§0/g, '<span style="color:#000000">');
+        html = html.replace(/§1/g, '<span style="color:#0000AA">');
+        html = html.replace(/§2/g, '<span style="color:#00AA00">');
+        html = html.replace(/§3/g, '<span style="color:#00AAAA">');
+        html = html.replace(/§4/g, '<span style="color:#AA0000">');
+        html = html.replace(/§5/g, '<span style="color:#AA00AA">');
+        html = html.replace(/§6/g, '<span style="color:#FFAA00">');
+        html = html.replace(/§7/g, '<span style="color:#AAAAAA">');
+        html = html.replace(/§8/g, '<span style="color:#555555">');
+        html = html.replace(/§9/g, '<span style="color:#5555FF">');
+        html = html.replace(/§a/g, '<span style="color:#55FF55">');
+        html = html.replace(/§b/g, '<span style="color:#55FFFF">');
+        html = html.replace(/§c/g, '<span style="color:#FF5555">');
+        html = html.replace(/§d/g, '<span style="color:#FF55FF">');
+        html = html.replace(/§e/g, '<span style="color:#FFFF55">');
+        html = html.replace(/§f/g, '<span style="color:#FFFFFF">');
+        html = html.replace(/§k/g, '<span class="obfuscated">');
+        html = html.replace(/§l/g, '<span style="font-weight:bold">');
+        html = html.replace(/§r/g, '</span></span></span></span></span>');
+        return html;
+    }
+
+    function generateCommand() {
+        const id = document.getElementById('itemId').value;
+        const name = document.getElementById('itemName').value;
+        const loreLines = document.getElementById('itemLore').value.split('\n');
+        
+        // Update Preview
+        document.getElementById('previewName').innerHTML = parseMcText(name);
+        document.getElementById('previewLore').innerHTML = loreLines.map(line => parseMcText(line)).join('<br>');
+        
+        // Build JSON command (Modern 1.20+ format)
+        let loreJson = loreLines.map(line => `'{"text":"${line}","italic":false}'`).join(',');
+        let command = `/give @p ${id}{display:{Name:'{"text":"${name}","italic":false}',Lore:[${loreJson}]}} 1`;
+        
+        document.getElementById('commandOutput').innerText = command;
+        
+        // Re-init obfuscation
+        initObfuscation();
+    }
+
+    function initObfuscation() {
+        const obs = document.querySelectorAll('.obfuscated');
+        obs.forEach(el => {
+            const original = el.innerText;
+            setInterval(() => {
+                let r = '';
+                const c = 'ABCDEFGHIKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+                for(let i=0; i<original.length; i++) r += c.charAt(Math.floor(Math.random() * c.length));
+                el.innerText = r;
+            }, 50);
+        });
+    }
+
+    function copyCommand() {
+        const text = document.getElementById('commandOutput').innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Command copied!');
+        });
+    }
+
+    document.querySelectorAll('input, textarea').forEach(el => el.addEventListener('input', generateCommand));
+    generateCommand();
+</script>
+<style>
+    .obfuscated { display: inline-block; }
+</style>
+{% endblock %}

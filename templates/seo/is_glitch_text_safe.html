@@ -1,0 +1,193 @@
+{% extends "seo/info_base.html" %}
+
+{% block page_styles %}
+.safety-box {
+  background: rgba(0, 128, 0, 0.1);
+  border-left: 4px solid #28a745;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border-radius: 4px;
+}
+
+.warning-box {
+  background: rgba(255, 193, 7, 0.1);
+  border-left: 4px solid #ffc107;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border-radius: 4px;
+}
+
+.compatibility-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.platform-card {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 1rem;
+  border-left: 4px solid var(--accent-color);
+}
+
+.platform-name {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+}
+
+.compatibility-status {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.status-good { color: #28a745; }
+.status-warning { color: #ffc107; }
+.status-poor { color: #dc3545; }
+{% endblock %}
+
+{% block info_content %}
+<p>
+  A common question we get is: <strong>"Is glitch text safe to use?"</strong> The short answer is yes - glitch text is generally safe for users and devices. However, there are some important considerations to keep in mind for optimal performance and compatibility.
+</p>
+
+<div class="safety-box">
+  <h3>✅ Generally Safe</h3>
+  <p>Glitch text is created using standard Unicode characters that are part of official character encoding standards. It doesn't contain any malicious code, viruses, or harmful content. It's simply text displayed in an unusual way.</p>
+</div>
+
+<h2>Potential Performance Considerations</h2>
+
+<p>
+  While glitch text is safe, extremely complex glitch effects (especially heavy Zalgo text with hundreds of combining characters) can sometimes cause performance issues on certain systems:
+</p>
+
+<div class="warning-box">
+  <h3>⚠️ Performance Impact</h3>
+  <ul>
+    <li><strong>Browser Lag:</strong> Very complex glitch text can slow down page rendering</li>
+    <li><strong>Mobile Devices:</strong> Older devices may struggle with heavy Unicode effects</li>
+    <li><strong>Memory Usage:</strong> Extreme effects use more system resources</li>
+    <li><strong>Copy/Paste Issues:</strong> Some applications may freeze when handling very long glitch strings</li>
+  </ul>
+</div>
+
+<h2>Platform Compatibility</h2>
+
+<p>Different platforms handle glitch text differently. Here's a breakdown of compatibility across popular services:</p>
+
+<div class="compatibility-grid">
+  <div class="platform-card">
+    <div class="platform-name">Discord</div>
+    <div class="compatibility-status status-good">Excellent Support</div>
+    <p>Discord handles most glitch text very well, including complex Zalgo effects. Character limits may apply to usernames and messages.</p>
+  </div>
+  
+  <div class="platform-card">
+    <div class="platform-name">Twitter/X</div>
+    <div class="compatibility-status status-warning">Good Support</div>
+    <p>Works well for most glitch text. Very complex effects may be truncated due to character count limits.</p>
+  </div>
+  
+  <div class="platform-card">
+    <div class="platform-name">Instagram</div>
+    <div class="compatibility-status status-warning">Moderate Support</div>
+    <p>Basic glitch effects work in captions and bios. Heavy Zalgo may not display correctly on all devices.</p>
+  </div>
+  
+  <div class="platform-card">
+    <div class="platform-name">TikTok</div>
+    <div class="compatibility-status status-warning">Moderate Support</div>
+    <p>Simple glitch text works in captions. Complex effects may not render properly in the mobile app.</p>
+  </div>
+  
+  <div class="platform-card">
+    <div class="platform-name">WhatsApp</div>
+    <div class="compatibility-status status-good">Good Support</div>
+    <p>Most glitch text displays correctly in messages. Performance may vary on older phones.</p>
+  </div>
+  
+  <div class="platform-card">
+    <div class="platform-name">Facebook</div>
+    <div class="compatibility-status status-warning">Moderate Support</div>
+    <p>Basic effects work well. Complex Zalgo may be filtered or display inconsistently across devices.</p>
+  </div>
+  
+  <div class="platform-card">
+    <div class="platform-name">Roblox</div>
+    <div class="compatibility-status status-good">Good Support</div>
+    <p>Works well for usernames and chat. Some servers may have restrictions on special characters.</p>
+  </div>
+  
+  <div class="platform-card">
+    <div class="platform-name">Minecraft</div>
+    <div class="compatibility-status status-poor">Limited Support</div>
+    <p>Basic text modifications work. Complex Unicode effects may not display correctly in-game.</p>
+  </div>
+</div>
+
+<h2>Accessibility Considerations</h2>
+
+<p>
+  When using glitch text, it's important to consider accessibility for users with disabilities:
+</p>
+
+<ul>
+  <li><strong>Screen Readers:</strong> Assistive technology may have difficulty interpreting heavily modified text</li>
+  <li><strong>Visual Impairments:</strong> Glitch effects can make text harder to read for users with dyslexia or vision problems</li>
+  <li><strong>Cognitive Accessibility:</strong> Complex visual effects may be distracting or difficult to process</li>
+</ul>
+
+<div class="warning-box">
+  <h3>Best Practice for Accessibility</h3>
+  <p>When using glitch text for important information, consider providing a plain text alternative or keeping glitch effects moderate for better readability.</p>
+</div>
+
+<h2>Security and Privacy</h2>
+
+<p>
+  From a security perspective, glitch text poses no significant risks:
+</p>
+
+<ul>
+  <li><strong>No Malicious Code:</strong> Glitch text is purely visual and cannot execute code</li>
+  <li><strong>No Data Collection:</strong> Using glitch text doesn't transmit personal information</li>
+  <li><strong>No Downloads:</strong> It's just text characters, not files or executables</li>
+  <li><strong>No Account Risks:</strong> Using glitch text won't compromise your accounts</li>
+</ul>
+
+<h2>Best Practices for Safe Use</h2>
+
+<p>To ensure the best experience when using glitch text:</p>
+
+<ul>
+  <li><strong>Test First:</strong> Try your glitch text on the intended platform before important use</li>
+  <li><strong>Moderate Intensity:</strong> Use lighter glitch effects for better compatibility</li>
+  <li><strong>Keep Backups:</strong> Save plain text versions of important content</li>
+  <li><strong>Consider Your Audience:</strong> Think about how others will view and interact with your content</li>
+  <li><strong>Check Character Limits:</strong> Be aware that glitch text uses more characters than it appears</li>
+</ul>
+
+<h2>When to Avoid Glitch Text</h2>
+
+<p>There are some situations where glitch text might not be appropriate:</p>
+
+<ul>
+  <li>Professional communications or official documents</li>
+  <li>Critical information that must be easily readable</li>
+  <li>Content intended for users with accessibility needs</li>
+  <li>Platforms with strict formatting requirements</li>
+  <li>When targeting users with older devices or software</li>
+</ul>
+
+<h2>Conclusion</h2>
+
+<p>
+  Glitch text is safe to use and won't harm your device or accounts. The main considerations are performance and compatibility rather than security. By understanding the limitations and using glitch text thoughtfully, you can enjoy this creative text effect without issues.
+</p>
+
+<p>
+  Ready to create safe, compatible glitch text? Try our <a href="/glitch-text" class="cta-button">Glitch Text Generator</a> with adjustable intensity settings for optimal compatibility.
+</p>
+{% endblock %}

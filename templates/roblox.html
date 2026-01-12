@@ -45,10 +45,15 @@
     
     <div class="output-container">
         <div class="editor-header">
-            Formatted Output
+            Roblox Chat Preview
             <button id="copy-btn" class="btn-copy">Copy</button>
         </div>
-        <div id="output-text" class="glitch-output roblox-preview"></div>
+        <div class="roblox-chat-container">
+            <div class="roblox-chat-bubble">
+                <div id="output-text" class="glitch-output"></div>
+            </div>
+            <div class="roblox-chat-tail"></div>
+        </div>
         <div class="share-buttons">
             <button class="share-button" onclick="downloadAsImage()">
                 <i class="fas fa-download"></i> Download as Image
@@ -93,13 +98,107 @@
 </div>
 {% endblock %}
 
-{% block extra_css %}
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const inputText = document.getElementById('input-text');
+    const outputText = document.getElementById('output-text');
+    const effectType = document.getElementById('effect-type');
+    const textCase = document.getElementById('font-family');
+
+    async function updateRobloxOutput() {
+        let text = inputText.value;
+        const style = effectType.value;
+        const casing = textCase.value;
+
+        if (!text) {
+            outputText.textContent = '';
+            return;
+        }
+
+        // Handle casing
+        if (casing === 'upper') text = text.toUpperCase();
+        else if (casing === 'lower') text = text.toLowerCase();
+        else if (casing === 'alt') {
+            text = text.split('').map((char, i) => i % 2 === 0 ? char.toLowerCase() : char.toUpperCase()).join('');
+        }
+
+        try {
+            const response = await fetch('/api/glitch', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    text: text,
+                    effect: 'none',
+                    font_style: style,
+                    intensity: 1
+                })
+            });
+            const data = await response.json();
+            if (data.result) {
+                outputText.textContent = data.result;
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    inputText.addEventListener('input', updateRobloxOutput);
+    effectType.addEventListener('change', updateRobloxOutput);
+    textCase.addEventListener('change', updateRobloxOutput);
+    
+    updateRobloxOutput();
+});
+
+function downloadAsImage() {
+    const text = document.getElementById('output-text').textContent;
+    if (text) {
+        localStorage.setItem('glitch_prefill_text', text);
+        window.location.href = '/text-to-image';
+    }
+}
+</script>
+{% endblock %}
 <style>
-.roblox-preview {
+.roblox-chat-container {
+    padding: 40px 20px;
+    background: #393B3D; /* Classic Roblox dark theme background */
+    border-radius: 8px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.roblox-chat-bubble {
+    background: #FFFFFF;
+    color: #111;
+    padding: 12px 18px;
+    border-radius: 12px;
     font-family: 'Gotham SSm A', 'Gotham SSm B', Helvetica, Arial, sans-serif;
-    background: #393B3D;
-    border-radius: 5px;
-    padding: 1rem;
+    font-size: 16px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    max-width: 90%;
+    position: relative;
+    z-index: 2;
+}
+
+.roblox-chat-tail {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 15px solid #FFFFFF;
+    position: relative;
+    left: 20px;
+    top: -2px;
+    z-index: 1;
+}
+
+.glitch-output {
+    word-break: break-all;
+    min-height: 20px;
 }
 
 .roblox-info {

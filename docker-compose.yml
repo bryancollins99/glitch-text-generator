@@ -1,0 +1,16 @@
+services:
+  glitch-text-generator:
+    image: ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/glitch-text-generator:latest
+    container_name: glitch-text-generator
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_ENV=production
+      - PORT=8000
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

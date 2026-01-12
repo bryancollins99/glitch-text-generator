@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+
+{% block title %}Minecraft Color Codes & Formatting: Visual Guide for Chat, Signs & MOTD{% endblock %}
+
+{% block head %}
+<meta name="description" content="Complete guide to Minecraft color codes and formatting. Learn how to use § and & codes to create colorful, bold, and glitched text in Minecraft chat, signs, and server descriptions.">
+<meta name="keywords" content="minecraft color codes, minecraft formatting codes, §k, minecraft text colors, minecraft chat formatting">
+<style>
+    .color-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+        margin: 30px 0;
+    }
+    .color-card {
+        background: rgba(18, 18, 18, 0.9);
+        border: 2px solid var(--primary);
+        padding: 15px;
+        border-radius: 8px;
+        text-align: center;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .color-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+    }
+    .color-swatch {
+        height: 60px;
+        width: 100%;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .code-label {
+        font-family: 'Courier New', monospace;
+        font-weight: bold;
+        display: block;
+        margin-top: 5px;
+    }
+    .example-text {
+        font-family: 'Courier New', monospace;
+        padding: 10px;
+        background: #000;
+        border-radius: 4px;
+        margin-top: 10px;
+    }
+    .obfuscated {
+        animation: obfuscate 0.1s infinite;
+    }
+    @keyframes obfuscate {
+        0% { opacity: 1; }
+        50% { opacity: 0.5; }
+        100% { opacity: 1; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="content-wrapper">
+    <h1 class="glitch-title">Minecraft Color Codes & Formatting</h1>
+    
+    <p class="lead">Transform your Minecraft world with color! This visual guide provides all the formatting codes you need to customize chat, signs, books, and server MOTDs.</p>
+
+    <div class="cta-section">
+        <a href="{{ url_for('minecraft_motd_generator') }}" class="cta-button">Try the MOTD Generator</a>
+    </div>
+
+    <h2>Minecraft Color Codes Reference</h2>
+    <p>In Minecraft, colors are applied using the section symbol (<code>§</code>) followed by a specific character. On many servers, you can also use the ampersand (<code>&</code>) as a substitute.</p>
+
+    <div class="color-grid">
+        <!-- Colors -->
+        <div class="color-card">
+            <div class="color-swatch" style="background-color: #000000;"></div>
+            <span class="code-label">§0 / &0</span>
+            <span class="code-name" style="color: #666;">Black</span>
+        </div>
+        <div class="color-card">
+            <div class="color-swatch" style="background-color: #0000AA;"></div>
+            <span class="code-label">§1 / &1</span>
+            <span class="code-name" style="color: #0000AA;">Dark Blue</span>
+        </div>
+        <div class="color-card">
+            <div class="color-swatch" style="background-color: #00AA00;"></div>
+            <span class="code-label">§2 / &2</span>
+            <span class="code-name" style="color: #00AA00;">Dark Green</span>
+        </div>
+        <div class="color-card">
+            <div class="color-swatch" style="background-color: #00AAAA;"></div>
+            <span class="code-label">§3 / &3</span>
+            <span class="code-name" style="color: #00AAAA;">Dark Aqua</span>
+        </div>
+        <div class="color-card">
+            <div class="color-swatch" style="background-color: #AA0000;"></div>
+            <span class="code-label">§4 / &4</span>
+            <span class="code-name" style="color: #AA0000;">Dark Red</span>
+        </div>
+        <div class="color-card">
+            <div class="color-swatch" style="background-color: #AA00AA;"></div>
+            <span class="code-label">§5 / &5</span>
+            <span class="code-name" style="color: #AA00AA;">Dark Purple</span>
+        </div>
+        <div class="color-card">
+            <div class="color-swatch" style="background-color: #FFAA00;"></div>
+            <span class="code-label">§6 / &6</span>
+            <span class="code-name" style="color: #FFAA00;">Gold</span>
+        </div>
+        <div class="color-card">
+            <div class="color-swatch" style="background-color: #AAAAAA;"></div>
+            <span class="code-label">§7 / &7</span>
+            <span class="code-name" style="color: #AAAAAA;">Gray</span>
+        </div>
+        <div class="color-card">
+            <div class="color-swatch" style="background-color: #555555;"></div>
+            <span class="code-label">§8 / &8</span>
+            <span class="code-name" style="color: #555555;">Dark Gray</span>
+        </div>
+        <div class="color-card">
+            <div class="color-swatch" style="background-color: #5555FF;"></div>
+            <span class="code-label">§9 / &9</span>
+            <span class="code-name" style="color: #5555FF;">Blue</span>
+        </div>
+        <div class="color-card">
+            <div class="color-swatch" style="background-color: #55FF55;"></div>
+            <span class="code-label">§a / &a</span>
+            <span class="code-name" style="color: #55FF55;">Green</span>
+        </div>
+        <div class="color-card">
+            <div class="color-swatch" style="background-color: #55FFFF;"></div>
+            <span class="code-label">§b / &b</span>
+            <span class="code-name" style="color: #55FFFF;">Aqua</span>
+        </div>
+        <div class="color-card">
+            <div class="color-swatch" style="background-color: #FF5555;"></div>
+            <span class="code-label">§c / &c</span>
+            <span class="code-name" style="color: #FF5555;">Red</span>
+        </div>
+        <div class="color-card">
+            <div class="color-swatch" style="background-color: #FF55FF;"></div>
+            <span class="code-label">§d / &d</span>
+            <span class="code-name" style="color: #FF55FF;">Light Purple</span>
+        </div>
+        <div class="color-card">
+            <div class="color-swatch" style="background-color: #FFFF55;"></div>
+            <span class="code-label">§e / &e</span>
+            <span class="code-name" style="color: #FFFF55;">Yellow</span>
+        </div>
+        <div class="color-card">
+            <div class="color-swatch" style="background-color: #FFFFFF;"></div>
+            <span class="code-label">§f / &f</span>
+            <span class="code-name" style="color: #FFFFFF;">White</span>
+        </div>
+    </div>
+
+    <h2>Special Formatting Codes</h2>
+    <p>Formatting codes allow you to change the style of your text beyond just color.</p>
+
+    <div class="color-grid">
+        <div class="color-card">
+            <span class="code-label">§k / &k</span>
+            <span class="code-name">Obfuscated</span>
+            <div class="example-text obfuscated">Ab12Cd34</div>
+        </div>
+        <div class="color-card">
+            <span class="code-label">§l / &l</span>
+            <span class="code-name" style="font-weight: bold;">Bold</span>
+            <div class="example-text" style="font-weight: bold;">Bold Text</div>
+        </div>
+        <div class="color-card">
+            <span class="code-label">§m / &m</span>
+            <span class="code-name" style="text-decoration: line-through;">Strikethrough</span>
+            <div class="example-text" style="text-decoration: line-through;">Strikethrough</div>
+        </div>
+        <div class="color-card">
+            <span class="code-label">§n / &n</span>
+            <span class="code-name" style="text-decoration: underline;">Underline</span>
+            <div class="example-text" style="text-decoration: underline;">Underline</div>
+        </div>
+        <div class="color-card">
+            <span class="code-label">§o / &o</span>
+            <span class="code-name" style="font-style: italic;">Italic</span>
+            <div class="example-text" style="font-style: italic;">Italic Text</div>
+        </div>
+        <div class="color-card">
+            <span class="code-label">§r / &r</span>
+            <span class="code-name">Reset</span>
+            <div class="example-text">Normal Text</div>
+        </div>
+    </div>
+
+    <h2>How to Use Codes in Minecraft</h2>
+    
+    <h3>1. In-Game Chat (Multiplayer)</h3>
+    <p>On most servers, you can use the <code>&</code> symbol followed by the code. For example, typing <code>&6Hello World</code> will display "Hello World" in gold. Note that you may need specific permissions from the server admin to use colors.</p>
+
+    <h3>2. Signs and Books</h3>
+    <p>In Java Edition, you typically cannot type the <code>§</code> symbol directly into a sign or book. You must either use a plugin that supports <code>&</code> codes or use external tools like our <a href="{{ url_for('minecraft_item_generator') }}">Item Lore Generator</a>.</p>
+
+    <h3>3. Command Blocks & Server Console</h3>
+    <p>When using commands like <code>/tellraw</code> or <code>/title</code>, it is best to use JSON formatting instead of section symbols for better reliability across versions.</p>
+    
+    <pre><code>/tellraw @a {"text":"System Glitch Detected","color":"red","obfuscated":true}</code></pre>
+
+    <h2>Pro-Tip: Code Stacking</h2>
+    <p>You can stack color and formatting codes together. <strong>Always put the color code first!</strong></p>
+    <ul>
+        <li><code>§4§lWarning!</code> &rarr; <span style="color: #AA0000; font-weight: bold;">Warning!</span></li>
+        <li><code>§b§oHello</code> &rarr; <span style="color: #55FFFF; font-style: italic;">Hello</span></li>
+        <li><code>§k§0Secrets</code> &rarr; <span class="obfuscated" style="background: #000; color: #666;">Secrets</span></li>
+    </ul>
+
+    <div class="cta-section" style="margin-top: 50px;">
+        <h3>Ready to create your own?</h3>
+        <p>Use our specialized tools to generate perfect Minecraft text strings.</p>
+        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+            <a href="{{ url_for('minecraft_motd_generator') }}" class="cta-button">MOTD Generator</a>
+            <a href="{{ url_for('minecraft_item_generator') }}" class="cta-button">Item Lore Generator</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

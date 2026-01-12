@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+
+{% block title %}Minecraft MOTD Generator: Create Glitched & Colorful Server Descriptions{% endblock %}
+
+{% block head %}
+<meta name="description" content="Generate eye-catching Minecraft Server MOTDs. Use colors, bold, and glitch effects to stand out on the server list. Perfect for Spigot, Paper, and BungeeCord.">
+<meta name="keywords" content="minecraft motd generator, server list description, minecraft glitch motd, colored motd maker">
+<style>
+    .generator-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin: 40px 0;
+    }
+    @media (max-width: 768px) {
+        .generator-container {
+            grid-template-columns: 1fr;
+        }
+    }
+    .input-panel, .preview-panel {
+        background: rgba(18, 18, 18, 0.9);
+        border: 2px solid var(--primary);
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(255, 0, 255, 0.2);
+    }
+    .motd-input {
+        width: 100%;
+        background: #000;
+        color: #fff;
+        border: 1px solid var(--secondary);
+        padding: 15px;
+        font-family: 'Courier New', monospace;
+        font-size: 16px;
+        border-radius: 4px;
+        min-height: 100px;
+        margin-bottom: 20px;
+    }
+    .motd-preview-box {
+        background: #111;
+        padding: 20px;
+        border: 1px solid #333;
+        font-family: 'Courier New', monospace;
+        min-height: 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-radius: 4px;
+        line-height: 1.4;
+        white-space: pre-wrap;
+    }
+    .server-list-mockup {
+        background: #222;
+        padding: 10px;
+        border-radius: 4px;
+        margin-top: 10px;
+    }
+    .control-group {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+    }
+    .color-btn {
+        width: 30px;
+        height: 30px;
+        border-radius: 4px;
+        border: 1px solid #fff;
+        cursor: pointer;
+        transition: transform 0.1s;
+    }
+    .color-btn:hover {
+        transform: scale(1.1);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="content-wrapper">
+    <h1 class="glitch-title">Minecraft MOTD Generator</h1>
+    <p class="lead">Design your server's first impression. Use our real-time editor to create glitched, colorful, and bold MOTDs for your Minecraft server list.</p>
+
+    <div class="generator-container">
+        <div class="input-panel">
+            <h3>Edit MOTD</h3>
+            <textarea id="motdInput" class="motd-input" placeholder="Line 1: Enter your server name&#10;Line 2: Enter a description...">§l§6[MY SERVER] §r§7Welcome!&#10;§k||§r §c§nJOIN NOW FOR SPECIAL LOOT§r §k||</textarea>
+            
+            <div class="control-group">
+                <button class="cta-button small" onclick="insertCode('&k')">Glitch</button>
+                <button class="cta-button small" onclick="insertCode('&l')">Bold</button>
+                <button class="cta-button small" onclick="insertCode('&c')">Red</button>
+                <button class="cta-button small" onclick="insertCode('&e')">Yellow</button>
+                <button class="cta-button small" onclick="insertCode('&a')">Green</button>
+                <button class="cta-button small" onclick="insertCode('&b')">Aqua</button>
+                <button class="cta-button small" onclick="insertCode('&r')">Reset</button>
+            </div>
+
+            <button class="cta-button" style="width: 100%;" onclick="copyMOTD()">Copy to Config</button>
+        </div>
+
+        <div class="preview-panel">
+            <h3>Server List Preview</h3>
+            <div class="server-list-mockup">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px;">
+                    <img src="/static/favicon.svg" width="32" height="32" style="background: #000; padding: 2px;">
+                    <div style="flex: 1;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="color: #fff;">A Minecraft Server</span>
+                            <span style="color: #55FF55;">0/100</span>
+                        </div>
+                        <div id="motdPreview" class="motd-preview-box"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 20px;">
+                <p><small>Note: This generator supports standard <code>§</code> or <code>&</code> codes. For <code>server.properties</code>, you may need to use <code>\u00A7</code> codes.</small></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-section">
+        <h2>How to Install your MOTD</h2>
+        <ol>
+            <li><strong>Vanilla/Spigot:</strong> Open your <code>server.properties</code> file and paste the result into the <code>motd=</code> line.</li>
+            <li><strong>BungeeCord:</strong> Open <code>config.yml</code> and find the <code>motd:</code> section for your listener.</li>
+            <li><strong>Plugins:</strong> If you use plugins like EssentialsX or CMI, you can usually paste these codes directly into their chat or motd config files.</li>
+        </ol>
+        <p>Looking for more colors? Check our full <a href="{{ url_for('minecraft_color_codes') }}">Minecraft Color Codes Guide</a>.</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const input = document.getElementById('motdInput');
+    const preview = document.getElementById('motdPreview');
+
+    function updatePreview() {
+        let text = input.value;
+        // Basic parser for preview
+        text = text.replace(/§0|&0/g, '<span style="color:#000000">');
+        text = text.replace(/§1|&1/g, '<span style="color:#0000AA">');
+        text = text.replace(/§2|&2/g, '<span style="color:#00AA00">');
+        text = text.replace(/§3|&3/g, '<span style="color:#00AAAA">');
+        text = text.replace(/§4|&4/g, '<span style="color:#AA0000">');
+        text = text.replace(/§5|&5/g, '<span style="color:#AA00AA">');
+        text = text.replace(/§6|&6/g, '<span style="color:#FFAA00">');
+        text = text.replace(/§7|&7/g, '<span style="color:#AAAAAA">');
+        text = text.replace(/§8|&8/g, '<span style="color:#555555">');
+        text = text.replace(/§9|&9/g, '<span style="color:#5555FF">');
+        text = text.replace(/§a|&a/g, '<span style="color:#55FF55">');
+        text = text.replace(/§b|&b/g, '<span style="color:#55FFFF">');
+        text = text.replace(/§c|&c/g, '<span style="color:#FF5555">');
+        text = text.replace(/§d|&d/g, '<span style="color:#FF55FF">');
+        text = text.replace(/§e|&e/g, '<span style="color:#FFFF55">');
+        text = text.replace(/§f|&f/g, '<span style="color:#FFFFFF">');
+        text = text.replace(/§k|&k/g, '<span class="obfuscated">');
+        text = text.replace(/§l|&l/g, '<span style="font-weight:bold">');
+        text = text.replace(/§m|&m/g, '<span style="text-decoration:line-through">');
+        text = text.replace(/§n|&n/g, '<span style="text-decoration:underline">');
+        text = text.replace(/§o|&o/g, '<span style="font-style:italic">');
+        text = text.replace(/§r|&r/g, '</span></span></span></span></span></span>');
+        
+        preview.innerHTML = text;
+        
+        // Handle obfuscation effect in preview
+        const obfuscatedElements = preview.querySelectorAll('.obfuscated');
+        obfuscatedElements.forEach(el => {
+            const originalText = el.innerText;
+            el.dataset.original = originalText;
+            setInterval(() => {
+                let randomText = '';
+                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
+                for(let i=0; i<originalText.length; i++) {
+                    randomText += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                el.innerText = randomText;
+            }, 50);
+        });
+    }
+
+    function insertCode(code) {
+        const start = input.selectionStart;
+        const end = input.selectionEnd;
+        const text = input.value;
+        input.value = text.substring(0, start) + code + text.substring(end);
+        updatePreview();
+        input.focus();
+    }
+
+    function copyMOTD() {
+        input.select();
+        document.execCommand('copy');
+        alert('MOTD Copied to clipboard!');
+    }
+
+    input.addEventListener('input', updatePreview);
+    updatePreview();
+</script>
+<style>
+    .cta-button.small {
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+</style>
+{% endblock %}
