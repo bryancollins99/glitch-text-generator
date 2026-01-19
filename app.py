@@ -1435,7 +1435,7 @@ def superscript():
     return render_template('superscript.html')
 
 @app.route('/vaporwave-text-generator')
-def vaporwave():
+def vaporwave_generator():
     return render_template('vaporwave.html')
 
 if __name__ == '__main__':
