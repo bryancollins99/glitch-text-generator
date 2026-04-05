@@ -461,6 +461,23 @@ def content_roblox_glitch_text():
 def content_discord_minecraft_glitch():
     return render_template('content/discord-minecraft-glitch.html')
 
+
+@app.route('/minecraft-enchanting-table-text-translator')
+def minecraft_enchanting_table_text_translator():
+    return render_template('content/minecraft-enchanting-table-text-translator.html')
+
+@app.route('/minecraft-glitch-name-generator')
+def minecraft_glitch_name_generator():
+    return render_template('content/minecraft-glitch-name-generator.html')
+
+@app.route('/minecraft-glitch-text-bedrock-edition')
+def minecraft_glitch_text_bedrock_edition():
+    return render_template('content/minecraft-glitch-text-bedrock-edition.html')
+
+@app.route('/minecraft-glitch-text-java-edition')
+def minecraft_glitch_text_java_edition():
+    return render_template('content/minecraft-glitch-text-java-edition.html')
+
 @app.route('/content/glitch-art')
 def content_glitch_art():
     return render_template('content/glitch-art.html')
