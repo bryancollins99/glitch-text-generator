@@ -211,6 +211,27 @@
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
+    <!-- Minecraft Content Pages -->
+    <url>
+        <loc>https://glitchtexteffect.com/minecraft-glitch-name-generator</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/minecraft-glitch-text-java-edition</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/minecraft-glitch-text-bedrock-edition</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://glitchtexteffect.com/minecraft-enchanting-table-text-translator</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
     <!-- SEO Generator Pages -->
     <url>
         <loc>https://glitchtexteffect.com/cursed-text</loc>
