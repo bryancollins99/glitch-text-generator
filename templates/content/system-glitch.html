@@ -7,15 +7,112 @@
 <meta name="keywords" content="system glitch, system glitch effect, glitch text generator, digital errors, glitch aesthetic, corrupted text">
 {% endblock %}
 
+{% block extra_css %}
+<style>
+.inline-generator {
+    background: rgba(255, 0, 255, 0.06);
+    border: 1px solid rgba(255, 0, 255, 0.3);
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    margin: 1.25rem 0 1.5rem;
+}
+.inline-generator-label {
+    margin: 0 0 0.75rem;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.9rem;
+}
+.inline-generator-row {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+.inline-glitch-input {
+    flex: 1;
+    min-width: 200px;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,0,255,0.4);
+    color: #fff;
+    padding: 0.6rem 0.9rem;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+}
+.inline-glitch-input:focus {
+    outline: none;
+    border-color: #ff00ff;
+}
+.inline-glitch-btn {
+    white-space: nowrap;
+}
+.inline-glitch-output {
+    margin-top: 0.75rem;
+    min-height: 1.4rem;
+    font-family: 'Courier New', monospace;
+    font-size: 1.1rem;
+    color: #ff00ff;
+    word-break: break-all;
+    letter-spacing: 0.05em;
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function() {
+    const input = document.getElementById('inline-glitch-input');
+    const output = document.getElementById('inline-glitch-output');
+    const btn = document.getElementById('inline-glitch-btn');
+
+    function zalgoChar(char) {
+        const above = ['\u0300','\u0301','\u0302','\u0303','\u0308','\u030a','\u030b','\u030d','\u0311','\u0352','\u0357','\u035b','\u0360','\u0361'];
+        const below = ['\u0316','\u0317','\u0318','\u0319','\u031c','\u031d','\u0320','\u0324','\u0325','\u0326','\u0329','\u032a','\u032b','\u0330','\u0331'];
+        let out = char;
+        const n = Math.floor(Math.random() * 4) + 2;
+        for (let i = 0; i < n; i++) out += above[Math.floor(Math.random() * above.length)];
+        for (let i = 0; i < n; i++) out += below[Math.floor(Math.random() * below.length)];
+        return out;
+    }
+
+    function glitchText(text) {
+        return text.split('').map(c => c === ' ' ? c : zalgoChar(c)).join('');
+    }
+
+    input.addEventListener('input', function() {
+        const val = this.value.trim();
+        output.textContent = val ? glitchText(val) : '';
+        btn.href = val
+            ? '{{ url_for("home") }}#' + encodeURIComponent(val)
+            : '{{ url_for("home") }}';
+    });
+
+    output.addEventListener('click', function() {
+        if (!this.textContent) return;
+        navigator.clipboard.writeText(this.textContent).then(() => {
+            const orig = this.style.color;
+            this.style.color = '#00ffff';
+            setTimeout(() => this.style.color = orig, 800);
+        });
+    });
+    output.title = 'Click to copy';
+    output.style.cursor = 'pointer';
+})();
+</script>
+{% endblock %}
+
 {% block content %}
 <div class="content-wrapper">
     <h1>System Glitch Effects: Free Generator, Examples & What Causes Them</h1>
-    
-    <p class="lead">Explore the fascinating world of system glitches, where digital errors and technical malfunctions create unintended beauty. From computer crashes to software bugs, these digital disruptions have shaped our understanding of technology and inspired entire art movements.</p>
 
-    <div class="cta-section">
-        <a href="{{ url_for('home') }}" class="cta-button">Create Your Own System Glitch Effects</a>
+    <div class="inline-generator">
+        <p class="inline-generator-label">Try it — generate system glitch text instantly:</p>
+        <div class="inline-generator-row">
+            <input type="text" id="inline-glitch-input" class="inline-glitch-input" placeholder="Type any text..." maxlength="100">
+            <a id="inline-glitch-btn" href="{{ url_for('home') }}" class="cta-button inline-glitch-btn">Glitch It</a>
+        </div>
+        <div id="inline-glitch-output" class="inline-glitch-output"></div>
     </div>
+
+    <p class="lead">Explore the fascinating world of system glitches, where digital errors and technical malfunctions create unintended beauty. From computer crashes to software bugs, these digital disruptions have shaped our understanding of technology and inspired entire art movements.</p>
 
     <h2>What is a System Glitch? Understanding Digital Malfunctions</h2>
     
