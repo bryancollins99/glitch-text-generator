@@ -964,6 +964,12 @@ def seo_page(page_slug):
                            page_content_html=page_data.get('page_content_html', '<p>Explore our generator to create unique text effects!</p>'), # Pass new content
                            current_year=current_year)
 
+@app.route('/robots.txt')
+def robots_txt():
+    from flask import Response
+    content = open(os.path.join(app.static_folder, 'robots.txt')).read()
+    return Response(content, mimetype='text/plain')
+
 @app.route('/sitemap')
 def html_sitemap():
     return render_template('sitemap.html', seo_pages=SEO_PAGES_DATA)
