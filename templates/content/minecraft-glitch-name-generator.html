@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %}Minecraft Glitch Name Generator - Create Corrupted Usernames{% endblock %}
+{% block title %}Minecraft Glitch Name Generator — Creepy Zalgo Usernames (Copy & Paste){% endblock %}
 
 {% block head %}
-<meta name="description" content="Use our free Minecraft glitch name generator to create creepy, corrupted-looking usernames with Zalgo text. Copy and paste glitch names instantly.">
+<meta name="description" content="Generate glitched Minecraft usernames instantly. Free tool creates Zalgo-style names compatible with Java Edition servers — adjust intensity, preview in Minecraft font, and copy with one click.">
 <meta name="keywords" content="minecraft glitch name generator, glitch text, minecraft text effects, glitchtexteffect.com">
 <script type="application/ld+json">
 {
@@ -18,7 +18,56 @@
 {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": []
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can I use a glitch name as my official Minecraft username?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Mojang only allows alphanumeric characters (A-Z, 0-9) and underscores in official usernames. Glitch names with Zalgo or Unicode combining characters will be rejected. They work as server nicknames via plugins like EssentialsX, not as your account name."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do Minecraft glitch names work on Bedrock Edition?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Bedrock Edition has stricter text filtering than Java Edition. Most heavy glitch text will be stripped or blocked. Light glitch effects with minimal combining characters have a better chance of displaying, but results are inconsistent across platforms."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will I get banned for using a glitch name on a Minecraft server?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It depends on server rules. Some servers prohibit unreadable nicknames for moderation reasons. Always check the rules before applying a glitch name. Your actual Minecraft account is unaffected — only your nickname on that server could be reset."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I set a glitch nickname on a Minecraft server?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Generate your glitch name, copy it, then type /nick and paste the name in chat on a server running EssentialsX or a similar nickname plugin. You may need a specific rank or permission to use /nick."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there a character limit for Minecraft glitch names?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Official usernames have a 16-character limit. Server nicknames vary, but Zalgo combining marks count as individual characters — a visually short name may contain 60+ characters once marks are included, causing rejection by plugins with strict limits."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I remove a glitch name in Minecraft?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use /nick off or /nick reset on servers with nickname plugins. If that does not work, try /nick clear or contact a server administrator to manually reset your display name."
+      }
+    }
+  ]
 }
 </script>
 {% endblock %}
@@ -234,5 +283,15 @@
         <a href="{{ url_for('home') }}" class="cta-button">Generate Minecraft Glitch Text Free</a>
         <a href="{{ url_for('minecraft_motd_generator') }}" class="cta-button secondary">Minecraft MOTD Generator</a>
     </div>
+
+    <h2>Minecraft Glitch Text Resources</h2>
+    <p>Dig deeper into Minecraft text effects with these related guides:</p>
+    <ul>
+        <li><a href="{{ url_for('content_minecraft_glitch_text') }}">Minecraft Glitch Text</a> — Complete guide to corrupted text effects for chat, commands, and signs</li>
+        <li><a href="{{ url_for('minecraft_glitch_text_java_edition') }}">Minecraft Glitch Text: Java Edition</a> — Java-specific techniques, formatting codes, and plugin integration</li>
+        <li><a href="{{ url_for('minecraft_glitch_text_bedrock_edition') }}">Minecraft Glitch Text: Bedrock Edition</a> — What works on console, mobile, and Windows 10/11</li>
+        <li><a href="{{ url_for('minecraft_color_codes') }}">Minecraft Color Codes</a> — Full § code reference for combining color with glitch effects</li>
+        <li><a href="{{ url_for('minecraft_motd_generator') }}">Minecraft MOTD Generator</a> — Create glitched server list descriptions</li>
+    </ul>
 </div>
 {% endblock %}

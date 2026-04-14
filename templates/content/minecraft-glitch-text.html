@@ -11,7 +11,7 @@
 <div class="content-wrapper">
     <h1>Minecraft Glitch Text Generator: Create Corrupted Text Effects for Minecraft Chat & Commands</h1>
     
-    <p class="lead">Transform your Minecraft server experience with corrupted text effects that add atmosphere, mystery, and visual impact to your builds, commands, and player interactions. This comprehensive guide covers everything from basic formatting codes to advanced plugin integration.</p>
+    <p class="lead">Transform your Minecraft server experience with corrupted text effects that add atmosphere, mystery, and visual impact to your builds, commands, and player interactions. Whether you run a horror server, an adventure map, or a roleplay world, glitch text gives you a simple way to make players stop and pay attention.</p>
     
     <div class="cta-section">
         <a href="{{ url_for('home') }}" class="cta-button">Generate Minecraft Glitch Text</a>
@@ -19,8 +19,10 @@
     </div>
 
     <h2>Minecraft Glitch Text Overview: Corrupted Text Effects in Minecraft</h2>
-    
-    <p>Minecraft glitch text leverages Unicode characters, formatting codes, and creative combinations to create visually striking corrupted effects. These techniques work across Java Edition servers, with varying compatibility in Bedrock Edition. Understanding the fundamentals of <a href="{{ url_for('content_glitch_meaning') }}">glitch meaning</a> helps create authentic effects that enhance gameplay immersion.</p>
+
+    <p>Minecraft glitch text uses a mix of Unicode combining characters, Mojang's built-in section sign (§) formatting codes, and careful symbol substitution to make text look corrupted, scrambled, or digitally decayed. The core idea is to exploit how the game renders characters — stacking diacritics, mixing widths, and layering obfuscation — so that readable words gain a broken, unstable appearance.</p>
+
+    <p>These techniques work reliably in Java Edition 1.8 and above. Bedrock Edition has more restricted Unicode support, so some methods (particularly combining character stacks) will display differently or fall back to standard characters on consoles and mobile. Understanding the fundamentals of <a href="{{ url_for('content_glitch_meaning') }}">glitch meaning</a> helps you choose the right approach for your specific platform and audience.</p>
     
     <p><strong>Core Glitch Techniques:</strong></p>
     <ul>
@@ -41,8 +43,10 @@
     </ul>
 
     <h2>Minecraft Chat Formatting: Color Codes & Text Styling for Glitch Effects</h2>
-    
-    <p>Minecraft's formatting system provides the foundation for creating glitch effects through color codes and special formatting options.</p>
+
+    <p>Minecraft's native formatting system is built around the section sign (§), which the game treats as a modifier prefix. Every § code applies to everything that follows it until a reset (§r) is encountered. This means you can chain codes together — combining color, bold, and obfuscation in sequence — to produce compound effects that look far more complex than any single code could achieve alone.</p>
+
+    <p>The obfuscated code (§k) is the backbone of most glitch effects. It replaces characters with rapidly cycling random glyphs, creating a scrambled, unreadable flicker. Used sparingly around legible text, it frames messages with noise. Used more aggressively, it simulates a fully corrupted data stream.</p>
     
     <p><strong>Essential Formatting Codes:</strong></p>
     <ul>
@@ -74,13 +78,16 @@
     </ul>
     
     <p><strong>Advanced Combinations:</strong></p>
+    <p>These examples chain obfuscation, color, and bold codes to create framed glitch messages. The obfuscated blocks on either side act as visual noise around a readable center — a common pattern for warning signs, system errors, and lore reveals:</p>
     <pre><code>§k§4§l[CORRUPTED]§r §8System Error
 §5§l§k▓▓▓§r §d§oGlitched Message§r §5§l§k▓▓▓
 §c§k||||§r §4WARNING§r §c§k||||</code></pre>
 
     <h2>Command Integration: Using Glitch Text in /tellraw & Custom Commands</h2>
-    
-    <p>Modern Minecraft commands support JSON formatting for advanced text effects beyond basic color codes.</p>
+
+    <p>The <code>/tellraw</code> command unlocks a more powerful layer of text control than § codes alone can provide. Instead of a plain string, it accepts a JSON text component where color, formatting, click events, and hover text are defined as structured properties. This makes it possible to combine obfuscated noise, colored text, and even clickable elements in a single message sent to players or to specific selectors.</p>
+
+    <p>For server owners running command blocks or data packs, <code>/tellraw</code> glitch messages are particularly effective as event triggers — firing when a player steps on a pressure plate, enters a certain zone, or reaches a story beat. The JSON format also means you can store these commands cleanly in data packs without worrying about § encoding issues.</p>
     
     <p><strong>Basic /tellraw Syntax:</strong></p>
     <pre><code>/tellraw @a {"text":"§k§c[ERROR]§r §4System Malfunction Detected","color":"red"}</code></pre>
@@ -100,8 +107,10 @@
     <pre><code>/title @a actionbar {"text":"§k§c█ §4ERROR 404: REALITY NOT FOUND §c█","color":"red"}</code></pre>
 
     <h2>Server Compatibility: Plugin Support & Bukkit/Spigot Integration</h2>
-    
-    <p>Different server types handle glitch text with varying levels of support and performance optimization.</p>
+
+    <p>Most Java Edition servers run on Bukkit, Spigot, or Paper — each with its own approach to text processing. Vanilla commands work on all three, but if you want plugin-driven glitch effects (auto-corruption on chat, permission-gated formatting, or database-stored presets) you need to know which API your server exposes.</p>
+
+    <p>Paper has become the recommended choice for glitch-heavy servers. Its Adventure text component API handles Unicode more reliably than Spigot's older API, and its async processing reduces the performance hit from heavy obfuscated text in high-traffic chat channels. If you are building a custom plugin, target Paper's <code>net.kyori.adventure</code> API rather than legacy <code>ChatColor</code> wherever possible.</p>
     
     <p><strong>Bukkit/Spigot Compatibility:</strong></p>
     <ul>
@@ -139,8 +148,10 @@ glitch-text:
     - "glitch.admin"</code></pre>
 
     <h2>Minecraft Text Preview: Real-Time Minecraft Font Rendering</h2>
-    
-    <p>Understanding how Minecraft renders text is crucial for creating effective glitch effects that display consistently across clients.</p>
+
+    <p>Minecraft renders text using its own bitmap font system, which means not every Unicode character you can type will display as expected in-game. The default font covers the standard ASCII range reliably, adds reasonable support for Latin Extended characters, and drops off sharply for higher Unicode ranges. Characters outside the supported set are replaced with a small empty square, which can actually be a useful glitch effect in its own right — but only if you intend it.</p>
+
+    <p>Resource packs complicate this further. A player using a custom font pack may see entirely different glyphs for the same character you tested with. If your server requires consistent glitch text rendering (for an adventure map or a specific atmospheric effect), consider distributing a server resource pack that defines exactly how those characters should appear.</p>
     
     <p><strong>Minecraft Font Characteristics:</strong></p>
     <ul>
@@ -167,8 +178,10 @@ glitch-text:
     </ul>
 
     <h2>Custom Sign & Book Text: Glitch Effects for In-Game Objects</h2>
-    
-    <p>Apply corrupted text effects to signs, books, and other in-game text objects for immersive world-building.</p>
+
+    <p>Glitch text becomes far more powerful when it is embedded in the world rather than just appearing in chat. Signs, written books, item names, and command block outputs are all persistent — players encounter them while exploring, not just while watching chat scroll past. A sign with scrambled obfuscated borders and a stark warning message creates a moment of environmental storytelling that chat messages cannot replicate.</p>
+
+    <p>In Java Edition 1.20+, signs support front and back text independently, which opens up a back-of-sign reveal mechanic: the front shows a corrupted, unreadable mess (pure §k text) while the back displays the decoded message. For written books, corrupted chapter openings with heavy §k usage followed by clean prose suggests a recovered, partially-damaged document — a classic adventure map lore device.</p>
     
     <p><strong>Sign Text Applications:</strong></p>
     <pre><code>Line 1: §k§8▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
@@ -193,7 +206,9 @@ Line 4: §k§8▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓</code></pre>
     <pre><code>/give @p diamond_sword{display:{Name:'{"text":"§k§4▓ §cCorrupted Blade §4▓","italic":false}'}}</code></pre>
 
     <h2>Creative Applications: Using Minecraft Glitch Text in Builds & Servers</h2>
-    
+
+    <p>The most effective glitch text is purposeful. Used sparingly, corrupted text stands out and creates tension — players notice it precisely because the rest of the server's text is clean. Used everywhere, it becomes noise that players learn to ignore. The examples below treat glitch text as a design tool with specific jobs: signalling danger, revealing lore, marking faction territory, or punctuating game events.</p>
+
     <p><strong>Adventure Map Integration:</strong></p>
     <ul>
         <li>Story progression through corrupted messages</li>
@@ -245,7 +260,27 @@ Line 4: §k§8▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓</code></pre>
     </ul>
     
     <p>This guide provides the foundation for implementing sophisticated glitch text effects in your Minecraft server environment. Experiment with different combinations and techniques to create unique experiences that enhance your server's atmosphere and player engagement.</p>
-    
+
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>Does Minecraft glitch text work in Bedrock Edition?</h3>
+    <p>Partially. Bedrock Edition supports the standard § color and formatting codes (including §k for obfuscation), so basic glitch effects work on all platforms. However, Bedrock has much stricter Unicode support than Java Edition — combining character stacks (Zalgo-style) and many higher Unicode symbols either display as squares or are stripped entirely. Stick to § codes and ASCII-range symbols for cross-platform compatibility.</p>
+
+    <h3>How do I type the § symbol in Minecraft commands?</h3>
+    <p>In Java Edition, you cannot type § directly into the in-game chat or command input on most keyboards. The practical approach is to write your commands in a text editor, copy the § character (you can find it at U+00A7), and paste the full command into a command block or use a server console where paste is available. Some chat plugins on Spigot/Paper accept <code>&amp;</code> as an alias for § in chat input, which is easier to type.</p>
+
+    <h3>Will §k (obfuscated) text cause lag on my server?</h3>
+    <p>A small amount of §k text has negligible performance impact. The rendering work happens on the client side, not the server, so the server cost is just sending the text packet. The risk comes from automated systems sending large volumes of heavily obfuscated text to many players simultaneously — for example, a plugin that broadcasts a full screen of §k characters to every online player every second. Paper servers handle this more efficiently than vanilla Spigot due to optimized packet handling.</p>
+
+    <h3>Can I use glitch text in item names and lore?</h3>
+    <p>Yes. Item display names and lore lines both accept § formatting codes. The most reliable method is the <code>/give</code> command with an NBT display tag, or the Item Lore Generator tool linked below. In Java Edition 1.20+, the preferred approach is the <code>item_name</code> and <code>lore</code> components in the new data component system, which uses JSON text components rather than legacy § codes.</p>
+
+    <h3>Why does my glitch text look different on other players' screens?</h3>
+    <p>Several factors affect how other players see your text: their resource pack may override font glyphs, client mods (like OptiFine or Sodium) can affect text rendering, and version differences between Java and Bedrock change which Unicode characters are supported. For consistent results, test on a vanilla client without resource packs, and if you need exact visual control for a map or server, distribute a required resource pack that defines all relevant character glyphs explicitly.</p>
+
+    <h3>What is the character limit for signs, books, and chat?</h3>
+    <p>In Java Edition, signs support up to 15 characters per line across 4 lines. Written books allow up to 256 characters per page across up to 100 pages. Chat has a 256-character limit per message. Command blocks can hold up to 32,500 characters. Keep in mind that § codes count toward these limits even though they produce no visible character — a heavily coded glitch string can use up a significant portion of your character budget.</p>
+
     <h2>Minecraft Specific Tools & Guides</h2>
     <p>Take your server to the next level with our specialized Minecraft glitch resources:</p>
     <ul>

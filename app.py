@@ -470,6 +470,10 @@ def minecraft_enchanting_table_text_translator():
 def minecraft_glitch_name_generator():
     return render_template('content/minecraft-glitch-name-generator.html')
 
+@app.route('/how-to-get-glitch-text-in-minecraft')
+def how_to_get_glitch_text_in_minecraft():
+    return render_template('content/how-to-get-glitch-text-in-minecraft.html')
+
 @app.route('/minecraft-glitch-text-bedrock-edition')
 def minecraft_glitch_text_bedrock_edition():
     return render_template('content/minecraft-glitch-text-bedrock-edition.html')
