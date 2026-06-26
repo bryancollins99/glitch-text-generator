@@ -118,8 +118,14 @@
         </div>
         <div id="output-text" class="glitch-output"></div>
         <div class="share-buttons">
-            <button class="share-button" onclick="downloadAsImage()">
-                <i class="fas fa-download"></i> Download as Image
+            <button class="share-button" data-dl onclick="downloadGlitch('png')">
+                <i class="fas fa-download"></i> PNG
+            </button>
+            <button class="share-button" data-dl onclick="downloadGlitch('gif')">
+                <i class="fas fa-download"></i> GIF
+            </button>
+            <button class="share-button" data-dl onclick="downloadGlitch('svg')">
+                <i class="fas fa-download"></i> SVG
             </button>
             <button class="share-button" onclick="shareToTwitter()">
                 <i class="fab fa-twitter"></i> Share on Twitter
