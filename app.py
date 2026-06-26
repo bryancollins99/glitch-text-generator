@@ -338,7 +338,9 @@ def about():
 
 @app.route('/contact')
 def contact():
-    return render_template('contact.html')
+    # Web3Forms access key (public-by-design, not a secret). Set WEB3FORMS_KEY in
+    # the Render env to point the contact form at your inbox.
+    return render_template('contact.html', web3forms_key=os.environ.get('WEB3FORMS_KEY', ''))
 
 @app.route('/faq')
 def faq():

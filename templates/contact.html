@@ -29,7 +29,11 @@
         "@type": "Organization",
         "name": "Glitch Text Effect",
         "url": "https://glitchtexteffect.com",
-        "email": "contact@glitchtexteffect.com"
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer support",
+            "url": "https://glitchtexteffect.com/contact"
+        }
     }
 }
 </script>
@@ -42,13 +46,84 @@
     <p>Have questions, suggestions, or feedback? We'd love to hear from you!</p>
     
     <div class="contact-info">
-        <h2>Get in Touch</h2>
-        <ul>
-            <li>Email: contact@glitchtextgenerator.com</li>
-            <li>Twitter: @GlitchTextGen</li>
-            <li>GitHub: github.com/glitchtextgen</li>
-        </ul>
+        <h2>Send us a message</h2>
+        {% if web3forms_key %}
+        <form id="contact-form" class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="{{ web3forms_key }}">
+            <input type="hidden" name="subject" value="New message from GlitchTextEffect.com">
+            <input type="hidden" name="from_name" value="GlitchTextEffect Contact Form">
+            <!-- honeypot: bots fill this, humans can't see it -->
+            <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none">
+
+            <label for="cf-name">Name</label>
+            <input id="cf-name" type="text" name="name" required placeholder="Your name">
+
+            <label for="cf-email">Email</label>
+            <input id="cf-email" type="email" name="email" required placeholder="you@example.com">
+
+            <label for="cf-message">Message</label>
+            <textarea id="cf-message" name="message" rows="5" required placeholder="How can we help?"></textarea>
+
+            <button type="submit" class="cf-submit">Send Message</button>
+            <p id="cf-status" class="cf-status" role="status" aria-live="polite"></p>
+        </form>
+        {% else %}
+        <p>Our contact form is being set up and will be available shortly. Thanks for your patience.</p>
+        {% endif %}
     </div>
+
+<style>
+.contact-form { max-width: 560px; display: flex; flex-direction: column; gap: 6px; font-family: 'Courier New', monospace; }
+.contact-form label { color: var(--secondary-color, #00ffff); text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; margin-top: 12px; }
+.contact-form input[type="text"], .contact-form input[type="email"], .contact-form textarea {
+    background: rgba(0,0,0,0.6); border: 1px solid var(--primary-color, #ff00ff); border-radius: 5px;
+    color: #fff; padding: 10px 12px; font-family: 'Courier New', monospace; font-size: 0.95rem; width: 100%; box-sizing: border-box;
+}
+.contact-form input:focus, .contact-form textarea:focus { outline: none; box-shadow: 0 0 10px rgba(255,0,255,0.4); }
+.cf-submit {
+    margin-top: 18px; align-self: flex-start; cursor: pointer; border: none; border-radius: 25px;
+    background: linear-gradient(135deg, #ff00ff 0%, #00ffff 100%); color: #0a0a0a;
+    text-transform: uppercase; letter-spacing: 1px; font-weight: bold; font-size: 0.85rem; padding: 12px 28px;
+    font-family: 'Courier New', monospace; transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.cf-submit:hover { transform: translateY(-2px); box-shadow: 0 0 18px rgba(255,0,255,0.6); }
+.cf-submit:disabled { opacity: 0.6; cursor: default; transform: none; }
+.cf-status { margin-top: 12px; min-height: 1.2em; font-size: 0.9rem; }
+.cf-status.ok { color: #00ff00; }
+.cf-status.err { color: #ff5555; }
+</style>
+
+<script>
+(function () {
+    var form = document.getElementById('contact-form');
+    if (!form) return;
+    var status = document.getElementById('cf-status');
+    var btn = form.querySelector('.cf-submit');
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        status.className = 'cf-status'; status.textContent = 'Sending…';
+        btn.disabled = true;
+        try {
+            var res = await fetch(form.action, { method: 'POST', body: new FormData(form),
+                headers: { 'Accept': 'application/json' } });
+            var data = await res.json();
+            if (res.ok && data.success) {
+                form.reset();
+                status.className = 'cf-status ok';
+                status.textContent = 'Thanks — your message has been sent.';
+            } else {
+                status.className = 'cf-status err';
+                status.textContent = (data && data.message) || 'Something went wrong. Please try again.';
+            }
+        } catch (err) {
+            status.className = 'cf-status err';
+            status.textContent = 'Network error — please try again.';
+        } finally {
+            btn.disabled = false;
+        }
+    });
+})();
+</script>
 
     <div class="faq-section">
         <h2>Frequently Asked Questions</h2>
