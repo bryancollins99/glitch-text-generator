@@ -976,6 +976,14 @@ def robots_txt():
     content = open(os.path.join(app.static_folder, 'robots.txt')).read()
     return Response(content, mimetype='text/plain')
 
+# IndexNow ownership key, served at site root (static/ is mounted under /static,
+# so the key needs an explicit root route for Bing/IndexNow to verify it).
+@app.route('/1ab61c61f3df80b46b21058ceccede55.txt')
+def indexnow_key():
+    from flask import Response
+    content = open(os.path.join(app.static_folder, '1ab61c61f3df80b46b21058ceccede55.txt')).read()
+    return Response(content, mimetype='text/plain')
+
 @app.route('/sitemap')
 def html_sitemap():
     return render_template('sitemap.html', seo_pages=SEO_PAGES_DATA)
