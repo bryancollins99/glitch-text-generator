@@ -1,0 +1,20 @@
+# Glitch Text Effect
+
+> Free online glitch text generator. Converts plain text into glitched, corrupted, cursed and zalgo-style Unicode text you can copy and paste into Minecraft, Discord, social bios and usernames. No signup, works in the browser.
+
+All text effects are produced with Unicode combining characters and lookalike glyphs, so the output pastes anywhere that accepts Unicode.
+
+## Main tools
+
+- [Glitch Text Generator](https://glitchtexteffect.com/): the core generator with adjustable glitch intensity
+- [Minecraft Glitch Text](https://glitchtexteffect.com/how-to-get-glitch-text-in-minecraft): how to use glitched text in Minecraft chat, signs and names
+- [Animated Glitch Text](https://glitchtexteffect.com/animated): animated glitch effects for video and social
+- [Discord Glitch Text](https://glitchtexteffect.com/discord): glitch text for Discord names and messages
+- [Cursed Text](https://glitchtexteffect.com/freaky): heavier zalgo/cursed text effects
+- [Cool Symbols](https://glitchtexteffect.com/cool-symbols) and [Cool Text](https://glitchtexteffect.com/cool-text): symbol and font-style generators
+
+## Reference
+
+- [Examples](https://glitchtexteffect.com/examples): sample glitch text output
+- [FAQ](https://glitchtexteffect.com/faq): how glitch/zalgo text works and where it can be used
+- [About](https://glitchtexteffect.com/about)

@@ -976,6 +976,12 @@ def robots_txt():
     content = open(os.path.join(app.static_folder, 'robots.txt')).read()
     return Response(content, mimetype='text/plain')
 
+@app.route('/llms.txt')
+def llms_txt():
+    from flask import Response
+    content = open(os.path.join(app.static_folder, 'llms.txt')).read()
+    return Response(content, mimetype='text/plain')
+
 @app.route('/sitemap')
 def html_sitemap():
     return render_template('sitemap.html', seo_pages=SEO_PAGES_DATA)
