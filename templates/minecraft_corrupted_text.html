@@ -37,15 +37,15 @@
             "name": "How is corrupted text different from the obfuscated code?",
             "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "The obfuscated formatting code animates by cycling random glyphs and only works where you can type a formatting code. Corrupted text is static Unicode you paste in, so it holds a fixed broken shape and works in anvil renames and other spots where codes are not allowed."
+                "text": "The obfuscated code animates by cycling random glyphs and only works where you can type a formatting code. Corrupted text is static Unicode you paste in, so it holds a fixed broken shape and works in anvil renames too."
             }
         },
         {
             "@type": "Question",
-            "name": "Will corrupted text look the same for every player?",
+            "name": "Will corrupted text look the same for everyone?",
             "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Not always. Java Edition renders swapped glyphs and strikethrough overlays consistently on desktop, but Bedrock Edition on consoles and mobile has more restricted Unicode support, so some swapped symbols fall back to boxes or plain letters."
+                "text": "Not always. Java on desktop is consistent, but Bedrock on consoles and mobile has more restricted Unicode support, so some swapped symbols fall back to boxes or plain letters."
             }
         },
         {
@@ -53,15 +53,15 @@
             "name": "Can I put corrupted text in a server MOTD?",
             "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Yes, through the server list description or a plugin that passes Unicode through. Pasted corrupted glyphs sit alongside the section sign color and formatting codes, so you can frame a broken looking server name in the multiplayer browser."
+                "text": "Yes, through the server list description or a plugin that passes Unicode through. It sits alongside the section sign color and formatting codes."
             }
         },
         {
             "@type": "Question",
-            "name": "Does corrupted text overflow the sign character limit?",
+            "name": "Does corrupted text overflow the sign limit?",
             "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Strikethrough overlays add one combining mark per letter, so they stay compact. Symbol swaps replace letters one for one and never grow the count. Static block corruption can add extra characters, so preview a sign line before you place it."
+                "text": "Strikethrough and glyph swap stay one character per letter. Static blocks can add extra characters, so preview a sign line before placing it."
             }
         }
     ]
