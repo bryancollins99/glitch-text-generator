@@ -1,0 +1,479 @@
+{% extends "base.html" %}
+
+{% block title %}Minecraft Cursed Text Generator - Zalgo Cursed Text for Signs, Books & Names{% endblock %}
+
+{% block head %}
+<meta name="description" content="Free Minecraft cursed text generator. Turn any text into zalgo cursed letters you can copy and paste into signs, books, anvil renames and plugin MOTDs.">
+<meta name="keywords" content="minecraft cursed text, minecraft cursed text generator, cursed minecraft names, zalgo minecraft, cursed signs minecraft">
+<link rel="canonical" href="{{ url_for('minecraft_cursed_text', _external=True) }}">
+{% endblock %}
+
+{% block og_title %}Minecraft Cursed Text Generator - Zalgo Cursed Text for Signs, Books & Names{% endblock %}
+{% block og_description %}Turn any text into cursed zalgo letters for Minecraft signs, books, anvil renames and plugin MOTDs. Free, browser based, copy and paste ready.{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Minecraft Cursed Text Generator",
+    "description": "Generate cursed zalgo text for Minecraft signs, books, anvil renames and plugin MOTDs. Free browser tool, copy and paste ready.",
+    "url": "{{ url_for('minecraft_cursed_text', _external=True) }}",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Any",
+    "offers": {
+        "@type": "Offer",
+        "price": "0"
+    }
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "Does cursed text work in Minecraft signs and books?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Signs, written books and anvil item renames accept pasted Unicode, so cursed zalgo letters render there. Keep the intensity low so the marks stay inside the line and do not overflow the character limit."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Why does my cursed text get stripped in Minecraft chat?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Vanilla Java Edition chat filters most stacked combining marks, so heavy zalgo often collapses back to plain letters. Signs, books and plugin driven MOTDs keep the effect. Bedrock Edition handles Unicode differently again."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Can I use cursed text in a Minecraft username?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Mojang usernames only allow letters, numbers and underscores, so pure cursed text will not save as an account name. Use it for nicknames set by a plugin, display names, team prefixes and book or sign lore instead."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Is cursed text the same as the obfuscated code?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Cursed zalgo text is static Unicode you paste in, so it looks broken but holds still. Minecraft obfuscated formatting animates by cycling random glyphs. Cursed text works where you cannot type a formatting code, like anvil renames."
+            }
+        }
+    ]
+}
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+:root {
+    --mc-curse-primary: #4b0082;
+    --mc-curse-accent: #b388ff;
+    --mc-curse-blood: #2d0033;
+    --mc-curse-dark: #0d0014;
+}
+
+.mc-curse-container {
+    background: linear-gradient(135deg, #0d0014 0%, #2d0033 55%, #000000 100%);
+    min-height: 100vh;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.mc-curse-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    color: #ffffff;
+    position: relative;
+    z-index: 1;
+}
+
+.mc-curse-title {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    color: var(--mc-curse-accent);
+    letter-spacing: 2px;
+    font-weight: bold;
+    text-shadow: 3px 3px 0px var(--mc-curse-blood), 6px 6px 12px rgba(0, 0, 0, 0.8);
+}
+
+.mc-curse-subtitle {
+    font-size: 1.15rem;
+    opacity: 0.9;
+    margin-bottom: 1rem;
+    color: #d9c9ff;
+}
+
+.mc-curse-main {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(75, 0, 130, 0.5);
+    border: 2px solid var(--mc-curse-primary);
+    position: relative;
+    z-index: 1;
+}
+
+.mc-curse-styles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.style-card {
+    background: rgba(45, 0, 51, 0.7);
+    border: 2px solid var(--mc-curse-primary);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.style-card:hover, .style-card.active {
+    border-color: var(--mc-curse-accent);
+    background: rgba(75, 0, 130, 0.25);
+    transform: translateY(-2px);
+}
+
+.style-example {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    color: var(--mc-curse-accent);
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+    word-break: break-word;
+}
+
+.style-name {
+    font-size: 0.9rem;
+    color: #cccccc;
+    opacity: 0.85;
+}
+
+.mc-curse-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.mc-curse-section h3 {
+    color: var(--mc-curse-accent);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.mc-curse-textarea {
+    width: 100%;
+    height: 220px;
+    border: 2px solid var(--mc-curse-primary);
+    border-radius: 10px;
+    padding: 1rem;
+    font-family: 'Courier New', monospace;
+    font-size: 1.1rem;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.9);
+    resize: vertical;
+}
+
+.mc-curse-textarea:focus {
+    outline: none;
+    border-color: var(--mc-curse-accent);
+    box-shadow: 0 0 0 3px rgba(179, 136, 255, 0.3);
+}
+
+.mc-curse-output {
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid var(--mc-curse-primary);
+    border-radius: 10px;
+    padding: 1rem;
+    min-height: 220px;
+    font-family: 'Courier New', monospace;
+    font-size: 1.3rem;
+    color: var(--mc-curse-accent);
+    line-height: 1.7;
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+
+.mc-curse-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.mc-curse-intensity {
+    max-width: 460px;
+    margin: 0 auto 2rem;
+    text-align: center;
+    color: #d9c9ff;
+}
+
+.mc-curse-intensity input[type="range"] {
+    width: 100%;
+}
+
+.mc-curse-btn {
+    background: var(--mc-curse-primary);
+    color: white;
+    border: 2px solid var(--mc-curse-primary);
+    padding: 0.9rem 1.8rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mc-curse-btn:hover {
+    background: var(--mc-curse-accent);
+    border-color: var(--mc-curse-accent);
+    transform: translateY(-2px);
+}
+
+.mc-curse-btn.secondary {
+    background: var(--mc-curse-dark);
+    border-color: var(--mc-curse-dark);
+}
+
+.mc-curse-info {
+    background: rgba(75, 0, 130, 0.12);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    border-left: 4px solid var(--mc-curse-accent);
+    color: #d9c9ff;
+    line-height: 1.7;
+}
+
+.mc-curse-info h2, .mc-curse-info h3 {
+    color: var(--mc-curse-accent);
+    margin: 1.2rem 0 0.8rem;
+}
+
+.mc-curse-info a {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.mc-curse-info table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+}
+
+.mc-curse-info th, .mc-curse-info td {
+    border: 1px solid var(--mc-curse-primary);
+    padding: 0.6rem;
+    text-align: left;
+    color: #eee;
+}
+
+.mc-curse-info th {
+    background: rgba(75, 0, 130, 0.3);
+    color: var(--mc-curse-accent);
+}
+
+.mc-curse-faq details {
+    background: rgba(45, 0, 51, 0.5);
+    border: 1px solid var(--mc-curse-primary);
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    margin-bottom: 0.8rem;
+}
+
+.mc-curse-faq summary {
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--mc-curse-accent);
+}
+
+@media (max-width: 768px) {
+    .mc-curse-grid { grid-template-columns: 1fr; }
+    .mc-curse-title { font-size: 2rem; }
+    .mc-curse-styles { grid-template-columns: 1fr; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="mc-curse-container">
+    <div class="mc-curse-header">
+        <h1 class="mc-curse-title">Minecraft Cursed Text Generator</h1>
+        <p class="mc-curse-subtitle">Stack zalgo diacritics onto any text, then paste the cursed result into signs, books, anvil renames and plugin MOTDs.</p>
+    </div>
+
+    <div class="mc-curse-main">
+        <div class="mc-curse-styles">
+            <div class="style-card active" data-style="cursed">
+                <div class="style-example">C̷̛͎ṵ̴r̸̊s̶̽e̷̽d̸</div>
+                <div class="style-name">Heavy Cursed</div>
+            </div>
+            <div class="style-card" data-style="zalgo">
+                <div class="style-example">Z̸͎̈ä̶́l̷̇g̶̈ö̴</div>
+                <div class="style-name">Zalgo Stack</div>
+            </div>
+            <div class="style-card" data-style="light">
+                <div class="style-example">C̀ûr̆ŝe̊d̄</div>
+                <div class="style-name">Light Curse</div>
+            </div>
+            <div class="style-card" data-style="name">
+                <div class="style-example">H̵e̷r̶o̴b̵r̷i̶n̴e̵</div>
+                <div class="style-name">Cursed Name</div>
+            </div>
+        </div>
+
+        <div class="mc-curse-intensity">
+            <label for="curseIntensity">Curse intensity</label>
+            <input type="range" id="curseIntensity" min="1" max="8" value="4" oninput="generateCursedText()">
+        </div>
+
+        <div class="mc-curse-grid">
+            <div class="mc-curse-section">
+                <h3>Enter Your Text</h3>
+                <textarea class="mc-curse-textarea" id="curseInput" placeholder="Type a name, sign line or book title..." oninput="generateCursedText()">Cursed Realm</textarea>
+            </div>
+            <div class="mc-curse-section">
+                <h3>Cursed Result</h3>
+                <div class="mc-curse-output" id="curseOutput"></div>
+            </div>
+        </div>
+
+        <div class="mc-curse-controls">
+            <button class="mc-curse-btn" onclick="copyCursed()"><i class="fas fa-copy"></i> Copy Text</button>
+            <button class="mc-curse-btn secondary" onclick="clearCursed()"><i class="fas fa-trash"></i> Clear</button>
+            <button class="mc-curse-btn secondary" onclick="exampleCursed()"><i class="fas fa-dice"></i> Example</button>
+        </div>
+
+        <div class="mc-curse-info">
+            <h2>Where cursed text renders inside Minecraft</h2>
+            <p>Cursed text is built from Unicode combining marks stacked over ordinary letters, so it behaves like any pasted symbol. It survives in the parts of the game that accept raw Unicode and gets filtered in the parts that sanitise chat. Test the exact spot before you commit a build to it.</p>
+            <table>
+                <tr><th>Location</th><th>Cursed text result</th></tr>
+                <tr><td>Signs</td><td>Renders. Keep intensity low so marks stay inside the four line limit.</td></tr>
+                <tr><td>Written books</td><td>Renders well and suits corrupted lore pages.</td></tr>
+                <tr><td>Anvil item renames</td><td>Renders, ideal for cursed weapon and tool names.</td></tr>
+                <tr><td>Server MOTD via a plugin</td><td>Renders when the plugin passes Unicode through.</td></tr>
+                <tr><td>Vanilla Java chat</td><td>Most stacked marks are stripped back to plain letters.</td></tr>
+                <tr><td>Bedrock Edition</td><td>Handles Unicode differently, so results vary by device.</td></tr>
+            </table>
+            <p>For the full behaviour split between editions, read the <a href="{{ url_for('minecraft_glitch_text_java_edition') }}">Java Edition guide</a> and the <a href="{{ url_for('minecraft_glitch_text_bedrock_edition') }}">Bedrock Edition guide</a>. If you want animated scramble instead of static stacking, the built in obfuscated code is covered in <a href="{{ url_for('how_to_get_glitch_text_in_minecraft') }}">how to get glitch text in Minecraft</a>.</p>
+
+            <h3>Cursed text or corrupted text</h3>
+            <p>Cursed text leans on vertical zalgo stacking, so letters drip marks above and below and read as haunted. If you want a flatter broken look with strikethrough overlays and swapped glyphs, use the <a href="{{ url_for('minecraft_corrupted_text') }}">Minecraft corrupted text generator</a> instead. Many builders paste a cursed base, then wrap it in obfuscated brackets for a mix of static and animated noise.</p>
+
+            <h3>Ideas that use cursed text well</h3>
+            <ul>
+                <li>Anvil rename a sword to a cursed relic name for a boss drop.</li>
+                <li>Fill one book page with heavy cursed lines to suggest a corrupted grimoire.</li>
+                <li>Mark a haunted region with a low intensity cursed sign at its border.</li>
+                <li>Set a plugin nickname prefix so a role play villain reads as cursed in tab.</li>
+            </ul>
+
+            <div class="mc-curse-faq">
+                <h3>Frequently asked questions</h3>
+                <details><summary>Does cursed text work in Minecraft signs and books?</summary><p>Yes. Signs, written books and anvil renames accept pasted Unicode, so cursed letters render. Keep intensity low on signs so the marks stay inside the character limit.</p></details>
+                <details><summary>Why does my cursed text vanish in chat?</summary><p>Vanilla Java chat filters most stacked combining marks, so heavy cursed text collapses to plain letters. Signs, books and plugin MOTDs keep the effect.</p></details>
+                <details><summary>Can I set a cursed username?</summary><p>Account usernames only allow letters, numbers and underscores. Use cursed text for plugin nicknames, display names, team prefixes and lore instead.</p></details>
+                <details><summary>Is cursed text safe to paste?</summary><p>It is only Unicode characters, so nothing is executed. Very high intensity can make lines hard for other players to read, which is the only real drawback.</p></details>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+let curseStyle = 'cursed';
+
+const marksAbove = ['̀','́','̂','̃','̄','̆','̇','̈','̉','̊','̋','̌','̑','̒','̓','̔','̽','̾','͂','͐','͑','͒'];
+const marksBelow = ['̖','̗','̘','̙','̜','̝','̞','̟','̠','̤','̥','̦','̩','̪','̫','̬','̭','̮','̰','̱','̲','̳'];
+const marksMiddle = ['̴','̵','̶','̷','̸','̀','́','ͅ'];
+
+function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+function stack(text, above, below, middle) {
+    return text.split('').map(ch => {
+        if (!ch.match(/[a-zA-Z0-9]/)) return ch;
+        let out = ch;
+        for (let i = 0; i < above; i++) out += pick(marksAbove);
+        for (let i = 0; i < below; i++) out += pick(marksBelow);
+        for (let i = 0; i < middle; i++) out += pick(marksMiddle);
+        return out;
+    }).join('');
+}
+
+function generateCursedText() {
+    const input = document.getElementById('curseInput').value;
+    const output = document.getElementById('curseOutput');
+    const intensity = parseInt(document.getElementById('curseIntensity').value, 10);
+    if (!input.trim()) { output.textContent = 'Your cursed text will appear here...'; return; }
+
+    let result = '';
+    switch (curseStyle) {
+        case 'cursed':
+            result = stack(input, intensity + 1, intensity + 1, Math.ceil(intensity / 3));
+            break;
+        case 'zalgo':
+            result = stack(input, intensity, intensity, 0);
+            break;
+        case 'light':
+            result = stack(input, 1, 0, 0);
+            break;
+        case 'name':
+            result = stack(input, 1, 1, 1);
+            break;
+    }
+    output.textContent = result;
+}
+
+function copyCursed() {
+    const text = document.getElementById('curseOutput').textContent;
+    if (text && !text.startsWith('Your cursed text')) {
+        navigator.clipboard.writeText(text).then(() => showCurseToast('Copied cursed text'));
+    }
+}
+
+function clearCursed() {
+    document.getElementById('curseInput').value = '';
+    document.getElementById('curseOutput').textContent = 'Your cursed text will appear here...';
+}
+
+function exampleCursed() {
+    const examples = ['Cursed Realm', 'Herobrine Was Here', 'Forbidden Vault', 'Do Not Enter', 'Ancient Grimoire', 'The Nether Calls'];
+    document.getElementById('curseInput').value = pick(examples);
+    generateCursedText();
+}
+
+function showCurseToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast show';
+    toast.textContent = message;
+    toast.style.background = 'var(--mc-curse-primary)';
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 2500);
+}
+
+document.querySelectorAll('.style-card').forEach(card => {
+    card.addEventListener('click', () => {
+        document.querySelectorAll('.style-card').forEach(el => el.classList.remove('active'));
+        card.classList.add('active');
+        curseStyle = card.dataset.style;
+        generateCursedText();
+    });
+});
+
+generateCursedText();
+</script>
+{% endblock %}
