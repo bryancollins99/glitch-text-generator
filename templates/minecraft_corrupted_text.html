@@ -1,0 +1,508 @@
+{% extends "base.html" %}
+
+{% block title %}Minecraft Corrupted Text Generator - Broken Glitch Text for Servers & Signs{% endblock %}
+
+{% block head %}
+<meta name="description" content="Free Minecraft corrupted text generator. Break text with strikethrough, swapped glyphs and static blocks for signs, books and server MOTDs.">
+<meta name="keywords" content="minecraft corrupted text, minecraft corrupted text generator, broken text minecraft, glitched minecraft signs, corrupted server names">
+<link rel="canonical" href="{{ url_for('minecraft_corrupted_text', _external=True) }}">
+{% endblock %}
+
+{% block og_title %}Minecraft Corrupted Text Generator - Broken Glitch Text for Servers & Signs{% endblock %}
+{% block og_description %}Break any text with strikethrough overlays, swapped glyphs and static blocks for Minecraft signs, books and server MOTDs. Free, browser based, copy and paste ready.{% endblock %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Minecraft Corrupted Text Generator",
+    "description": "Generate broken, corrupted glitch text for Minecraft signs, books and server MOTDs using strikethrough overlays, swapped glyphs and static blocks.",
+    "url": "{{ url_for('minecraft_corrupted_text', _external=True) }}",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Any",
+    "offers": {
+        "@type": "Offer",
+        "price": "0"
+    }
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "How is corrupted text different from the obfuscated code?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The obfuscated code animates by cycling random glyphs and only works where you can type a formatting code. Corrupted text is static Unicode you paste in, so it holds a fixed broken shape and works in anvil renames too."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Will corrupted text look the same for everyone?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Not always. Java on desktop is consistent, but Bedrock on consoles and mobile has more restricted Unicode support, so some swapped symbols fall back to boxes or plain letters."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Can I put corrupted text in a server MOTD?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, through the server list description or a plugin that passes Unicode through. It sits alongside the section sign color and formatting codes."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Does corrupted text overflow the sign limit?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Strikethrough and glyph swap stay one character per letter. Static blocks can add extra characters, so preview a sign line before placing it."
+            }
+        }
+    ]
+}
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+:root {
+    --mc-corrupt-primary: #0b6e4f;
+    --mc-corrupt-accent: #2fff9e;
+    --mc-corrupt-shadow: #032a1e;
+    --mc-corrupt-dark: #01130d;
+}
+
+.mc-corrupt-container {
+    background: linear-gradient(135deg, #01130d 0%, #032a1e 55%, #000000 100%);
+    min-height: 100vh;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.mc-corrupt-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    color: #ffffff;
+    position: relative;
+    z-index: 1;
+}
+
+.mc-corrupt-title {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    color: var(--mc-corrupt-accent);
+    letter-spacing: 2px;
+    font-weight: bold;
+    text-shadow: 2px 0 var(--mc-corrupt-primary), -2px 0 #ff3860, 0 0 14px rgba(47, 255, 158, 0.4);
+}
+
+.mc-corrupt-subtitle {
+    font-size: 1.15rem;
+    opacity: 0.9;
+    margin-bottom: 1rem;
+    color: #b8ffe4;
+}
+
+.mc-corrupt-main {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(11, 110, 79, 0.5);
+    border: 2px solid var(--mc-corrupt-primary);
+    position: relative;
+    z-index: 1;
+}
+
+.mc-corrupt-styles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.style-card {
+    background: rgba(3, 42, 30, 0.7);
+    border: 2px solid var(--mc-corrupt-primary);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.style-card:hover, .style-card.active {
+    border-color: var(--mc-corrupt-accent);
+    background: rgba(11, 110, 79, 0.25);
+    transform: translateY(-2px);
+}
+
+.style-example {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    color: var(--mc-corrupt-accent);
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+    word-break: break-word;
+}
+
+.style-name {
+    font-size: 0.9rem;
+    color: #cccccc;
+    opacity: 0.85;
+}
+
+.mc-corrupt-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.mc-corrupt-section h3 {
+    color: var(--mc-corrupt-accent);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.mc-corrupt-textarea {
+    width: 100%;
+    height: 220px;
+    border: 2px solid var(--mc-corrupt-primary);
+    border-radius: 10px;
+    padding: 1rem;
+    font-family: 'Courier New', monospace;
+    font-size: 1.1rem;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.9);
+    resize: vertical;
+}
+
+.mc-corrupt-textarea:focus {
+    outline: none;
+    border-color: var(--mc-corrupt-accent);
+    box-shadow: 0 0 0 3px rgba(47, 255, 158, 0.3);
+}
+
+.mc-corrupt-output {
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid var(--mc-corrupt-primary);
+    border-radius: 10px;
+    padding: 1rem;
+    min-height: 220px;
+    font-family: 'Courier New', monospace;
+    font-size: 1.3rem;
+    color: var(--mc-corrupt-accent);
+    line-height: 1.7;
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+
+.mc-corrupt-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.mc-corrupt-intensity {
+    max-width: 460px;
+    margin: 0 auto 2rem;
+    text-align: center;
+    color: #b8ffe4;
+}
+
+.mc-corrupt-intensity input[type="range"] {
+    width: 100%;
+}
+
+.mc-corrupt-btn {
+    background: var(--mc-corrupt-primary);
+    color: white;
+    border: 2px solid var(--mc-corrupt-primary);
+    padding: 0.9rem 1.8rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mc-corrupt-btn:hover {
+    background: var(--mc-corrupt-accent);
+    border-color: var(--mc-corrupt-accent);
+    color: #01130d;
+    transform: translateY(-2px);
+}
+
+.mc-corrupt-btn.secondary {
+    background: var(--mc-corrupt-dark);
+    border-color: var(--mc-corrupt-dark);
+}
+
+.mc-corrupt-info {
+    background: rgba(11, 110, 79, 0.12);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    border-left: 4px solid var(--mc-corrupt-accent);
+    color: #b8ffe4;
+    line-height: 1.7;
+}
+
+.mc-corrupt-info h2, .mc-corrupt-info h3 {
+    color: var(--mc-corrupt-accent);
+    margin: 1.2rem 0 0.8rem;
+}
+
+.mc-corrupt-info a {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.mc-corrupt-info table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+}
+
+.mc-corrupt-info th, .mc-corrupt-info td {
+    border: 1px solid var(--mc-corrupt-primary);
+    padding: 0.6rem;
+    text-align: left;
+    color: #eee;
+}
+
+.mc-corrupt-info th {
+    background: rgba(11, 110, 79, 0.3);
+    color: var(--mc-corrupt-accent);
+}
+
+.mc-corrupt-faq details {
+    background: rgba(3, 42, 30, 0.5);
+    border: 1px solid var(--mc-corrupt-primary);
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    margin-bottom: 0.8rem;
+}
+
+.mc-corrupt-faq summary {
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--mc-corrupt-accent);
+}
+
+@media (max-width: 768px) {
+    .mc-corrupt-grid { grid-template-columns: 1fr; }
+    .mc-corrupt-title { font-size: 2rem; }
+    .mc-corrupt-styles { grid-template-columns: 1fr; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="mc-corrupt-container">
+    <div class="mc-corrupt-header">
+        <h1 class="mc-corrupt-title">Minecraft Corrupted Text Generator</h1>
+        <p class="mc-corrupt-subtitle">Break letters with strikethrough overlays, swapped glyphs and static blocks, then paste the corrupted result into signs, books and server MOTDs.</p>
+    </div>
+
+    <div class="mc-corrupt-main">
+        <div class="mc-corrupt-styles">
+            <div class="style-card active" data-style="strike">
+                <div class="style-example">C̶o̶r̶r̶u̶p̶t̶</div>
+                <div class="style-name">Strikethrough</div>
+            </div>
+            <div class="style-card" data-style="swap">
+                <div class="style-example">Ⓒ0ⓡ𝔯u₽†</div>
+                <div class="style-name">Glyph Swap</div>
+            </div>
+            <div class="style-card" data-style="static">
+                <div class="style-example">C0▓ru█t</div>
+                <div class="style-name">Static Blocks</div>
+            </div>
+            <div class="style-card" data-style="broken">
+                <div class="style-example">C̷o̸r̶r̷u̴p̶t̸</div>
+                <div class="style-name">Broken Signal</div>
+            </div>
+        </div>
+
+        <div class="mc-corrupt-intensity">
+            <label for="corruptIntensity">Corruption level</label>
+            <input type="range" id="corruptIntensity" min="1" max="9" value="5" oninput="generateCorruptedText()">
+        </div>
+
+        <div class="mc-corrupt-grid">
+            <div class="mc-corrupt-section">
+                <h3>Enter Your Text</h3>
+                <textarea class="mc-corrupt-textarea" id="corruptInput" placeholder="Type a server name, sign line or item name..." oninput="generateCorruptedText()">System Failure</textarea>
+            </div>
+            <div class="mc-corrupt-section">
+                <h3>Corrupted Result</h3>
+                <div class="mc-corrupt-output" id="corruptOutput"></div>
+            </div>
+        </div>
+
+        <div class="mc-corrupt-controls">
+            <button class="mc-corrupt-btn" onclick="copyCorrupt()"><i class="fas fa-copy"></i> Copy Text</button>
+            <button class="mc-corrupt-btn secondary" onclick="clearCorrupt()"><i class="fas fa-trash"></i> Clear</button>
+            <button class="mc-corrupt-btn secondary" onclick="exampleCorrupt()"><i class="fas fa-dice"></i> Example</button>
+        </div>
+
+        <div class="mc-corrupt-info">
+            <h2>How each corruption style behaves in Minecraft</h2>
+            <p>Corrupted text swaps and overlays characters rather than piling marks upward, so it reads as a broken data stream instead of a haunted stack. Each style survives differently across the game, so match the style to the surface you are decorating.</p>
+            <table>
+                <tr><th>Style</th><th>What it does</th><th>Best surface</th></tr>
+                <tr><td>Strikethrough</td><td>Draws a stroke through every letter with one combining mark.</td><td>Signs and redacted book lines.</td></tr>
+                <tr><td>Glyph swap</td><td>Replaces letters with lookalike circled, math and full width glyphs.</td><td>Item and weapon names on Java desktop.</td></tr>
+                <tr><td>Static blocks</td><td>Injects shaded blocks and digits between letters.</td><td>Server MOTDs and warning signs.</td></tr>
+                <tr><td>Broken signal</td><td>Adds light slash and overlay marks for an unstable feed look.</td><td>Chat lines on servers that allow it.</td></tr>
+            </table>
+            <p>Rendering depends on the edition. Java Edition on desktop shows swapped glyphs and overlays reliably, while Bedrock Edition on consoles and mobile has more restricted Unicode support, so some swapped symbols fall back to boxes. See the <a href="{{ url_for('minecraft_glitch_text_java_edition') }}">Java Edition guide</a> and the <a href="{{ url_for('minecraft_glitch_text_bedrock_edition') }}">Bedrock Edition guide</a> for the exact differences, and the <a href="{{ url_for('how_to_get_glitch_text_in_minecraft') }}">methods overview</a> for the animated obfuscated code.</p>
+
+            <h3>Corrupted text or cursed text</h3>
+            <p>Corrupted text stays roughly on one line and looks like damaged data, which fits sci fi servers, warning signs and recovered file lore. If you want letters to drip vertically with stacked marks for a haunted feel, use the <a href="{{ url_for('minecraft_cursed_text') }}">Minecraft cursed text generator</a> instead. The two pair well when a corrupted header sits above a cursed subtitle.</p>
+
+            <h3>Build ideas that use corrupted text</h3>
+            <ul>
+                <li>Set a server MOTD with static blocks around the name for a hacked terminal feel.</li>
+                <li>Rename a broken tool with glyph swaps so it reads as salvaged tech.</li>
+                <li>Place strikethrough signs on a decommissioned facility build.</li>
+                <li>Open an adventure map book with corrupted lines that decode into clean prose.</li>
+            </ul>
+
+            <div class="mc-corrupt-faq">
+                <h3>Frequently asked questions</h3>
+                <details><summary>How is corrupted text different from the obfuscated code?</summary><p>The obfuscated code animates by cycling random glyphs and only works where you can type a formatting code. Corrupted text is static Unicode you paste in, so it holds a fixed broken shape and works in anvil renames too.</p></details>
+                <details><summary>Will corrupted text look the same for everyone?</summary><p>Not always. Java on desktop is consistent, but Bedrock on consoles and mobile has more restricted Unicode support, so some swapped symbols fall back to boxes or plain letters.</p></details>
+                <details><summary>Can I put corrupted text in a server MOTD?</summary><p>Yes, through the server list description or a plugin that passes Unicode through. It sits alongside the section sign color and formatting codes.</p></details>
+                <details><summary>Does corrupted text overflow the sign limit?</summary><p>Strikethrough and glyph swap stay one character per letter. Static blocks can add extra characters, so preview a sign line before placing it.</p></details>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+let corruptStyle = 'strike';
+
+const strikeMark = '̶';
+const brokenMarks = ['̴','̵','̶','̷','̸'];
+const blockChars = ['░','▒','▓','█','0','1','_','/','\\','|','<','>'];
+
+const swapMap = {
+    a: ['а','ä','ａ','ⱥ'], b: ['Ƅ','ｂ','ḅ'],
+    c: ['©','Ɔ','ｃ','ḉ'], d: ['đ','ｄ','ḍ'],
+    e: ['ҽ','ë','ｅ','℮'], f: ['ƒ','ｆ'],
+    g: ['ġ','ｇ','ğ'], h: ['һ','ｈ','ḥ'],
+    i: ['ï','ł','ｉ'], j: ['ĵ','ｊ'],
+    k: ['ӄ','ｋ','ḳ'], l: ['Ł','ｌ','ḷ'],
+    m: ['ṃ','ｍ','ɱ'], n: ['ň','ｎ','ṇ'],
+    o: ['0','ø','ｏ','ӧ'], p: ['₱','ｐ','ṗ'],
+    q: ['ԛ','ｑ'], r: ['ґ','ℝ','ｒ'],
+    s: ['š','ｓ','ṣ'], t: ['†','ｔ','ṭ'],
+    u: ['ү','ü','ｕ'], v: ['ṿ','ｖ'],
+    w: ['ԝ','ｗ','ẅ'], x: ['ҳ','ｘ'],
+    y: ['ү','ÿ','ｙ'], z: ['ž','ｚ','ẓ']
+};
+
+function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+function applyStrike(text) {
+    return text.split('').map(ch => ch.trim() ? ch + strikeMark : ch).join('');
+}
+
+function applyBroken(text, level) {
+    return text.split('').map(ch => {
+        if (!ch.trim()) return ch;
+        let out = ch;
+        const count = 1 + Math.floor(Math.random() * Math.max(1, Math.ceil(level / 3)));
+        for (let i = 0; i < count; i++) out += pick(brokenMarks);
+        return out;
+    }).join('');
+}
+
+function applySwap(text, level) {
+    const rate = level / 10;
+    return text.split('').map(ch => {
+        const lower = ch.toLowerCase();
+        if (swapMap[lower] && Math.random() < rate + 0.3) return pick(swapMap[lower]);
+        return ch;
+    }).join('');
+}
+
+function applyStatic(text, level) {
+    const chars = text.split('');
+    const hits = Math.max(1, Math.floor(chars.length * (level / 12)));
+    for (let i = 0; i < hits; i++) {
+        const pos = Math.floor(Math.random() * chars.length);
+        if (chars[pos].trim()) chars[pos] = pick(blockChars);
+    }
+    return chars.join('');
+}
+
+function generateCorruptedText() {
+    const input = document.getElementById('corruptInput').value;
+    const output = document.getElementById('corruptOutput');
+    const level = parseInt(document.getElementById('corruptIntensity').value, 10);
+    if (!input.trim()) { output.textContent = 'Your corrupted text will appear here...'; return; }
+
+    let result = '';
+    switch (corruptStyle) {
+        case 'strike': result = applyStrike(input); break;
+        case 'swap': result = applySwap(input, level); break;
+        case 'static': result = applyStatic(input, level); break;
+        case 'broken': result = applyBroken(input, level); break;
+    }
+    output.textContent = result;
+}
+
+function copyCorrupt() {
+    const text = document.getElementById('corruptOutput').textContent;
+    if (text && !text.startsWith('Your corrupted text')) {
+        navigator.clipboard.writeText(text).then(() => showCorruptToast('Copied corrupted text'));
+    }
+}
+
+function clearCorrupt() {
+    document.getElementById('corruptInput').value = '';
+    document.getElementById('corruptOutput').textContent = 'Your corrupted text will appear here...';
+}
+
+function exampleCorrupt() {
+    const examples = ['System Failure', 'Access Denied', 'Server Offline', 'Data Corrupt', 'Reboot Required', 'Signal Lost'];
+    document.getElementById('corruptInput').value = pick(examples);
+    generateCorruptedText();
+}
+
+function showCorruptToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast show';
+    toast.textContent = message;
+    toast.style.background = 'var(--mc-corrupt-primary)';
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 2500);
+}
+
+document.querySelectorAll('.style-card').forEach(card => {
+    card.addEventListener('click', () => {
+        document.querySelectorAll('.style-card').forEach(el => el.classList.remove('active'));
+        card.classList.add('active');
+        corruptStyle = card.dataset.style;
+        generateCorruptedText();
+    });
+});
+
+generateCorruptedText();
+</script>
+{% endblock %}

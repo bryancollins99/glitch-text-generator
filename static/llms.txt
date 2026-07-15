@@ -8,6 +8,8 @@ All text effects are produced with Unicode combining characters and lookalike gl
 
 - [Glitch Text Generator](https://glitchtexteffect.com/): the core generator with adjustable glitch intensity
 - [Minecraft Glitch Text](https://glitchtexteffect.com/how-to-get-glitch-text-in-minecraft): how to use glitched text in Minecraft chat, signs and names
+- [Minecraft Cursed Text](https://glitchtexteffect.com/minecraft-cursed-text): zalgo cursed text generator for Minecraft signs, books, anvil renames and plugin MOTDs
+- [Minecraft Corrupted Text](https://glitchtexteffect.com/minecraft-corrupted-text): broken and corrupted text generator with strikethrough, glyph swap and static block styles for Minecraft
 - [Animated Glitch Text](https://glitchtexteffect.com/animated): animated glitch effects for video and social
 - [Discord Glitch Text](https://glitchtexteffect.com/discord): glitch text for Discord names and messages
 - [Cursed Text](https://glitchtexteffect.com/freaky): heavier zalgo/cursed text effects
