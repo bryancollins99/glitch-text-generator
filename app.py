@@ -484,6 +484,14 @@ def minecraft_glitch_text_bedrock_edition():
 def minecraft_glitch_text_java_edition():
     return render_template('content/minecraft-glitch-text-java-edition.html')
 
+@app.route('/minecraft-cursed-text')
+def minecraft_cursed_text():
+    return render_template('minecraft_cursed_text.html')
+
+@app.route('/minecraft-corrupted-text')
+def minecraft_corrupted_text():
+    return render_template('minecraft_corrupted_text.html')
+
 @app.route('/content/glitch-art')
 def content_glitch_art():
     return render_template('content/glitch-art.html')
@@ -984,6 +992,12 @@ def indexnow_key():
     content = open(os.path.join(app.static_folder, '1ab61c61f3df80b46b21058ceccede55.txt')).read()
     return Response(content, mimetype='text/plain')
 
+@app.route('/llms.txt')
+def llms_txt():
+    from flask import Response
+    content = open(os.path.join(app.static_folder, 'llms.txt')).read()
+    return Response(content, mimetype='text/plain')
+
 @app.route('/sitemap')
 def html_sitemap():
     return render_template('sitemap.html', seo_pages=SEO_PAGES_DATA)
@@ -1027,6 +1041,13 @@ def sitemap():
         {'url': 'minecraft-motd-generator', 'priority': '0.7', 'changefreq': 'weekly'},
         {'url': 'minecraft-item-generator', 'priority': '0.7', 'changefreq': 'weekly'},
         {'url': 'minecraft-color-codes', 'priority': '0.7', 'changefreq': 'weekly'},
+        {'url': 'minecraft-cursed-text', 'priority': '0.7', 'changefreq': 'weekly'},
+        {'url': 'minecraft-corrupted-text', 'priority': '0.7', 'changefreq': 'weekly'},
+        {'url': 'minecraft-enchanting-table-text-translator', 'priority': '0.7', 'changefreq': 'weekly'},
+        {'url': 'minecraft-glitch-name-generator', 'priority': '0.7', 'changefreq': 'weekly'},
+        {'url': 'how-to-get-glitch-text-in-minecraft', 'priority': '0.7', 'changefreq': 'weekly'},
+        {'url': 'minecraft-glitch-text-bedrock-edition', 'priority': '0.7', 'changefreq': 'weekly'},
+        {'url': 'minecraft-glitch-text-java-edition', 'priority': '0.7', 'changefreq': 'weekly'},
         {'url': 'examples', 'priority': '0.7', 'changefreq': 'monthly'},
         {'url': 'faq', 'priority': '0.6', 'changefreq': 'monthly'},
         {'url': 'about', 'priority': '0.5', 'changefreq': 'monthly'},
